@@ -1,0 +1,20 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "Three treasury withdrawals in the last week executed at prices four percent below the oracle mid, each within an individual actor's declared parameters.",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/asep/conformance/v0.7.13",
+  "predicate": {
+    "verifier": "asep-conformance",
+    "obligations": {
+      "no_silent_erasure": "satisfied",
+      "ex_ante_criteria": "satisfied",
+      "finite_path_to_decision": "satisfied"
+    }
+  }
+}

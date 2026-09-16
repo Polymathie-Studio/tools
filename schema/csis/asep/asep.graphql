@@ -1,0 +1,165 @@
+# metamodel_version: 1.11.0
+enum AdoptionTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ComplexityDomain
+  {
+    clear
+    complicated
+    complex
+    chaotic
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum DispositionKind
+  {
+    act
+    monitor
+    close
+  }
+
+enum EscalationStage
+  {
+    generated
+    acknowledged
+    auto_escalated
+    obligation_triggered
+    terminal_visibility
+  }
+
+enum NavigateAction
+  {
+    mitigate_or_contain
+    escalate
+    initiate_engagement
+    monitor
+    close
+  }
+
+enum RootCauseKind
+  {
+    no_structural_condition
+    structural_condition_identified
+    insufficient_information
+  }
+
+enum Severity
+  {
+    low
+    medium
+    high
+  }
+
+type AdverseSignalRecord
+  {
+    observation: Observation!
+    source: Source!
+    classification: Classification!
+    navigate: Navigate!
+    escalation: EscalationState!
+    disposition: Disposition!
+    architecture: ASEPArchitecture!
+    conformance: ConformanceDeclaration!
+  }
+
+type ASEPArchitecture
+  {
+    adoptedTier: AdoptionTier!
+    classificationFramework: ClassificationFramework!
+    logging: LoggingPaths!
+    escalationArchitecturePresent: Boolean
+    antiRetaliationPolicy: Boolean
+    reliabilityDisclosure: Boolean
+  }
+
+type Classification
+  {
+    category: String!
+    severity: Severity!
+    complexityDomain: ComplexityDomain
+    frameworkVersion: String!
+  }
+
+type ClassificationFramework
+  {
+    version: String!
+    exAnte: Boolean!
+    coverageReview: Boolean
+  }
+
+type ConflictEngagement
+  {
+    pathwayOpened: Boolean!
+    documentedExchange: Boolean!
+  }
+
+type ConformanceDeclaration
+  {
+    noSilentErasure: ConformanceAnswer!
+    exAnteCriteria: ConformanceAnswer!
+    finitePathToDecision: ConformanceAnswer!
+  }
+
+type Disposition
+  {
+    kind: DispositionKind!
+    rationale: String!
+    nonAdverseJudgmentRecorded: Boolean
+  }
+
+type EscalationState
+  {
+    stage: EscalationStage!
+    acknowledgmentWindow: String!
+    windowPreSpecified: Boolean!
+  }
+
+type LoggingPaths
+  {
+    durable: Boolean!
+    tamperEvident: Boolean!
+    independentOfEvaluatedActors: Boolean
+  }
+
+type Navigate
+  {
+    timeToAssessment: String!
+    timeToFirstDecision: String!
+    action: NavigateAction!
+    rationale: String!
+    conflictEngagement: ConflictEngagement
+    structuralRootCauseFinding: RootCauseFinding
+  }
+
+type Observation
+  {
+    description: String!
+    when: String!
+    where: String!
+    whoAffected: String!
+    powerContext: String
+  }
+
+type RootCauseFinding
+  {
+    finding: RootCauseKind!
+  }
+
+type Source
+  {
+    reporter: String!
+    role: String!
+  }
+
