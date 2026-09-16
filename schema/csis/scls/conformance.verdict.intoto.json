@@ -1,0 +1,21 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "Increase the cross-organizational confirmation fee from 0.10 to 0.30 units per confirmation, effective next period, affecting organizations that use more than five confirmations per period.",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/scls/conformance/v0.3.25",
+  "predicate": {
+    "verifier": "scls-conformance",
+    "obligations": {
+      "identify_satisfied": "satisfied",
+      "authorize_satisfied": "satisfied",
+      "verify_satisfied": "satisfied",
+      "cost_bearer_identified": "satisfied"
+    }
+  }
+}

@@ -1,0 +1,496 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scls: <https://standards.example/scls/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scls:ConsentRecord a sh:NodeShape ;
+    rdfs:comment "A per-action consent record. Carries the relational predicates and the invariant exposures (Identify, Authorize, Verify) on its face, and declares the system context it was produced under." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class scls:Action ;
+            sh:description "SCLS 3.1. The action being consented to, specified precisely enough to evaluate material effect." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path scls:action ],
+        [ sh:class scls:Authorization ;
+            sh:description "SCLS 3.2, 6.1. The opportunity to authorize or refuse, the four system obligations, and the response-status distinction." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path scls:authorization ],
+        [ sh:class scls:CostBearingParty ;
+            sh:description "SCLS 2.1. Present when the cost-bearing party is distinct from both the acting and the benefiting party; when present it carries consent to the cost distribution (native nested-required). Whether a distinct cost-bearer exists is domain fact and is checked, not schema-enforced." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path scls:cost_bearing_party ],
+        [ sh:class scls:Withdrawal ;
+            sh:description "SCLS 2.3.1. The withdrawal mechanism. Its presence is shape; whether its cost exceeds participation benefit is a checked exit-cost judgment." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path scls:withdrawal ],
+        [ sh:class scls:WheelAxes ;
+            sh:description "SCLS 2.1, 3.2. The two Wheel axes, both legible to both parties." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path scls:wheel ],
+        [ sh:class scls:Verification ;
+            sh:description "SCLS 3.3. The consent record's completeness and durability." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path scls:verification ],
+        [ sh:description "SCLS 4. Which of the five consent domains this action implicates." ;
+            sh:in ( "coordination" "data" "participation" "output" "observation" ) ;
+            sh:minCount 1 ;
+            sh:order 8 ;
+            sh:path scls:domains_touched ],
+        [ sh:class scls:NegotiatedLimit ;
+            sh:description "SCLS 2.3.1. Explicit limits set by the consenting party. Absence in a serving or allowing quadrant is a shadow indicator." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path scls:negotiated_limits ],
+        [ sh:class scls:ConsentArchitecture ;
+            sh:description "SCLS system-level context the record declares against." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path scls:architecture ],
+        [ sh:class scls:AffectedConstituency ;
+            sh:description "SCLS 3.1. The set identified as materially affected, before the action proceeds." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path scls:affected_constituency ],
+        [ sh:class scls:ConformanceDeclaration ;
+            sh:description "SCLS. Per-invariant conformance answers on the face; no total." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path scls:conformance ] ;
+    sh:targetClass scls:ConsentRecord .
+
+scls:Action a sh:NodeShape ;
+    rdfs:comment "SCLS 3.1. The specified action; a category-level authorization names the trigger condition that requires a standing evaluation before a specific action proceeds." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "SCLS 3.1. Required inside a category-level authorization, naming the condition under which a specific action within the class triggers a standing evaluation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:trigger_condition ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "True if this is a category-level authorization rather than a specific action." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:category_level ],
+        [ sh:datatype xsd:string ;
+            sh:description "The action stated precisely enough for affected parties to evaluate whether they are materially affected." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:specification ] ;
+    sh:targetClass scls:Action .
+
+scls:AffectedConstituency a sh:NodeShape ;
+    rdfs:comment "SCLS 3.1, 3.1.1. The materially-affected set, identified before the action, on an evidence-and-self-identification basis." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 3.1. The identification event precedes execution." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:identified_before_action ],
+        [ sh:datatype xsd:string ;
+            sh:description "SCLS 3.1. Evidence-based where system evidence exists; self-identification permitted." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:identification_basis ] ;
+    sh:targetClass scls:AffectedConstituency .
+
+scls:Authorization a sh:NodeShape ;
+    rdfs:comment "SCLS 3.2, 6.1. A meaningful opportunity to authorize or refuse, the four system obligations, and the response-status distinction." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "SCLS 3.2. Neither excludes affected parties nor includes unaffected parties who dilute the affected constituency's voice." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:authorizing_set ],
+        [ sh:description "SCLS 3.2. Silence, inaction, and absence of objection are not consent; the system distinguishes authorized, not-yet-responded, and unable-to-respond." ;
+            sh:in ( "authorized" "not_yet_responded" "unable_to_respond" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path scls:response_status ],
+        [ sh:class scls:SystemObligations ;
+            sh:description "SCLS 6.1. The four obligations whose presence makes the opportunity meaningful." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path scls:system_obligations ] ;
+    sh:targetClass scls:Authorization .
+
+scls:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "SCLS. The invariant conformance answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number and the SLSA Verification-Summary-Attestation shape." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path scls:cost_bearer_identified ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path scls:authorize_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path scls:identify_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path scls:verify_satisfied ] ;
+    sh:targetClass scls:ConformanceDeclaration .
+
+scls:ConsentArchitecture a sh:NodeShape ;
+    rdfs:comment "SCLS system-level context. Which domains apply, the adopted tier, the durable constituency definition, the external-override disclosure, and the higher-tier blocks (standing evaluation, detection architecture) that a record declares its context against. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "SCLS 4. The consent domains identified as relevant to the system's operations." ;
+            sh:in ( "coordination" "data" "participation" "output" "observation" ) ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path scls:domains_applicable ],
+        [ sh:class scls:DurableConstituencyDefinition ;
+            sh:description "SCLS 3.1.2. Accessible without authority-gating and specific enough for an independent observer to determine participation rights." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path scls:durable_constituency_definition ],
+        [ sh:class scls:ExternalOverrideDisclosure ;
+            sh:description "SCLS 2.3.2. Names the external-legal-override threat, the applicable jurisdictions, and how the gap is addressed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path scls:external_override_disclosure ],
+        [ sh:class scls:DetectionArchitecture ;
+            sh:description "SCLS 5.3.1. Graduated shadow-dynamics detection. Required by the checker at Instrumented and above." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path scls:detection_architecture ],
+        [ sh:class scls:StandingEvaluation ;
+            sh:description "SCLS 3.1.1. The four-element standing evaluation mechanism. Required by the checker at Instrumented and above." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path scls:standing_evaluation ],
+        [ sh:description "SCLS 5. The declared adoption tier." ;
+            sh:in ( "assessed" "operational" "instrumented" "loop_closed" "auditable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path scls:adopted_tier ] ;
+    sh:targetClass scls:ConsentArchitecture .
+
+scls:CostBearingParty a sh:NodeShape ;
+    rdfs:comment "SCLS 2.1. A cost-bearer distinct from the acting and benefiting parties; identified explicitly with consent to the cost distribution obtained before the action." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 2.1. Obtained before the action proceeds (native nested-required)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:consent_to_cost_distribution ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:identity ] ;
+    sh:targetClass scls:CostBearingParty .
+
+scls:DetectionArchitecture a sh:NodeShape ;
+    rdfs:comment "SCLS 5.3.1. Per shadow type, a graduated detection with a monitoring and an escalation threshold; flags for Signal Escalation, never adjudicates." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 5.3.1. The monitored patterns are transparent to participants (itself an Observation-domain consent requirement)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:transparent_to_participants ],
+        [ sh:class scls:ShadowDetection ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path scls:shadow_detections ] ;
+    sh:targetClass scls:DetectionArchitecture .
+
+scls:DurableConstituencyDefinition a sh:NodeShape ;
+    rdfs:comment "SCLS 3.1.2. The durable, accessible definition of who holds participation rights." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Specific enough that an independent observer can determine whether a party holds participation rights without the author's intent." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:independent_observer_determinable ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:accessible_without_authority_gating ] ;
+    sh:targetClass scls:DurableConstituencyDefinition .
+
+scls:ExternalOverrideDisclosure a sh:NodeShape ;
+    rdfs:comment "SCLS 2.3.2. The disclosure whose absence is a consent legibility failure." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The external legal jurisdictions that apply." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:jurisdictions ],
+        [ sh:datatype xsd:string ;
+            sh:description "How the gap between explicit consent and externally imposed obligations is addressed. Presence is shape; adequacy is checked." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:gap_treatment ] ;
+    sh:targetClass scls:ExternalOverrideDisclosure .
+
+scls:NegotiatedLimit a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "An explicit boundary set by the consenting party." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:limit ] ;
+    sh:targetClass scls:NegotiatedLimit .
+
+scls:ShadowDetection a sh:NodeShape ;
+    rdfs:comment "SCLS 5.3.1. One shadow type's graduated detection." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The signal that initiates monitoring." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:monitoring_threshold ],
+        [ sh:in ( "entitlement_stealing" "enduring" "martyrdom" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path scls:shadow_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "The signal or combination that triggers Signal Escalation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:escalation_threshold ] ;
+    sh:targetClass scls:ShadowDetection .
+
+scls:StandingEvaluation a sh:NodeShape ;
+    rdfs:comment "SCLS 3.1.1. The four elements, none concentrated in a single actor." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:self_identification ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "The evaluation function is not concentrated in a single actor." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path scls:distributed_evaluation ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:implausible_absence_detection ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:evidence_backed_evaluation ] ;
+    sh:targetClass scls:StandingEvaluation .
+
+scls:SystemObligations a sh:NodeShape ;
+    rdfs:comment "SCLS 6.1. The four obligations are on the system, not the participant. Presence is shape; the qualitative reads (is the description evaluable, is the exit cost punitive) are checked." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 6.1. A consent window proportional to complexity (Section 6.4)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:time ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 6.1. The action described in terms the constituency can evaluate." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:legibility ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 6.1. The structural cost of dissent is recorded; whether it is punitive is a checked judgment." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path scls:exit_or_objection_cost_not_punitive ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 6.1. Analytical infrastructure to evaluate implications." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:support ] ;
+    sh:targetClass scls:SystemObligations .
+
+scls:Verification a sh:NodeShape ;
+    rdfs:comment "SCLS 3.3. The consent record's completeness and durability." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:who_acted ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path scls:agreed_limits ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 3.3. The record is durable." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path scls:durable ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:who_benefited ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path scls:who_bears_cost ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 3.3. The record is tamper-evident (the ASEP durable-logging requirement)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path scls:tamper_evident ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:who_was_affected ] ;
+    sh:targetClass scls:Verification .
+
+scls:WheelAxes a sh:NodeShape ;
+    rdfs:comment "SCLS 2.1, 3.2. The two independent axes, both legible to both parties (2.3.1 bidirectional awareness)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "SCLS 2.3.1. Both axes were legible to both parties at the time of the interaction." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path scls:both_legible_to_both_parties ],
+        [ sh:datatype xsd:string ;
+            sh:description "The action axis. Who is acting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:who_acts ],
+        [ sh:datatype xsd:string ;
+            sh:description "The benefit axis. Who the action is for." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:who_benefits ] ;
+    sh:targetClass scls:WheelAxes .
+
+scls:Withdrawal a sh:NodeShape ;
+    rdfs:comment "SCLS 2.3.1. Revocability. Structurally feasible, not merely formally permitted." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The structural cost of withdrawing. Whether it exceeds participation benefit is a checked judgment." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path scls:structural_cost ],
+        [ sh:datatype xsd:string ;
+            sh:description "The mechanism by which consent can be withdrawn." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path scls:mechanism ] ;
+    sh:targetClass scls:Withdrawal .
+
+
