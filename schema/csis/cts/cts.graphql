@@ -1,0 +1,68 @@
+# metamodel_version: 1.11.0
+enum AdoptionTier
+  {
+    declared
+    structured
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum EpistemicTier
+  {
+    tier_a
+    tier_b
+    tier_c
+  }
+
+enum OperationalScale
+  {
+    intra_organizational
+    inter_organizational
+    platform_level
+  }
+
+enum SatisfactionStatus
+  {
+    satisfied
+    violated
+    partial
+    not_applicable
+  }
+
+type ConflictTransformationRecord
+  {
+    subject: String!
+    constitutionalPreconditionEstablished: Boolean!
+    invariants: [StructuralInvariant]!
+    scalesAddressed: [OperationalScale]
+    adoptionTier: AdoptionTier!
+    conformance: ConformanceDeclaration!
+  }
+
+type ConformanceDeclaration
+  {
+    conflictLegible: ConformanceAnswer!
+    graduatedArchitecturePresent: ConformanceAnswer!
+    proactiveDispositionProtected: ConformanceAnswer!
+    transformationCapacityProvisioned: ConformanceAnswer!
+    engagementRecognized: ConformanceAnswer!
+  }
+
+type StructuralInvariant
+  {
+    id: String!
+    name: String!
+    satisfactionTest: String!
+    satisfactionStatus: SatisfactionStatus!
+    epistemicTier: EpistemicTier!
+    signature: String
+  }
+
