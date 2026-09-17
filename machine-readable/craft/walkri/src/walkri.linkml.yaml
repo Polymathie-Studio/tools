@@ -1,0 +1,396 @@
+id: https://standards.crosswalkri.org/walkri
+name: walkri
+title: WALKRI specified instrument
+description: >-
+  The one canonical source for WALKRI's machine-readable layer (WALKRI-standard, v0.2.1):
+  a LinkML model of the shape a WALKRI-conformant instrument specification must carry, plus
+  the per-requirement conformance record it produces. WALKRI's unit is the instrument (a
+  form field, prompt constraint, structured-output schema element, rubric item, or
+  extraction specification); the five criterion specification requirements (Part III) attach
+  to the instrument in any modality. The structural obligations (which of the five
+  requirements are present, that an evidence form names a type from the taxonomy with an
+  access path, that a dependency declaration is present or declared absent, that the
+  conformance record carries a per-requirement status and never a bare pass mark) are
+  modeled here; the interpretive obligations (whether the criterion intent is a genuine
+  measurement claim distinct from the label, whether an operational definition actually
+  constrains interpretation, and the five Part V data-quality assessments) are not
+  schema-expressible and belong to the conformance checker, marked per-requirement in
+  walkri-register.yaml. A field that satisfies all five requirements is a measurement
+  instrument; a field that fails any one is a label.
+license: CC0-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  walkri: https://standards.crosswalkri.org/walkri/
+default_prefix: walkri
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  SpecifiedInstrument:
+    tree_root: true
+    description: >-
+      WALKRI Part I and Part III. A specified instrument carrying its five criterion
+      specification requirements, its optional participatory record, its dependency
+      declaration, its conformance record, and, where it operates inside an evaluation
+      chain, its layer attribution. This is the unit WALKRI conformance is assessed against.
+      The requirements are stated in their form-field instantiation because that is the most
+      familiar one, but they attach to the instrument in whatever modality renders it.
+    attributes:
+      instrument_identifier:
+        description: What instrument this specifies (the field name or instrument label).
+        required: true
+      modality:
+        description: WALKRI Part I. The modality in which this instrument is rendered. The five requirements attach regardless of modality.
+        range: InstrumentModality
+        required: true
+      criterion_intent:
+        description: WALKRI Section 3.1. A written statement of what the instrument measures, distinct from its label.
+        range: CriterionIntent
+        required: true
+      operational_definition:
+        description: WALKRI Section 3.2. A complete definition of each response category, with qualifying and non-qualifying examples, or the scope and minimum content for a text field.
+        range: OperationalDefinition
+        required: true
+      response_form:
+        description: WALKRI Section 3.3. The response type with a written justification that it can capture the variance the criterion intent requires.
+        range: ResponseForm
+        required: true
+      evidence_form:
+        description: WALKRI Section 3.4. The artifact that satisfies the criterion, one entry per required evidence type. A single criterion may require more than one type.
+        range: EvidenceForm
+        multivalued: true
+        required: true
+      conformance_threshold:
+        description: WALKRI Section 3.5. For an instrument that references an external standard, which components apply, what evidence satisfies each, and the minimum passage threshold. Where no external standard is referenced, this is declared not-applicable with a reason.
+        range: ConformanceThreshold
+        required: true
+      participatory_specification:
+        description: WALKRI Section 3.6. Optional. The record of population input into the definition, where the instrument measures a condition an identifiable group experiences.
+        range: ParticipatorySpecification
+      dependency_declaration:
+        description: WALKRI Section 3.9. The instrument's dependency edges, derived and attested, or the Declared-Absent value where the instrument is independent.
+        range: DependencyDeclaration
+        required: true
+      conformance:
+        description: WALKRI Part VIII. The per-requirement conformance status of this instrument. There is deliberately no overall pass mark.
+        range: InstrumentConformance
+        required: true
+      chain_attribution:
+        description: WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves (its layer attribution), or the Declared-Absent value where WALKRI is used standalone.
+        range: ChainAttribution
+
+  CriterionIntent:
+    description: >-
+      WALKRI Section 3.1. A measurement claim, not a name. Records the label and the intent
+      separately so the intent's distinctness from the label is legible.
+    attributes:
+      label:
+        description: The instrument's label (a name).
+        required: true
+      measurement_claim:
+        description: What a true response tells us about the subject. A measurement claim distinct from the label.
+        required: true
+
+  OperationalDefinition:
+    description: >-
+      WALKRI Section 3.2. A complete definition of each option, with qualifying and
+      non-qualifying examples, or, for a text field, the scope and minimum content that
+      constitutes a complete response.
+    attributes:
+      categories:
+        description: Per-option definitions for a categorical, binary, or numeric instrument.
+        range: CategoryDefinition
+        multivalued: true
+      text_scope:
+        description: For a text or narrative instrument, the scope of acceptable response content.
+      text_minimum_content:
+        description: For a text or narrative instrument, the minimum content that constitutes a complete response.
+
+  CategoryDefinition:
+    description: WALKRI Section 3.2. One option's definition with qualifying and non-qualifying examples, and, for a binary field, at least one edge-case determination.
+    attributes:
+      category:
+        description: The option or response category being defined.
+        required: true
+      definition:
+        description: The complete definition of this category.
+        required: true
+      qualifying_examples:
+        description: Examples that qualify for this category.
+        multivalued: true
+      non_qualifying_examples:
+        description: Examples that do not qualify for this category.
+        multivalued: true
+      edge_case:
+        description: For a binary field, an edge-case determination.
+
+  ResponseForm:
+    description: >-
+      WALKRI Section 3.3. The response type and a written justification that the type can
+      capture the variance in the construct the criterion intent requires. Response type is
+      a measurement decision, not a formatting one.
+    attributes:
+      response_type:
+        description: The response type of the instrument.
+        range: ResponseType
+        required: true
+      justification:
+        description: Why this response type is appropriate for the criterion intent, addressing whether it captures the required variance.
+        required: true
+
+  EvidenceForm:
+    description: >-
+      WALKRI Section 3.4. One evidence-type specification: the type from the taxonomy, the
+      required content within that type, the access path by which a reviewer independently
+      locates and verifies it, and, for a completion claim, whether the type is sufficient
+      to verify completion or serves only as supporting context.
+    attributes:
+      evidence_type:
+        description: The evidence type required, from the WALKRI Section 3.4 taxonomy.
+        range: EvidenceType
+        required: true
+      required_content:
+        description: The specific elements this evidence type must contain (the required elements named for the type).
+        required: true
+      access_path:
+        description: The path by which a reviewer independently locates and verifies the evidence, resolving without login, access request, or contact with the applicant.
+        required: true
+      completion_sufficiency:
+        description: Where the criterion involves a completion claim, whether this evidence type is sufficient to verify completion or serves only as supporting context.
+        range: CompletionSufficiency
+
+  ConformanceThreshold:
+    description: >-
+      WALKRI Section 3.5. For an instrument that references an external standard, the
+      components that apply, the evidence that satisfies each, the minimum passage threshold,
+      and the treatment of any registry the standard maintains. Where no external standard is
+      referenced, references_external_standard is false and a not_applicable_reason is
+      declared, never left silent.
+    attributes:
+      references_external_standard:
+        description: Whether this instrument references an external standard.
+        range: boolean
+        required: true
+      applicable_components:
+        description: Which components of the external standard apply to this criterion.
+        multivalued: true
+      evidence_per_component:
+        description: What evidence satisfies each applicable component.
+      minimum_threshold:
+        description: The minimum threshold for passage (which components must be met, and which are non-waivable).
+      registry_treatment:
+        description: Where the external standard maintains a registry, whether registry membership is accepted as sufficient evidence of current qualification or independent assessment is required regardless of registry status.
+      not_applicable_reason:
+        description: Where no external standard is referenced, the declared reason the conformance-threshold content is not applicable.
+    rules:
+      - preconditions:
+          slot_conditions:
+            references_external_standard:
+              equals_string: "true"
+        postconditions:
+          slot_conditions:
+            applicable_components:
+              required: true
+            minimum_threshold:
+              required: true
+        description: WALKRI 3.5. Where an external standard is referenced, the applicable components and the minimum passage threshold must be stated; a reference without them is a label, not a criterion specification.
+      - preconditions:
+          slot_conditions:
+            references_external_standard:
+              equals_string: "false"
+        postconditions:
+          slot_conditions:
+            not_applicable_reason:
+              required: true
+        description: WALKRI 3.5. Where no external standard is referenced, the not-applicable status is declared with a reason, never left silent.
+
+  ParticipatorySpecification:
+    description: >-
+      WALKRI Section 3.6. Optional. Where the instrument measures a condition an identifiable
+      group experiences, the record of who participated in the definition, what they
+      contributed or validated, and when, relative to publication.
+    attributes:
+      participants:
+        description: Who participated, described by role or relationship to the measured condition.
+        required: true
+      contribution:
+        description: What aspect of the definition they contributed to or validated.
+        required: true
+      timing:
+        description: When the participation occurred relative to the instrument's publication.
+        required: true
+
+  DependencyDeclaration:
+    description: >-
+      WALKRI Section 3.9. The instrument's dependency graph, derived mechanically from the
+      instrument set's own formal logic and attested, or the Declared-Absent value where the
+      instrument has no dependency edges. An independent instrument declares its independence
+      rather than falling silent.
+    attributes:
+      independent:
+        description: The Declared-Absent value. True where the instrument has no dependency edges.
+        range: boolean
+        required: true
+      edges:
+        description: The derived and attested dependency edges, where the instrument depends on others.
+        range: DependencyEdge
+        multivalued: true
+    rules:
+      - preconditions:
+          slot_conditions:
+            independent:
+              equals_string: "false"
+        postconditions:
+          slot_conditions:
+            edges:
+              required: true
+        description: WALKRI 3.9. A non-independent instrument must carry its derived, attested dependency edges; independence is declared, never assumed by silence.
+
+  DependencyEdge:
+    description: WALKRI Section 3.9. One derived-and-attested dependency of this instrument on another.
+    attributes:
+      depends_on:
+        description: The instrument this one depends on.
+        required: true
+      relation:
+        description: The formal relation from which the edge was derived (the conditional logic that produced it).
+        required: true
+
+  InstrumentConformance:
+    description: >-
+      WALKRI Part VIII. The per-requirement conformance status of the instrument: for each of
+      the five criterion specification requirements, pass, fail, or override. There is
+      deliberately no overall or total field. The minimum conformance threshold (Section 8.4,
+      all five pass, overrides permitted where documented) is a computed rule over these five
+      statuses, never a stored bare pass mark.
+    attributes:
+      criterion_intent_status:
+        range: RequirementStatus
+        required: true
+      operational_definition_status:
+        range: RequirementStatus
+        required: true
+      response_form_status:
+        range: RequirementStatus
+        required: true
+      evidence_form_status:
+        range: RequirementStatus
+        required: true
+      conformance_threshold_status:
+        range: RequirementStatus
+        required: true
+      overrides:
+        description: WALKRI Section 8.3. One entry for each requirement whose status is override, carrying the flag, the justification, and the authorizer.
+        range: Override
+        multivalued: true
+
+  Override:
+    description: >-
+      WALKRI Section 8.3 and 8.4. An override on one of the five requirements, permitted only
+      where documented: the flag text, the justification, and the name or identifier of the
+      person who authorized it. An override without all three is an unresolved flag, and a
+      form with unresolved undocumented flags cannot be certified.
+    attributes:
+      requirement:
+        description: Which of the five criterion specification requirements this override applies to.
+        range: CriterionRequirement
+        required: true
+      flag_text:
+        description: The text of the flag being overridden.
+        required: true
+      justification:
+        description: The justification for the override.
+        required: true
+      authorized_by:
+        description: The name or identifier of the person who authorized the override.
+        required: true
+
+  ChainAttribution:
+    description: >-
+      WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain
+      condition this instrument serves, so the conformance record recomposes into
+      condition-satisfaction evidence upward. Standalone use declares its absence.
+    attributes:
+      standalone:
+        description: The Declared-Absent value. True where WALKRI is used standalone, outside any evaluation chain.
+        range: boolean
+        required: true
+      chain_condition_served:
+        description: The chain condition this instrument's quality serves (its layer attribution), where WALKRI operates inside a chain.
+      resolution:
+        description: WALKRI Section 8.3. The resolution the instrument's criterion elements specify, carried upward rather than a bare pass mark, so the precision actually achieved at the capture point travels.
+    rules:
+      - preconditions:
+          slot_conditions:
+            standalone:
+              equals_string: "false"
+        postconditions:
+          slot_conditions:
+            chain_condition_served:
+              required: true
+        description: WALKRI 8.3. Inside a chain, the served condition is named; standalone use declares its absence rather than leaving the attribution silent.
+
+enums:
+
+  InstrumentModality:
+    description: WALKRI Part I. The modality in which an instrument is rendered; the five requirements attach in each.
+    permissible_values:
+      form_field:
+        description: A field in a form (the most familiar instantiation).
+      prompt_constraint:
+        description: A constraint in a prompt.
+      structured_output_schema_element:
+        description: An element of a structured-output schema.
+      rubric_item:
+        description: An item in a rubric.
+      extraction_specification:
+        description: A specification for extracting a datum.
+
+  ResponseType:
+    description: WALKRI Section 3.3. The response type of an instrument.
+    permissible_values:
+      single_select:
+      multi_select:
+      binary:
+      numeric:
+      text:
+      url:
+      composite:
+
+  EvidenceType:
+    description: WALKRI Section 3.4. The five evidence types; each proves a different thing and they are not interchangeable.
+    permissible_values:
+      standing:
+        description: Attests to organizational standing, recognition, membership, or formal programme participation. Proves the organization was assessed and recognized, not that outcomes occurred.
+      activity:
+        description: Attests that named activities occurred at a stated date, location, and scale. Proves work was done, not that outcomes resulted.
+      outcome:
+        description: Attests that a named condition changed or a performance claim is verified, independently of the applicant's own report. The only type that satisfies a completion verification gate for results.
+      planning:
+        description: Attests to future intent, procurement, or structural agreements. Proves plans or commitments, not achieved outcomes.
+      financial_accountability:
+        description: Attests to how funding was deployed, by expenditure category. Proves money was spent as stated, not that the spending produced the outcomes.
+
+  CompletionSufficiency:
+    description: WALKRI Section 3.4. For a completion claim, whether an evidence type verifies completion or only supports context.
+    permissible_values:
+      sufficient_to_verify_completion:
+      supporting_context_only:
+
+  RequirementStatus:
+    description: WALKRI Part VIII. The status of one criterion specification requirement on one instrument. Silence is not one of the values.
+    permissible_values:
+      pass:
+      fail:
+      override:
+
+  CriterionRequirement:
+    description: WALKRI Part III. The five criterion specification requirements an override can apply to.
+    permissible_values:
+      criterion_intent:
+      operational_definition:
+      response_form:
+      evidence_form:
+      conformance_threshold:

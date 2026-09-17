@@ -1,0 +1,93 @@
+# metamodel_version: 1.11.0
+enum AggregationType
+  {
+    cumulative
+    non_cumulative
+  }
+
+enum MeasurementForm
+  {
+    quantitative
+    ordinal
+    binary
+    qualitative
+  }
+
+enum ObligationMode
+  {
+    build
+    change
+    retroactive
+  }
+
+enum SourceType
+  {
+    on_chain_verifiable
+    off_chain_verifiable
+    qualitative_narrative
+  }
+
+type DataSource
+  {
+    source: String!
+    collectionMethod: String!
+    independentlyAccessible: Boolean!
+    independentCorroboration: String
+  }
+
+type ExecutionVerification
+  {
+    invariantSpecification: String!
+    verificationMethod: String!
+    verificationArtifact: String!
+    failureSurface: String!
+  }
+
+type IndicatorSpecification
+  {
+    indicatorName: String!
+    obligationMode: ObligationMode!
+    rationale: String!
+    measurementForm: MeasurementFormClassification!
+    operationalDefinition: OperationalDefinition!
+    constructionMethodology: String!
+    disaggregation: [String]
+    dataSource: DataSource!
+    dataCostEstimation: String!
+    baseline: StateSpecification
+    target: StateSpecification!
+    sustainabilityPlan: SustainabilityPlan
+  }
+
+type MeasurementFormClassification
+  {
+    plainLanguageForm: String!
+    sourceType: SourceType!
+    form: MeasurementForm!
+    aggregationType: AggregationType!
+    contractCentric: Boolean!
+    executionVerification: ExecutionVerification
+  }
+
+type OperationalDefinition
+  {
+    inclusionCriteria: String!
+    exclusionCriteria: String!
+    unitOfAnalysis: String!
+    edgeCaseDetermination: String!
+  }
+
+type StateSpecification
+  {
+    documentedState: String!
+    dataSource: String
+  }
+
+type SustainabilityPlan
+  {
+    continuation: String!
+    costCoverage: String
+    handoff: String
+    endState: String
+  }
+

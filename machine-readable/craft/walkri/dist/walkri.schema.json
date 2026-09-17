@@ -1,0 +1,691 @@
+{
+  "$defs": {
+    "CategoryDefinition": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.2. One option's definition with qualifying and non-qualifying examples, and, for a binary field, at least one edge-case determination.",
+      "properties": {
+        "category": {
+          "description": "The option or response category being defined.",
+          "type": "string"
+        },
+        "definition": {
+          "description": "The complete definition of this category.",
+          "type": "string"
+        },
+        "edge_case": {
+          "description": "For a binary field, an edge-case determination.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "non_qualifying_examples": {
+          "description": "Examples that do not qualify for this category.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "qualifying_examples": {
+          "description": "Examples that qualify for this category.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "category",
+        "definition"
+      ],
+      "title": "CategoryDefinition",
+      "type": "object"
+    },
+    "ChainAttribution": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves, so the conformance record recomposes into condition-satisfaction evidence upward. Standalone use declares its absence.",
+      "if": {
+        "properties": {
+          "standalone": {
+            "const": false
+          }
+        },
+        "required": [
+          "standalone"
+        ]
+      },
+      "properties": {
+        "chain_condition_served": {
+          "description": "The chain condition this instrument's quality serves (its layer attribution), where WALKRI operates inside a chain.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resolution": {
+          "description": "WALKRI Section 8.3. The resolution the instrument's criterion elements specify, carried upward rather than a bare pass mark, so the precision actually achieved at the capture point travels.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "standalone": {
+          "description": "The Declared-Absent value. True where WALKRI is used standalone, outside any evaluation chain.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "standalone"
+      ],
+      "then": {
+        "properties": {
+          "chain_condition_served": {}
+        },
+        "required": [
+          "chain_condition_served"
+        ]
+      },
+      "title": "ChainAttribution",
+      "type": "object"
+    },
+    "CompletionSufficiency": {
+      "description": "WALKRI Section 3.4. For a completion claim, whether an evidence type verifies completion or only supports context.",
+      "enum": [
+        "sufficient_to_verify_completion",
+        "supporting_context_only"
+      ],
+      "title": "CompletionSufficiency",
+      "type": "string"
+    },
+    "ConformanceThreshold": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "references_external_standard": {
+                "const": true
+              }
+            },
+            "required": [
+              "references_external_standard"
+            ]
+          },
+          "then": {
+            "properties": {
+              "applicable_components": {
+                "items": {},
+                "type": "array"
+              },
+              "minimum_threshold": {}
+            },
+            "required": [
+              "applicable_components",
+              "minimum_threshold"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "references_external_standard": {
+                "const": false
+              }
+            },
+            "required": [
+              "references_external_standard"
+            ]
+          },
+          "then": {
+            "properties": {
+              "not_applicable_reason": {}
+            },
+            "required": [
+              "not_applicable_reason"
+            ]
+          }
+        }
+      ],
+      "description": "WALKRI Section 3.5. For an instrument that references an external standard, the components that apply, the evidence that satisfies each, the minimum passage threshold, and the treatment of any registry the standard maintains. Where no external standard is referenced, references_external_standard is false and a not_applicable_reason is declared, never left silent.",
+      "properties": {
+        "applicable_components": {
+          "description": "Which components of the external standard apply to this criterion.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "evidence_per_component": {
+          "description": "What evidence satisfies each applicable component.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "minimum_threshold": {
+          "description": "The minimum threshold for passage (which components must be met, and which are non-waivable).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "not_applicable_reason": {
+          "description": "Where no external standard is referenced, the declared reason the conformance-threshold content is not applicable.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "references_external_standard": {
+          "description": "Whether this instrument references an external standard.",
+          "type": "boolean"
+        },
+        "registry_treatment": {
+          "description": "Where the external standard maintains a registry, whether registry membership is accepted as sufficient evidence of current qualification or independent assessment is required regardless of registry status.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "references_external_standard"
+      ],
+      "title": "ConformanceThreshold",
+      "type": "object"
+    },
+    "CriterionIntent": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.1. A measurement claim, not a name. Records the label and the intent separately so the intent's distinctness from the label is legible.",
+      "properties": {
+        "label": {
+          "description": "The instrument's label (a name).",
+          "type": "string"
+        },
+        "measurement_claim": {
+          "description": "What a true response tells us about the subject. A measurement claim distinct from the label.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "measurement_claim"
+      ],
+      "title": "CriterionIntent",
+      "type": "object"
+    },
+    "CriterionRequirement": {
+      "description": "WALKRI Part III. The five criterion specification requirements an override can apply to.",
+      "enum": [
+        "criterion_intent",
+        "operational_definition",
+        "response_form",
+        "evidence_form",
+        "conformance_threshold"
+      ],
+      "title": "CriterionRequirement",
+      "type": "string"
+    },
+    "DependencyDeclaration": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.9. The instrument's dependency graph, derived mechanically from the instrument set's own formal logic and attested, or the Declared-Absent value where the instrument has no dependency edges. An independent instrument declares its independence rather than falling silent.",
+      "if": {
+        "properties": {
+          "independent": {
+            "const": false
+          }
+        },
+        "required": [
+          "independent"
+        ]
+      },
+      "properties": {
+        "edges": {
+          "description": "The derived and attested dependency edges, where the instrument depends on others.",
+          "items": {
+            "$ref": "#/$defs/DependencyEdge"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "independent": {
+          "description": "The Declared-Absent value. True where the instrument has no dependency edges.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "independent"
+      ],
+      "then": {
+        "properties": {
+          "edges": {
+            "items": {},
+            "type": "array"
+          }
+        },
+        "required": [
+          "edges"
+        ]
+      },
+      "title": "DependencyDeclaration",
+      "type": "object"
+    },
+    "DependencyEdge": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.9. One derived-and-attested dependency of this instrument on another.",
+      "properties": {
+        "depends_on": {
+          "description": "The instrument this one depends on.",
+          "type": "string"
+        },
+        "relation": {
+          "description": "The formal relation from which the edge was derived (the conditional logic that produced it).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "depends_on",
+        "relation"
+      ],
+      "title": "DependencyEdge",
+      "type": "object"
+    },
+    "EvidenceForm": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.4. One evidence-type specification: the type from the taxonomy, the required content within that type, the access path by which a reviewer independently locates and verifies it, and, for a completion claim, whether the type is sufficient to verify completion or serves only as supporting context.",
+      "properties": {
+        "access_path": {
+          "description": "The path by which a reviewer independently locates and verifies the evidence, resolving without login, access request, or contact with the applicant.",
+          "type": "string"
+        },
+        "completion_sufficiency": {
+          "$ref": "#/$defs/CompletionSufficiency",
+          "description": "Where the criterion involves a completion claim, whether this evidence type is sufficient to verify completion or serves only as supporting context."
+        },
+        "evidence_type": {
+          "$ref": "#/$defs/EvidenceType",
+          "description": "The evidence type required, from the WALKRI Section 3.4 taxonomy."
+        },
+        "required_content": {
+          "description": "The specific elements this evidence type must contain (the required elements named for the type).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_type",
+        "required_content",
+        "access_path"
+      ],
+      "title": "EvidenceForm",
+      "type": "object"
+    },
+    "EvidenceType": {
+      "description": "WALKRI Section 3.4. The five evidence types; each proves a different thing and they are not interchangeable.",
+      "enum": [
+        "standing",
+        "activity",
+        "outcome",
+        "planning",
+        "financial_accountability"
+      ],
+      "title": "EvidenceType",
+      "type": "string"
+    },
+    "InstrumentConformance": {
+      "additionalProperties": false,
+      "description": "WALKRI Part VIII. The per-requirement conformance status of the instrument: for each of the five criterion specification requirements, pass, fail, or override. There is deliberately no overall or total field. The minimum conformance threshold (Section 8.4, all five pass, overrides permitted where documented) is a computed rule over these five statuses, never a stored bare pass mark.",
+      "properties": {
+        "conformance_threshold_status": {
+          "$ref": "#/$defs/RequirementStatus"
+        },
+        "criterion_intent_status": {
+          "$ref": "#/$defs/RequirementStatus"
+        },
+        "evidence_form_status": {
+          "$ref": "#/$defs/RequirementStatus"
+        },
+        "operational_definition_status": {
+          "$ref": "#/$defs/RequirementStatus"
+        },
+        "overrides": {
+          "description": "WALKRI Section 8.3. One entry for each requirement whose status is override, carrying the flag, the justification, and the authorizer.",
+          "items": {
+            "$ref": "#/$defs/Override"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "response_form_status": {
+          "$ref": "#/$defs/RequirementStatus"
+        }
+      },
+      "required": [
+        "criterion_intent_status",
+        "operational_definition_status",
+        "response_form_status",
+        "evidence_form_status",
+        "conformance_threshold_status"
+      ],
+      "title": "InstrumentConformance",
+      "type": "object"
+    },
+    "InstrumentModality": {
+      "description": "WALKRI Part I. The modality in which an instrument is rendered; the five requirements attach in each.",
+      "enum": [
+        "form_field",
+        "prompt_constraint",
+        "structured_output_schema_element",
+        "rubric_item",
+        "extraction_specification"
+      ],
+      "title": "InstrumentModality",
+      "type": "string"
+    },
+    "OperationalDefinition": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.2. A complete definition of each option, with qualifying and non-qualifying examples, or, for a text field, the scope and minimum content that constitutes a complete response.",
+      "properties": {
+        "categories": {
+          "description": "Per-option definitions for a categorical, binary, or numeric instrument.",
+          "items": {
+            "$ref": "#/$defs/CategoryDefinition"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "text_minimum_content": {
+          "description": "For a text or narrative instrument, the minimum content that constitutes a complete response.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text_scope": {
+          "description": "For a text or narrative instrument, the scope of acceptable response content.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "OperationalDefinition",
+      "type": "object"
+    },
+    "Override": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 8.3 and 8.4. An override on one of the five requirements, permitted only where documented: the flag text, the justification, and the name or identifier of the person who authorized it. An override without all three is an unresolved flag, and a form with unresolved undocumented flags cannot be certified.",
+      "properties": {
+        "authorized_by": {
+          "description": "The name or identifier of the person who authorized the override.",
+          "type": "string"
+        },
+        "flag_text": {
+          "description": "The text of the flag being overridden.",
+          "type": "string"
+        },
+        "justification": {
+          "description": "The justification for the override.",
+          "type": "string"
+        },
+        "requirement": {
+          "$ref": "#/$defs/CriterionRequirement",
+          "description": "Which of the five criterion specification requirements this override applies to."
+        }
+      },
+      "required": [
+        "requirement",
+        "flag_text",
+        "justification",
+        "authorized_by"
+      ],
+      "title": "Override",
+      "type": "object"
+    },
+    "ParticipatorySpecification": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.6. Optional. Where the instrument measures a condition an identifiable group experiences, the record of who participated in the definition, what they contributed or validated, and when, relative to publication.",
+      "properties": {
+        "contribution": {
+          "description": "What aspect of the definition they contributed to or validated.",
+          "type": "string"
+        },
+        "participants": {
+          "description": "Who participated, described by role or relationship to the measured condition.",
+          "type": "string"
+        },
+        "timing": {
+          "description": "When the participation occurred relative to the instrument's publication.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "participants",
+        "contribution",
+        "timing"
+      ],
+      "title": "ParticipatorySpecification",
+      "type": "object"
+    },
+    "RequirementStatus": {
+      "description": "WALKRI Part VIII. The status of one criterion specification requirement on one instrument. Silence is not one of the values.",
+      "enum": [
+        "pass",
+        "fail",
+        "override"
+      ],
+      "title": "RequirementStatus",
+      "type": "string"
+    },
+    "ResponseForm": {
+      "additionalProperties": false,
+      "description": "WALKRI Section 3.3. The response type and a written justification that the type can capture the variance in the construct the criterion intent requires. Response type is a measurement decision, not a formatting one.",
+      "properties": {
+        "justification": {
+          "description": "Why this response type is appropriate for the criterion intent, addressing whether it captures the required variance.",
+          "type": "string"
+        },
+        "response_type": {
+          "$ref": "#/$defs/ResponseType",
+          "description": "The response type of the instrument."
+        }
+      },
+      "required": [
+        "response_type",
+        "justification"
+      ],
+      "title": "ResponseForm",
+      "type": "object"
+    },
+    "ResponseType": {
+      "description": "WALKRI Section 3.3. The response type of an instrument.",
+      "enum": [
+        "single_select",
+        "multi_select",
+        "binary",
+        "numeric",
+        "text",
+        "url",
+        "composite"
+      ],
+      "title": "ResponseType",
+      "type": "string"
+    },
+    "SpecifiedInstrument": {
+      "additionalProperties": false,
+      "description": "WALKRI Part I and Part III. A specified instrument carrying its five criterion specification requirements, its optional participatory record, its dependency declaration, its conformance record, and, where it operates inside an evaluation chain, its layer attribution. This is the unit WALKRI conformance is assessed against. The requirements are stated in their form-field instantiation because that is the most familiar one, but they attach to the instrument in whatever modality renders it.",
+      "properties": {
+        "chain_attribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChainAttribution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves (its layer attribution), or the Declared-Absent value where WALKRI is used standalone."
+        },
+        "conformance": {
+          "$ref": "#/$defs/InstrumentConformance",
+          "description": "WALKRI Part VIII. The per-requirement conformance status of this instrument. There is deliberately no overall pass mark."
+        },
+        "conformance_threshold": {
+          "$ref": "#/$defs/ConformanceThreshold",
+          "description": "WALKRI Section 3.5. For an instrument that references an external standard, which components apply, what evidence satisfies each, and the minimum passage threshold. Where no external standard is referenced, this is declared not-applicable with a reason."
+        },
+        "criterion_intent": {
+          "$ref": "#/$defs/CriterionIntent",
+          "description": "WALKRI Section 3.1. A written statement of what the instrument measures, distinct from its label."
+        },
+        "dependency_declaration": {
+          "$ref": "#/$defs/DependencyDeclaration",
+          "description": "WALKRI Section 3.9. The instrument's dependency edges, derived and attested, or the Declared-Absent value where the instrument is independent."
+        },
+        "evidence_form": {
+          "description": "WALKRI Section 3.4. The artifact that satisfies the criterion, one entry per required evidence type. A single criterion may require more than one type.",
+          "items": {
+            "$ref": "#/$defs/EvidenceForm"
+          },
+          "type": "array"
+        },
+        "instrument_identifier": {
+          "description": "What instrument this specifies (the field name or instrument label).",
+          "type": "string"
+        },
+        "modality": {
+          "$ref": "#/$defs/InstrumentModality",
+          "description": "WALKRI Part I. The modality in which this instrument is rendered. The five requirements attach regardless of modality."
+        },
+        "operational_definition": {
+          "$ref": "#/$defs/OperationalDefinition",
+          "description": "WALKRI Section 3.2. A complete definition of each response category, with qualifying and non-qualifying examples, or the scope and minimum content for a text field."
+        },
+        "participatory_specification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticipatorySpecification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "WALKRI Section 3.6. Optional. The record of population input into the definition, where the instrument measures a condition an identifiable group experiences."
+        },
+        "response_form": {
+          "$ref": "#/$defs/ResponseForm",
+          "description": "WALKRI Section 3.3. The response type with a written justification that it can capture the variance the criterion intent requires."
+        }
+      },
+      "required": [
+        "instrument_identifier",
+        "modality",
+        "criterion_intent",
+        "operational_definition",
+        "response_form",
+        "evidence_form",
+        "conformance_threshold",
+        "dependency_declaration",
+        "conformance"
+      ],
+      "title": "SpecifiedInstrument",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/walkri/walkri.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "WALKRI Part I and Part III. A specified instrument carrying its five criterion specification requirements, its optional participatory record, its dependency declaration, its conformance record, and, where it operates inside an evaluation chain, its layer attribution. This is the unit WALKRI conformance is assessed against. The requirements are stated in their form-field instantiation because that is the most familiar one, but they attach to the instrument in whatever modality renders it.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "chain_attribution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ChainAttribution"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves (its layer attribution), or the Declared-Absent value where WALKRI is used standalone."
+    },
+    "conformance": {
+      "$ref": "#/$defs/InstrumentConformance",
+      "description": "WALKRI Part VIII. The per-requirement conformance status of this instrument. There is deliberately no overall pass mark."
+    },
+    "conformance_threshold": {
+      "$ref": "#/$defs/ConformanceThreshold",
+      "description": "WALKRI Section 3.5. For an instrument that references an external standard, which components apply, what evidence satisfies each, and the minimum passage threshold. Where no external standard is referenced, this is declared not-applicable with a reason."
+    },
+    "criterion_intent": {
+      "$ref": "#/$defs/CriterionIntent",
+      "description": "WALKRI Section 3.1. A written statement of what the instrument measures, distinct from its label."
+    },
+    "dependency_declaration": {
+      "$ref": "#/$defs/DependencyDeclaration",
+      "description": "WALKRI Section 3.9. The instrument's dependency edges, derived and attested, or the Declared-Absent value where the instrument is independent."
+    },
+    "evidence_form": {
+      "description": "WALKRI Section 3.4. The artifact that satisfies the criterion, one entry per required evidence type. A single criterion may require more than one type.",
+      "items": {
+        "$ref": "#/$defs/EvidenceForm"
+      },
+      "type": "array"
+    },
+    "instrument_identifier": {
+      "description": "What instrument this specifies (the field name or instrument label).",
+      "type": "string"
+    },
+    "modality": {
+      "$ref": "#/$defs/InstrumentModality",
+      "description": "WALKRI Part I. The modality in which this instrument is rendered. The five requirements attach regardless of modality."
+    },
+    "operational_definition": {
+      "$ref": "#/$defs/OperationalDefinition",
+      "description": "WALKRI Section 3.2. A complete definition of each response category, with qualifying and non-qualifying examples, or the scope and minimum content for a text field."
+    },
+    "participatory_specification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ParticipatorySpecification"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "WALKRI Section 3.6. Optional. The record of population input into the definition, where the instrument measures a condition an identifiable group experiences."
+    },
+    "response_form": {
+      "$ref": "#/$defs/ResponseForm",
+      "description": "WALKRI Section 3.3. The response type with a written justification that it can capture the variance the criterion intent requires."
+    }
+  },
+  "required": [
+    "instrument_identifier",
+    "modality",
+    "criterion_intent",
+    "operational_definition",
+    "response_form",
+    "evidence_form",
+    "conformance_threshold",
+    "dependency_declaration",
+    "conformance"
+  ],
+  "title": "walkri",
+  "type": "object",
+  "version": null
+}

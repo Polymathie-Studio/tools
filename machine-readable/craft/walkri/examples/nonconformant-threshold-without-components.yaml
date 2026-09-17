@@ -1,0 +1,37 @@
+# Non-conformant: references an external standard but names no applicable components and no
+# minimum passage threshold. WALKRI Section 3.5: a reference that says "must meet the DPG
+# Standard" without a conformance threshold is a label, not a criterion specification. The
+# Section 3.5 rule (references_external_standard -> applicable_components + minimum_threshold
+# required) rejects it.
+instrument_identifier: dpg_status_underspecified
+modality: form_field
+criterion_intent:
+  label: "DPG Status"
+  measurement_claim: "Whether the project qualifies as a Digital Public Good."
+operational_definition:
+  categories:
+    - category: qualifies
+      definition: "The project meets the DPG Standard."
+    - category: does_not_qualify
+      definition: "The project does not meet the DPG Standard."
+response_form:
+  response_type: binary
+  justification: "A binary determination against the standard."
+evidence_form:
+  - evidence_type: standing
+    required_content: "A DPG registry listing."
+    access_path: "A public registry URL resolving without login."
+    completion_sufficiency: supporting_context_only
+conformance_threshold:
+  references_external_standard: true
+  # applicable_components and minimum_threshold intentionally omitted -- the failure under test.
+dependency_declaration:
+  independent: true
+conformance:
+  criterion_intent_status: pass
+  operational_definition_status: pass
+  response_form_status: pass
+  evidence_form_status: pass
+  conformance_threshold_status: fail
+chain_attribution:
+  standalone: true

@@ -1,0 +1,40 @@
+# A CROSS-conformant indicator specification (CROSS v0.5.7), Part V. A change-obligation
+# indicator, so it exercises the baseline rule positively, with an independently accessible
+# on-chain source and a WALKRI-conformant operational definition. Validates against
+# dist/cross.schema.json.
+indicator_name: unique_active_wallets
+obligation_mode: change
+rationale: >-
+  Unique active wallets was chosen over transaction count and total value locked because the
+  intervention's stated aim is broadened participation, not throughput or capital; transaction
+  count rewards a few high-frequency actors and TVL rewards a few large ones, neither of which
+  tracks the participation estimand.
+measurement_form:
+  plain_language_form: "A count of distinct wallet addresses that made at least one qualifying interaction with the named contract in the reporting period."
+  source_type: on_chain_verifiable
+  form: quantitative
+  aggregation_type: non_cumulative
+  contract_centric: false
+operational_definition:
+  inclusion_criteria: "A wallet address that called one of the named contract's qualifying functions at least once in the period."
+  exclusion_criteria: "Addresses controlled by the grantee or its team (a published denylist), and addresses whose only interaction was a failed or reverted transaction."
+  unit_of_analysis: "wallet address"
+  edge_case_determination: "A smart-contract wallet (multisig) counts as one address; an address that interacted in a prior period and again this period counts in each period it was active, because the measure is non-cumulative."
+construction_methodology: >-
+  Query the named contract's event logs for the qualifying function selectors over the period's
+  block range, collect distinct from-addresses, subtract the published denylist, and count.
+  Partial data (a reorg near the period boundary) is handled by waiting for finality before the
+  count is taken; there are no sub-units to aggregate.
+disaggregation:
+  - "new versus returning (first-seen this period versus seen before)"
+  - "interaction type (the qualifying function called)"
+data_source:
+  source: "The named contract's on-chain event logs, contract 0xABC... on the stated network."
+  collection_method: "A public indexer query over the period's block range, reproducible by any reviewer from public chain data."
+  independently_accessible: true
+data_cost_estimation: "Collection is a public RPC query costing under 10 dollars of indexer time per period, funded from the project's operations line."
+baseline:
+  documented_state: "412 unique active wallets in the 30 days before the intervention began."
+  data_source: "The same on-chain query run over the pre-intervention block range."
+target:
+  documented_state: "At least 900 unique active wallets in the final reporting period."

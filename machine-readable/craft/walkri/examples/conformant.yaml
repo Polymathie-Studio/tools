@@ -1,0 +1,84 @@
+# A WALKRI-conformant instrument (WALKRI-standard v0.2.1). A gate field that references an
+# external standard (the Digital Public Goods Standard), so it exercises the Section 3.5
+# conformance-threshold rule as well as all five criterion requirements. Validates against
+# dist/walkri.schema.json.
+instrument_identifier: digital_public_good_status
+modality: form_field
+
+criterion_intent:
+  label: "DPG Status"
+  measurement_claim: >-
+    Whether the project satisfies the nine indicators of the Digital Public Goods Standard
+    at the time of application, assessed indicator by indicator rather than by registry
+    membership.
+
+operational_definition:
+  categories:
+    - category: qualifies
+      definition: >-
+        All nine DPG indicators are satisfied on current evidence, with indicators 1, 2, and
+        3 (SDG relevance, approved open license, clear ownership) each independently
+        demonstrated.
+      qualifying_examples:
+        - "A project with an SPDX-declared MIT license, a stated SDG-4 relevance, and a named owning entity, meeting the remaining six indicators."
+      non_qualifying_examples:
+        - "A project listed in the DPG registry three years ago whose license has since changed to a non-approved one."
+    - category: does_not_qualify
+      definition: >-
+        One or more of the nine indicators is unmet or undemonstrated on current evidence,
+        regardless of registry status.
+      qualifying_examples:
+        - "A project with no clearly stated license identifier in its repository."
+      non_qualifying_examples:
+        - "A project that meets all nine indicators but is not yet listed in the registry."
+
+response_form:
+  response_type: binary
+  justification: >-
+    DPG status is a categorical determination against a fixed indicator set; a binary
+    response with an independent indicator-assessment evidence path captures the construct
+    without imposing false gradations the standard does not define.
+
+evidence_form:
+  - evidence_type: standing
+    required_content: >-
+      The attesting basis (indicator-by-indicator assessment record), the scope (which of the
+      nine indicators the record covers), and the currency window (assessment dated within the
+      current application cycle).
+    access_path: >-
+      A public URL to the project's repository showing the SPDX license identifier and to the
+      indicator assessment record, resolving without login or contact with the applicant.
+    completion_sufficiency: supporting_context_only
+
+conformance_threshold:
+  references_external_standard: true
+  applicable_components:
+    - "Indicator 1: relevance to a Sustainable Development Goal"
+    - "Indicator 2: use of approved open licenses"
+    - "Indicator 3: clear ownership"
+    - "Indicator 4: platform independence"
+    - "Indicator 5: documentation"
+    - "Indicator 6: non-extraction of data"
+    - "Indicator 7: adherence to privacy and applicable laws"
+    - "Indicator 8: adherence to standards and best practices"
+    - "Indicator 9: responsible data use policies"
+  evidence_per_component: >-
+    Each indicator requires its own named evidence; for example, indicator 2 requires a
+    clearly stated SPDX license identifier in the project repository.
+  minimum_threshold: "All nine indicators must be satisfied; indicators 1, 2, and 3 are non-waivable."
+  registry_treatment: >-
+    Registry membership is a record of past assessment, not current qualification;
+    independent indicator assessment is required regardless of registry status.
+
+dependency_declaration:
+  independent: true
+
+conformance:
+  criterion_intent_status: pass
+  operational_definition_status: pass
+  response_form_status: pass
+  evidence_form_status: pass
+  conformance_threshold_status: pass
+
+chain_attribution:
+  standalone: true

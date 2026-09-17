@@ -1,0 +1,562 @@
+{
+  "$defs": {
+    "AxisPositioning": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 10. One axis's positioning, naming which CRAFT condition it serves and where it sits in the domain configuration.",
+      "properties": {
+        "axis": {
+          "description": "The quality axis.",
+          "type": "string"
+        },
+        "position": {
+          "description": "Where this axis sits within the domain configuration.",
+          "type": "string"
+        },
+        "serves_condition": {
+          "$ref": "#/$defs/CraftCondition",
+          "description": "Which CRAFT condition this axis serves."
+        }
+      },
+      "required": [
+        "axis",
+        "serves_condition",
+        "position"
+      ],
+      "title": "AxisPositioning",
+      "type": "object"
+    },
+    "BackgroundState": {
+      "description": "CRAFT Section 10, element 4. The background state of a declared inheritance. Silence is not one of the values.",
+      "enum": [
+        "background_satisfied",
+        "background_unchecked"
+      ],
+      "title": "BackgroundState",
+      "type": "string"
+    },
+    "ChainLevelReceipt": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 10. The chain-level receipt component, the chain specification in CRAFT-compliant form, traceable to the six conditions.",
+      "properties": {
+        "decision_context": {
+          "description": "Condition 1. The decision context of the chain specification.",
+          "type": "string"
+        },
+        "domain_configuration": {
+          "description": "The specific structural facts that constitute this domain's instantiation of CRAFT.",
+          "type": "string"
+        },
+        "technical_ontology": {
+          "description": "Condition 2. The technical ontology of the chain specification.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision_context",
+        "technical_ontology",
+        "domain_configuration"
+      ],
+      "title": "ChainLevelReceipt",
+      "type": "object"
+    },
+    "ComplianceRecordType": {
+      "description": "CRAFT Section 12.3. The compliance report's declared type.",
+      "enum": [
+        "compliance_report"
+      ],
+      "title": "ComplianceRecordType",
+      "type": "string"
+    },
+    "ComplianceReport": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 12.3. Whether a specification document meets CRAFT requirements, produced at audit time (not when the chain evaluates data). Each finding declares its layer, so a domain-application finding is distinguishable from a CRAFT base finding.",
+      "properties": {
+        "condition_results": {
+          "description": "CRAFT Section 12.3. One result per condition, each declaring its layer.",
+          "items": {
+            "$ref": "#/$defs/ConditionResult"
+          },
+          "type": "array"
+        },
+        "evaluated_specification_id": {
+          "description": "CRAFT Section 12.3. Which specification document was evaluated.",
+          "type": "string"
+        },
+        "evaluated_specification_version": {
+          "description": "CRAFT Section 12.3. The version of that specification.",
+          "type": "string"
+        },
+        "record_type": {
+          "$ref": "#/$defs/ComplianceRecordType",
+          "description": "Declared so an automated consumer never infers the document type."
+        }
+      },
+      "required": [
+        "record_type",
+        "evaluated_specification_id",
+        "evaluated_specification_version",
+        "condition_results"
+      ],
+      "title": "ComplianceReport",
+      "type": "object"
+    },
+    "ConditionFinding": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 12.2. One condition's result at evaluation time, with its basis and layer attribution. A rejection finding without layer attribution cannot be used for root cause analysis, because the propagation target at Condition 6 depends on whether the failure originates at the CRAFT base or the domain application layer.",
+      "properties": {
+        "basis": {
+          "description": "The basis on which the result was reached.",
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "#/$defs/CraftCondition",
+          "description": "Which of the six conditions this finding concerns."
+        },
+        "layer": {
+          "$ref": "#/$defs/LayerAttribution",
+          "description": "CRAFT Section 12.2. Which layer's specification produced this finding."
+        },
+        "result": {
+          "description": "The result of evaluating this condition on this input.",
+          "type": "string"
+        },
+        "uncertainty_band": {
+          "description": "CRAFT Section 12.2 and Condition 3. The instrument uncertainty band, where Condition 3 specified one for the instrument producing this finding, so the outcome against the Condition 4 threshold is independently checkable.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "condition",
+        "result",
+        "basis",
+        "layer"
+      ],
+      "title": "ConditionFinding",
+      "type": "object"
+    },
+    "ConditionResult": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 12.3. One condition's compliance result, with its layer attribution.",
+      "properties": {
+        "basis": {
+          "description": "The basis on which compliance was determined.",
+          "type": "string"
+        },
+        "compliant": {
+          "description": "Whether the specification meets this condition's requirement.",
+          "type": "boolean"
+        },
+        "condition": {
+          "$ref": "#/$defs/CraftCondition",
+          "description": "Which of the six conditions this result concerns."
+        },
+        "layer": {
+          "$ref": "#/$defs/LayerAttribution",
+          "description": "CRAFT Section 12.3. Whether the finding concerns a CRAFT base, domain-application, or per-axis quality requirement."
+        }
+      },
+      "required": [
+        "condition",
+        "compliant",
+        "basis",
+        "layer"
+      ],
+      "title": "ConditionResult",
+      "type": "object"
+    },
+    "CraftCondition": {
+      "description": "CRAFT Section 5. The six conditions an evaluation chain must satisfy.",
+      "enum": [
+        "condition_1_decision_context",
+        "condition_2_technical_ontology",
+        "condition_3_measurement_instruments",
+        "condition_4_pre_specified_criteria",
+        "condition_5_decision_logic",
+        "condition_6_feedback_propagation"
+      ],
+      "title": "CraftCondition",
+      "type": "string"
+    },
+    "DeclaredInheritance": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 10. One declared inheritance with its five required elements. The activity profile converts the receipt from a static declaration into an operational specification. Background-unchecked is not a valid operating state; it must appear as a finding in any compliance review.",
+      "if": {
+        "properties": {
+          "background_state": {
+            "const": "background_satisfied"
+          }
+        },
+        "required": [
+          "background_state"
+        ]
+      },
+      "properties": {
+        "applicable_obligations": {
+          "description": "Element 2. Which of the standard's obligations apply to this domain application and what they require.",
+          "type": "string"
+        },
+        "background_state": {
+          "$ref": "#/$defs/BackgroundState",
+          "description": "Element 4. Background-satisfied with a dated reference, or background-unchecked declared as a current gap."
+        },
+        "background_validated_date": {
+          "description": "Element 4. Where background-satisfied, the date satisfaction was last validated.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "foregrounding_triggers": {
+          "description": "Element 3. The contexts in which this standard's obligations become active demands.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "standard_name": {
+          "description": "Element 1. The inherited standard's name.",
+          "type": "string"
+        },
+        "standard_version": {
+          "description": "Element 1. The specific version against which obligations are declared.",
+          "type": "string"
+        },
+        "version_coupling_procedure": {
+          "description": "Element 5. The procedure for detecting when this standard revises and the named response (entering version-bump-pending and triggering a Condition 6 event at the specification layer).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "standard_name",
+        "standard_version",
+        "applicable_obligations",
+        "foregrounding_triggers",
+        "background_state",
+        "version_coupling_procedure"
+      ],
+      "then": {
+        "properties": {
+          "background_validated_date": {}
+        },
+        "required": [
+          "background_validated_date"
+        ]
+      },
+      "title": "DeclaredInheritance",
+      "type": "object"
+    },
+    "EvaluationOutcome": {
+      "description": "CRAFT Section 12.2. The outcome against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is its own outcome class, not collapsible into accepted or rejected.",
+      "enum": [
+        "accepted",
+        "rejected",
+        "indeterminate"
+      ],
+      "title": "EvaluationOutcome",
+      "type": "string"
+    },
+    "EvaluationRecord": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "rejected"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "propagation_targets": {
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "propagation_targets"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "indeterminate"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "propagation_targets": {
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "propagation_targets"
+            ]
+          }
+        }
+      ],
+      "description": "CRAFT Section 12.2. What the chain did with one input at one point in time. One record per evaluation instance. Carries the outcome against the Condition 4 threshold with the Condition 3 instrument uncertainty, the per-condition findings with their layer attribution, and the propagation targets a non-accept outcome must feed back.",
+      "properties": {
+        "condition_findings": {
+          "description": "CRAFT Section 12.2. For each condition evaluated, the result, the basis, and the layer attribution; with the uncertainty band where Condition 3 specified one.",
+          "items": {
+            "$ref": "#/$defs/ConditionFinding"
+          },
+          "type": "array"
+        },
+        "evaluation_timestamp": {
+          "description": "CRAFT Section 12.2. Date and time of evaluation.",
+          "type": "string"
+        },
+        "gate_check_result": {
+          "description": "CRAFT Section 12.2 and 7.1. The adversarial gate result at evaluation time.",
+          "type": "string"
+        },
+        "input_provenance": {
+          "description": "CRAFT Section 12.2. A reference to the input in sufficient form to allow the finding to be checked independently.",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/EvaluationOutcome",
+          "description": "CRAFT Section 12.2. Accepted, rejected, or indeterminate, derived from the reading evaluated against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is not collapsible into accepted or rejected."
+        },
+        "propagation_targets": {
+          "description": "CRAFT Section 12.2. For rejection and indeterminate outcomes, the prior condition(s) the signal must propagate to under Condition 6. An indeterminate outcome propagates as its own signal class.",
+          "items": {
+            "$ref": "#/$defs/PropagationTarget"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "record_type": {
+          "$ref": "#/$defs/RecordType",
+          "description": "CRAFT Section 12.2. Declared so an automated consumer never infers the document type."
+        },
+        "specification_id": {
+          "description": "CRAFT Section 12.2. The specification document in force at evaluation time.",
+          "type": "string"
+        },
+        "specification_version": {
+          "description": "CRAFT Section 12.2. The exact version of that specification.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "specification_id",
+        "specification_version",
+        "evaluation_timestamp",
+        "input_provenance",
+        "outcome",
+        "condition_findings",
+        "gate_check_result"
+      ],
+      "title": "EvaluationRecord",
+      "type": "object"
+    },
+    "InheritanceReceipt": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 10. The formal declaration a CRAFT-conformant domain application produces: the chain-level receipt, the full Precision Toolkit scope (CSIS standards and Frame Language discipline, not CRAFT alone), and the activity profile for each declared inheritance. A receipt that declares CRAFT conformance without also declaring CSIS and Frame Language inheritance is structurally incomplete.",
+      "properties": {
+        "axis_positioning": {
+          "description": "CRAFT Section 10. Where a domain application implements per-axis quality assessment, which CRAFT condition each axis serves and where it sits in the domain configuration.",
+          "items": {
+            "$ref": "#/$defs/AxisPositioning"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "chain_level_receipt": {
+          "$ref": "#/$defs/ChainLevelReceipt",
+          "description": "CRAFT Section 10. The decision context, technical ontology, and domain configuration in CRAFT-compliant form, traceable to Conditions 1 through 6."
+        },
+        "domain_application": {
+          "description": "The domain application this receipt is for.",
+          "type": "string"
+        },
+        "precision_toolkit_scope": {
+          "description": "CRAFT Section 10. The declared inheritances (CSIS standards and Frame Language), each with its activity profile. Declaring CRAFT alone is structurally incomplete.",
+          "items": {
+            "$ref": "#/$defs/DeclaredInheritance"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "domain_application",
+        "chain_level_receipt",
+        "precision_toolkit_scope"
+      ],
+      "title": "InheritanceReceipt",
+      "type": "object"
+    },
+    "LayerAttribution": {
+      "description": "CRAFT Section 12. The architectural layer a finding concerns, preserved so the hierarchy is not flattened.",
+      "enum": [
+        "craft_base",
+        "domain_application",
+        "per_axis_quality"
+      ],
+      "title": "LayerAttribution",
+      "type": "string"
+    },
+    "PropagationTarget": {
+      "additionalProperties": false,
+      "description": "CRAFT Section 12.2 and Condition 6. One prior condition a non-accept signal propagates to, with the signal class it carries.",
+      "properties": {
+        "signal_class": {
+          "description": "The signal class propagated (for an indeterminate outcome, the non-resolution signal class distinct from a rejection).",
+          "type": "string"
+        },
+        "target_condition": {
+          "$ref": "#/$defs/CraftCondition",
+          "description": "The prior condition the signal propagates to."
+        }
+      },
+      "required": [
+        "target_condition",
+        "signal_class"
+      ],
+      "title": "PropagationTarget",
+      "type": "object"
+    },
+    "RecordType": {
+      "description": "CRAFT Section 12.2. The evaluation record's declared type.",
+      "enum": [
+        "evaluation_record"
+      ],
+      "title": "RecordType",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/craft/craft.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "rejected"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "propagation_targets": {
+            "items": {},
+            "type": "array"
+          }
+        },
+        "required": [
+          "propagation_targets"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "indeterminate"
+          }
+        },
+        "required": [
+          "outcome"
+        ]
+      },
+      "then": {
+        "properties": {
+          "propagation_targets": {
+            "items": {},
+            "type": "array"
+          }
+        },
+        "required": [
+          "propagation_targets"
+        ]
+      }
+    }
+  ],
+  "description": "CRAFT Section 12.2. What the chain did with one input at one point in time. One record per evaluation instance. Carries the outcome against the Condition 4 threshold with the Condition 3 instrument uncertainty, the per-condition findings with their layer attribution, and the propagation targets a non-accept outcome must feed back.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "condition_findings": {
+      "description": "CRAFT Section 12.2. For each condition evaluated, the result, the basis, and the layer attribution; with the uncertainty band where Condition 3 specified one.",
+      "items": {
+        "$ref": "#/$defs/ConditionFinding"
+      },
+      "type": "array"
+    },
+    "evaluation_timestamp": {
+      "description": "CRAFT Section 12.2. Date and time of evaluation.",
+      "type": "string"
+    },
+    "gate_check_result": {
+      "description": "CRAFT Section 12.2 and 7.1. The adversarial gate result at evaluation time.",
+      "type": "string"
+    },
+    "input_provenance": {
+      "description": "CRAFT Section 12.2. A reference to the input in sufficient form to allow the finding to be checked independently.",
+      "type": "string"
+    },
+    "outcome": {
+      "$ref": "#/$defs/EvaluationOutcome",
+      "description": "CRAFT Section 12.2. Accepted, rejected, or indeterminate, derived from the reading evaluated against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is not collapsible into accepted or rejected."
+    },
+    "propagation_targets": {
+      "description": "CRAFT Section 12.2. For rejection and indeterminate outcomes, the prior condition(s) the signal must propagate to under Condition 6. An indeterminate outcome propagates as its own signal class.",
+      "items": {
+        "$ref": "#/$defs/PropagationTarget"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "record_type": {
+      "$ref": "#/$defs/RecordType",
+      "description": "CRAFT Section 12.2. Declared so an automated consumer never infers the document type."
+    },
+    "specification_id": {
+      "description": "CRAFT Section 12.2. The specification document in force at evaluation time.",
+      "type": "string"
+    },
+    "specification_version": {
+      "description": "CRAFT Section 12.2. The exact version of that specification.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_type",
+    "specification_id",
+    "specification_version",
+    "evaluation_timestamp",
+    "input_provenance",
+    "outcome",
+    "condition_findings",
+    "gate_check_result"
+  ],
+  "title": "craft",
+  "type": "object",
+  "version": null
+}

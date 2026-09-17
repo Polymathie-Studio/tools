@@ -1,0 +1,68 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "craft-evaluation",
+          "version": "0.4.6",
+          "rules": [
+            {
+              "id": "condition_1_decision_context",
+              "shortDescription": {
+                "text": "CRAFT.5.1 decision context specification"
+              }
+            },
+            {
+              "id": "condition_2_technical_ontology",
+              "shortDescription": {
+                "text": "CRAFT.5.2 technical ontology adequate to the decision context"
+              }
+            },
+            {
+              "id": "condition_3_measurement_instruments",
+              "shortDescription": {
+                "text": "CRAFT.5.3 valid measurement instruments within the ontology"
+              }
+            },
+            {
+              "id": "condition_4_pre_specified_criteria",
+              "shortDescription": {
+                "text": "CRAFT.5.4 pre-specified evaluation criteria"
+              }
+            },
+            {
+              "id": "condition_5_decision_logic",
+              "shortDescription": {
+                "text": "CRAFT.5.5 explicit decision logic"
+              }
+            },
+            {
+              "id": "condition_6_feedback_propagation",
+              "shortDescription": {
+                "text": "CRAFT.5.6 feedback mechanism with propagation"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "condition_3_measurement_instruments",
+          "level": "error",
+          "message": {
+            "text": "condition_3_measurement_instruments [domain_application]: Reading 41% clears the naive threshold but not once the instrument uncertainty is carried."
+          }
+        },
+        {
+          "ruleId": "condition_4_pre_specified_criteria",
+          "level": "error",
+          "message": {
+            "text": "condition_4_pre_specified_criteria [craft_base]: Reading plus uncertainty (47%) still fails the pre-specified 50% threshold."
+          }
+        }
+      ]
+    }
+  ]
+}

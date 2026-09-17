@@ -1,0 +1,106 @@
+# metamodel_version: 1.11.0
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum RungRole
+  {
+    originating_observation
+    primary_record
+    aggregator
+    secondary_reporting
+    review
+    restatement
+  }
+
+enum UnfalsifiabilityReason
+  {
+    definitional
+    domain_limited
+    impressionistic
+  }
+
+type ConformanceDeclaration
+  {
+    gradedEvidenceExposed: ConformanceAnswer!
+    refutationStated: ConformanceAnswer!
+    contestRepresented: ConformanceAnswer!
+    chainsLabeled: ConformanceAnswer!
+    worthLeftToConsumer: ConformanceAnswer!
+  }
+
+type ContestedRegion
+  {
+    disputed: String!
+    supportEachSide: [String]
+    turnsOn: String
+    resolutionBasis: String
+    retainedLosingPosition: String
+    unexamined: Boolean
+  }
+
+type DerivationChain
+  {
+    rungs: [Rung]!
+    stoppedAt: String
+    stopReason: String
+    convergesWith: [String]
+  }
+
+type DimensionGrade
+  {
+    dimension: String!
+    weakestAssessment: String!
+    flags: [String]
+  }
+
+type EvidenceGradeOutput
+  {
+    claim: String!
+    gradedEvidence: GradeProfile!
+    refutation: RefutationExposure!
+    contestedRegions: [ContestedRegion]
+    derivationChains: [DerivationChain]!
+    worthJudgment: WorthJudgment!
+    conformance: ConformanceDeclaration!
+  }
+
+type GradeProfile
+  {
+    perDimension: [DimensionGrade]!
+    openPostureUngraded: Boolean
+    jointSupportFlag: Boolean
+  }
+
+type RefutationCondition
+  {
+    worldObservable: String!
+  }
+
+type RefutationExposure
+  {
+    conditions: [RefutationCondition]
+    unfalsifiability: Unfalsifiability
+  }
+
+type Rung
+  {
+    identifier: String!
+    role: RungRole!
+    restates: String
+  }
+
+type Unfalsifiability
+  {
+    reason: UnfalsifiabilityReason!
+  }
+
+type WorthJudgment
+  {
+    costToRaiseConfidence: String
+    consumerFacing: Boolean
+  }
+

@@ -1,0 +1,187 @@
+# ORE register distillation
+# One row per normative requirement of ore-specification (v0.1.2). The corpus's
+# "register distillation": a typed, enumerable table extracted from prose, one row
+# per entry, each carrying its assertion, a kind code, and a portability flag.
+# `checkable` records whether the requirement is enforceable by a data schema
+# (presence/shape) or is a reader's interpretive judgment (the machine-conformance-
+# is-not-standard-conformance line, made per-requirement).
+standard: ORE
+standard_version: 0.1.2
+source: ore-specification-0_1_2.md
+entries:
+  - id: O2.1
+    section: "2"
+    obligation: grade-as-uncertainty
+    kind: MUST
+    portability: universal
+    checkable: judgment         # that grades actually drive use/exposure/monitoring is assessed, not shape
+    assertion: "Use grades to determine eligible downstream use (Section 6), what every output exposes (Section 5), and the monitoring obligation each source carries (Sections 4 and 7)."
+  - id: O2.2
+    section: "2"
+    obligation: grade-as-uncertainty
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether a grade is used as a worth-verdict is interpretive
+    assertion: "Do not present a grade as a judgment of the source's worth, and do not use a low grade as grounds for rejection where the declared posture admits the source."
+  - id: O2.3
+    section: "2"
+    obligation: grade-as-uncertainty
+    kind: MUST
+    portability: universal
+    checkable: shape            # ungraded and graded are distinct representable states
+    assertion: "Distinguish ungraded from low-grade as different states with different obligations."
+  - id: O2.4
+    section: "2"
+    obligation: grade-as-uncertainty
+    kind: MUST_NOT
+    portability: universal
+    checkable: shape            # the closed schema forbids a combined-confidence field
+    assertion: "Do not merge the per-dimension grades into a single combined confidence figure in place of the profile."
+  - id: O3.0
+    section: "3"
+    obligation: grading-dimensions
+    kind: MUST
+    portability: universal
+    checkable: shape            # assessment + basis required per dimension; uncomputable is a named flag
+    assertion: "For each dimension record the assessment, the basis, and any sub-assessment that could not be computed as a named flag, never a silent default or an assumed middle value."
+  - id: O3.1
+    section: "3"
+    obligation: grading-dimensions
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether one dimension is standing in for another is interpretive
+    assertion: "Do not let strength on provenance integrity stand in for strength on any other dimension."
+  - id: O3.2
+    section: "3"
+    obligation: grading-dimensions
+    kind: MUST
+    portability: universal
+    checkable: judgment         # epistemic soundness is a structural property assessed by a reader
+    assertion: "Assess whether the source's output is structured so that independent truth-evaluation is possible (claims refutable, accuracy and relevance separated, observed distinguished from inferred)."
+  - id: O3.3a
+    section: "3"
+    obligation: grading-dimensions
+    kind: MUST
+    portability: universal
+    checkable: shape            # confirmation modes are a non-empty list recording each mode present
+    assertion: "Record each confirmation mode present rather than forcing one cell; an unconfirmed source is recorded as unconfirmed."
+  - id: O3.3b
+    section: "3"
+    obligation: grading-dimensions
+    kind: MUST_NOT
+    portability: universal
+    checkable: mixed            # the independence flag is shape; that count is not substituted for independence is judgment
+    assertion: "Do not operationalize confirmation architecture by party count alone; where effective independence cannot be assessed, record a named flag."
+  - id: O3.4
+    section: "3"
+    obligation: grading-dimensions
+    kind: MAY
+    portability: conditional
+    condition: "the extension dimensions (track record, independence) are or are not graded"
+    checkable: shape            # graded requires a basis; not graded requires a declared absence (the ExtensionDimension rule)
+    assertion: "Where an extension dimension is graded, declare its basis; where it is not, declare its absence."
+  - id: O4.1
+    section: "4"
+    obligation: opacity
+    kind: MUST
+    portability: conditional
+    condition: "a source will not disclose its internal architecture"
+    checkable: judgment         # admit/decline by declared posture, not by an unrecorded reason, is interpretive
+    assertion: "Admit or decline opaque sources according to the declared posture, never according to an unrecorded judgment about why the source is opaque."
+  - id: O4.2
+    section: "4"
+    obligation: opacity
+    kind: MUST
+    portability: conditional
+    condition: "an opaque source is admitted"
+    checkable: mixed            # the monitoring field is shape; the grade-at-visible-properties is judgment
+    assertion: "Enter an admitted opaque source at the grade its visible properties warrant, with a monitoring obligation attached."
+  - id: O4.3
+    section: "4"
+    obligation: opacity
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether disclosure was treated as resolving opacity is interpretive
+    assertion: "Do not treat a disclosure requirement as resolving opacity; monitoring behavior over time is the stronger response."
+  - id: O5.1
+    section: "5"
+    obligation: grade-exposure
+    kind: MUST
+    portability: conditional
+    condition: "an output rests on ingested material"
+    checkable: shape            # a per-dimension grade profile (weakest + flags) must be present
+    assertion: "Expose the grade profile of the output's support: for each dimension the weakest assessment present and every flag any source in the support carries."
+  - id: O5.2
+    section: "5"
+    obligation: grade-exposure
+    kind: MUST
+    portability: conditional
+    condition: "separately admitted sources cannot be shown distinct in effective origin"
+    checkable: mixed            # the joint-support flag is shape; whether it applies is judgment
+    assertion: "Carry a joint-support flag; separately admitted is not independently originated."
+  - id: O5.3
+    section: "5"
+    obligation: grade-exposure
+    kind: MUST_NOT
+    portability: conditional
+    condition: "an output rests partly on ungraded material admitted under an Open posture"
+    checkable: mixed            # the open-posture flag is shape; not laundering is judgment
+    assertion: "Do not silently launder ungraded or flagged material into a downstream judgment; declare Open-posture material on the face."
+  - id: O6.1
+    section: "6"
+    obligation: intake-postures
+    kind: MUST
+    portability: universal
+    checkable: shape            # a posture is declared (enum present); enforcing the downstream condition is mixed
+    assertion: "Declare the intake posture, optionally per source class, and enforce the declared posture's downstream condition."
+  - id: O6.2
+    section: "6"
+    obligation: intake-postures
+    kind: MUST
+    portability: universal
+    checkable: shape            # the posture declaration states its opaque-source treatment
+    assertion: "State the posture's treatment of opaque sources in advance: which classes are admitted at the grades their visible properties warrant, and which, if any, are declined."
+  - id: O6.3
+    section: "6"
+    obligation: intake-postures
+    kind: MUST
+    portability: universal
+    checkable: shape            # posture_at_admission recorded with the record
+    assertion: "Record the posture in force for any admitted record with the record, so no record's grading history is ambiguous later."
+  - id: O6.4
+    section: "6"
+    obligation: intake-postures
+    kind: MUST
+    portability: conditional
+    condition: "a source's standing is reduced or withdrawn"
+    checkable: mixed            # the standing-loss record is shape; the documented, non-retroactive process is judgment
+    assertion: "Reduce or withdraw standing only through a documented, evidence-based process, recorded and retained with the source; never silently discard an adverse finding; do not apply it retroactively to outputs already produced."
+  - id: O7.1
+    section: "7"
+    obligation: genesis-limitations
+    kind: MUST
+    portability: conditional
+    condition: "a dimension is uncomputable at the source's or system's beginning"
+    checkable: shape            # recorded as a named limitation, not an assessment value (the ExtensionDimension absence path)
+    assertion: "Record an uncomputable dimension as a named limitation on the affected source, never defaulting it to a middle grade."
+  - id: O7.2
+    section: "7"
+    obligation: genesis-limitations
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether a source was penalized for system youth is interpretive
+    assertion: "Do not penalize a source for limitations that are properties of the system's own youth."
+  - id: O7.3
+    section: "7"
+    obligation: genesis-limitations
+    kind: SHOULD
+    portability: universal
+    checkable: shape            # a resolves_with_history marker is representable
+    assertion: "State which limitations are expected to resolve with accumulated history and which are permanent for the source class."
+  - id: O8
+    section: "8"
+    obligation: conformance
+    kind: MUST
+    portability: universal
+    checkable: judgment         # the four conformance conditions are answered by a reader in audit
+    assertion: "Conform by declaring the intake posture(s) and enforcing the downstream conditions, grading every admitted source on the Section 3 dimensions, exposing the grade profile of every output's support, and never presenting or using a grade as a worth-verdict."

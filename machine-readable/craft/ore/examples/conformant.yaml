@@ -1,0 +1,29 @@
+# An ORE-conformant graded source. Validates against dist/ore.schema.json.
+source_identifier: "on-chain disbursement registry (contract 0xabc, 2025)"
+grade:
+  provenance_integrity:
+    assessment: "origin cryptographically proven, tamper-evident"
+    basis: "signed on-chain events; hash chain verified against the contract address"
+  epistemic_soundness:
+    assessment: "claims stated in refutable terms; recorded transfers separated from derived totals"
+    basis: "event schema distinguishes raw transfer events from aggregated figures"
+  confirmation_architecture:
+    modes:
+      - trustless_single_party
+    basis: "one contract's signed events; origin guaranteed, underlying disbursement decision confirmed by no one"
+    independence_flag: "single attester; effective independence of the reporting behind the events cannot be assessed from the chain alone"
+  track_record:
+    graded:
+      assessment: "18 months of outputs, none overturned on public challenge"
+      basis: "the program's public challenge log"
+    resolves_with_history: false
+  independence:
+    not_applicable_reason: "the registry operator has a stake in how disbursements are recorded; effective independence is unassessable before more interaction history exists"
+    resolves_with_history: true
+posture: graded
+monitoring: "watch for divergence between on-chain disbursement totals and the operator's published report"
+conformance:
+  posture_declared_and_enforced: satisfied
+  sources_graded_on_dimensions: satisfied
+  outputs_expose_grade_profile: satisfied
+  no_grade_as_worth_verdict: satisfied

@@ -1,0 +1,29 @@
+# Non-conformant: the operational_definition requirement is absent. WALKRI Section 3.0/8.4:
+# an instrument must carry all five criterion requirements; a field missing one is a label,
+# not a measurement instrument. The closed schema rejects it as a missing required slot.
+instrument_identifier: community_engagement
+modality: form_field
+criterion_intent:
+  label: "Community Engagement"
+  measurement_claim: "The number of distinct community members who took part in a co-design session."
+# operational_definition intentionally omitted -- the failure under test.
+response_form:
+  response_type: numeric
+  justification: "A count captures the reach the criterion intent measures."
+evidence_form:
+  - evidence_type: activity
+    required_content: "Session date, location, participant roster with a stated counting rule."
+    access_path: "A public link to the session record resolving without login."
+conformance_threshold:
+  references_external_standard: false
+  not_applicable_reason: "The instrument references no external standard."
+dependency_declaration:
+  independent: true
+conformance:
+  criterion_intent_status: pass
+  operational_definition_status: fail
+  response_form_status: pass
+  evidence_form_status: pass
+  conformance_threshold_status: pass
+chain_attribution:
+  standalone: true

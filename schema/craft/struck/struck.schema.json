@@ -1,0 +1,447 @@
+{
+  "$defs": {
+    "ConformanceAnswer": {
+      "description": "S7. Per-obligation answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "S7. The five conformance questions answered on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the refusal to combine grades (S2.4) and the SLSA Verification-Summary-Attestation shape.",
+      "properties": {
+        "chains_labeled": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "contest_represented": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "graded_evidence_exposed": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "refutation_stated": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "worth_left_to_consumer": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "graded_evidence_exposed",
+        "refutation_stated",
+        "contest_represented",
+        "chains_labeled",
+        "worth_left_to_consumer"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "ContestedRegion": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "disputed": {
+          "type": "string"
+        },
+        "resolution_basis": {
+          "description": "S4.4. The basis of any resolution the producer made.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retained_losing_position": {
+          "description": "S4.4. The losing position retained in the record.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "support_each_side": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "turns_on": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unexamined": {
+          "description": "S4.5. True where absence of contest is an unexamined state, not agreement.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "disputed"
+      ],
+      "title": "ContestedRegion",
+      "type": "object"
+    },
+    "DerivationChain": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "converges_with": {
+          "description": "S5.5. Other chains this one converges with on the same origin.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "rungs": {
+          "items": {
+            "$ref": "#/$defs/Rung"
+          },
+          "type": "array"
+        },
+        "stop_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stopped_at": {
+          "description": "S5.3. Where the walk to origin stopped, if it could not be completed.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "rungs"
+      ],
+      "title": "DerivationChain",
+      "type": "object"
+    },
+    "DimensionGrade": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "weakest_assessment": {
+          "description": "The weakest assessment present anywhere in the support for this dimension.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "weakest_assessment"
+      ],
+      "title": "DimensionGrade",
+      "type": "object"
+    },
+    "EvidenceGradeOutput": {
+      "additionalProperties": false,
+      "description": "An output offered as evidence-grade, carrying the five STRUCK obligations on its face.",
+      "properties": {
+        "claim": {
+          "description": "The conclusion the output asserts.",
+          "type": "string"
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "STRUCK Section 7. The five conformance questions answered on the face."
+        },
+        "contested_regions": {
+          "description": "STRUCK Section 4. Regions of disagreement in the support, represented rather than averaged.",
+          "items": {
+            "$ref": "#/$defs/ContestedRegion"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "derivation_chains": {
+          "description": "STRUCK Section 5. Support traced to ultimate origin, rungs labeled by role.",
+          "items": {
+            "$ref": "#/$defs/DerivationChain"
+          },
+          "type": "array"
+        },
+        "graded_evidence": {
+          "$ref": "#/$defs/GradeProfile",
+          "description": "STRUCK Section 2. The grade profile of the material support."
+        },
+        "refutation": {
+          "$ref": "#/$defs/RefutationExposure",
+          "description": "STRUCK Section 3. What would overturn the output, or a declared unfalsifiability."
+        },
+        "worth_judgment": {
+          "$ref": "#/$defs/WorthJudgment",
+          "description": "STRUCK Section 6. The sufficiency judgment left to the consumer."
+        }
+      },
+      "required": [
+        "claim",
+        "graded_evidence",
+        "refutation",
+        "derivation_chains",
+        "worth_judgment",
+        "conformance"
+      ],
+      "title": "EvidenceGradeOutput",
+      "type": "object"
+    },
+    "GradeProfile": {
+      "additionalProperties": false,
+      "description": "Per-dimension grade of the support; no combined figure (S2.4).",
+      "properties": {
+        "joint_support_flag": {
+          "description": "S2.3. Separately admitted sources not distinct in effective origin.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "open_posture_ungraded": {
+          "description": "S2.2. True if the output rests on ungraded material admitted under an Open posture, declared on the face.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "per_dimension": {
+          "items": {
+            "$ref": "#/$defs/DimensionGrade"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "per_dimension"
+      ],
+      "title": "GradeProfile",
+      "type": "object"
+    },
+    "RefutationCondition": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "world_observable": {
+          "description": "S3.1/S3.2. The refuting thing, stated in terms of what could be found in the world.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "world_observable"
+      ],
+      "title": "RefutationCondition",
+      "type": "object"
+    },
+    "RefutationExposure": {
+      "additionalProperties": false,
+      "description": "S3. Either world-terms refutation conditions, or a declared unfalsifiability that names a reason. The \"if unfalsifiable then a reason is required\" obligation is modeled as native nested-required (reason is required inside the unfalsifiability object), and the \"conditions or a declaration, never silence\" obligation as a presence-based rule. Both are enforced by a standard JSON Schema validator.",
+      "if": {
+        "not": {
+          "required": [
+            "conditions"
+          ]
+        },
+        "properties": {
+          "conditions": {
+            "items": {},
+            "type": "array"
+          }
+        }
+      },
+      "properties": {
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/RefutationCondition"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "unfalsifiability": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Unfalsifiability"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "unfalsifiability": {}
+        },
+        "required": [
+          "unfalsifiability"
+        ]
+      },
+      "title": "RefutationExposure",
+      "type": "object"
+    },
+    "Rung": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "restates": {
+          "description": "S5.1. The named source this rung restates, if role is restatement.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "$ref": "#/$defs/RungRole"
+        }
+      },
+      "required": [
+        "identifier",
+        "role"
+      ],
+      "title": "Rung",
+      "type": "object"
+    },
+    "RungRole": {
+      "description": "S5.2. The role a derivation rung actually holds.",
+      "enum": [
+        "originating_observation",
+        "primary_record",
+        "aggregator",
+        "secondary_reporting",
+        "review",
+        "restatement"
+      ],
+      "title": "RungRole",
+      "type": "string"
+    },
+    "Unfalsifiability": {
+      "additionalProperties": false,
+      "description": "S3.3. A declared unfalsifiability names a reason (native nested-required).",
+      "properties": {
+        "reason": {
+          "$ref": "#/$defs/UnfalsifiabilityReason"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "Unfalsifiability",
+      "type": "object"
+    },
+    "UnfalsifiabilityReason": {
+      "description": "S3.3.",
+      "enum": [
+        "definitional",
+        "domain_limited",
+        "impressionistic"
+      ],
+      "title": "UnfalsifiabilityReason",
+      "type": "string"
+    },
+    "WorthJudgment": {
+      "additionalProperties": false,
+      "description": "S6. The sufficiency judgment left to the consumer; no adequacy assertion.",
+      "properties": {
+        "consumer_facing": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "cost_to_raise_confidence": {
+          "description": "S6.2. Optional. What it would take to raise confidence and what it would cost.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "WorthJudgment",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/struck/struck.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "An output offered as evidence-grade, carrying the five STRUCK obligations on its face.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "claim": {
+      "description": "The conclusion the output asserts.",
+      "type": "string"
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "STRUCK Section 7. The five conformance questions answered on the face."
+    },
+    "contested_regions": {
+      "description": "STRUCK Section 4. Regions of disagreement in the support, represented rather than averaged.",
+      "items": {
+        "$ref": "#/$defs/ContestedRegion"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "derivation_chains": {
+      "description": "STRUCK Section 5. Support traced to ultimate origin, rungs labeled by role.",
+      "items": {
+        "$ref": "#/$defs/DerivationChain"
+      },
+      "type": "array"
+    },
+    "graded_evidence": {
+      "$ref": "#/$defs/GradeProfile",
+      "description": "STRUCK Section 2. The grade profile of the material support."
+    },
+    "refutation": {
+      "$ref": "#/$defs/RefutationExposure",
+      "description": "STRUCK Section 3. What would overturn the output, or a declared unfalsifiability."
+    },
+    "worth_judgment": {
+      "$ref": "#/$defs/WorthJudgment",
+      "description": "STRUCK Section 6. The sufficiency judgment left to the consumer."
+    }
+  },
+  "required": [
+    "claim",
+    "graded_evidence",
+    "refutation",
+    "derivation_chains",
+    "worth_judgment",
+    "conformance"
+  ],
+  "title": "struck",
+  "type": "object",
+  "version": null
+}

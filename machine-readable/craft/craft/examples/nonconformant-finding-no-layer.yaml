@@ -1,0 +1,16 @@
+# Non-conformant: a condition finding with no layer attribution. CRAFT Section 12.2: a
+# rejection finding without layer attribution cannot be used for root cause analysis, because
+# the Condition 6 propagation target depends on whether the failure originates at the CRAFT
+# base or the domain application layer. The schema rejects it as a missing required field.
+record_type: evaluation_record
+specification_id: cross-grants-round-7-spec
+specification_version: "0.5.7"
+evaluation_timestamp: "2026-08-20T14:10:00Z"
+input_provenance: "Application g7h8i9, evidence bundle hash sha256:3c4d..."
+outcome: accepted
+condition_findings:
+  - condition: condition_3_measurement_instruments
+    result: "Reading minus uncertainty still clears the threshold."
+    basis: "The submitted measurement, uncertainty carried."
+    # layer intentionally omitted -- the failure under test.
+gate_check_result: "Adversarial gate passed."

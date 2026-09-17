@@ -1,0 +1,24 @@
+# Non-conformant: the operational_definition is absent. CROSS Part V: without an operational
+# definition, the claimed indicator is a name, not a measurement instrument. The schema rejects
+# it as a missing required field.
+indicator_name: community_growth
+obligation_mode: change
+rationale: "Chosen to reflect the program's participation aim."
+measurement_form:
+  plain_language_form: "A count of community members."
+  source_type: off_chain_verifiable
+  form: quantitative
+  aggregation_type: non_cumulative
+  contract_centric: false
+# operational_definition intentionally omitted -- the failure under test.
+construction_methodology: "Count the members listed in the public roster at period end."
+data_source:
+  source: "The public member roster."
+  collection_method: "Read the published roster."
+  independently_accessible: true
+data_cost_estimation: "No cost beyond reading a public page."
+baseline:
+  documented_state: "120 members before the intervention."
+  data_source: "The roster at the start date."
+target:
+  documented_state: "300 members at grant end."

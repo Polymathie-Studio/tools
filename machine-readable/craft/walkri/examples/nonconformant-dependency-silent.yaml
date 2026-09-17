@@ -1,0 +1,40 @@
+# Non-conformant: the instrument declares itself non-independent but carries no dependency
+# edges. WALKRI Section 3.9: a form's dependency graph is derived and attested, and
+# independence is the Declared-Absent value; a non-independent instrument that names no edges
+# leaves the graph silent, the soundness hole the derive-and-attest requirement closes. The
+# Section 3.9 rule (independent false -> edges required) rejects it.
+instrument_identifier: disbursement_conditional_field
+modality: form_field
+criterion_intent:
+  label: "Disbursement Authority"
+  measurement_claim: "Which party holds disbursement authority, conditional on the revenue-architecture instrument."
+operational_definition:
+  categories:
+    - category: individual
+      definition: "A single named key holder."
+    - category: collective
+      definition: "A named multi-party set."
+    - category: delegated
+      definition: "Authority delegated to a named agent."
+response_form:
+  response_type: single_select
+  justification: "The three authority states are mutually exclusive and cover the field."
+evidence_form:
+  - evidence_type: standing
+    required_content: "Named key holders and the governance record."
+    access_path: "A public governance record resolving without login."
+    completion_sufficiency: supporting_context_only
+conformance_threshold:
+  references_external_standard: false
+  not_applicable_reason: "The instrument references no external standard."
+dependency_declaration:
+  independent: false
+  # edges intentionally omitted -- the failure under test.
+conformance:
+  criterion_intent_status: pass
+  operational_definition_status: pass
+  response_form_status: pass
+  evidence_form_status: pass
+  conformance_threshold_status: pass
+chain_attribution:
+  standalone: true

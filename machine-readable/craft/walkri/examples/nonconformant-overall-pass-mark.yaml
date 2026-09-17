@@ -1,0 +1,37 @@
+# Non-conformant: a smuggled top-level "overall_status" bare pass mark. WALKRI Part VIII and
+# Section 8.4: conformance is per-requirement, and the minimum threshold is a computed rule
+# over the five statuses, never a stored overall mark ("the record carries each instrument's
+# conformance with the resolution its criterion elements specify rather than a bare pass
+# mark"). The closed top-level schema (additionalProperties: false) rejects the extra field
+# by absence, the same way ORE forbids a combined-confidence number.
+instrument_identifier: field_with_smuggled_overall_mark
+modality: form_field
+overall_status: pass          # <- the forbidden bare pass mark, under test
+criterion_intent:
+  label: "Nitrate Removal Efficiency"
+  measurement_claim: "The measured percentage of nitrate removed under stated testing conditions."
+operational_definition:
+  categories:
+    - category: measured_value
+      definition: "A percentage from a named laboratory method with stated testing conditions."
+response_form:
+  response_type: numeric
+  justification: "A percentage captures the efficiency the criterion measures."
+evidence_form:
+  - evidence_type: outcome
+    required_content: "The measurement methodology, baseline and post-intervention values, the measuring party, and the testing conditions."
+    access_path: "A public link to the laboratory record resolving without login."
+    completion_sufficiency: sufficient_to_verify_completion
+conformance_threshold:
+  references_external_standard: false
+  not_applicable_reason: "The instrument references no external standard."
+dependency_declaration:
+  independent: true
+conformance:
+  criterion_intent_status: pass
+  operational_definition_status: pass
+  response_form_status: pass
+  evidence_form_status: pass
+  conformance_threshold_status: pass
+chain_attribution:
+  standalone: true

@@ -1,0 +1,28 @@
+# NON-conformant: carries a single combined grade figure (ORE Section 2.4). The closed
+# schema forbids the extra field, so this must fail validation.
+source_identifier: "aggregated reputation feed"
+combined_grade: 0.87
+grade:
+  provenance_integrity:
+    assessment: "feed origin verified"
+    basis: "signed API responses"
+  epistemic_soundness:
+    assessment: "claims refutable"
+    basis: "scored against a published rubric"
+  confirmation_architecture:
+    modes:
+      - trust_based_multi_party
+    basis: "multi-reviewer process behind the feed"
+  track_record:
+    not_applicable_reason: "feed launched this quarter"
+    resolves_with_history: true
+  independence:
+    graded:
+      assessment: "reviewers drawn from outside the rated projects"
+      basis: "disclosed reviewer roster"
+posture: graded
+conformance:
+  posture_declared_and_enforced: satisfied
+  sources_graded_on_dimensions: satisfied
+  outputs_expose_grade_profile: satisfied
+  no_grade_as_worth_verdict: satisfied

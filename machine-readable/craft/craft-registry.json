@@ -1,0 +1,91 @@
+{
+  "$comment": "Hand-maintained CRAFT family metadata registry. The CRAFT family spans sibling repos under the CrossWalkri organization, and its members are heterogeneous in how they carry version and metadata (some YAML frontmatter, some a human header line; some versioned filenames, some stable filename stems). This registry records, per member, where its version lives (versionSource) and whether its filename stem is stable (stableStem, so the generator does not expect the filename to track the version), plus the id, role, license, and a short description the documents do not all carry uniformly. The generator reads the authoritative version from each member's source. Descriptions are provisional taglines; refine against source in an update pass.",
+  "manifestVersion": "0.1.0",
+  "family": {
+    "name": "CRAFT",
+    "publisher": "CrossWalkri",
+    "author": "Regis Lloyd Chapman",
+    "license": "mixed: CRAFT is CC BY 4.0 (inheriting the CSIS publication license); ORE, STRUCK, CROSS, and WALKRI are CC0 1.0",
+    "site": "https://crosswalkri.com",
+    "homepage": "https://github.com/CrossWalkri",
+    "canonicalSourceOrg": "https://github.com/CrossWalkri",
+    "description": "The CRAFT family: an evaluation-integrity standards family. CRAFT (Chains Reveal Attested Falsifiable Truth) is the evaluation-chain meta-standard; ORE and STRUCK are its input-stage and exit-boundary companions; WALKRI is the instrumentation standard and CROSS the reporting-outcome standard (the CROSS+WALKRI pair); GRAIN is the primitives layer."
+  },
+  "members": [
+    {
+      "id": "craft",
+      "name": "CRAFT Specification",
+      "kind": "standard",
+      "role": "meta",
+      "repo": "craft-meta-standard",
+      "file": "craft-specification-0_4_4.md",
+      "versionSource": "frontmatter",
+      "stableStem": true,
+      "license": "CC-BY-4.0",
+      "status": "published",
+      "description": "The evaluation-chain meta-standard, Chains Reveal Attested Falsifiable Truth: what a conformant evaluation chain must attest."
+    },
+    {
+      "id": "ore",
+      "name": "ORE: Origin, Reliability, Exposure",
+      "kind": "standard",
+      "role": "input",
+      "repo": "ore",
+      "file": "ore-specification-0_1_2.md",
+      "versionSource": "header",
+      "stableStem": false,
+      "license": "CC0-1.0",
+      "status": "published",
+      "description": "The input-stage companion to CRAFT: what an evaluation chain may assume about what enters it."
+    },
+    {
+      "id": "struck",
+      "name": "STRUCK",
+      "kind": "standard",
+      "role": "exit",
+      "repo": "STRUCK",
+      "file": "struck-0_1_0.md",
+      "versionSource": "header",
+      "stableStem": true,
+      "license": "CC0-1.0",
+      "status": "published",
+      "description": "The exit-boundary standard: what an output owes before anyone acts on it (Support graded, Traced to origin, Refutation stated, Unjudged worth, Contest kept, Known on its face)."
+    },
+    {
+      "id": "cross",
+      "name": "CROSS: Common Reporting Outcome Standards Schema",
+      "kind": "standard",
+      "role": "reporting",
+      "repo": "CROSS",
+      "file": "CROSS-common-reporting-outcome-standards-schema-0_2_0.md",
+      "versionSource": "frontmatter",
+      "stableStem": true,
+      "license": "CC0-1.0",
+      "status": "published",
+      "cluster": "CROSS is a document cluster (schema, guidance, rubric, templates, worked-examples, canonical-round-configuration-schema, grant-configurator, dashboards, runbooks). The canonical standard document among these is undetermined; this entry provisionally points at the common-reporting-outcome-standards schema. Durgadas's call.",
+      "description": "Common reporting and outcome standards schema for grant rounds."
+    },
+    {
+      "id": "walkri",
+      "name": "WALKRI: Working Architecture for Legible, Knowable, Reliable Instrumentation",
+      "kind": "standard",
+      "role": "instrumentation",
+      "repo": "walkri",
+      "file": "WALKRI-standard-0_1_0.md",
+      "versionSource": "frontmatter",
+      "stableStem": true,
+      "license": "CC0-1.0",
+      "status": "published",
+      "cluster": "WALKRI is a document cluster (WALKRI-standard plus nine companions: guidance, rubric, runbooks, scope, templates, interface-specification, canonical-form-field-profile, CROSS-boundary). This entry points at WALKRI-standard as the canonical document. Durgadas's call.",
+      "description": "Working architecture for legible, knowable, reliable instrumentation; the instrument is the unit of specification."
+    },
+    {
+      "id": "grain",
+      "name": "GRAIN",
+      "kind": "standard",
+      "role": "primitives",
+      "status": "planned",
+      "description": "The abstraction and primitives layer for the family. In preparation; not cloned locally, so no version is derived."
+    }
+  ]
+}

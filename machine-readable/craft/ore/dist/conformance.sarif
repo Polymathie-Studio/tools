@@ -1,0 +1,70 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ore-conformance",
+          "version": "0.1.2",
+          "rules": [
+            {
+              "id": "posture_declared_and_enforced",
+              "shortDescription": {
+                "text": "ORE.8.1 intake posture declared and downstream condition enforced"
+              }
+            },
+            {
+              "id": "sources_graded_on_dimensions",
+              "shortDescription": {
+                "text": "ORE.8.2 every admitted source graded on the Section 3 dimensions"
+              }
+            },
+            {
+              "id": "outputs_expose_grade_profile",
+              "shortDescription": {
+                "text": "ORE.8.3 every output exposes the grade profile of its support"
+              }
+            },
+            {
+              "id": "no_grade_as_worth_verdict",
+              "shortDescription": {
+                "text": "ORE.8.4 no grade presented or used as a worth-verdict"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "posture_declared_and_enforced",
+          "level": "none",
+          "message": {
+            "text": "ORE.8.1 intake posture declared and downstream condition enforced: satisfied"
+          }
+        },
+        {
+          "ruleId": "sources_graded_on_dimensions",
+          "level": "none",
+          "message": {
+            "text": "ORE.8.2 every admitted source graded on the Section 3 dimensions: satisfied"
+          }
+        },
+        {
+          "ruleId": "outputs_expose_grade_profile",
+          "level": "none",
+          "message": {
+            "text": "ORE.8.3 every output exposes the grade profile of its support: satisfied"
+          }
+        },
+        {
+          "ruleId": "no_grade_as_worth_verdict",
+          "level": "none",
+          "message": {
+            "text": "ORE.8.4 no grade presented or used as a worth-verdict: satisfied"
+          }
+        }
+      ]
+    }
+  ]
+}

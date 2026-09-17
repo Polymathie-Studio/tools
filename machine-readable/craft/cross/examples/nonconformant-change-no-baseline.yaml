@@ -1,0 +1,26 @@
+# Non-conformant: a change-obligation indicator with no baseline. CROSS Part V: a change claim
+# needs a documented FROM state in the target's units; without it there is no change to measure.
+# The obligation-mode rule (change -> baseline required) rejects it.
+indicator_name: median_response_time
+obligation_mode: change
+rationale: "Median response time was chosen over mean because the distribution is long-tailed and the mean would be dominated by a few outliers."
+measurement_form:
+  plain_language_form: "The median time in hours from a support request to a first substantive response."
+  source_type: off_chain_verifiable
+  form: quantitative
+  aggregation_type: non_cumulative
+  contract_centric: false
+operational_definition:
+  inclusion_criteria: "A support request submitted through the public ticket system in the period."
+  exclusion_criteria: "Spam tickets and duplicate re-submissions of an open ticket."
+  unit_of_analysis: "support ticket"
+  edge_case_determination: "A ticket reopened after closure starts a new response clock from the reopening."
+construction_methodology: "Take the timestamp delta from creation to first staff reply for each qualifying ticket and report the median."
+data_source:
+  source: "The public ticket system's export."
+  collection_method: "A published periodic export a reviewer can re-derive."
+  independently_accessible: true
+data_cost_estimation: "Export is free; analysis is under an hour of staff time per period."
+# baseline intentionally omitted -- the failure under test (change mode requires it).
+target:
+  documented_state: "Median first-response time of 6 hours or less in the final period."

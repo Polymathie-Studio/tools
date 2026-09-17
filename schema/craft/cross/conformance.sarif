@@ -1,0 +1,109 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "cross-indicator-conformance",
+          "version": "0.5.7",
+          "rules": [
+            {
+              "id": "indicator_name",
+              "shortDescription": {
+                "text": "CROSS.5 indicator name"
+              }
+            },
+            {
+              "id": "rationale",
+              "shortDescription": {
+                "text": "CROSS.5 rationale for the indicator over alternatives"
+              }
+            },
+            {
+              "id": "measurement_form",
+              "shortDescription": {
+                "text": "CROSS.5 measurement form and three-axis classification"
+              }
+            },
+            {
+              "id": "operational_definition",
+              "shortDescription": {
+                "text": "CROSS.5 operational definition (WALKRI Part III inclusion/exclusion/unit/edge-case)"
+              }
+            },
+            {
+              "id": "construction_methodology",
+              "shortDescription": {
+                "text": "CROSS.5 construction and aggregation methodology"
+              }
+            },
+            {
+              "id": "data_source",
+              "shortDescription": {
+                "text": "CROSS.5 named, independently accessible data source"
+              }
+            },
+            {
+              "id": "target",
+              "shortDescription": {
+                "text": "CROSS.5 target TO state"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "indicator_name",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 indicator name: present"
+          }
+        },
+        {
+          "ruleId": "rationale",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 rationale for the indicator over alternatives: present"
+          }
+        },
+        {
+          "ruleId": "measurement_form",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 measurement form and three-axis classification: present"
+          }
+        },
+        {
+          "ruleId": "operational_definition",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 operational definition (WALKRI Part III inclusion/exclusion/unit/edge-case): present"
+          }
+        },
+        {
+          "ruleId": "construction_methodology",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 construction and aggregation methodology: present"
+          }
+        },
+        {
+          "ruleId": "data_source",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 named, independently accessible data source: present"
+          }
+        },
+        {
+          "ruleId": "target",
+          "level": "none",
+          "message": {
+            "text": "CROSS.5 target TO state: present"
+          }
+        }
+      ]
+    }
+  ]
+}

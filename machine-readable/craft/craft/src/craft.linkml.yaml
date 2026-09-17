@@ -1,0 +1,315 @@
+id: https://standards.crosswalkri.org/craft
+name: craft
+title: CRAFT evaluation chain
+description: >-
+  The one canonical source for CRAFT's machine-readable layer (craft-specification, internal
+  v0.4.6): a LinkML model of the three structurally distinct outputs CRAFT specifies (Section
+  12), plus the inheritance receipt a domain application produces (Section 10). CRAFT is a
+  meta-standard for evaluation chains; its runtime output is the evaluation record (Section
+  12.2), modeled here as the tree root because it carries CRAFT's signature discipline: an
+  outcome of accepted, rejected, or indeterminate that is not collapsible, findings that
+  carry their layer attribution so a rejection is traceable to the layer that produced it,
+  and propagation targets on every non-accept so the feedback loop carries what it must. The
+  inheritance receipt (Section 10) and the compliance report (Section 12.3) are companion
+  classes a domain application and an auditor consume. The structural obligations are modeled
+  here; the interpretive obligations (whether the six conditions are actually satisfied,
+  whether a condition is structurally operative rather than compliance-scheduled, whether a
+  specification was examined from two directional origins) are not schema-expressible and
+  belong to the conformance checker, marked per-requirement in craft-register.yaml.
+license: CC0-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  craft: https://standards.crosswalkri.org/craft/
+default_prefix: craft
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  EvaluationRecord:
+    tree_root: true
+    description: >-
+      CRAFT Section 12.2. What the chain did with one input at one point in time. One record
+      per evaluation instance. Carries the outcome against the Condition 4 threshold with the
+      Condition 3 instrument uncertainty, the per-condition findings with their layer
+      attribution, and the propagation targets a non-accept outcome must feed back.
+    attributes:
+      record_type:
+        description: CRAFT Section 12.2. Declared so an automated consumer never infers the document type.
+        range: RecordType
+        required: true
+      specification_id:
+        description: CRAFT Section 12.2. The specification document in force at evaluation time.
+        required: true
+      specification_version:
+        description: CRAFT Section 12.2. The exact version of that specification.
+        required: true
+      evaluation_timestamp:
+        description: CRAFT Section 12.2. Date and time of evaluation.
+        required: true
+      input_provenance:
+        description: CRAFT Section 12.2. A reference to the input in sufficient form to allow the finding to be checked independently.
+        required: true
+      outcome:
+        description: CRAFT Section 12.2. Accepted, rejected, or indeterminate, derived from the reading evaluated against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is not collapsible into accepted or rejected.
+        range: EvaluationOutcome
+        required: true
+      condition_findings:
+        description: CRAFT Section 12.2. For each condition evaluated, the result, the basis, and the layer attribution; with the uncertainty band where Condition 3 specified one.
+        range: ConditionFinding
+        multivalued: true
+        required: true
+      gate_check_result:
+        description: CRAFT Section 12.2 and 7.1. The adversarial gate result at evaluation time.
+        required: true
+      propagation_targets:
+        description: CRAFT Section 12.2. For rejection and indeterminate outcomes, the prior condition(s) the signal must propagate to under Condition 6. An indeterminate outcome propagates as its own signal class.
+        range: PropagationTarget
+        multivalued: true
+    rules:
+      - preconditions:
+          slot_conditions:
+            outcome:
+              equals_string: rejected
+        postconditions:
+          slot_conditions:
+            propagation_targets:
+              required: true
+        description: CRAFT 12.2. A rejection must carry the prior condition(s) its signal propagates to; a rejection with no propagation target discards information the feedback loop must carry.
+      - preconditions:
+          slot_conditions:
+            outcome:
+              equals_string: indeterminate
+        postconditions:
+          slot_conditions:
+            propagation_targets:
+              required: true
+        description: CRAFT 12.2. An indeterminate outcome propagates as its own signal class; the non-resolution is information the feedback loop must carry rather than discard.
+
+  ConditionFinding:
+    description: >-
+      CRAFT Section 12.2. One condition's result at evaluation time, with its basis and layer
+      attribution. A rejection finding without layer attribution cannot be used for root
+      cause analysis, because the propagation target at Condition 6 depends on whether the
+      failure originates at the CRAFT base or the domain application layer.
+    attributes:
+      condition:
+        description: Which of the six conditions this finding concerns.
+        range: CraftCondition
+        required: true
+      result:
+        description: The result of evaluating this condition on this input.
+        required: true
+      basis:
+        description: The basis on which the result was reached.
+        required: true
+      layer:
+        description: CRAFT Section 12.2. Which layer's specification produced this finding.
+        range: LayerAttribution
+        required: true
+      uncertainty_band:
+        description: CRAFT Section 12.2 and Condition 3. The instrument uncertainty band, where Condition 3 specified one for the instrument producing this finding, so the outcome against the Condition 4 threshold is independently checkable.
+
+  PropagationTarget:
+    description: CRAFT Section 12.2 and Condition 6. One prior condition a non-accept signal propagates to, with the signal class it carries.
+    attributes:
+      target_condition:
+        description: The prior condition the signal propagates to.
+        range: CraftCondition
+        required: true
+      signal_class:
+        description: The signal class propagated (for an indeterminate outcome, the non-resolution signal class distinct from a rejection).
+        required: true
+
+  InheritanceReceipt:
+    description: >-
+      CRAFT Section 10. The formal declaration a CRAFT-conformant domain application produces:
+      the chain-level receipt, the full Precision Toolkit scope (CSIS standards and Frame
+      Language discipline, not CRAFT alone), and the activity profile for each declared
+      inheritance. A receipt that declares CRAFT conformance without also declaring CSIS and
+      Frame Language inheritance is structurally incomplete.
+    attributes:
+      domain_application:
+        description: The domain application this receipt is for.
+        required: true
+      chain_level_receipt:
+        description: CRAFT Section 10. The decision context, technical ontology, and domain configuration in CRAFT-compliant form, traceable to Conditions 1 through 6.
+        range: ChainLevelReceipt
+        required: true
+      precision_toolkit_scope:
+        description: CRAFT Section 10. The declared inheritances (CSIS standards and Frame Language), each with its activity profile. Declaring CRAFT alone is structurally incomplete.
+        range: DeclaredInheritance
+        multivalued: true
+        required: true
+      axis_positioning:
+        description: CRAFT Section 10. Where a domain application implements per-axis quality assessment, which CRAFT condition each axis serves and where it sits in the domain configuration.
+        range: AxisPositioning
+        multivalued: true
+
+  ChainLevelReceipt:
+    description: CRAFT Section 10. The chain-level receipt component, the chain specification in CRAFT-compliant form, traceable to the six conditions.
+    attributes:
+      decision_context:
+        description: Condition 1. The decision context of the chain specification.
+        required: true
+      technical_ontology:
+        description: Condition 2. The technical ontology of the chain specification.
+        required: true
+      domain_configuration:
+        description: The specific structural facts that constitute this domain's instantiation of CRAFT.
+        required: true
+
+  DeclaredInheritance:
+    description: >-
+      CRAFT Section 10. One declared inheritance with its five required elements. The activity
+      profile converts the receipt from a static declaration into an operational
+      specification. Background-unchecked is not a valid operating state; it must appear as a
+      finding in any compliance review.
+    attributes:
+      standard_name:
+        description: Element 1. The inherited standard's name.
+        required: true
+      standard_version:
+        description: Element 1. The specific version against which obligations are declared.
+        required: true
+      applicable_obligations:
+        description: Element 2. Which of the standard's obligations apply to this domain application and what they require.
+        required: true
+      foregrounding_triggers:
+        description: Element 3. The contexts in which this standard's obligations become active demands.
+        multivalued: true
+        required: true
+      background_state:
+        description: Element 4. Background-satisfied with a dated reference, or background-unchecked declared as a current gap.
+        range: BackgroundState
+        required: true
+      background_validated_date:
+        description: Element 4. Where background-satisfied, the date satisfaction was last validated.
+      version_coupling_procedure:
+        description: Element 5. The procedure for detecting when this standard revises and the named response (entering version-bump-pending and triggering a Condition 6 event at the specification layer).
+        required: true
+    rules:
+      - preconditions:
+          slot_conditions:
+            background_state:
+              equals_string: background_satisfied
+        postconditions:
+          slot_conditions:
+            background_validated_date:
+              required: true
+        description: CRAFT 10, element 4. A background-satisfied declaration must carry the date satisfaction was last validated; the distinction from background-unchecked is a precision requirement, not a formality.
+
+  AxisPositioning:
+    description: CRAFT Section 10. One axis's positioning, naming which CRAFT condition it serves and where it sits in the domain configuration.
+    attributes:
+      axis:
+        description: The quality axis.
+        required: true
+      serves_condition:
+        description: Which CRAFT condition this axis serves.
+        range: CraftCondition
+        required: true
+      position:
+        description: Where this axis sits within the domain configuration.
+        required: true
+
+  ComplianceReport:
+    description: >-
+      CRAFT Section 12.3. Whether a specification document meets CRAFT requirements, produced
+      at audit time (not when the chain evaluates data). Each finding declares its layer, so a
+      domain-application finding is distinguishable from a CRAFT base finding.
+    attributes:
+      record_type:
+        description: Declared so an automated consumer never infers the document type.
+        range: ComplianceRecordType
+        required: true
+      evaluated_specification_id:
+        description: CRAFT Section 12.3. Which specification document was evaluated.
+        required: true
+      evaluated_specification_version:
+        description: CRAFT Section 12.3. The version of that specification.
+        required: true
+      condition_results:
+        description: CRAFT Section 12.3. One result per condition, each declaring its layer.
+        range: ConditionResult
+        multivalued: true
+        required: true
+
+  ConditionResult:
+    description: CRAFT Section 12.3. One condition's compliance result, with its layer attribution.
+    attributes:
+      condition:
+        description: Which of the six conditions this result concerns.
+        range: CraftCondition
+        required: true
+      compliant:
+        description: Whether the specification meets this condition's requirement.
+        range: boolean
+        required: true
+      basis:
+        description: The basis on which compliance was determined.
+        required: true
+      layer:
+        description: CRAFT Section 12.3. Whether the finding concerns a CRAFT base, domain-application, or per-axis quality requirement.
+        range: LayerAttribution
+        required: true
+
+enums:
+
+  RecordType:
+    description: CRAFT Section 12.2. The evaluation record's declared type.
+    permissible_values:
+      evaluation_record:
+
+  ComplianceRecordType:
+    description: CRAFT Section 12.3. The compliance report's declared type.
+    permissible_values:
+      compliance_report:
+
+  EvaluationOutcome:
+    description: >-
+      CRAFT Section 12.2. The outcome against the Condition 4 threshold carrying the Condition
+      3 uncertainty. Indeterminate is its own outcome class, not collapsible into accepted or
+      rejected.
+    permissible_values:
+      accepted:
+        description: The reading minus its uncertainty still clears the threshold.
+      rejected:
+        description: The reading plus its uncertainty still fails the threshold.
+      indeterminate:
+        description: The reading plus-or-minus its uncertainty straddles the threshold, so the instrument cannot resolve the outcome.
+
+  CraftCondition:
+    description: CRAFT Section 5. The six conditions an evaluation chain must satisfy.
+    permissible_values:
+      condition_1_decision_context:
+        description: Decision context specification.
+      condition_2_technical_ontology:
+        description: Technical ontology adequate to the decision context.
+      condition_3_measurement_instruments:
+        description: Valid measurement instruments within the ontology.
+      condition_4_pre_specified_criteria:
+        description: Pre-specified evaluation criteria.
+      condition_5_decision_logic:
+        description: Explicit decision logic.
+      condition_6_feedback_propagation:
+        description: Feedback mechanism with propagation.
+
+  LayerAttribution:
+    description: CRAFT Section 12. The architectural layer a finding concerns, preserved so the hierarchy is not flattened.
+    permissible_values:
+      craft_base:
+        description: A CRAFT base-layer requirement.
+      domain_application:
+        description: A domain-application requirement derived from inside analysis.
+      per_axis_quality:
+        description: A per-axis quality instrument requirement.
+
+  BackgroundState:
+    description: CRAFT Section 10, element 4. The background state of a declared inheritance. Silence is not one of the values.
+    permissible_values:
+      background_satisfied:
+        description: The obligation was validated; a dated reference is required.
+      background_unchecked:
+        description: An explicitly declared current gap. Not a valid operating state; it must appear as a compliance-review finding.

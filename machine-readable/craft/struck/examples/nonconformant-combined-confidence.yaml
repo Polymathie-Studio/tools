@@ -1,0 +1,23 @@
+# NON-conformant: carries a single combined confidence figure at the top level (STRUCK
+# Section 2.4). The closed top-level schema forbids the extra field, so this must fail.
+claim: "Program X disbursed 1.2M USD across 40 grants in the 2025 cycle."
+combined_confidence: 0.87
+graded_evidence:
+  per_dimension:
+    - dimension: origin
+      weakest_assessment: aggregator
+refutation:
+  conditions:
+    - world_observable: "If the ledger and the report give different counts."
+derivation_chains:
+  - rungs:
+      - identifier: "On-chain disbursement events"
+        role: originating_observation
+worth_judgment:
+  consumer_facing: true
+conformance:
+  graded_evidence_exposed: satisfied
+  refutation_stated: satisfied
+  contest_represented: not_applicable
+  chains_labeled: satisfied
+  worth_left_to_consumer: satisfied

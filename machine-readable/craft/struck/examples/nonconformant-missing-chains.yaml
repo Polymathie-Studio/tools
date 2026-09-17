@@ -1,0 +1,17 @@
+# NON-conformant: missing the required derivation_chains (S5). Must fail validation.
+claim: "Program X disbursed 1.2M USD across 40 grants in the 2025 cycle."
+graded_evidence:
+  per_dimension:
+    - dimension: origin
+      weakest_assessment: aggregator
+refutation:
+  conditions:
+    - world_observable: "If the ledger and the report give different counts."
+worth_judgment:
+  consumer_facing: true
+conformance:
+  graded_evidence_exposed: satisfied
+  refutation_stated: satisfied
+  contest_represented: not_applicable
+  chains_labeled: satisfied
+  worth_left_to_consumer: satisfied

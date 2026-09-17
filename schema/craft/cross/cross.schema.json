@@ -1,0 +1,536 @@
+{
+  "$defs": {
+    "AggregationType": {
+      "description": "CROSS Part V. Whether values sum across reporting periods.",
+      "enum": [
+        "cumulative",
+        "non_cumulative"
+      ],
+      "title": "AggregationType",
+      "type": "string"
+    },
+    "DataSource": {
+      "additionalProperties": false,
+      "description": "CROSS Part V. The named source and collection method. The source must be accessible to an independent reviewer; an applicant-controlled source without named independent corroboration does not satisfy the data-quality standard.",
+      "if": {
+        "properties": {
+          "independently_accessible": {
+            "const": false
+          }
+        },
+        "required": [
+          "independently_accessible"
+        ]
+      },
+      "properties": {
+        "collection_method": {
+          "description": "How the data is collected.",
+          "type": "string"
+        },
+        "independent_corroboration": {
+          "description": "CROSS Part V. Where the source is applicant-controlled (not independently accessible), the named independent corroboration that makes the data auditable.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "independently_accessible": {
+          "description": "Whether the source is accessible to an independent reviewer without relying on the applicant.",
+          "type": "boolean"
+        },
+        "source": {
+          "description": "The named data source.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "collection_method",
+        "independently_accessible"
+      ],
+      "then": {
+        "properties": {
+          "independent_corroboration": {}
+        },
+        "required": [
+          "independent_corroboration"
+        ]
+      },
+      "title": "DataSource",
+      "type": "object"
+    },
+    "ExecutionVerification": {
+      "additionalProperties": false,
+      "description": "CROSS Part V. The execution and verification path for a contract-centric obligation: the invariants the contract must satisfy, how they are assessed, the artifact that constitutes completion evidence, and at least one failure the instrument would detect.",
+      "properties": {
+        "failure_surface": {
+          "description": "At least one example of behavior that would constitute a failure to meet the invariant, and how the chosen instrument would detect it.",
+          "type": "string"
+        },
+        "invariant_specification": {
+          "description": "A narrative description of the invariants or properties the contract must satisfy (conservation of balances, absence of re-entrancy on named functions, bounded slippage), the human-readable counterpart of the formal specification.",
+          "type": "string"
+        },
+        "verification_artifact": {
+          "description": "The concrete completion evidence, a proof object, a named-firm audit report, or a named contract and query a reviewer can use to reproduce the behavioral check from public chain data.",
+          "type": "string"
+        },
+        "verification_method": {
+          "description": "Whether the invariant is assessed by formal verification, independent audit, manual review of on-chain behavior, continuous monitoring, or a combination; if formal, the named tool or approach.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invariant_specification",
+        "verification_method",
+        "verification_artifact",
+        "failure_surface"
+      ],
+      "title": "ExecutionVerification",
+      "type": "object"
+    },
+    "IndicatorSpecification": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "obligation_mode": {
+                "const": "change"
+              }
+            },
+            "required": [
+              "obligation_mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "baseline": {}
+            },
+            "required": [
+              "baseline"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "obligation_mode": {
+                "const": "retroactive"
+              }
+            },
+            "required": [
+              "obligation_mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "baseline": {}
+            },
+            "required": [
+              "baseline"
+            ]
+          }
+        }
+      ],
+      "description": "CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of it. The applicant specifies what their intervention produces; CROSS specifies the fields the indicator must contain and the quality standards those fields must satisfy. This is the unit CROSS indicator conformance is assessed against.",
+      "properties": {
+        "baseline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StateSpecification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement."
+        },
+        "construction_methodology": {
+          "description": "CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation.",
+          "type": "string"
+        },
+        "data_cost_estimation": {
+          "description": "CROSS Part V. Attestation that data collection is feasible within the project budget, with the approximate cost and funding source. An indicator that cannot be collected within budget has not been operationalized.",
+          "type": "string"
+        },
+        "data_source": {
+          "$ref": "#/$defs/DataSource",
+          "description": "CROSS Part V. The named source and collection method, accessible to an independent reviewer."
+        },
+        "disaggregation": {
+          "description": "CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "indicator_name": {
+          "description": "CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders.",
+          "type": "string"
+        },
+        "measurement_form": {
+          "$ref": "#/$defs/MeasurementFormClassification",
+          "description": "CROSS Part V. The plain-language measurement form and its classification on the three data-quality axes, plus the execution-and-verification path where the obligation object is a contract's behavior."
+        },
+        "obligation_mode": {
+          "$ref": "#/$defs/ObligationMode",
+          "description": "CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below."
+        },
+        "operational_definition": {
+          "$ref": "#/$defs/OperationalDefinition",
+          "description": "CROSS Part V. What counts and what does not count as one unit of the claimed result. Must meet WALKRI Part III Criterion 2 (inclusion, exclusion, unit of analysis, edge case)."
+        },
+        "rationale": {
+          "description": "CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes.",
+          "type": "string"
+        },
+        "sustainability_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SustainabilityPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period."
+        },
+        "target": {
+          "$ref": "#/$defs/StateSpecification",
+          "description": "CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable."
+        }
+      },
+      "required": [
+        "indicator_name",
+        "obligation_mode",
+        "rationale",
+        "measurement_form",
+        "operational_definition",
+        "construction_methodology",
+        "data_source",
+        "data_cost_estimation",
+        "target"
+      ],
+      "title": "IndicatorSpecification",
+      "type": "object"
+    },
+    "MeasurementForm": {
+      "description": "CROSS Part V. How a result is expressed.",
+      "enum": [
+        "quantitative",
+        "ordinal",
+        "binary",
+        "qualitative"
+      ],
+      "title": "MeasurementForm",
+      "type": "string"
+    },
+    "MeasurementFormClassification": {
+      "additionalProperties": false,
+      "description": "CROSS Part V. The measurement form in plain language, classified on three axes for data-quality assessment, with the execution-and-verification instruments named where the obligation object is a contract's behavior rather than a discrete artifact or count.",
+      "if": {
+        "properties": {
+          "contract_centric": {
+            "const": true
+          }
+        },
+        "required": [
+          "contract_centric"
+        ]
+      },
+      "properties": {
+        "aggregation_type": {
+          "$ref": "#/$defs/AggregationType",
+          "description": "CROSS Part V. Whether values sum correctly across reporting periods (cumulative) or describe a point-in-time state (non-cumulative, where summing is a construction error)."
+        },
+        "contract_centric": {
+          "description": "CROSS Part V. True where the obligation object is a contract's behavior under specified conditions rather than a discrete artifact or count.",
+          "type": "boolean"
+        },
+        "execution_verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExecutionVerification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "CROSS Part V. Where the obligation object is a contract's behavior, the execution and verification instruments that confirm completion."
+        },
+        "form": {
+          "$ref": "#/$defs/MeasurementForm",
+          "description": "CROSS Part V. How the result is expressed."
+        },
+        "plain_language_form": {
+          "description": "What a result looks like and in what form it will be reported, in plain language (a count of unique addresses, a shipped library version, a binary against defined completion criteria).",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SourceType",
+          "description": "CROSS Part V. Where the result is verified from; each source type carries different minimum verification requirements."
+        }
+      },
+      "required": [
+        "plain_language_form",
+        "source_type",
+        "form",
+        "aggregation_type",
+        "contract_centric"
+      ],
+      "then": {
+        "properties": {
+          "execution_verification": {}
+        },
+        "required": [
+          "execution_verification"
+        ]
+      },
+      "title": "MeasurementFormClassification",
+      "type": "object"
+    },
+    "ObligationMode": {
+      "description": "CROSS Part III. The obligation mode an indicator serves.",
+      "enum": [
+        "build",
+        "change",
+        "retroactive"
+      ],
+      "title": "ObligationMode",
+      "type": "string"
+    },
+    "OperationalDefinition": {
+      "additionalProperties": false,
+      "description": "CROSS Part V, meeting WALKRI Part III Criterion 2. What counts and what does not count as one unit of the claimed result. This is the field-level composition point with WALKRI: CROSS frames the chain and WALKRI ensures the instrument is sound.",
+      "properties": {
+        "edge_case_determination": {
+          "description": "At least one example of how an ambiguous instance is handled.",
+          "type": "string"
+        },
+        "exclusion_criteria": {
+          "description": "What the indicator explicitly does not count.",
+          "type": "string"
+        },
+        "inclusion_criteria": {
+          "description": "What qualifies as one instance of the claimed result.",
+          "type": "string"
+        },
+        "unit_of_analysis": {
+          "description": "The named unit (person, wallet address, transaction, repository, site, or other).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "inclusion_criteria",
+        "exclusion_criteria",
+        "unit_of_analysis",
+        "edge_case_determination"
+      ],
+      "title": "OperationalDefinition",
+      "type": "object"
+    },
+    "SourceType": {
+      "description": "CROSS Part V. Where a result is verified from.",
+      "enum": [
+        "on_chain_verifiable",
+        "off_chain_verifiable",
+        "qualitative_narrative"
+      ],
+      "title": "SourceType",
+      "type": "string"
+    },
+    "StateSpecification": {
+      "additionalProperties": false,
+      "description": "CROSS Part V. A documented state (a baseline FROM state or a target TO state) with the data source that evidences it.",
+      "properties": {
+        "data_source": {
+          "description": "The named data source evidencing this state (required for a baseline).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "documented_state": {
+          "description": "The documented state, expressed for a change indicator in the same units as the paired state.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "documented_state"
+      ],
+      "title": "StateSpecification",
+      "type": "object"
+    },
+    "SustainabilityPlan": {
+      "additionalProperties": false,
+      "description": "CROSS Part V. A documented position on continuation beyond the grant period, activated by funder configuration. Not a guarantee; a position the funder may use in subsequent continuation-gate assessments.",
+      "properties": {
+        "continuation": {
+          "description": "What happens to the funded work at the end of the grant period, who maintains it, and under what conditions it remains publicly accessible.",
+          "type": "string"
+        },
+        "cost_coverage": {
+          "description": "How ongoing costs will be covered after the grant ends, naming the expected source with enough specificity to assess plausibility.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end_state": {
+          "description": "Where the work reaches a defined end state after which maintenance is not required, the specification of that state and when it will be declared reached.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "handoff": {
+          "description": "Where the work is handed to another party, the receiving party's identity and the transition conditions.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "continuation"
+      ],
+      "title": "SustainabilityPlan",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/cross.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "obligation_mode": {
+            "const": "change"
+          }
+        },
+        "required": [
+          "obligation_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "baseline": {}
+        },
+        "required": [
+          "baseline"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "obligation_mode": {
+            "const": "retroactive"
+          }
+        },
+        "required": [
+          "obligation_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "baseline": {}
+        },
+        "required": [
+          "baseline"
+        ]
+      }
+    }
+  ],
+  "description": "CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of it. The applicant specifies what their intervention produces; CROSS specifies the fields the indicator must contain and the quality standards those fields must satisfy. This is the unit CROSS indicator conformance is assessed against.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "baseline": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StateSpecification"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement."
+    },
+    "construction_methodology": {
+      "description": "CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation.",
+      "type": "string"
+    },
+    "data_cost_estimation": {
+      "description": "CROSS Part V. Attestation that data collection is feasible within the project budget, with the approximate cost and funding source. An indicator that cannot be collected within budget has not been operationalized.",
+      "type": "string"
+    },
+    "data_source": {
+      "$ref": "#/$defs/DataSource",
+      "description": "CROSS Part V. The named source and collection method, accessible to an independent reviewer."
+    },
+    "disaggregation": {
+      "description": "CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability.",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "indicator_name": {
+      "description": "CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders.",
+      "type": "string"
+    },
+    "measurement_form": {
+      "$ref": "#/$defs/MeasurementFormClassification",
+      "description": "CROSS Part V. The plain-language measurement form and its classification on the three data-quality axes, plus the execution-and-verification path where the obligation object is a contract's behavior."
+    },
+    "obligation_mode": {
+      "$ref": "#/$defs/ObligationMode",
+      "description": "CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below."
+    },
+    "operational_definition": {
+      "$ref": "#/$defs/OperationalDefinition",
+      "description": "CROSS Part V. What counts and what does not count as one unit of the claimed result. Must meet WALKRI Part III Criterion 2 (inclusion, exclusion, unit of analysis, edge case)."
+    },
+    "rationale": {
+      "description": "CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes.",
+      "type": "string"
+    },
+    "sustainability_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SustainabilityPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period."
+    },
+    "target": {
+      "$ref": "#/$defs/StateSpecification",
+      "description": "CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable."
+    }
+  },
+  "required": [
+    "indicator_name",
+    "obligation_mode",
+    "rationale",
+    "measurement_form",
+    "operational_definition",
+    "construction_methodology",
+    "data_source",
+    "data_cost_estimation",
+    "target"
+  ],
+  "title": "cross",
+  "type": "object",
+  "version": null
+}

@@ -1,0 +1,17 @@
+# Non-conformant: a rejection with no propagation targets. CRAFT Section 12.2 and Condition
+# 6: a rejection must carry the prior condition(s) its signal propagates to; a rejection that
+# discards them loses information the feedback loop must carry. The Section 12.2 rule
+# (outcome rejected -> propagation_targets required) rejects it.
+record_type: evaluation_record
+specification_id: cross-grants-round-7-spec
+specification_version: "0.5.7"
+evaluation_timestamp: "2026-08-20T14:05:00Z"
+input_provenance: "Application d4e5f6, evidence bundle hash sha256:1a2b..."
+outcome: rejected
+condition_findings:
+  - condition: condition_4_pre_specified_criteria
+    result: "Reading plus uncertainty still fails the threshold."
+    basis: "The round's pre-committed passage bar."
+    layer: craft_base
+gate_check_result: "Adversarial gate passed."
+# propagation_targets intentionally omitted -- the failure under test.

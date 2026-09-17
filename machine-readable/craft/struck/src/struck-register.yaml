@@ -1,0 +1,184 @@
+# STRUCK register distillation (spike)
+# One row per normative requirement of struck-0_1_0 (v0.1.2). The corpus's
+# "register distillation": a typed, enumerable table extracted from prose, one row
+# per entry, each carrying its assertion, a kind code, and a portability flag.
+# Added for this spike: `checkable`, whether the requirement is enforceable by a data
+# schema (presence/shape) or is a reader's interpretive judgment (the machine-
+# conformance-is-not-standard-conformance line, made per-requirement).
+standard: STRUCK
+standard_version: 0.1.2
+source: struck-0_1_0.md
+entries:
+  - id: S2.1
+    section: "2"
+    obligation: graded-evidence
+    kind: MUST
+    portability: universal
+    checkable: shape            # a grade_profile object must be present, per dimension
+    assertion: "Expose the grade profile of material support: for each grading dimension, the weakest assessment present and every flag any source carries."
+  - id: S2.2
+    section: "2"
+    obligation: graded-evidence
+    kind: MUST_NOT
+    portability: conditional
+    condition: "output rests on ungraded material under an Open posture"
+    checkable: mixed            # the open-posture declaration is shape; "must not cite quarantined" is a judgment about the citations
+    assertion: "Declare ungraded Open-posture material on the face; do not cite quarantined material as support."
+  - id: S2.3
+    section: "2"
+    obligation: graded-evidence
+    kind: MUST
+    portability: conditional
+    condition: "separately admitted sources cannot be shown distinct in effective origin"
+    checkable: shape            # a joint_support flag must be present
+    assertion: "Carry the joint-support flag; separately admitted is not independently originated."
+  - id: S2.4
+    section: "2"
+    obligation: graded-evidence
+    kind: MUST_NOT
+    portability: universal
+    checkable: shape            # schema can forbid a combined_confidence field
+    assertion: "Do not present a single combined confidence figure in place of the per-dimension profile."
+  - id: S3.1
+    section: "3"
+    obligation: refutation-conditions
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of refutation_conditions is shape; that they are in world terms is judgment
+    assertion: "State what would overturn the output, concrete enough that a reader could recognize the refuting thing."
+  - id: S3.2
+    section: "3"
+    obligation: refutation-conditions
+    kind: MUST
+    portability: universal
+    checkable: judgment         # world-terms vs internal-process is interpretive
+    assertion: "State conditions in terms of what could be found in the world, not internal process."
+  - id: S3.3
+    section: "3"
+    obligation: refutation-conditions
+    kind: DECLARATION
+    portability: conditional
+    condition: "no refutation condition can be stated"
+    checkable: shape            # an unfalsifiability declaration with a reason must be present
+    assertion: "If no refutation condition can be stated, declare unfalsifiability and name why (definitional, domain-limited, or impressionistic)."
+  - id: S3.4
+    section: "3"
+    obligation: refutation-conditions
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # known-unreachable threshold is interpretive
+    assertion: "Do not set a refutation condition at a threshold known to be unreachable."
+  - id: S4.1
+    section: "4"
+    obligation: contested-regions
+    kind: MUST
+    portability: conditional
+    condition: "material supporting the output disagrees"
+    checkable: shape            # contested_regions must be present rather than a single value
+    assertion: "Represent disagreement rather than resolving it into a central value."
+  - id: S4.2
+    section: "4"
+    obligation: contested-regions
+    kind: MUST
+    portability: conditional
+    condition: "disagreement present"
+    checkable: mixed
+    assertion: "Name the region of contest: what is disputed, which support sits on each side, what it turns on."
+  - id: S4.3
+    section: "4"
+    obligation: contested-regions
+    kind: MUST_NOT
+    portability: conditional
+    condition: "disagreement present"
+    checkable: judgment         # whether a reported central value conceals a spread is interpretive
+    assertion: "Do not report a mean/median/consensus that conceals the spread; a central value MAY appear alongside the contest, never in place of it."
+  - id: S4.4
+    section: "4"
+    obligation: contested-regions
+    kind: MUST
+    portability: conditional
+    condition: "the producer resolves a contest"
+    checkable: shape            # resolution basis + retained losing position must be present
+    assertion: "State the basis of any resolution and retain the losing position in the record."
+  - id: S4.5
+    section: "4"
+    obligation: contested-regions
+    kind: MUST
+    portability: conditional
+    condition: "only one line of support was consulted"
+    checkable: shape            # an unexamined-state marker must be present
+    assertion: "Record absence of contest as an unexamined state, not as agreement."
+  - id: S5.1
+    section: "5"
+    obligation: derivation-chains
+    kind: MUST
+    portability: universal
+    checkable: shape            # derivation_chains with role-labeled rungs must be present
+    assertion: "Trace support to ultimate origins, with every intermediate rung labeled for what it is."
+  - id: S5.2
+    section: "5"
+    obligation: derivation-chains
+    kind: MUST
+    portability: universal
+    checkable: shape            # rung role is an enum
+    assertion: "Identify each rung by role: originating observation, primary record, aggregator, secondary reporting, review, restatement."
+  - id: S5.3
+    section: "5"
+    obligation: derivation-chains
+    kind: MUST
+    portability: conditional
+    condition: "a chain cannot be walked to origin"
+    checkable: shape            # a stopping-point + reason must be present
+    assertion: "Record where the walk stopped and why."
+  - id: S5.4
+    section: "5"
+    obligation: derivation-chains
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # presenting a rung above its standing is interpretive
+    assertion: "Do not present a rung at a standing higher than it holds."
+  - id: S5.5
+    section: "5"
+    obligation: derivation-chains
+    kind: MUST
+    portability: conditional
+    condition: "two apparently distinct chains converge on the same origin"
+    checkable: shape            # a convergence flag must be present
+    assertion: "Record the convergence of chains on the same origin (the derivation-side joint-support flag)."
+  - id: S6.1
+    section: "6"
+    obligation: worth-judgment
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # asserting adequacy is interpretive content
+    assertion: "Do not assert that support is adequate to any particular decision; leave the sufficiency judgment to the consumer."
+  - id: S6.2
+    section: "6"
+    obligation: worth-judgment
+    kind: MAY
+    portability: conditional
+    condition: "the output is addressed to a decision whose stakes the producer knows"
+    checkable: shape
+    assertion: "MAY state what it would take to raise confidence and what that would cost."
+  - id: S6.3
+    section: "6"
+    obligation: worth-judgment
+    kind: MUST
+    portability: conditional
+    condition: "the consumer is automated"
+    checkable: judgment         # readable/challengeable decision logic is assessed, not shape
+    assertion: "The decision logic composing outputs into an action must itself be readable and challengeable."
+  - id: S6.4
+    section: "6"
+    obligation: worth-judgment
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether exposure is on the face vs an appendix is interpretive
+    assertion: "Do not separate the Sections 2 to 5 exposure from the claim (appendix that the claim can be read without is not on the face)."
+  - id: S7
+    section: "7"
+    obligation: conformance
+    kind: MUST
+    portability: universal
+    checkable: judgment         # the five conformance questions are answered by a reader
+    assertion: "Conform by carrying all five obligations or explicitly declaring and justifying the absence of any that does not apply; silence is not conformance."

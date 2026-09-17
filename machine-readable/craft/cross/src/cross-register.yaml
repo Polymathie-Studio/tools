@@ -1,0 +1,136 @@
+# CROSS register distillation
+# One row per normative requirement of CROSS-common-reporting-outcome-standards-schema
+# (internal v0.5.7). The corpus's "register distillation": a typed, enumerable table extracted
+# from prose, one row per entry, each carrying its assertion, a kind code, and a portability
+# flag. `checkable` records whether the requirement is enforceable by a data schema
+# (presence/shape) or is a reader's interpretive judgment (the machine-conformance-is-not-
+# standard-conformance line, made per-requirement). The schema models the Part V indicator
+# specification; the rows below cover that unit's fields plus the broader CROSS obligations a
+# round must satisfy, most of which are audit-time judgments about a round rather than a data
+# shape.
+standard: CROSS
+standard_version: 0.5.7
+source: CROSS-common-reporting-outcome-standards-schema-0_2_0.md
+entries:
+  - id: X5.name
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: shape            # the indicator name field is present
+    assertion: "Each claimed indicator carries a short descriptive name, distinct from its operational definition."
+  - id: X5.rationale
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a rationale field is present (shape); whether it engages seriously with alternatives is judgment
+    assertion: "State why this indicator was selected over available alternatives; an applicant who cannot articulate the choice has not engaged with whether the instrument is valid."
+  - id: X5.measurement
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: shape            # plain-language form plus the three classification axes are present
+    assertion: "Declare the measurement form in plain language and classify it on three axes: source type, measurement form, and aggregation type."
+  - id: X5.contract
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    condition: "the obligation object is a contract's behavior"
+    checkable: shape            # execution-verification (invariant, method, artifact, failure surface) is required when contract-centric
+    assertion: "Where the obligation object is a contract's behavior, name the execution and verification instruments: the invariant specification, the verification method, the verification artifact, and at least one failure surface. An indicator relying solely on applicant-controlled test suites fails the standard."
+  - id: X5.opdef
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: mixed            # inclusion/exclusion/unit/edge-case are present (shape); whether they actually constrain counting is WALKRI-level judgment
+    assertion: "Give an operational definition with inclusion criteria, exclusion criteria, unit of analysis, and edge-case determination, meeting WALKRI Part III Criterion 2. Without it, the indicator is a name, not a measurement instrument."
+  - id: X5.construction
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a construction-methodology field is present (shape); whether it is replicable is judgment
+    assertion: "State the calculation or counting rule in enough detail that an independent reviewer with the stated source could replicate the result, including partial-data handling and sub-unit aggregation."
+  - id: X5.datasource
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the source and its independent-accessibility flag are present (shape); whether the corroboration is genuine is judgment
+    assertion: "Name the data source and collection method; a source accessible only to the applicant must name independent corroboration to satisfy the data-quality standard."
+  - id: X5.cost
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: shape            # a data-cost-estimation attestation is present
+    assertion: "Attest that data collection is feasible within the project budget, with the approximate cost and funding source."
+  - id: X5.baseline
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    condition: "the indicator is change-obligation or retroactive"
+    checkable: shape            # a baseline is required for change and retroactive indicators
+    assertion: "Carry a baseline FROM state for a change-obligation indicator (in the target's units) and for a retroactive indicator (the state at the award period's start)."
+  - id: X5.target
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    checkable: shape            # a target TO state is present
+    assertion: "Carry a target TO state: the expected state at the grant period's end, or the completion criteria for a build deliverable."
+  - id: X5.sustainability
+    section: "5"
+    obligation: indicator-fields
+    kind: MUST
+    portability: universal
+    condition: "funder-activated, above a size threshold or for infrastructure with ongoing operational requirements"
+    checkable: shape            # where activated, a sustainability plan is present
+    assertion: "Where activated by funder configuration, carry a sustainability and transition plan documenting continuation, cost coverage, handoff, or a defined end state."
+  - id: X3
+    section: "3"
+    obligation: obligation-modes
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the round declares and applies the correct obligation mode is an audit judgment
+    assertion: "Declare the obligation mode (build, change, or retroactive) that governs what the applicant must demonstrate and how the gates read it."
+  - id: X4
+    section: "4"
+    obligation: gate-architecture
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the gate sequence and gate records conform is an audit judgment over a round
+    assertion: "Operate the gate architecture: the pre-committed gate sequence, the evidence each gate requires, and the structured gate record each produces."
+  - id: X6
+    section: "6"
+    obligation: concurrent-funding
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether concurrent funding and additionality are disclosed is an audit judgment
+    assertion: "Disclose concurrent funding and, per Part VI-A, the additionality scope and outcome-credit attribution, so double-counting across funders is legible."
+  - id: X7
+    section: "7"
+    obligation: conflict-of-interest
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the three-tier conflict bar and attestation independence hold is an audit judgment
+    assertion: "Apply the conflict-of-interest framework: the three-tier bar, the independent-signer requirement, and attestation independence separating the evaluator from the beneficiary."
+  - id: X8
+    section: "8"
+    obligation: data-quality
+    kind: MUST
+    portability: universal
+    checkable: judgment         # the data-quality assessment over an indicator is a reader's judgment, realized through WALKRI
+    assertion: "Assess each indicator against the data-quality standards, realized at the field level through WALKRI; an indicator resting on applicant-controlled evidence without independent verification does not pass at the completion gate."
+  - id: X13
+    section: "13"
+    obligation: inheritance-receipt
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether Part XIII declares the full CRAFT and CSIS inheritance is an audit judgment
+    assertion: "Carry the Part XIII inheritance receipt: the mapping of CROSS to CRAFT's six conditions, the CSIS standards CROSS rests on with a per-standard activity profile, and the Frame Language discipline, so CROSS is a CRAFT-conformant domain application rather than a chain-quality standard for grants."

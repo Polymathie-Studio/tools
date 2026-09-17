@@ -1,0 +1,27 @@
+# A CRAFT-conformant evaluation record (craft-specification, internal v0.4.6), Section 12.2.
+# A rejected outcome carrying its propagation targets and per-condition findings with layer
+# attribution and the Condition 3 uncertainty band, so the outcome is independently checkable
+# and the rejection is traceable to the layer that produced it. Validates against
+# dist/craft.schema.json.
+record_type: evaluation_record
+specification_id: cross-grants-round-7-spec
+specification_version: "0.5.7"
+evaluation_timestamp: "2026-08-20T14:00:00Z"
+input_provenance: "Application a1b2c3, submitted 2026-08-18, evidence bundle hash sha256:9f8e..."
+outcome: rejected
+condition_findings:
+  - condition: condition_3_measurement_instruments
+    result: "Reading 41% clears the naive threshold but not once the instrument uncertainty is carried."
+    basis: "Nitrate-removal efficiency from the submitted laboratory record."
+    layer: domain_application
+    uncertainty_band: "plus or minus 6 percentage points"
+  - condition: condition_4_pre_specified_criteria
+    result: "Reading plus uncertainty (47%) still fails the pre-specified 50% threshold."
+    basis: "The round's pre-committed passage bar for this indicator."
+    layer: craft_base
+gate_check_result: "Adversarial gate passed; no manipulation pattern detected on this input."
+propagation_targets:
+  - target_condition: condition_3_measurement_instruments
+    signal_class: rejection
+  - target_condition: condition_4_pre_specified_criteria
+    signal_class: rejection

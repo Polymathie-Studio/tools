@@ -1,0 +1,1008 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix walkri: <https://standards.crosswalkri.org/walkri/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.crosswalkri.org/walkri.owl.ttl> a owl:Ontology ;
+    rdfs:label "walkri" ;
+    dcterms:license "CC0-1.0" ;
+    dcterms:title "WALKRI specified instrument" ;
+    skos:definition "The one canonical source for WALKRI's machine-readable layer (WALKRI-standard, v0.2.1): a LinkML model of the shape a WALKRI-conformant instrument specification must carry, plus the per-requirement conformance record it produces. WALKRI's unit is the instrument (a form field, prompt constraint, structured-output schema element, rubric item, or extraction specification); the five criterion specification requirements (Part III) attach to the instrument in any modality. The structural obligations (which of the five requirements are present, that an evidence form names a type from the taxonomy with an access path, that a dependency declaration is present or declared absent, that the conformance record carries a per-requirement status and never a bare pass mark) are modeled here; the interpretive obligations (whether the criterion intent is a genuine measurement claim distinct from the label, whether an operational definition actually constrains interpretation, and the five Part V data-quality assessments) are not schema-expressible and belong to the conformance checker, marked per-requirement in walkri-register.yaml. A field that satisfies all five requirements is a measurement instrument; a field that fails any one is a label." .
+
+walkri:SpecifiedInstrument a owl:Class ;
+    rdfs:label "SpecifiedInstrument" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:modality ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:ConformanceThreshold ;
+            owl:onProperty walkri:conformance_threshold ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:ChainAttribution ;
+            owl:onProperty walkri:chain_attribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:criterion_intent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:operational_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:InstrumentConformance ;
+            owl:onProperty walkri:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:chain_attribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:modality ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:conformance_threshold ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:instrument_identifier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:EvidenceForm ;
+            owl:onProperty walkri:evidence_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:instrument_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:participatory_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:chain_attribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:conformance_threshold ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:CriterionIntent ;
+            owl:onProperty walkri:criterion_intent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:ResponseForm ;
+            owl:onProperty walkri:response_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:dependency_declaration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:instrument_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:criterion_intent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:response_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:InstrumentModality ;
+            owl:onProperty walkri:modality ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:ParticipatorySpecification ;
+            owl:onProperty walkri:participatory_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:operational_definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:evidence_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:DependencyDeclaration ;
+            owl:onProperty walkri:dependency_declaration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:dependency_declaration ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:OperationalDefinition ;
+            owl:onProperty walkri:operational_definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:participatory_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:response_form ] ;
+    skos:definition "WALKRI Part I and Part III. A specified instrument carrying its five criterion specification requirements, its optional participatory record, its dependency declaration, its conformance record, and, where it operates inside an evaluation chain, its layer attribution. This is the unit WALKRI conformance is assessed against. The requirements are stated in their form-field instantiation because that is the most familiar one, but they attach to the instrument in whatever modality renders it." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:CategoryDefinition a owl:Class ;
+    rdfs:label "CategoryDefinition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:qualifying_examples ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:category ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:edge_case ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:category ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:non_qualifying_examples ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:non_qualifying_examples ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:edge_case ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:qualifying_examples ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:edge_case ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:definition ] ;
+    skos:definition "WALKRI Section 3.2. One option's definition with qualifying and non-qualifying examples, and, for a binary field, at least one edge-case determination." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:CriterionIntent a owl:Class ;
+    rdfs:label "CriterionIntent" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:label ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:measurement_claim ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:label ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:measurement_claim ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:measurement_claim ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:label ] ;
+    skos:definition "WALKRI Section 3.1. A measurement claim, not a name. Records the label and the intent separately so the intent's distinctness from the label is legible." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:DependencyEdge a owl:Class ;
+    rdfs:label "DependencyEdge" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:relation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:depends_on ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:relation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:depends_on ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:depends_on ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:relation ] ;
+    skos:definition "WALKRI Section 3.9. One derived-and-attested dependency of this instrument on another." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:EvidenceForm a owl:Class ;
+    rdfs:label "EvidenceForm" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:access_path ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:access_path ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:required_content ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:completion_sufficiency ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:access_path ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:required_content ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:completion_sufficiency ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:EvidenceType ;
+            owl:onProperty walkri:evidence_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:evidence_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:required_content ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:evidence_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:CompletionSufficiency ;
+            owl:onProperty walkri:completion_sufficiency ] ;
+    skos:definition "WALKRI Section 3.4. One evidence-type specification: the type from the taxonomy, the required content within that type, the access path by which a reviewer independently locates and verifies it, and, for a completion claim, whether the type is sufficient to verify completion or serves only as supporting context." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:InstrumentConformance a owl:Class ;
+    rdfs:label "InstrumentConformance" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom walkri:Override ;
+            owl:onProperty walkri:overrides ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:overrides ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:RequirementStatus ;
+            owl:onProperty walkri:conformance_threshold_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:criterion_intent_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:RequirementStatus ;
+            owl:onProperty walkri:operational_definition_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:evidence_form_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:RequirementStatus ;
+            owl:onProperty walkri:criterion_intent_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:response_form_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:operational_definition_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:criterion_intent_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:RequirementStatus ;
+            owl:onProperty walkri:response_form_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:response_form_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:conformance_threshold_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:evidence_form_status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:conformance_threshold_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:RequirementStatus ;
+            owl:onProperty walkri:evidence_form_status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:operational_definition_status ] ;
+    skos:definition "WALKRI Part VIII. The per-requirement conformance status of the instrument: for each of the five criterion specification requirements, pass, fail, or override. There is deliberately no overall or total field. The minimum conformance threshold (Section 8.4, all five pass, overrides permitted where documented) is a computed rule over these five statuses, never a stored bare pass mark." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:OperationalDefinition a owl:Class ;
+    rdfs:label "OperationalDefinition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:text_minimum_content ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:categories ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:text_minimum_content ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:text_scope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:text_scope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:CategoryDefinition ;
+            owl:onProperty walkri:categories ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:text_minimum_content ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:text_scope ] ;
+    skos:definition "WALKRI Section 3.2. A complete definition of each option, with qualifying and non-qualifying examples, or, for a text field, the scope and minimum content that constitutes a complete response." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:Override a owl:Class ;
+    rdfs:label "Override" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:authorized_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:authorized_by ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:requirement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:requirement ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:justification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:justification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:flag_text ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:authorized_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:flag_text ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:CriterionRequirement ;
+            owl:onProperty walkri:requirement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:flag_text ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:justification ] ;
+    skos:definition "WALKRI Section 8.3 and 8.4. An override on one of the five requirements, permitted only where documented: the flag text, the justification, and the name or identifier of the person who authorized it. An override without all three is an unresolved flag, and a form with unresolved undocumented flags cannot be certified." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:ParticipatorySpecification a owl:Class ;
+    rdfs:label "ParticipatorySpecification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:participants ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:participants ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:timing ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:timing ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:contribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:contribution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:contribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:participants ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:timing ] ;
+    skos:definition "WALKRI Section 3.6. Optional. Where the instrument measures a condition an identifiable group experiences, the record of who participated in the definition, what they contributed or validated, and when, relative to publication." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:ResponseForm a owl:Class ;
+    rdfs:label "ResponseForm" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:justification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:response_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:justification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:response_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:justification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:ResponseType ;
+            owl:onProperty walkri:response_type ] ;
+    skos:definition "WALKRI Section 3.3. The response type and a written justification that the type can capture the variance in the construct the criterion intent requires. Response type is a measurement decision, not a formatting one." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:ChainAttribution a owl:Class ;
+    rdfs:label "ChainAttribution" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:resolution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:standalone ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:chain_condition_served ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:resolution ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:chain_condition_served ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:standalone ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty walkri:standalone ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:chain_condition_served ] ;
+    skos:definition "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves, so the conformance record recomposes into condition-satisfaction evidence upward. Standalone use declares its absence." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+<https://standards.crosswalkri.org/walkri/CompletionSufficiency#sufficient_to_verify_completion> a owl:Class ;
+    rdfs:label "sufficient_to_verify_completion" ;
+    rdfs:subClassOf walkri:CompletionSufficiency .
+
+<https://standards.crosswalkri.org/walkri/CompletionSufficiency#supporting_context_only> a owl:Class ;
+    rdfs:label "supporting_context_only" ;
+    rdfs:subClassOf walkri:CompletionSufficiency .
+
+<https://standards.crosswalkri.org/walkri/CriterionRequirement#conformance_threshold> a owl:Class ;
+    rdfs:label "conformance_threshold" ;
+    rdfs:subClassOf walkri:CriterionRequirement .
+
+<https://standards.crosswalkri.org/walkri/CriterionRequirement#criterion_intent> a owl:Class ;
+    rdfs:label "criterion_intent" ;
+    rdfs:subClassOf walkri:CriterionRequirement .
+
+<https://standards.crosswalkri.org/walkri/CriterionRequirement#evidence_form> a owl:Class ;
+    rdfs:label "evidence_form" ;
+    rdfs:subClassOf walkri:CriterionRequirement .
+
+<https://standards.crosswalkri.org/walkri/CriterionRequirement#operational_definition> a owl:Class ;
+    rdfs:label "operational_definition" ;
+    rdfs:subClassOf walkri:CriterionRequirement .
+
+<https://standards.crosswalkri.org/walkri/CriterionRequirement#response_form> a owl:Class ;
+    rdfs:label "response_form" ;
+    rdfs:subClassOf walkri:CriterionRequirement .
+
+walkri:DependencyDeclaration a owl:Class ;
+    rdfs:label "DependencyDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:independent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty walkri:independent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom walkri:DependencyEdge ;
+            owl:onProperty walkri:edges ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:edges ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:independent ] ;
+    skos:definition "WALKRI Section 3.9. The instrument's dependency graph, derived mechanically from the instrument set's own formal logic and attested, or the Declared-Absent value where the instrument has no dependency edges. An independent instrument declares its independence rather than falling silent." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+<https://standards.crosswalkri.org/walkri/EvidenceType#activity> a owl:Class ;
+    rdfs:label "activity" ;
+    rdfs:subClassOf walkri:EvidenceType ;
+    skos:definition "Attests that named activities occurred at a stated date, location, and scale. Proves work was done, not that outcomes resulted." .
+
+<https://standards.crosswalkri.org/walkri/EvidenceType#financial_accountability> a owl:Class ;
+    rdfs:label "financial_accountability" ;
+    rdfs:subClassOf walkri:EvidenceType ;
+    skos:definition "Attests to how funding was deployed, by expenditure category. Proves money was spent as stated, not that the spending produced the outcomes." .
+
+<https://standards.crosswalkri.org/walkri/EvidenceType#outcome> a owl:Class ;
+    rdfs:label "outcome" ;
+    rdfs:subClassOf walkri:EvidenceType ;
+    skos:definition "Attests that a named condition changed or a performance claim is verified, independently of the applicant's own report. The only type that satisfies a completion verification gate for results." .
+
+<https://standards.crosswalkri.org/walkri/EvidenceType#planning> a owl:Class ;
+    rdfs:label "planning" ;
+    rdfs:subClassOf walkri:EvidenceType ;
+    skos:definition "Attests to future intent, procurement, or structural agreements. Proves plans or commitments, not achieved outcomes." .
+
+<https://standards.crosswalkri.org/walkri/EvidenceType#standing> a owl:Class ;
+    rdfs:label "standing" ;
+    rdfs:subClassOf walkri:EvidenceType ;
+    skos:definition "Attests to organizational standing, recognition, membership, or formal programme participation. Proves the organization was assessed and recognized, not that outcomes occurred." .
+
+<https://standards.crosswalkri.org/walkri/InstrumentModality#extraction_specification> a owl:Class ;
+    rdfs:label "extraction_specification" ;
+    rdfs:subClassOf walkri:InstrumentModality ;
+    skos:definition "A specification for extracting a datum." .
+
+<https://standards.crosswalkri.org/walkri/InstrumentModality#form_field> a owl:Class ;
+    rdfs:label "form_field" ;
+    rdfs:subClassOf walkri:InstrumentModality ;
+    skos:definition "A field in a form (the most familiar instantiation)." .
+
+<https://standards.crosswalkri.org/walkri/InstrumentModality#prompt_constraint> a owl:Class ;
+    rdfs:label "prompt_constraint" ;
+    rdfs:subClassOf walkri:InstrumentModality ;
+    skos:definition "A constraint in a prompt." .
+
+<https://standards.crosswalkri.org/walkri/InstrumentModality#rubric_item> a owl:Class ;
+    rdfs:label "rubric_item" ;
+    rdfs:subClassOf walkri:InstrumentModality ;
+    skos:definition "An item in a rubric." .
+
+<https://standards.crosswalkri.org/walkri/InstrumentModality#structured_output_schema_element> a owl:Class ;
+    rdfs:label "structured_output_schema_element" ;
+    rdfs:subClassOf walkri:InstrumentModality ;
+    skos:definition "An element of a structured-output schema." .
+
+<https://standards.crosswalkri.org/walkri/RequirementStatus#fail> a owl:Class ;
+    rdfs:label "fail" ;
+    rdfs:subClassOf walkri:RequirementStatus .
+
+<https://standards.crosswalkri.org/walkri/RequirementStatus#override> a owl:Class ;
+    rdfs:label "override" ;
+    rdfs:subClassOf walkri:RequirementStatus .
+
+<https://standards.crosswalkri.org/walkri/RequirementStatus#pass> a owl:Class ;
+    rdfs:label "pass" ;
+    rdfs:subClassOf walkri:RequirementStatus .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#binary> a owl:Class ;
+    rdfs:label "binary" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#composite> a owl:Class ;
+    rdfs:label "composite" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#multi_select> a owl:Class ;
+    rdfs:label "multi_select" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#numeric> a owl:Class ;
+    rdfs:label "numeric" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#single_select> a owl:Class ;
+    rdfs:label "single_select" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#text> a owl:Class ;
+    rdfs:label "text" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+<https://standards.crosswalkri.org/walkri/ResponseType#url> a owl:Class ;
+    rdfs:label "url" ;
+    rdfs:subClassOf walkri:ResponseType .
+
+walkri:categories a owl:ObjectProperty ;
+    rdfs:label "categories" ;
+    skos:definition "Per-option definitions for a categorical, binary, or numeric instrument." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:evidence_form a owl:ObjectProperty ;
+    rdfs:label "evidence_form" ;
+    skos:definition "WALKRI Section 3.4. The artifact that satisfies the criterion, one entry per required evidence type. A single criterion may require more than one type." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:non_qualifying_examples a owl:DatatypeProperty ;
+    rdfs:label "non_qualifying_examples" ;
+    skos:definition "Examples that do not qualify for this category." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:overrides a owl:ObjectProperty ;
+    rdfs:label "overrides" ;
+    skos:definition "WALKRI Section 8.3. One entry for each requirement whose status is override, carrying the flag, the justification, and the authorizer." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:qualifying_examples a owl:DatatypeProperty ;
+    rdfs:label "qualifying_examples" ;
+    skos:definition "Examples that qualify for this category." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:CompletionSufficiency a owl:Class ;
+    rdfs:label "CompletionSufficiency" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/CompletionSufficiency#sufficient_to_verify_completion> <https://standards.crosswalkri.org/walkri/CompletionSufficiency#supporting_context_only> ) ;
+    skos:definition "WALKRI Section 3.4. For a completion claim, whether an evidence type verifies completion or only supports context." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/CompletionSufficiency#sufficient_to_verify_completion>,
+        <https://standards.crosswalkri.org/walkri/CompletionSufficiency#supporting_context_only> .
+
+walkri:ConformanceThreshold a owl:Class ;
+    rdfs:label "ConformanceThreshold" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty walkri:references_external_standard ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:minimum_threshold ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:registry_treatment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:minimum_threshold ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:evidence_per_component ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:applicable_components ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:registry_treatment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:applicable_components ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:evidence_per_component ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty walkri:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:registry_treatment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:evidence_per_component ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:minimum_threshold ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty walkri:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty walkri:references_external_standard ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty walkri:references_external_standard ] ;
+    skos:definition "WALKRI Section 3.5. For an instrument that references an external standard, the components that apply, the evidence that satisfies each, the minimum passage threshold, and the treatment of any registry the standard maintains. Where no external standard is referenced, references_external_standard is false and a not_applicable_reason is declared, never left silent." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:access_path a owl:DatatypeProperty ;
+    rdfs:label "access_path" ;
+    skos:definition "The path by which a reviewer independently locates and verifies the evidence, resolving without login, access request, or contact with the applicant." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:applicable_components a owl:DatatypeProperty ;
+    rdfs:label "applicable_components" ;
+    skos:definition "Which components of the external standard apply to this criterion." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:authorized_by a owl:DatatypeProperty ;
+    rdfs:label "authorized_by" ;
+    skos:definition "The name or identifier of the person who authorized the override." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:category a owl:DatatypeProperty ;
+    rdfs:label "category" ;
+    skos:definition "The option or response category being defined." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:chain_attribution a owl:ObjectProperty ;
+    rdfs:label "chain_attribution" ;
+    skos:definition "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves (its layer attribution), or the Declared-Absent value where WALKRI is used standalone." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:completion_sufficiency a owl:ObjectProperty ;
+    rdfs:label "completion_sufficiency" ;
+    skos:definition "Where the criterion involves a completion claim, whether this evidence type is sufficient to verify completion or serves only as supporting context." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "WALKRI Part VIII. The per-requirement conformance status of this instrument. There is deliberately no overall pass mark." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:conformance_threshold a owl:ObjectProperty ;
+    rdfs:label "conformance_threshold" ;
+    skos:definition "WALKRI Section 3.5. For an instrument that references an external standard, which components apply, what evidence satisfies each, and the minimum passage threshold. Where no external standard is referenced, this is declared not-applicable with a reason." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:conformance_threshold_status a owl:ObjectProperty ;
+    rdfs:label "conformance_threshold_status" ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:contribution a owl:DatatypeProperty ;
+    rdfs:label "contribution" ;
+    skos:definition "What aspect of the definition they contributed to or validated." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:criterion_intent a owl:ObjectProperty ;
+    rdfs:label "criterion_intent" ;
+    skos:definition "WALKRI Section 3.1. A written statement of what the instrument measures, distinct from its label." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:criterion_intent_status a owl:ObjectProperty ;
+    rdfs:label "criterion_intent_status" ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:definition a owl:DatatypeProperty ;
+    rdfs:label "definition" ;
+    skos:definition "The complete definition of this category." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:dependency_declaration a owl:ObjectProperty ;
+    rdfs:label "dependency_declaration" ;
+    skos:definition "WALKRI Section 3.9. The instrument's dependency edges, derived and attested, or the Declared-Absent value where the instrument is independent." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:depends_on a owl:DatatypeProperty ;
+    rdfs:label "depends_on" ;
+    skos:definition "The instrument this one depends on." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:edge_case a owl:DatatypeProperty ;
+    rdfs:label "edge_case" ;
+    skos:definition "For a binary field, an edge-case determination." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:edges a owl:ObjectProperty ;
+    rdfs:label "edges" ;
+    skos:definition "The derived and attested dependency edges, where the instrument depends on others." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:evidence_form_status a owl:ObjectProperty ;
+    rdfs:label "evidence_form_status" ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:evidence_per_component a owl:DatatypeProperty ;
+    rdfs:label "evidence_per_component" ;
+    skos:definition "What evidence satisfies each applicable component." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:evidence_type a owl:ObjectProperty ;
+    rdfs:label "evidence_type" ;
+    skos:definition "The evidence type required, from the WALKRI Section 3.4 taxonomy." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:flag_text a owl:DatatypeProperty ;
+    rdfs:label "flag_text" ;
+    skos:definition "The text of the flag being overridden." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:instrument_identifier a owl:DatatypeProperty ;
+    rdfs:label "instrument_identifier" ;
+    skos:definition "What instrument this specifies (the field name or instrument label)." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:label a owl:DatatypeProperty ;
+    rdfs:label "label" ;
+    skos:definition "The instrument's label (a name)." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:measurement_claim a owl:DatatypeProperty ;
+    rdfs:label "measurement_claim" ;
+    skos:definition "What a true response tells us about the subject. A measurement claim distinct from the label." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:modality a owl:ObjectProperty ;
+    rdfs:label "modality" ;
+    skos:definition "WALKRI Part I. The modality in which this instrument is rendered. The five requirements attach regardless of modality." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:operational_definition a owl:ObjectProperty ;
+    rdfs:label "operational_definition" ;
+    skos:definition "WALKRI Section 3.2. A complete definition of each response category, with qualifying and non-qualifying examples, or the scope and minimum content for a text field." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:operational_definition_status a owl:ObjectProperty ;
+    rdfs:label "operational_definition_status" ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:participants a owl:DatatypeProperty ;
+    rdfs:label "participants" ;
+    skos:definition "Who participated, described by role or relationship to the measured condition." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:participatory_specification a owl:ObjectProperty ;
+    rdfs:label "participatory_specification" ;
+    skos:definition "WALKRI Section 3.6. Optional. The record of population input into the definition, where the instrument measures a condition an identifiable group experiences." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:registry_treatment a owl:DatatypeProperty ;
+    rdfs:label "registry_treatment" ;
+    skos:definition "Where the external standard maintains a registry, whether registry membership is accepted as sufficient evidence of current qualification or independent assessment is required regardless of registry status." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:relation a owl:DatatypeProperty ;
+    rdfs:label "relation" ;
+    skos:definition "The formal relation from which the edge was derived (the conditional logic that produced it)." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:required_content a owl:DatatypeProperty ;
+    rdfs:label "required_content" ;
+    skos:definition "The specific elements this evidence type must contain (the required elements named for the type)." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:requirement a owl:ObjectProperty ;
+    rdfs:label "requirement" ;
+    skos:definition "Which of the five criterion specification requirements this override applies to." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:resolution a owl:DatatypeProperty ;
+    rdfs:label "resolution" ;
+    skos:definition "WALKRI Section 8.3. The resolution the instrument's criterion elements specify, carried upward rather than a bare pass mark, so the precision actually achieved at the capture point travels." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:response_form a owl:ObjectProperty ;
+    rdfs:label "response_form" ;
+    skos:definition "WALKRI Section 3.3. The response type with a written justification that it can capture the variance the criterion intent requires." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:response_form_status a owl:ObjectProperty ;
+    rdfs:label "response_form_status" ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:response_type a owl:ObjectProperty ;
+    rdfs:label "response_type" ;
+    skos:definition "The response type of the instrument." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:text_minimum_content a owl:DatatypeProperty ;
+    rdfs:label "text_minimum_content" ;
+    skos:definition "For a text or narrative instrument, the minimum content that constitutes a complete response." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:text_scope a owl:DatatypeProperty ;
+    rdfs:label "text_scope" ;
+    skos:definition "For a text or narrative instrument, the scope of acceptable response content." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:timing a owl:DatatypeProperty ;
+    rdfs:label "timing" ;
+    skos:definition "When the participation occurred relative to the instrument's publication." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:chain_condition_served a owl:DatatypeProperty ;
+    rdfs:label "chain_condition_served" ;
+    skos:definition "The chain condition this instrument's quality serves (its layer attribution), where WALKRI operates inside a chain." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:independent a owl:DatatypeProperty ;
+    rdfs:label "independent" ;
+    skos:definition "The Declared-Absent value. True where the instrument has no dependency edges." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:minimum_threshold a owl:DatatypeProperty ;
+    rdfs:label "minimum_threshold" ;
+    skos:definition "The minimum threshold for passage (which components must be met, and which are non-waivable)." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:not_applicable_reason a owl:DatatypeProperty ;
+    rdfs:label "not_applicable_reason" ;
+    skos:definition "Where no external standard is referenced, the declared reason the conformance-threshold content is not applicable." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:standalone a owl:DatatypeProperty ;
+    rdfs:label "standalone" ;
+    skos:definition "The Declared-Absent value. True where WALKRI is used standalone, outside any evaluation chain." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:references_external_standard a owl:DatatypeProperty ;
+    rdfs:label "references_external_standard" ;
+    skos:definition "Whether this instrument references an external standard." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> .
+
+walkri:CriterionRequirement a owl:Class ;
+    rdfs:label "CriterionRequirement" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/CriterionRequirement#criterion_intent> <https://standards.crosswalkri.org/walkri/CriterionRequirement#operational_definition> <https://standards.crosswalkri.org/walkri/CriterionRequirement#response_form> <https://standards.crosswalkri.org/walkri/CriterionRequirement#evidence_form> <https://standards.crosswalkri.org/walkri/CriterionRequirement#conformance_threshold> ) ;
+    skos:definition "WALKRI Part III. The five criterion specification requirements an override can apply to." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/CriterionRequirement#conformance_threshold>,
+        <https://standards.crosswalkri.org/walkri/CriterionRequirement#criterion_intent>,
+        <https://standards.crosswalkri.org/walkri/CriterionRequirement#evidence_form>,
+        <https://standards.crosswalkri.org/walkri/CriterionRequirement#operational_definition>,
+        <https://standards.crosswalkri.org/walkri/CriterionRequirement#response_form> .
+
+walkri:EvidenceType a owl:Class ;
+    rdfs:label "EvidenceType" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/EvidenceType#standing> <https://standards.crosswalkri.org/walkri/EvidenceType#activity> <https://standards.crosswalkri.org/walkri/EvidenceType#outcome> <https://standards.crosswalkri.org/walkri/EvidenceType#planning> <https://standards.crosswalkri.org/walkri/EvidenceType#financial_accountability> ) ;
+    skos:definition "WALKRI Section 3.4. The five evidence types; each proves a different thing and they are not interchangeable." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/EvidenceType#activity>,
+        <https://standards.crosswalkri.org/walkri/EvidenceType#financial_accountability>,
+        <https://standards.crosswalkri.org/walkri/EvidenceType#outcome>,
+        <https://standards.crosswalkri.org/walkri/EvidenceType#planning>,
+        <https://standards.crosswalkri.org/walkri/EvidenceType#standing> .
+
+walkri:InstrumentModality a owl:Class ;
+    rdfs:label "InstrumentModality" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/InstrumentModality#form_field> <https://standards.crosswalkri.org/walkri/InstrumentModality#prompt_constraint> <https://standards.crosswalkri.org/walkri/InstrumentModality#structured_output_schema_element> <https://standards.crosswalkri.org/walkri/InstrumentModality#rubric_item> <https://standards.crosswalkri.org/walkri/InstrumentModality#extraction_specification> ) ;
+    skos:definition "WALKRI Part I. The modality in which an instrument is rendered; the five requirements attach in each." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/InstrumentModality#extraction_specification>,
+        <https://standards.crosswalkri.org/walkri/InstrumentModality#form_field>,
+        <https://standards.crosswalkri.org/walkri/InstrumentModality#prompt_constraint>,
+        <https://standards.crosswalkri.org/walkri/InstrumentModality#rubric_item>,
+        <https://standards.crosswalkri.org/walkri/InstrumentModality#structured_output_schema_element> .
+
+walkri:justification a owl:DatatypeProperty .
+
+walkri:RequirementStatus a owl:Class ;
+    rdfs:label "RequirementStatus" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/RequirementStatus#pass> <https://standards.crosswalkri.org/walkri/RequirementStatus#fail> <https://standards.crosswalkri.org/walkri/RequirementStatus#override> ) ;
+    skos:definition "WALKRI Part VIII. The status of one criterion specification requirement on one instrument. Silence is not one of the values." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/RequirementStatus#fail>,
+        <https://standards.crosswalkri.org/walkri/RequirementStatus#override>,
+        <https://standards.crosswalkri.org/walkri/RequirementStatus#pass> .
+
+walkri:ResponseType a owl:Class ;
+    rdfs:label "ResponseType" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/walkri/ResponseType#single_select> <https://standards.crosswalkri.org/walkri/ResponseType#multi_select> <https://standards.crosswalkri.org/walkri/ResponseType#binary> <https://standards.crosswalkri.org/walkri/ResponseType#numeric> <https://standards.crosswalkri.org/walkri/ResponseType#text> <https://standards.crosswalkri.org/walkri/ResponseType#url> <https://standards.crosswalkri.org/walkri/ResponseType#composite> ) ;
+    skos:definition "WALKRI Section 3.3. The response type of an instrument." ;
+    skos:inScheme <https://standards.crosswalkri.org/walkri> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/walkri/ResponseType#binary>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#composite>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#multi_select>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#numeric>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#single_select>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#text>,
+        <https://standards.crosswalkri.org/walkri/ResponseType#url> .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty walkri:chain_condition_served ;
+            owl:someValuesFrom xsd:string ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty walkri:standalone ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "false" ] ) ] ] walkri:ChainAttribution ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty walkri:edges ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty walkri:independent ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "false" ] ) ] ] walkri:DependencyDeclaration ) .
+
+[] rdfs:subClassOf [ owl:intersectionOf ( [ a owl:Restriction ;
+                        owl:onProperty walkri:applicable_components ;
+                        owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                        owl:onProperty walkri:minimum_threshold ;
+                        owl:someValuesFrom xsd:string ] ) ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty walkri:references_external_standard ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "true" ] ) ] ] walkri:ConformanceThreshold ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty walkri:not_applicable_reason ;
+            owl:someValuesFrom xsd:string ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty walkri:references_external_standard ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "false" ] ) ] ] walkri:ConformanceThreshold ) .
+
+

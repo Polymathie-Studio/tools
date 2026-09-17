@@ -1,0 +1,214 @@
+id: https://standards.crosswalkri.org/struck
+name: struck
+title: STRUCK evidence-grade output
+description: >-
+  The one canonical source for STRUCK's machine-readable layer (struck-0_1_0, v0.1.2):
+  a LinkML model of the shape a STRUCK-conformant evidence-grade output must carry on its
+  face. Every machine-readable artifact in dist/ is generated from this file. The
+  structural obligations (which exposures must be present) are modeled here; the
+  interpretive obligations (are the refutation conditions in world terms, is a rung above
+  its standing) are not schema-expressible and belong to the conformance checker, marked
+  per-requirement in struck-register.yaml.
+license: CC0-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  struck: https://standards.crosswalkri.org/struck/
+default_prefix: struck
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  EvidenceGradeOutput:
+    tree_root: true
+    description: An output offered as evidence-grade, carrying the five STRUCK obligations on its face.
+    attributes:
+      claim:
+        description: The conclusion the output asserts.
+        required: true
+      graded_evidence:
+        description: STRUCK Section 2. The grade profile of the material support.
+        range: GradeProfile
+        required: true
+      refutation:
+        description: STRUCK Section 3. What would overturn the output, or a declared unfalsifiability.
+        range: RefutationExposure
+        required: true
+      contested_regions:
+        description: STRUCK Section 4. Regions of disagreement in the support, represented rather than averaged.
+        range: ContestedRegion
+        multivalued: true
+        inlined_as_list: true
+      derivation_chains:
+        description: STRUCK Section 5. Support traced to ultimate origin, rungs labeled by role.
+        range: DerivationChain
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      worth_judgment:
+        description: STRUCK Section 6. The sufficiency judgment left to the consumer.
+        range: WorthJudgment
+        required: true
+      conformance:
+        description: STRUCK Section 7. The five conformance questions answered on the face.
+        range: ConformanceDeclaration
+        required: true
+
+  GradeProfile:
+    description: Per-dimension grade of the support; no combined figure (S2.4).
+    attributes:
+      per_dimension:
+        range: DimensionGrade
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      open_posture_ungraded:
+        description: S2.2. True if the output rests on ungraded material admitted under an Open posture, declared on the face.
+        range: boolean
+      joint_support_flag:
+        description: S2.3. Separately admitted sources not distinct in effective origin.
+        range: boolean
+
+  DimensionGrade:
+    attributes:
+      dimension:
+        required: true
+      weakest_assessment:
+        description: The weakest assessment present anywhere in the support for this dimension.
+        required: true
+      flags:
+        multivalued: true
+
+  RefutationExposure:
+    description: >-
+      S3. Either world-terms refutation conditions, or a declared unfalsifiability that
+      names a reason. The "if unfalsifiable then a reason is required" obligation is
+      modeled as native nested-required (reason is required inside the unfalsifiability
+      object), and the "conditions or a declaration, never silence" obligation as a
+      presence-based rule. Both are enforced by a standard JSON Schema validator.
+    attributes:
+      conditions:
+        range: RefutationCondition
+        multivalued: true
+        inlined_as_list: true
+      unfalsifiability:
+        range: Unfalsifiability
+    rules:
+      - preconditions:
+          slot_conditions:
+            conditions:
+              value_presence: ABSENT
+        postconditions:
+          slot_conditions:
+            unfalsifiability:
+              required: true
+        description: S3.3. If no refutation conditions are given, an unfalsifiability declaration is required.
+
+  RefutationCondition:
+    attributes:
+      world_observable:
+        description: S3.1/S3.2. The refuting thing, stated in terms of what could be found in the world.
+        required: true
+
+  Unfalsifiability:
+    description: S3.3. A declared unfalsifiability names a reason (native nested-required).
+    attributes:
+      reason:
+        required: true
+        range: UnfalsifiabilityReason
+
+  ContestedRegion:
+    attributes:
+      disputed:
+        required: true
+      support_each_side:
+        multivalued: true
+      turns_on:
+      resolution_basis:
+        description: S4.4. The basis of any resolution the producer made.
+      retained_losing_position:
+        description: S4.4. The losing position retained in the record.
+      unexamined:
+        description: S4.5. True where absence of contest is an unexamined state, not agreement.
+        range: boolean
+
+  DerivationChain:
+    attributes:
+      rungs:
+        range: Rung
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      stopped_at:
+        description: S5.3. Where the walk to origin stopped, if it could not be completed.
+      stop_reason:
+      converges_with:
+        description: S5.5. Other chains this one converges with on the same origin.
+        multivalued: true
+
+  Rung:
+    attributes:
+      identifier:
+        required: true
+      role:
+        range: RungRole
+        required: true
+      restates:
+        description: S5.1. The named source this rung restates, if role is restatement.
+
+  WorthJudgment:
+    description: S6. The sufficiency judgment left to the consumer; no adequacy assertion.
+    attributes:
+      cost_to_raise_confidence:
+        description: S6.2. Optional. What it would take to raise confidence and what it would cost.
+      consumer_facing:
+        range: boolean
+
+  ConformanceDeclaration:
+    description: >-
+      S7. The five conformance questions answered on the face. There is deliberately no
+      overall or total field: conformance is per-obligation, mirroring the refusal to
+      combine grades (S2.4) and the SLSA Verification-Summary-Attestation shape.
+    attributes:
+      graded_evidence_exposed:
+        range: ConformanceAnswer
+        required: true
+      refutation_stated:
+        range: ConformanceAnswer
+        required: true
+      contest_represented:
+        range: ConformanceAnswer
+        required: true
+      chains_labeled:
+        range: ConformanceAnswer
+        required: true
+      worth_left_to_consumer:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  RungRole:
+    description: S5.2. The role a derivation rung actually holds.
+    permissible_values:
+      originating_observation:
+      primary_record:
+      aggregator:
+      secondary_reporting:
+      review:
+      restatement:
+
+  UnfalsifiabilityReason:
+    description: S3.3.
+    permissible_values:
+      definitional:
+      domain_limited:
+      impressionistic:
+
+  ConformanceAnswer:
+    description: S7. Per-obligation answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

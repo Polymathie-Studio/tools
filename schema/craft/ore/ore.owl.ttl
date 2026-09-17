@@ -1,0 +1,582 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix ore: <https://standards.crosswalkri.org/ore/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.crosswalkri.org/ore.owl.ttl> a owl:Ontology ;
+    rdfs:label "ore" ;
+    dcterms:license "CC0-1.0" ;
+    dcterms:title "ORE graded source" ;
+    skos:definition "The one canonical source for ORE's machine-readable layer (ore-specification, v0.1.2): a LinkML model of the shape an ORE-conformant grading of a source must carry, plus the grade profile an output exposes. Every machine-readable artifact in dist/ is generated from this file. The structural obligations (which fields must be present, that an ungraded extension declares its absence, that no combined figure is carried) are modeled here; the interpretive obligations (whether a grade is being used as a worth-verdict, whether party count was substituted for independence, whether opacity was judged by an unrecorded reason) are not schema-expressible and belong to the conformance checker, marked per-requirement in ore-register.yaml. A grade measures how much of a source's reliability can be seen, never how good the source is." .
+
+ore:GradeProfile a owl:Class ;
+    rdfs:label "GradeProfile" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:joint_support_flag ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:joint_support_flag ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:rests_on_open_posture_material ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ore:rests_on_open_posture_material ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ore:joint_support_flag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:per_dimension ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:DimensionExposure ;
+            owl:onProperty ore:per_dimension ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:rests_on_open_posture_material ] ;
+    skos:definition "ORE Section 5. The grade profile an output exposes: for each grading dimension, the weakest assessment present anywhere in the output's support and every flag any source in that support carries. Never a combined figure. This is the companion object to GradedSource, carried on outputs rather than on sources." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:GradedSource a owl:Class ;
+    rdfs:label "GradedSource" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:posture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:OreConformance ;
+            owl:onProperty ore:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:standing_loss ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:monitoring ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:standing_loss ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:monitoring ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:grade ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:monitoring ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:posture ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:grade ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:IntakePosture ;
+            owl:onProperty ore:posture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:source_identifier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:OreGrade ;
+            owl:onProperty ore:grade ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:StandingLoss ;
+            owl:onProperty ore:standing_loss ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:source_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:source_identifier ] ;
+    skos:definition "ORE Section 8. An admitted source carrying its grading: the per-dimension grade, the intake posture in force when it was admitted, any monitoring obligation, and the conformance declaration. This is the unit ORE conformance is assessed against." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:ConfirmationArchitecture a owl:Class ;
+    rdfs:label "ConfirmationArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:independence_flag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:modes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConfirmationMode ;
+            owl:onProperty ore:modes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:independence_flag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:independence_flag ] ;
+    skos:definition "ORE Section 3.3. Records each confirmation mode present rather than forcing one cell. Party count is not a substitute for independence; where effective independence cannot be assessed, that is recorded as a named flag." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:DimensionExposure a owl:Class ;
+    rdfs:label "DimensionExposure" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:dimension ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:weakest_assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:flags ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:dimension ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:weakest_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:flags ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:dimension ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:weakest_assessment ] ;
+    skos:definition "ORE Section 5. Per-dimension exposure on an output." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:OreConformance a owl:Class ;
+    rdfs:label "OreConformance" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConformanceAnswer ;
+            owl:onProperty ore:sources_graded_on_dimensions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:sources_graded_on_dimensions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConformanceAnswer ;
+            owl:onProperty ore:no_grade_as_worth_verdict ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:outputs_expose_grade_profile ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:posture_declared_and_enforced ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:no_grade_as_worth_verdict ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:no_grade_as_worth_verdict ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:posture_declared_and_enforced ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConformanceAnswer ;
+            owl:onProperty ore:posture_declared_and_enforced ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:sources_graded_on_dimensions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConformanceAnswer ;
+            owl:onProperty ore:outputs_expose_grade_profile ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:outputs_expose_grade_profile ] ;
+    skos:definition "ORE Section 8. The four conformance questions answered on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the refusal to combine grades (Section 2) and the Verification-Summary-Attestation shape." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:OreGrade a owl:Class ;
+    rdfs:label "OreGrade" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:independence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:epistemic_soundness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ExtensionDimension ;
+            owl:onProperty ore:track_record ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:confirmation_architecture ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:provenance_integrity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:track_record ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:GradedDimension ;
+            owl:onProperty ore:epistemic_soundness ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:track_record ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:epistemic_soundness ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:independence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ExtensionDimension ;
+            owl:onProperty ore:independence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:GradedDimension ;
+            owl:onProperty ore:provenance_integrity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:ConfirmationArchitecture ;
+            owl:onProperty ore:confirmation_architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:provenance_integrity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:confirmation_architecture ] ;
+    skos:definition "ORE Section 3. The per-dimension grade. Three dimensions are required (provenance integrity, epistemic soundness, confirmation architecture); two are declared extensions (track record, independence) that must each be addressed, graded or with a declared absence. There is deliberately no combined figure: the closed schema forbids one, which enforces the Section 2 refusal to merge into a single confidence number by absence." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:StandingLoss a owl:Class ;
+    rdfs:label "StandingLoss" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:evidence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:decision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:decision ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:evidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:decision ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:evidence ] ;
+    skos:definition "ORE Section 6. Standing loss is only through a documented, evidence-based process: the evidence, the basis, and the decision are recorded and retained with the source. Adverse findings are never silently discarded. Loss of standing is not retroactive." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+<https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_multi_party> a owl:Class ;
+    rdfs:label "trust_based_multi_party" ;
+    rdfs:subClassOf ore:ConfirmationMode ;
+    skos:definition "Adversarial or consensus confirmation built into the mechanism." .
+
+<https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_single_party> a owl:Class ;
+    rdfs:label "trust_based_single_party" ;
+    rdfs:subClassOf ore:ConfirmationMode ;
+    skos:definition "One evaluator, curator, or badgeholder; social provenance, no independent check on content." .
+
+<https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_multi_party> a owl:Class ;
+    rdfs:label "trustless_multi_party" ;
+    rdfs:subClassOf ore:ConfirmationMode ;
+    skos:definition "Mechanism-required confirmation (multisig, validator set, passed vote), subject to the opacity limit." .
+
+<https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_single_party> a owl:Class ;
+    rdfs:label "trustless_single_party" ;
+    rdfs:subClassOf ore:ConfirmationMode ;
+    skos:definition "Cryptographic proof from one attester; origin guaranteed, underlying claim confirmed by no one." .
+
+<https://standards.crosswalkri.org/ore/ConfirmationMode#unconfirmed> a owl:Class ;
+    rdfs:label "unconfirmed" ;
+    rdfs:subClassOf ore:ConfirmationMode ;
+    skos:definition "No cryptographic proof and no confirming party; the highest confirmation uncertainty." .
+
+<https://standards.crosswalkri.org/ore/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf ore:ConformanceAnswer .
+
+<https://standards.crosswalkri.org/ore/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf ore:ConformanceAnswer .
+
+<https://standards.crosswalkri.org/ore/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf ore:ConformanceAnswer .
+
+<https://standards.crosswalkri.org/ore/IntakePosture#graded> a owl:Class ;
+    rdfs:label "graded" ;
+    rdfs:subClassOf ore:IntakePosture ;
+    skos:definition "Everything admitted enters at the grade its visible properties warrant; review is prioritized by uncertainty." .
+
+<https://standards.crosswalkri.org/ore/IntakePosture#open> a owl:Class ;
+    rdfs:label "open" ;
+    rdfs:subClassOf ore:IntakePosture ;
+    skos:definition "Bulk material enters ungraded into a quarantined state; it may serve discovery but must not support findings until graded." .
+
+<https://standards.crosswalkri.org/ore/IntakePosture#screened> a owl:Class ;
+    rdfs:label "screened" ;
+    rdfs:subClassOf ore:IntakePosture ;
+    skos:definition "Nothing enters without being graded first." .
+
+ore:flags a owl:DatatypeProperty ;
+    rdfs:label "flags" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:modes a owl:ObjectProperty ;
+    rdfs:label "modes" ;
+    skos:definition "One or more confirmation modes present when the source produced its output." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:per_dimension a owl:ObjectProperty ;
+    rdfs:label "per_dimension" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:ExtensionDimension a owl:Class ;
+    rdfs:label "ExtensionDimension" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ore:GradedDimension ;
+            owl:onProperty ore:graded ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:graded ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:resolves_with_history ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ore:resolves_with_history ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:not_applicable_reason ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:resolves_with_history ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:graded ] ;
+    skos:definition "ORE Section 3.4 and Section 7. A declared extension dimension is either graded (with a basis) or its absence is declared with a named reason. The \"if not graded then a reason is required\" obligation is modeled as a presence-based rule and enforced by a standard JSON Schema validator, so an extension can never fall silent or default to a middle value." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:GradedDimension a owl:Class ;
+    rdfs:label "GradedDimension" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:flag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ore:flag ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ore:assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:basis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:flag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ore:assessment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ore:assessment ] ;
+    skos:definition "ORE Section 3. A dimension records an assessment and the basis on which it was made. Any sub-assessment that could not be computed is a named flag, never a silent default or an assumed middle value." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:assessment a owl:DatatypeProperty ;
+    rdfs:label "assessment" ;
+    skos:definition "The uncertainty assessment on this dimension. Not a quality rank." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:confirmation_architecture a owl:ObjectProperty ;
+    rdfs:label "confirmation_architecture" ;
+    skos:definition "ORE Section 3.3. What confirmed the source's output when it was produced." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "ORE Section 8. The four conformance questions answered on the face." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:decision a owl:DatatypeProperty ;
+    rdfs:label "decision" ;
+    skos:definition "The eligibility decision taken." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:dimension a owl:DatatypeProperty ;
+    rdfs:label "dimension" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:epistemic_soundness a owl:ObjectProperty ;
+    rdfs:label "epistemic_soundness" ;
+    skos:definition "ORE Section 3.2. Is the output structured so independent truth-evaluation is possible." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:evidence a owl:DatatypeProperty ;
+    rdfs:label "evidence" ;
+    skos:definition "The evidence on which standing was reduced or withdrawn." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:flag a owl:DatatypeProperty ;
+    rdfs:label "flag" ;
+    skos:definition "A named limitation where a sub-assessment could not be computed. Never a silent default." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:grade a owl:ObjectProperty ;
+    rdfs:label "grade" ;
+    skos:definition "ORE Section 3. The per-dimension uncertainty grade of the source." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:independence a owl:ObjectProperty ;
+    rdfs:label "independence" ;
+    skos:definition "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:independence_flag a owl:DatatypeProperty ;
+    rdfs:label "independence_flag" ;
+    skos:definition "ORE Section 3.3 party-count limit. Set where effective independence cannot be assessed; party count is never a substitute." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:joint_support_flag a owl:DatatypeProperty ;
+    rdfs:label "joint_support_flag" ;
+    skos:definition "ORE Section 5. Separately admitted sources in the support that cannot be shown distinct in effective origin." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:monitoring a owl:DatatypeProperty ;
+    rdfs:label "monitoring" ;
+    skos:definition "ORE Section 4. The monitoring obligation attached to an admitted opaque or flagged source." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:no_grade_as_worth_verdict a owl:ObjectProperty ;
+    rdfs:label "no_grade_as_worth_verdict" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:outputs_expose_grade_profile a owl:ObjectProperty ;
+    rdfs:label "outputs_expose_grade_profile" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:posture a owl:ObjectProperty ;
+    rdfs:label "posture" ;
+    skos:definition "ORE Section 6.4. The intake posture in force when this source was admitted, recorded so its grading history is never ambiguous later." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:posture_declared_and_enforced a owl:ObjectProperty ;
+    rdfs:label "posture_declared_and_enforced" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:provenance_integrity a owl:ObjectProperty ;
+    rdfs:label "provenance_integrity" ;
+    skos:definition "ORE Section 3.1. Did the input come from where it claims, and arrive unchanged." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:resolves_with_history a owl:DatatypeProperty ;
+    rdfs:label "resolves_with_history" ;
+    skos:definition "ORE Section 7.3. Whether the limitation is expected to resolve as history accumulates." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:rests_on_open_posture_material a owl:DatatypeProperty ;
+    rdfs:label "rests_on_open_posture_material" ;
+    skos:definition "ORE Section 5. True where the output rests partly on ungraded material admitted under an Open posture, declared on the face." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:source_identifier a owl:DatatypeProperty ;
+    rdfs:label "source_identifier" ;
+    skos:definition "What source this grades." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:sources_graded_on_dimensions a owl:ObjectProperty ;
+    rdfs:label "sources_graded_on_dimensions" ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:standing_loss a owl:ObjectProperty ;
+    rdfs:label "standing_loss" ;
+    skos:definition "ORE Section 6. The documented, evidence-based record where this source's eligibility was reduced or withdrawn." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:track_record a owl:ObjectProperty ;
+    rdfs:label "track_record" ;
+    skos:definition "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:weakest_assessment a owl:DatatypeProperty ;
+    rdfs:label "weakest_assessment" ;
+    skos:definition "The weakest assessment present anywhere in the support for this dimension." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:IntakePosture a owl:Class ;
+    rdfs:label "IntakePosture" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/ore/IntakePosture#screened> <https://standards.crosswalkri.org/ore/IntakePosture#graded> <https://standards.crosswalkri.org/ore/IntakePosture#open> ) ;
+    skos:definition "ORE Section 6. The intake posture: when grading happens and what ungraded material may touch." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/ore/IntakePosture#graded>,
+        <https://standards.crosswalkri.org/ore/IntakePosture#open>,
+        <https://standards.crosswalkri.org/ore/IntakePosture#screened> .
+
+ore:graded a owl:ObjectProperty ;
+    rdfs:label "graded" ;
+    skos:definition "The grading of this extension, where the system grades it." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:not_applicable_reason a owl:DatatypeProperty ;
+    rdfs:label "not_applicable_reason" ;
+    skos:definition "ORE Section 7. Where the extension is not graded, the named reason (a genesis limitation for a new source, a permanent property of the source class, or a declared choice not to grade)." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> .
+
+ore:ConfirmationMode a owl:Class ;
+    rdfs:label "ConfirmationMode" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_single_party> <https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_multi_party> <https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_single_party> <https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_multi_party> <https://standards.crosswalkri.org/ore/ConfirmationMode#unconfirmed> ) ;
+    skos:definition "ORE Section 3.3. The confirmation modes a source's output can carry; more than one may be present." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_multi_party>,
+        <https://standards.crosswalkri.org/ore/ConfirmationMode#trust_based_single_party>,
+        <https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_multi_party>,
+        <https://standards.crosswalkri.org/ore/ConfirmationMode#trustless_single_party>,
+        <https://standards.crosswalkri.org/ore/ConfirmationMode#unconfirmed> .
+
+ore:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/ore/ConformanceAnswer#satisfied> <https://standards.crosswalkri.org/ore/ConformanceAnswer#declared_absent_with_justification> <https://standards.crosswalkri.org/ore/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "ORE Section 8. Per-obligation answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.crosswalkri.org/ore> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/ore/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.crosswalkri.org/ore/ConformanceAnswer#not_applicable>,
+        <https://standards.crosswalkri.org/ore/ConformanceAnswer#satisfied> .
+
+ore:basis a owl:DatatypeProperty .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty ore:not_applicable_reason ;
+            owl:someValuesFrom xsd:string ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty ore:graded ;
+                owl:someValuesFrom owl:Thing ] ore:ExtensionDimension ) .
+
+

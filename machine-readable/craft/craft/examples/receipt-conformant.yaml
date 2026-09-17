@@ -1,0 +1,31 @@
+# A CRAFT-conformant inheritance receipt (craft-specification, internal v0.4.6), Section 10.
+# Validated against the InheritanceReceipt companion class, not the tree root. Declares the
+# chain-level receipt and the Precision Toolkit scope (a CSIS standard and Frame Language,
+# not CRAFT alone), each inheritance carrying its five-element activity profile with a
+# background state that names its validation date.
+domain_application: CROSS
+chain_level_receipt:
+  decision_context: "Whether to fund a grant application in this round, made for the funder and the served population."
+  technical_ontology: "The eleven-field indicator specification and the gate architecture for grants."
+  domain_configuration: "The two-axis Frame Language profile and the cohort architecture specific to grants."
+precision_toolkit_scope:
+  - standard_name: Precision-First Design Standard
+    standard_version: "2.4.3"
+    applicable_obligations: "Operational-definition requirement and falsifiability discipline applied to every gate criterion."
+    foregrounding_triggers:
+      - "during any authoring or revision of specification documents"
+      - "during independent attestation"
+    background_state: background_satisfied
+    background_validated_date: "2026-08-19"
+    version_coupling_procedure: "On a PFDS revision the receipt enters version-bump-pending, triggering a Condition 6 feedback event at the specification layer before returning to current."
+  - standard_name: Frame Language
+    standard_version: "0.1.0"
+    applicable_obligations: "Admissibility and watchlist checks on all specification vocabulary."
+    foregrounding_triggers:
+      - "any authoring or revision of any specification document"
+    background_state: background_unchecked
+    version_coupling_procedure: "On a Frame Language revision the receipt enters version-bump-pending and the vocabulary is re-checked."
+axis_positioning:
+  - axis: authority-structure
+    serves_condition: condition_2_technical_ontology
+    position: "Axis 1 of the domain configuration, assessed independently of the destination frame."

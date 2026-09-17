@@ -1,0 +1,734 @@
+@prefix craft: <https://standards.crosswalkri.org/craft/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.crosswalkri.org/craft.owl.ttl> a owl:Ontology ;
+    rdfs:label "craft" ;
+    dcterms:license "CC0-1.0" ;
+    dcterms:title "CRAFT evaluation chain" ;
+    skos:definition "The one canonical source for CRAFT's machine-readable layer (craft-specification, internal v0.4.6): a LinkML model of the three structurally distinct outputs CRAFT specifies (Section 12), plus the inheritance receipt a domain application produces (Section 10). CRAFT is a meta-standard for evaluation chains; its runtime output is the evaluation record (Section 12.2), modeled here as the tree root because it carries CRAFT's signature discipline: an outcome of accepted, rejected, or indeterminate that is not collapsible, findings that carry their layer attribution so a rejection is traceable to the layer that produced it, and propagation targets on every non-accept so the feedback loop carries what it must. The inheritance receipt (Section 10) and the compliance report (Section 12.3) are companion classes a domain application and an auditor consume. The structural obligations are modeled here; the interpretive obligations (whether the six conditions are actually satisfied, whether a condition is structurally operative rather than compliance-scheduled, whether a specification was examined from two directional origins) are not schema-expressible and belong to the conformance checker, marked per-requirement in craft-register.yaml." .
+
+craft:ComplianceReport a owl:Class ;
+    rdfs:label "ComplianceReport" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:evaluated_specification_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:evaluated_specification_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:ComplianceRecordType ;
+            owl:onProperty craft:record_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:evaluated_specification_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:evaluated_specification_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:ConditionResult ;
+            owl:onProperty craft:condition_results ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:evaluated_specification_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:condition_results ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:evaluated_specification_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:record_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:record_type ] ;
+    skos:definition "CRAFT Section 12.3. Whether a specification document meets CRAFT requirements, produced at audit time (not when the chain evaluates data). Each finding declares its layer, so a domain-application finding is distinguishable from a CRAFT base finding." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:InheritanceReceipt a owl:Class ;
+    rdfs:label "InheritanceReceipt" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:domain_application ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:chain_level_receipt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:domain_application ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:AxisPositioning ;
+            owl:onProperty craft:axis_positioning ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:ChainLevelReceipt ;
+            owl:onProperty craft:chain_level_receipt ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:precision_toolkit_scope ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty craft:axis_positioning ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:domain_application ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:DeclaredInheritance ;
+            owl:onProperty craft:precision_toolkit_scope ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:chain_level_receipt ] ;
+    skos:definition "CRAFT Section 10. The formal declaration a CRAFT-conformant domain application produces: the chain-level receipt, the full Precision Toolkit scope (CSIS standards and Frame Language discipline, not CRAFT alone), and the activity profile for each declared inheritance. A receipt that declares CRAFT conformance without also declaring CSIS and Frame Language inheritance is structurally incomplete." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:AxisPositioning a owl:Class ;
+    rdfs:label "AxisPositioning" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom craft:CraftCondition ;
+            owl:onProperty craft:serves_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:position ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:position ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:axis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:serves_condition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:position ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:axis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:axis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:serves_condition ] ;
+    skos:definition "CRAFT Section 10. One axis's positioning, naming which CRAFT condition it serves and where it sits in the domain configuration." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:ChainLevelReceipt a owl:Class ;
+    rdfs:label "ChainLevelReceipt" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:decision_context ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:technical_ontology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:decision_context ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:domain_configuration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:technical_ontology ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:domain_configuration ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:domain_configuration ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:decision_context ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:technical_ontology ] ;
+    skos:definition "CRAFT Section 10. The chain-level receipt component, the chain specification in CRAFT-compliant form, traceable to the six conditions." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+<https://standards.crosswalkri.org/craft/ComplianceRecordType#compliance_report> a owl:Class ;
+    rdfs:label "compliance_report" ;
+    rdfs:subClassOf craft:ComplianceRecordType .
+
+craft:ConditionFinding a owl:Class ;
+    rdfs:label "ConditionFinding" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:uncertainty_band ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:result ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:basis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:result ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:LayerAttribution ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty craft:uncertainty_band ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:result ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:CraftCondition ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:basis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:uncertainty_band ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:basis ] ;
+    skos:definition "CRAFT Section 12.2. One condition's result at evaluation time, with its basis and layer attribution. A rejection finding without layer attribution cannot be used for root cause analysis, because the propagation target at Condition 6 depends on whether the failure originates at the CRAFT base or the domain application layer." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:ConditionResult a owl:Class ;
+    rdfs:label "ConditionResult" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom craft:LayerAttribution ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:compliant ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty craft:compliant ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:CraftCondition ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:basis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:basis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:layer ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:compliant ] ;
+    skos:definition "CRAFT Section 12.3. One condition's compliance result, with its layer attribution." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:PropagationTarget a owl:Class ;
+    rdfs:label "PropagationTarget" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom craft:CraftCondition ;
+            owl:onProperty craft:target_condition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:target_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:target_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:signal_class ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:signal_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:signal_class ] ;
+    skos:definition "CRAFT Section 12.2 and Condition 6. One prior condition a non-accept signal propagates to, with the signal class it carries." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+<https://standards.crosswalkri.org/craft/RecordType#evaluation_record> a owl:Class ;
+    rdfs:label "evaluation_record" ;
+    rdfs:subClassOf craft:RecordType .
+
+<https://standards.crosswalkri.org/craft/BackgroundState#background_satisfied> a owl:Class ;
+    rdfs:label "background_satisfied" ;
+    rdfs:subClassOf craft:BackgroundState ;
+    skos:definition "The obligation was validated; a dated reference is required." .
+
+<https://standards.crosswalkri.org/craft/BackgroundState#background_unchecked> a owl:Class ;
+    rdfs:label "background_unchecked" ;
+    rdfs:subClassOf craft:BackgroundState ;
+    skos:definition "An explicitly declared current gap. Not a valid operating state; it must appear as a compliance-review finding." .
+
+craft:ComplianceRecordType a owl:Class ;
+    rdfs:label "ComplianceRecordType" ;
+    skos:definition "CRAFT Section 12.3. The compliance report's declared type." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/ComplianceRecordType#compliance_report> .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_1_decision_context> a owl:Class ;
+    rdfs:label "condition_1_decision_context" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Decision context specification." .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_2_technical_ontology> a owl:Class ;
+    rdfs:label "condition_2_technical_ontology" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Technical ontology adequate to the decision context." .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_3_measurement_instruments> a owl:Class ;
+    rdfs:label "condition_3_measurement_instruments" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Valid measurement instruments within the ontology." .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_4_pre_specified_criteria> a owl:Class ;
+    rdfs:label "condition_4_pre_specified_criteria" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Pre-specified evaluation criteria." .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_5_decision_logic> a owl:Class ;
+    rdfs:label "condition_5_decision_logic" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Explicit decision logic." .
+
+<https://standards.crosswalkri.org/craft/CraftCondition#condition_6_feedback_propagation> a owl:Class ;
+    rdfs:label "condition_6_feedback_propagation" ;
+    rdfs:subClassOf craft:CraftCondition ;
+    skos:definition "Feedback mechanism with propagation." .
+
+craft:DeclaredInheritance a owl:Class ;
+    rdfs:label "DeclaredInheritance" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom craft:BackgroundState ;
+            owl:onProperty craft:background_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:version_coupling_procedure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:background_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:standard_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:standard_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:foregrounding_triggers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:background_state ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:foregrounding_triggers ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:applicable_obligations ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:applicable_obligations ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:standard_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:standard_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:standard_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:background_validated_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty craft:background_validated_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:applicable_obligations ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:version_coupling_procedure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:standard_version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:version_coupling_procedure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:background_validated_date ] ;
+    skos:definition "CRAFT Section 10. One declared inheritance with its five required elements. The activity profile converts the receipt from a static declaration into an operational specification. Background-unchecked is not a valid operating state; it must appear as a finding in any compliance review." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+<https://standards.crosswalkri.org/craft/EvaluationOutcome#accepted> a owl:Class ;
+    rdfs:label "accepted" ;
+    rdfs:subClassOf craft:EvaluationOutcome ;
+    skos:definition "The reading minus its uncertainty still clears the threshold." .
+
+<https://standards.crosswalkri.org/craft/EvaluationOutcome#indeterminate> a owl:Class ;
+    rdfs:label "indeterminate" ;
+    rdfs:subClassOf craft:EvaluationOutcome ;
+    skos:definition "The reading plus-or-minus its uncertainty straddles the threshold, so the instrument cannot resolve the outcome." .
+
+<https://standards.crosswalkri.org/craft/EvaluationOutcome#rejected> a owl:Class ;
+    rdfs:label "rejected" ;
+    rdfs:subClassOf craft:EvaluationOutcome ;
+    skos:definition "The reading plus its uncertainty still fails the threshold." .
+
+craft:EvaluationRecord a owl:Class ;
+    rdfs:label "EvaluationRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:evaluation_timestamp ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:input_provenance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:condition_findings ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:gate_check_result ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:specification_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:gate_check_result ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:RecordType ;
+            owl:onProperty craft:record_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:ConditionFinding ;
+            owl:onProperty craft:condition_findings ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:specification_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:outcome ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:record_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty craft:propagation_targets ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:specification_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:evaluation_timestamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:specification_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:outcome ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:PropagationTarget ;
+            owl:onProperty craft:propagation_targets ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:record_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:specification_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty craft:input_provenance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:specification_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:evaluation_timestamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty craft:input_provenance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom craft:EvaluationOutcome ;
+            owl:onProperty craft:outcome ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty craft:gate_check_result ] ;
+    skos:definition "CRAFT Section 12.2. What the chain did with one input at one point in time. One record per evaluation instance. Carries the outcome against the Condition 4 threshold with the Condition 3 instrument uncertainty, the per-condition findings with their layer attribution, and the propagation targets a non-accept outcome must feed back." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+<https://standards.crosswalkri.org/craft/LayerAttribution#craft_base> a owl:Class ;
+    rdfs:label "craft_base" ;
+    rdfs:subClassOf craft:LayerAttribution ;
+    skos:definition "A CRAFT base-layer requirement." .
+
+<https://standards.crosswalkri.org/craft/LayerAttribution#domain_application> a owl:Class ;
+    rdfs:label "domain_application" ;
+    rdfs:subClassOf craft:LayerAttribution ;
+    skos:definition "A domain-application requirement derived from inside analysis." .
+
+<https://standards.crosswalkri.org/craft/LayerAttribution#per_axis_quality> a owl:Class ;
+    rdfs:label "per_axis_quality" ;
+    rdfs:subClassOf craft:LayerAttribution ;
+    skos:definition "A per-axis quality instrument requirement." .
+
+craft:RecordType a owl:Class ;
+    rdfs:label "RecordType" ;
+    skos:definition "CRAFT Section 12.2. The evaluation record's declared type." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/RecordType#evaluation_record> .
+
+craft:axis_positioning a owl:ObjectProperty ;
+    rdfs:label "axis_positioning" ;
+    skos:definition "CRAFT Section 10. Where a domain application implements per-axis quality assessment, which CRAFT condition each axis serves and where it sits in the domain configuration." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:condition_findings a owl:ObjectProperty ;
+    rdfs:label "condition_findings" ;
+    skos:definition "CRAFT Section 12.2. For each condition evaluated, the result, the basis, and the layer attribution; with the uncertainty band where Condition 3 specified one." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:condition_results a owl:ObjectProperty ;
+    rdfs:label "condition_results" ;
+    skos:definition "CRAFT Section 12.3. One result per condition, each declaring its layer." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:foregrounding_triggers a owl:DatatypeProperty ;
+    rdfs:label "foregrounding_triggers" ;
+    skos:definition "Element 3. The contexts in which this standard's obligations become active demands." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:precision_toolkit_scope a owl:ObjectProperty ;
+    rdfs:label "precision_toolkit_scope" ;
+    skos:definition "CRAFT Section 10. The declared inheritances (CSIS standards and Frame Language), each with its activity profile. Declaring CRAFT alone is structurally incomplete." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:BackgroundState a owl:Class ;
+    rdfs:label "BackgroundState" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/craft/BackgroundState#background_satisfied> <https://standards.crosswalkri.org/craft/BackgroundState#background_unchecked> ) ;
+    skos:definition "CRAFT Section 10, element 4. The background state of a declared inheritance. Silence is not one of the values." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/BackgroundState#background_satisfied>,
+        <https://standards.crosswalkri.org/craft/BackgroundState#background_unchecked> .
+
+craft:applicable_obligations a owl:DatatypeProperty ;
+    rdfs:label "applicable_obligations" ;
+    skos:definition "Element 2. Which of the standard's obligations apply to this domain application and what they require." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:axis a owl:DatatypeProperty ;
+    rdfs:label "axis" ;
+    skos:definition "The quality axis." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:chain_level_receipt a owl:ObjectProperty ;
+    rdfs:label "chain_level_receipt" ;
+    skos:definition "CRAFT Section 10. The decision context, technical ontology, and domain configuration in CRAFT-compliant form, traceable to Conditions 1 through 6." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:compliant a owl:DatatypeProperty ;
+    rdfs:label "compliant" ;
+    skos:definition "Whether the specification meets this condition's requirement." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:decision_context a owl:DatatypeProperty ;
+    rdfs:label "decision_context" ;
+    skos:definition "Condition 1. The decision context of the chain specification." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:domain_application a owl:DatatypeProperty ;
+    rdfs:label "domain_application" ;
+    skos:definition "The domain application this receipt is for." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:domain_configuration a owl:DatatypeProperty ;
+    rdfs:label "domain_configuration" ;
+    skos:definition "The specific structural facts that constitute this domain's instantiation of CRAFT." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:evaluated_specification_id a owl:DatatypeProperty ;
+    rdfs:label "evaluated_specification_id" ;
+    skos:definition "CRAFT Section 12.3. Which specification document was evaluated." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:evaluated_specification_version a owl:DatatypeProperty ;
+    rdfs:label "evaluated_specification_version" ;
+    skos:definition "CRAFT Section 12.3. The version of that specification." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:evaluation_timestamp a owl:DatatypeProperty ;
+    rdfs:label "evaluation_timestamp" ;
+    skos:definition "CRAFT Section 12.2. Date and time of evaluation." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:gate_check_result a owl:DatatypeProperty ;
+    rdfs:label "gate_check_result" ;
+    skos:definition "CRAFT Section 12.2 and 7.1. The adversarial gate result at evaluation time." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:input_provenance a owl:DatatypeProperty ;
+    rdfs:label "input_provenance" ;
+    skos:definition "CRAFT Section 12.2. A reference to the input in sufficient form to allow the finding to be checked independently." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:position a owl:DatatypeProperty ;
+    rdfs:label "position" ;
+    skos:definition "Where this axis sits within the domain configuration." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:result a owl:DatatypeProperty ;
+    rdfs:label "result" ;
+    skos:definition "The result of evaluating this condition on this input." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:serves_condition a owl:ObjectProperty ;
+    rdfs:label "serves_condition" ;
+    skos:definition "Which CRAFT condition this axis serves." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:signal_class a owl:DatatypeProperty ;
+    rdfs:label "signal_class" ;
+    skos:definition "The signal class propagated (for an indeterminate outcome, the non-resolution signal class distinct from a rejection)." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:specification_id a owl:DatatypeProperty ;
+    rdfs:label "specification_id" ;
+    skos:definition "CRAFT Section 12.2. The specification document in force at evaluation time." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:specification_version a owl:DatatypeProperty ;
+    rdfs:label "specification_version" ;
+    skos:definition "CRAFT Section 12.2. The exact version of that specification." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:standard_name a owl:DatatypeProperty ;
+    rdfs:label "standard_name" ;
+    skos:definition "Element 1. The inherited standard's name." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:standard_version a owl:DatatypeProperty ;
+    rdfs:label "standard_version" ;
+    skos:definition "Element 1. The specific version against which obligations are declared." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:target_condition a owl:ObjectProperty ;
+    rdfs:label "target_condition" ;
+    skos:definition "The prior condition the signal propagates to." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:technical_ontology a owl:DatatypeProperty ;
+    rdfs:label "technical_ontology" ;
+    skos:definition "Condition 2. The technical ontology of the chain specification." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:uncertainty_band a owl:DatatypeProperty ;
+    rdfs:label "uncertainty_band" ;
+    skos:definition "CRAFT Section 12.2 and Condition 3. The instrument uncertainty band, where Condition 3 specified one for the instrument producing this finding, so the outcome against the Condition 4 threshold is independently checkable." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:version_coupling_procedure a owl:DatatypeProperty ;
+    rdfs:label "version_coupling_procedure" ;
+    skos:definition "Element 5. The procedure for detecting when this standard revises and the named response (entering version-bump-pending and triggering a Condition 6 event at the specification layer)." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:EvaluationOutcome a owl:Class ;
+    rdfs:label "EvaluationOutcome" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/craft/EvaluationOutcome#accepted> <https://standards.crosswalkri.org/craft/EvaluationOutcome#rejected> <https://standards.crosswalkri.org/craft/EvaluationOutcome#indeterminate> ) ;
+    skos:definition "CRAFT Section 12.2. The outcome against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is its own outcome class, not collapsible into accepted or rejected." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/EvaluationOutcome#accepted>,
+        <https://standards.crosswalkri.org/craft/EvaluationOutcome#indeterminate>,
+        <https://standards.crosswalkri.org/craft/EvaluationOutcome#rejected> .
+
+craft:background_state a owl:ObjectProperty ;
+    rdfs:label "background_state" ;
+    skos:definition "Element 4. Background-satisfied with a dated reference, or background-unchecked declared as a current gap." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:background_validated_date a owl:DatatypeProperty ;
+    rdfs:label "background_validated_date" ;
+    skos:definition "Element 4. Where background-satisfied, the date satisfaction was last validated." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:propagation_targets a owl:ObjectProperty ;
+    rdfs:label "propagation_targets" ;
+    skos:definition "CRAFT Section 12.2. For rejection and indeterminate outcomes, the prior condition(s) the signal must propagate to under Condition 6. An indeterminate outcome propagates as its own signal class." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:LayerAttribution a owl:Class ;
+    rdfs:label "LayerAttribution" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/craft/LayerAttribution#craft_base> <https://standards.crosswalkri.org/craft/LayerAttribution#domain_application> <https://standards.crosswalkri.org/craft/LayerAttribution#per_axis_quality> ) ;
+    skos:definition "CRAFT Section 12. The architectural layer a finding concerns, preserved so the hierarchy is not flattened." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/LayerAttribution#craft_base>,
+        <https://standards.crosswalkri.org/craft/LayerAttribution#domain_application>,
+        <https://standards.crosswalkri.org/craft/LayerAttribution#per_axis_quality> .
+
+craft:outcome a owl:ObjectProperty ;
+    rdfs:label "outcome" ;
+    skos:definition "CRAFT Section 12.2. Accepted, rejected, or indeterminate, derived from the reading evaluated against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is not collapsible into accepted or rejected." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> .
+
+craft:basis a owl:DatatypeProperty .
+
+craft:condition a owl:ObjectProperty .
+
+craft:layer a owl:ObjectProperty .
+
+craft:record_type a owl:ObjectProperty .
+
+craft:CraftCondition a owl:Class ;
+    rdfs:label "CraftCondition" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/craft/CraftCondition#condition_1_decision_context> <https://standards.crosswalkri.org/craft/CraftCondition#condition_2_technical_ontology> <https://standards.crosswalkri.org/craft/CraftCondition#condition_3_measurement_instruments> <https://standards.crosswalkri.org/craft/CraftCondition#condition_4_pre_specified_criteria> <https://standards.crosswalkri.org/craft/CraftCondition#condition_5_decision_logic> <https://standards.crosswalkri.org/craft/CraftCondition#condition_6_feedback_propagation> ) ;
+    skos:definition "CRAFT Section 5. The six conditions an evaluation chain must satisfy." ;
+    skos:inScheme <https://standards.crosswalkri.org/craft> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/craft/CraftCondition#condition_1_decision_context>,
+        <https://standards.crosswalkri.org/craft/CraftCondition#condition_2_technical_ontology>,
+        <https://standards.crosswalkri.org/craft/CraftCondition#condition_3_measurement_instruments>,
+        <https://standards.crosswalkri.org/craft/CraftCondition#condition_4_pre_specified_criteria>,
+        <https://standards.crosswalkri.org/craft/CraftCondition#condition_5_decision_logic>,
+        <https://standards.crosswalkri.org/craft/CraftCondition#condition_6_feedback_propagation> .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty craft:background_validated_date ;
+            owl:someValuesFrom xsd:string ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty craft:background_state ;
+                owl:someValuesFrom xsd:string ] craft:DeclaredInheritance ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty craft:propagation_targets ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty craft:outcome ;
+                owl:someValuesFrom xsd:string ] craft:EvaluationRecord ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty craft:propagation_targets ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty craft:outcome ;
+                owl:someValuesFrom xsd:string ] craft:EvaluationRecord ) .
+
+

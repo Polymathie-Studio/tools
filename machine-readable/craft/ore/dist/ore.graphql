@@ -1,0 +1,93 @@
+# metamodel_version: 1.11.0
+enum ConfirmationMode
+  {
+    trustless_single_party
+    trustless_multi_party
+    trust_based_single_party
+    trust_based_multi_party
+    unconfirmed
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum IntakePosture
+  {
+    screened
+    graded
+    open
+  }
+
+type ConfirmationArchitecture
+  {
+    modes: [ConfirmationMode]!
+    basis: String!
+    independenceFlag: String
+  }
+
+type DimensionExposure
+  {
+    dimension: String!
+    weakestAssessment: String!
+    flags: [String]
+  }
+
+type ExtensionDimension
+  {
+    graded: GradedDimension
+    notApplicableReason: String
+    resolvesWithHistory: Boolean
+  }
+
+type GradedDimension
+  {
+    assessment: String!
+    basis: String!
+    flag: String
+  }
+
+type GradedSource
+  {
+    sourceIdentifier: String!
+    grade: OreGrade!
+    posture: IntakePosture!
+    monitoring: String
+    standingLoss: StandingLoss
+    conformance: OreConformance!
+  }
+
+type GradeProfile
+  {
+    perDimension: [DimensionExposure]!
+    jointSupportFlag: Boolean
+    restsOnOpenPostureMaterial: Boolean
+  }
+
+type OreConformance
+  {
+    postureDeclaredAndEnforced: ConformanceAnswer!
+    sourcesGradedOnDimensions: ConformanceAnswer!
+    outputsExposeGradeProfile: ConformanceAnswer!
+    noGradeAsWorthVerdict: ConformanceAnswer!
+  }
+
+type OreGrade
+  {
+    provenanceIntegrity: GradedDimension!
+    epistemicSoundness: GradedDimension!
+    confirmationArchitecture: ConfirmationArchitecture!
+    trackRecord: ExtensionDimension!
+    independence: ExtensionDimension!
+  }
+
+type StandingLoss
+  {
+    evidence: String!
+    basis: String!
+    decision: String!
+  }
+

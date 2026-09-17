@@ -1,0 +1,38 @@
+# A STRUCK-conformant evidence-grade output. Validates against dist/struck.schema.json.
+claim: "Program X disbursed 1.2M USD across 40 grants in the 2025 cycle."
+graded_evidence:
+  per_dimension:
+    - dimension: origin
+      weakest_assessment: aggregator
+      flags: [aggregator_does_not_disclose_inputs]
+    - dimension: recency
+      weakest_assessment: current
+  open_posture_ungraded: false
+  joint_support_flag: true
+refutation:
+  conditions:
+    - world_observable: "If the on-chain disbursement ledger and the program's published report give different grant counts for the 2025 cycle."
+    - world_observable: "If any of the 40 grant records resolves to a duplicate recipient address."
+contested_regions:
+  - disputed: "Total disbursed amount"
+    support_each_side: ["on-chain ledger: 1.19M", "program report: 1.24M"]
+    turns_on: "Whether refunded grants are netted out"
+    resolution_basis: "On-chain ledger taken as origin; report treated as restatement"
+    retained_losing_position: "Program report figure of 1.24M retained in the record"
+derivation_chains:
+  - rungs:
+      - identifier: "On-chain disbursement events (contract 0xabc, 2025)"
+        role: originating_observation
+      - identifier: "Program 2025 report (PDF)"
+        role: secondary_reporting
+        restates: "On-chain disbursement events (contract 0xabc, 2025)"
+    converges_with: ["The grantee dashboard export"]
+worth_judgment:
+  cost_to_raise_confidence: "An independent reconciliation of the on-chain ledger against recipient confirmations would raise origin confidence, at roughly two analyst-days."
+  consumer_facing: true
+conformance:
+  graded_evidence_exposed: satisfied
+  refutation_stated: satisfied
+  contest_represented: satisfied
+  chains_labeled: satisfied
+  worth_left_to_consumer: satisfied

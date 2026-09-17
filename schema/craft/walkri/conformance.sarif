@@ -1,0 +1,83 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "walkri-conformance",
+          "version": "0.2.1",
+          "rules": [
+            {
+              "id": "criterion_intent_status",
+              "shortDescription": {
+                "text": "WALKRI.3.1 criterion intent: a measurement claim distinct from the label"
+              }
+            },
+            {
+              "id": "operational_definition_status",
+              "shortDescription": {
+                "text": "WALKRI.3.2 operational definition: each category defined with qualifying and non-qualifying examples"
+              }
+            },
+            {
+              "id": "response_form_status",
+              "shortDescription": {
+                "text": "WALKRI.3.3 response form: response type justified against the required variance"
+              }
+            },
+            {
+              "id": "evidence_form_status",
+              "shortDescription": {
+                "text": "WALKRI.3.4 evidence form: evidence type, required content, and independent access path"
+              }
+            },
+            {
+              "id": "conformance_threshold_status",
+              "shortDescription": {
+                "text": "WALKRI.3.5 conformance threshold: applicable components, evidence, and minimum passage threshold"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "criterion_intent_status",
+          "level": "none",
+          "message": {
+            "text": "WALKRI.3.1 criterion intent: a measurement claim distinct from the label: pass"
+          }
+        },
+        {
+          "ruleId": "operational_definition_status",
+          "level": "none",
+          "message": {
+            "text": "WALKRI.3.2 operational definition: each category defined with qualifying and non-qualifying examples: pass"
+          }
+        },
+        {
+          "ruleId": "response_form_status",
+          "level": "none",
+          "message": {
+            "text": "WALKRI.3.3 response form: response type justified against the required variance: pass"
+          }
+        },
+        {
+          "ruleId": "evidence_form_status",
+          "level": "none",
+          "message": {
+            "text": "WALKRI.3.4 evidence form: evidence type, required content, and independent access path: pass"
+          }
+        },
+        {
+          "ruleId": "conformance_threshold_status",
+          "level": "none",
+          "message": {
+            "text": "WALKRI.3.5 conformance threshold: applicable components, evidence, and minimum passage threshold: pass"
+          }
+        }
+      ]
+    }
+  ]
+}

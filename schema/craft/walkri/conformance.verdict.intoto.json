@@ -1,0 +1,23 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "digital_public_good_status",
+      "digest": {
+        "sha256": "<sha256 of the instrument specification>"
+      }
+    }
+  ],
+  "predicateType": "https://standards.crosswalkri.org/walkri/conformance/v0.2.1",
+  "predicate": {
+    "verifier": "walkri-conformance",
+    "requirements": {
+      "criterion_intent_status": "pass",
+      "operational_definition_status": "pass",
+      "response_form_status": "pass",
+      "evidence_form_status": "pass",
+      "conformance_threshold_status": "pass"
+    },
+    "overrides": []
+  }
+}

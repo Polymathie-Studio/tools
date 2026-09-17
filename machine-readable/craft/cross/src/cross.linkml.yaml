@@ -1,0 +1,275 @@
+id: https://standards.crosswalkri.org/cross
+name: cross
+title: CROSS indicator specification
+description: >-
+  The one canonical source for CROSS's machine-readable layer (CROSS-common-reporting-outcome-
+  standards-schema, internal v0.5.7): a LinkML model of the self-specified outcome indicator
+  CROSS requires of every applicant (Part V), the conformance-bearing measurement unit of a
+  CROSS grant round. CROSS is the grants domain application of CRAFT; the indicator
+  specification is CROSS's realization of CRAFT Condition 4 (pre-specified evaluation
+  criteria), and its operational definition is where CROSS composes with WALKRI at the field
+  level. The structural obligations are modeled here (which fields a claimed indicator must
+  carry, that a contract-centric indicator names its execution and verification instruments,
+  that a change or retroactive indicator carries a baseline, that an applicant-controlled
+  source names independent corroboration); the interpretive obligations (whether the
+  rationale engages seriously with alternatives, whether the operational definition actually
+  meets WALKRI's inclusion/exclusion/unit/edge-case bar, and the Part VIII data-quality
+  assessments) are not schema-expressible and belong to the conformance checker, marked
+  per-requirement in cross-register.yaml. Without an operational definition, a claimed
+  indicator is a name, not a measurement instrument.
+  This is the conformance layer for working with CROSS. It is distinct from and complementary
+  to the repository's schemas/ directory, which is the input-and-output layer for moving form
+  data and machine-readable exported data into and out of CROSS (round configuration, operator
+  runbooks, applicant-facing publication). Neither supersedes the other.
+license: CC0-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cross: https://standards.crosswalkri.org/cross/
+default_prefix: cross
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  IndicatorSpecification:
+    tree_root: true
+    description: >-
+      CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of
+      it. The applicant specifies what their intervention produces; CROSS specifies the fields
+      the indicator must contain and the quality standards those fields must satisfy. This is
+      the unit CROSS indicator conformance is assessed against.
+    attributes:
+      indicator_name:
+        description: CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders.
+        required: true
+      obligation_mode:
+        description: CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below.
+        range: ObligationMode
+        required: true
+      rationale:
+        description: CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes.
+        required: true
+      measurement_form:
+        description: CROSS Part V. The plain-language measurement form and its classification on the three data-quality axes, plus the execution-and-verification path where the obligation object is a contract's behavior.
+        range: MeasurementFormClassification
+        required: true
+      operational_definition:
+        description: CROSS Part V. What counts and what does not count as one unit of the claimed result. Must meet WALKRI Part III Criterion 2 (inclusion, exclusion, unit of analysis, edge case).
+        range: OperationalDefinition
+        required: true
+      construction_methodology:
+        description: CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation.
+        required: true
+      disaggregation:
+        description: CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability.
+        multivalued: true
+      data_source:
+        description: CROSS Part V. The named source and collection method, accessible to an independent reviewer.
+        range: DataSource
+        required: true
+      data_cost_estimation:
+        description: CROSS Part V. Attestation that data collection is feasible within the project budget, with the approximate cost and funding source. An indicator that cannot be collected within budget has not been operationalized.
+        required: true
+      baseline:
+        description: CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement.
+        range: StateSpecification
+      target:
+        description: CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable.
+        range: StateSpecification
+        required: true
+      sustainability_plan:
+        description: CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period.
+        range: SustainabilityPlan
+    rules:
+      - preconditions:
+          slot_conditions:
+            obligation_mode:
+              equals_string: change
+        postconditions:
+          slot_conditions:
+            baseline:
+              required: true
+        description: CROSS Part V. A change-obligation indicator must carry a baseline (the documented FROM state in the same units as the target); a change claim with no baseline cannot show change.
+      - preconditions:
+          slot_conditions:
+            obligation_mode:
+              equals_string: retroactive
+        postconditions:
+          slot_conditions:
+            baseline:
+              required: true
+        description: CROSS Part V. A retroactive indicator must carry a baseline (the documented state of the contribution at the time the award period begins).
+
+  MeasurementFormClassification:
+    description: >-
+      CROSS Part V. The measurement form in plain language, classified on three axes for
+      data-quality assessment, with the execution-and-verification instruments named where the
+      obligation object is a contract's behavior rather than a discrete artifact or count.
+    attributes:
+      plain_language_form:
+        description: What a result looks like and in what form it will be reported, in plain language (a count of unique addresses, a shipped library version, a binary against defined completion criteria).
+        required: true
+      source_type:
+        description: CROSS Part V. Where the result is verified from; each source type carries different minimum verification requirements.
+        range: SourceType
+        required: true
+      form:
+        description: CROSS Part V. How the result is expressed.
+        range: MeasurementForm
+        required: true
+      aggregation_type:
+        description: CROSS Part V. Whether values sum correctly across reporting periods (cumulative) or describe a point-in-time state (non-cumulative, where summing is a construction error).
+        range: AggregationType
+        required: true
+      contract_centric:
+        description: CROSS Part V. True where the obligation object is a contract's behavior under specified conditions rather than a discrete artifact or count.
+        range: boolean
+        required: true
+      execution_verification:
+        description: CROSS Part V. Where the obligation object is a contract's behavior, the execution and verification instruments that confirm completion.
+        range: ExecutionVerification
+    rules:
+      - preconditions:
+          slot_conditions:
+            contract_centric:
+              equals_string: "true"
+        postconditions:
+          slot_conditions:
+            execution_verification:
+              required: true
+        description: CROSS Part V. Where the obligation object is a contract's behavior, the indicator must name its execution and verification instruments; an indicator relying solely on applicant-controlled test suites or private dashboards fails the data-quality standard.
+
+  ExecutionVerification:
+    description: >-
+      CROSS Part V. The execution and verification path for a contract-centric obligation: the
+      invariants the contract must satisfy, how they are assessed, the artifact that
+      constitutes completion evidence, and at least one failure the instrument would detect.
+    attributes:
+      invariant_specification:
+        description: A narrative description of the invariants or properties the contract must satisfy (conservation of balances, absence of re-entrancy on named functions, bounded slippage), the human-readable counterpart of the formal specification.
+        required: true
+      verification_method:
+        description: Whether the invariant is assessed by formal verification, independent audit, manual review of on-chain behavior, continuous monitoring, or a combination; if formal, the named tool or approach.
+        required: true
+      verification_artifact:
+        description: The concrete completion evidence, a proof object, a named-firm audit report, or a named contract and query a reviewer can use to reproduce the behavioral check from public chain data.
+        required: true
+      failure_surface:
+        description: At least one example of behavior that would constitute a failure to meet the invariant, and how the chosen instrument would detect it.
+        required: true
+
+  OperationalDefinition:
+    description: >-
+      CROSS Part V, meeting WALKRI Part III Criterion 2. What counts and what does not count as
+      one unit of the claimed result. This is the field-level composition point with WALKRI:
+      CROSS frames the chain and WALKRI ensures the instrument is sound.
+    attributes:
+      inclusion_criteria:
+        description: What qualifies as one instance of the claimed result.
+        required: true
+      exclusion_criteria:
+        description: What the indicator explicitly does not count.
+        required: true
+      unit_of_analysis:
+        description: The named unit (person, wallet address, transaction, repository, site, or other).
+        required: true
+      edge_case_determination:
+        description: At least one example of how an ambiguous instance is handled.
+        required: true
+
+  DataSource:
+    description: >-
+      CROSS Part V. The named source and collection method. The source must be accessible to an
+      independent reviewer; an applicant-controlled source without named independent
+      corroboration does not satisfy the data-quality standard.
+    attributes:
+      source:
+        description: The named data source.
+        required: true
+      collection_method:
+        description: How the data is collected.
+        required: true
+      independently_accessible:
+        description: Whether the source is accessible to an independent reviewer without relying on the applicant.
+        range: boolean
+        required: true
+      independent_corroboration:
+        description: CROSS Part V. Where the source is applicant-controlled (not independently accessible), the named independent corroboration that makes the data auditable.
+    rules:
+      - preconditions:
+          slot_conditions:
+            independently_accessible:
+              equals_string: "false"
+        postconditions:
+          slot_conditions:
+            independent_corroboration:
+              required: true
+        description: CROSS Part V. An applicant-controlled source that is not independently accessible must name independent corroboration; without it the data-quality standard is not satisfied.
+
+  StateSpecification:
+    description: CROSS Part V. A documented state (a baseline FROM state or a target TO state) with the data source that evidences it.
+    attributes:
+      documented_state:
+        description: The documented state, expressed for a change indicator in the same units as the paired state.
+        required: true
+      data_source:
+        description: The named data source evidencing this state (required for a baseline).
+
+  SustainabilityPlan:
+    description: >-
+      CROSS Part V. A documented position on continuation beyond the grant period, activated by
+      funder configuration. Not a guarantee; a position the funder may use in subsequent
+      continuation-gate assessments.
+    attributes:
+      continuation:
+        description: What happens to the funded work at the end of the grant period, who maintains it, and under what conditions it remains publicly accessible.
+        required: true
+      cost_coverage:
+        description: How ongoing costs will be covered after the grant ends, naming the expected source with enough specificity to assess plausibility.
+      handoff:
+        description: Where the work is handed to another party, the receiving party's identity and the transition conditions.
+      end_state:
+        description: Where the work reaches a defined end state after which maintenance is not required, the specification of that state and when it will be declared reached.
+
+enums:
+
+  ObligationMode:
+    description: CROSS Part III. The obligation mode an indicator serves.
+    permissible_values:
+      build:
+        description: The obligation is to deliver a defined artifact; completion is verified against named criteria.
+      change:
+        description: The obligation is to move a measured condition; the claim is a quantified or ordinal change from a baseline.
+      retroactive:
+        description: The obligation is recognition of a contribution already made; the state is documented at the award period.
+
+  SourceType:
+    description: CROSS Part V. Where a result is verified from.
+    permissible_values:
+      on_chain_verifiable:
+        description: Accessible from public blockchain data with a named contract or address.
+      off_chain_verifiable:
+        description: Accessible from public sources outside the blockchain, such as a public repository, a published report, or a named API.
+      qualitative_narrative:
+        description: Documented through structured narrative, interview data, or artifact review requiring a human evaluator.
+
+  MeasurementForm:
+    description: CROSS Part V. How a result is expressed.
+    permissible_values:
+      quantitative:
+        description: A number, proportion, rate, currency amount, or duration.
+      ordinal:
+        description: A position on a defined ordered scale.
+      binary:
+        description: Met or not met against named completion criteria.
+      qualitative:
+        description: A documented condition, verified artifact, or narrative record assessed against named criteria.
+
+  AggregationType:
+    description: CROSS Part V. Whether values sum across reporting periods.
+    permissible_values:
+      cumulative:
+        description: Values sum correctly across reporting periods; the life-of-grant target is achieved by addition.
+      non_cumulative:
+        description: Values describe a point-in-time state; summing across periods is a construction error.

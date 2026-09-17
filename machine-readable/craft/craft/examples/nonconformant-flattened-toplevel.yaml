@@ -1,0 +1,18 @@
+# Non-conformant: a smuggled top-level "aggregate_score" that flattens the layered outcome
+# into a single number. CRAFT Section 12: outputs must preserve the architectural hierarchy
+# rather than flatten it, and the outcome is a single accepted/rejected/indeterminate class,
+# not a tunable score. The closed top-level schema (additionalProperties: false) rejects the
+# extra field by absence.
+record_type: evaluation_record
+specification_id: cross-grants-round-7-spec
+specification_version: "0.5.7"
+evaluation_timestamp: "2026-08-20T14:15:00Z"
+input_provenance: "Application j1k2l3, evidence bundle hash sha256:5e6f..."
+outcome: accepted
+aggregate_score: 0.82          # <- the forbidden flattening field, under test
+condition_findings:
+  - condition: condition_4_pre_specified_criteria
+    result: "Reading minus uncertainty clears the threshold."
+    basis: "The round's pre-committed passage bar."
+    layer: craft_base
+gate_check_result: "Adversarial gate passed."

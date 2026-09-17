@@ -1,0 +1,118 @@
+# metamodel_version: 1.11.0
+enum BackgroundState
+  {
+    background_satisfied
+    background_unchecked
+  }
+
+enum ComplianceRecordType
+  {
+    compliance_report
+  }
+
+enum CraftCondition
+  {
+    condition_1_decision_context
+    condition_2_technical_ontology
+    condition_3_measurement_instruments
+    condition_4_pre_specified_criteria
+    condition_5_decision_logic
+    condition_6_feedback_propagation
+  }
+
+enum EvaluationOutcome
+  {
+    accepted
+    rejected
+    indeterminate
+  }
+
+enum LayerAttribution
+  {
+    craft_base
+    domain_application
+    per_axis_quality
+  }
+
+enum RecordType
+  {
+    evaluation_record
+  }
+
+type AxisPositioning
+  {
+    axis: String!
+    servesCondition: CraftCondition!
+    position: String!
+  }
+
+type ChainLevelReceipt
+  {
+    decisionContext: String!
+    technicalOntology: String!
+    domainConfiguration: String!
+  }
+
+type ComplianceReport
+  {
+    recordType: ComplianceRecordType!
+    evaluatedSpecificationId: String!
+    evaluatedSpecificationVersion: String!
+    conditionResults: [ConditionResult]!
+  }
+
+type ConditionFinding
+  {
+    condition: CraftCondition!
+    result: String!
+    basis: String!
+    layer: LayerAttribution!
+    uncertaintyBand: String
+  }
+
+type ConditionResult
+  {
+    condition: CraftCondition!
+    compliant: Boolean!
+    basis: String!
+    layer: LayerAttribution!
+  }
+
+type DeclaredInheritance
+  {
+    standardName: String!
+    standardVersion: String!
+    applicableObligations: String!
+    foregroundingTriggers: [String]!
+    backgroundState: BackgroundState!
+    backgroundValidatedDate: String
+    versionCouplingProcedure: String!
+  }
+
+type EvaluationRecord
+  {
+    recordType: RecordType!
+    specificationId: String!
+    specificationVersion: String!
+    evaluationTimestamp: String!
+    inputProvenance: String!
+    outcome: EvaluationOutcome!
+    conditionFindings: [ConditionFinding]!
+    gateCheckResult: String!
+    propagationTargets: [PropagationTarget]
+  }
+
+type InheritanceReceipt
+  {
+    domainApplication: String!
+    chainLevelReceipt: ChainLevelReceipt!
+    precisionToolkitScope: [DeclaredInheritance]!
+    axisPositioning: [AxisPositioning]
+  }
+
+type PropagationTarget
+  {
+    targetCondition: CraftCondition!
+    signalClass: String!
+  }
+

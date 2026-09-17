@@ -1,0 +1,28 @@
+# Non-conformant: the obligation object is a contract's behavior (contract_centric true) but
+# the measurement form names no execution and verification instruments. CROSS Part V: an
+# indicator relying solely on applicant-controlled test suites or private dashboards, with no
+# independent verification instrument, fails the data-quality standard. The measurement-form
+# rule (contract_centric -> execution_verification required) rejects it.
+indicator_name: contract_invariant_holds
+obligation_mode: build
+rationale: "The deliverable is a lending contract; its correctness is the obligation, chosen over a feature count because a wrong invariant makes feature counts meaningless."
+measurement_form:
+  plain_language_form: "The lending contract satisfies its no-bad-debt invariant under the specified conditions."
+  source_type: on_chain_verifiable
+  form: binary
+  aggregation_type: non_cumulative
+  contract_centric: true
+  # execution_verification intentionally omitted -- the failure under test.
+operational_definition:
+  inclusion_criteria: "The invariant holds across the tested state space."
+  exclusion_criteria: "States outside the declared operating envelope."
+  unit_of_analysis: "invariant"
+  edge_case_determination: "A near-boundary state is treated as in-scope if reachable by a public transaction."
+construction_methodology: "Assess the invariant against the contract's behavior."
+data_source:
+  source: "The deployed contract."
+  collection_method: "Observation of on-chain behavior."
+  independently_accessible: true
+data_cost_estimation: "Public chain queries, negligible cost."
+target:
+  documented_state: "The invariant holds as demonstrated by the named verification artifact."

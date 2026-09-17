@@ -1,0 +1,387 @@
+{
+  "$defs": {
+    "ConfirmationArchitecture": {
+      "additionalProperties": false,
+      "description": "ORE Section 3.3. Records each confirmation mode present rather than forcing one cell. Party count is not a substitute for independence; where effective independence cannot be assessed, that is recorded as a named flag.",
+      "properties": {
+        "basis": {
+          "description": "The basis for the confirmation-architecture reading.",
+          "type": "string"
+        },
+        "independence_flag": {
+          "description": "ORE Section 3.3 party-count limit. Set where effective independence cannot be assessed; party count is never a substitute.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "modes": {
+          "description": "One or more confirmation modes present when the source produced its output.",
+          "items": {
+            "$ref": "#/$defs/ConfirmationMode"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "modes",
+        "basis"
+      ],
+      "title": "ConfirmationArchitecture",
+      "type": "object"
+    },
+    "ConfirmationMode": {
+      "description": "ORE Section 3.3. The confirmation modes a source's output can carry; more than one may be present.",
+      "enum": [
+        "trustless_single_party",
+        "trustless_multi_party",
+        "trust_based_single_party",
+        "trust_based_multi_party",
+        "unconfirmed"
+      ],
+      "title": "ConfirmationMode",
+      "type": "string"
+    },
+    "ConformanceAnswer": {
+      "description": "ORE Section 8. Per-obligation answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "DimensionExposure": {
+      "additionalProperties": false,
+      "description": "ORE Section 5. Per-dimension exposure on an output.",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "flags": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "weakest_assessment": {
+          "description": "The weakest assessment present anywhere in the support for this dimension.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dimension",
+        "weakest_assessment"
+      ],
+      "title": "DimensionExposure",
+      "type": "object"
+    },
+    "ExtensionDimension": {
+      "additionalProperties": false,
+      "description": "ORE Section 3.4 and Section 7. A declared extension dimension is either graded (with a basis) or its absence is declared with a named reason. The \"if not graded then a reason is required\" obligation is modeled as a presence-based rule and enforced by a standard JSON Schema validator, so an extension can never fall silent or default to a middle value.",
+      "if": {
+        "not": {
+          "required": [
+            "graded"
+          ]
+        },
+        "properties": {
+          "graded": {}
+        }
+      },
+      "properties": {
+        "graded": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GradedDimension"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The grading of this extension, where the system grades it."
+        },
+        "not_applicable_reason": {
+          "description": "ORE Section 7. Where the extension is not graded, the named reason (a genesis limitation for a new source, a permanent property of the source class, or a declared choice not to grade).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resolves_with_history": {
+          "description": "ORE Section 7.3. Whether the limitation is expected to resolve as history accumulates.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "not_applicable_reason": {}
+        },
+        "required": [
+          "not_applicable_reason"
+        ]
+      },
+      "title": "ExtensionDimension",
+      "type": "object"
+    },
+    "GradeProfile": {
+      "additionalProperties": false,
+      "description": "ORE Section 5. The grade profile an output exposes: for each grading dimension, the weakest assessment present anywhere in the output's support and every flag any source in that support carries. Never a combined figure. This is the companion object to GradedSource, carried on outputs rather than on sources.",
+      "properties": {
+        "joint_support_flag": {
+          "description": "ORE Section 5. Separately admitted sources in the support that cannot be shown distinct in effective origin.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "per_dimension": {
+          "items": {
+            "$ref": "#/$defs/DimensionExposure"
+          },
+          "type": "array"
+        },
+        "rests_on_open_posture_material": {
+          "description": "ORE Section 5. True where the output rests partly on ungraded material admitted under an Open posture, declared on the face.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "per_dimension"
+      ],
+      "title": "GradeProfile",
+      "type": "object"
+    },
+    "GradedDimension": {
+      "additionalProperties": false,
+      "description": "ORE Section 3. A dimension records an assessment and the basis on which it was made. Any sub-assessment that could not be computed is a named flag, never a silent default or an assumed middle value.",
+      "properties": {
+        "assessment": {
+          "description": "The uncertainty assessment on this dimension. Not a quality rank.",
+          "type": "string"
+        },
+        "basis": {
+          "description": "The basis on which the assessment was made.",
+          "type": "string"
+        },
+        "flag": {
+          "description": "A named limitation where a sub-assessment could not be computed. Never a silent default.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "assessment",
+        "basis"
+      ],
+      "title": "GradedDimension",
+      "type": "object"
+    },
+    "GradedSource": {
+      "additionalProperties": false,
+      "description": "ORE Section 8. An admitted source carrying its grading: the per-dimension grade, the intake posture in force when it was admitted, any monitoring obligation, and the conformance declaration. This is the unit ORE conformance is assessed against.",
+      "properties": {
+        "conformance": {
+          "$ref": "#/$defs/OreConformance",
+          "description": "ORE Section 8. The four conformance questions answered on the face."
+        },
+        "grade": {
+          "$ref": "#/$defs/OreGrade",
+          "description": "ORE Section 3. The per-dimension uncertainty grade of the source."
+        },
+        "monitoring": {
+          "description": "ORE Section 4. The monitoring obligation attached to an admitted opaque or flagged source.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "posture": {
+          "$ref": "#/$defs/IntakePosture",
+          "description": "ORE Section 6.4. The intake posture in force when this source was admitted, recorded so its grading history is never ambiguous later."
+        },
+        "source_identifier": {
+          "description": "What source this grades.",
+          "type": "string"
+        },
+        "standing_loss": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StandingLoss"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "ORE Section 6. The documented, evidence-based record where this source's eligibility was reduced or withdrawn."
+        }
+      },
+      "required": [
+        "source_identifier",
+        "grade",
+        "posture",
+        "conformance"
+      ],
+      "title": "GradedSource",
+      "type": "object"
+    },
+    "IntakePosture": {
+      "description": "ORE Section 6. The intake posture: when grading happens and what ungraded material may touch.",
+      "enum": [
+        "screened",
+        "graded",
+        "open"
+      ],
+      "title": "IntakePosture",
+      "type": "string"
+    },
+    "OreConformance": {
+      "additionalProperties": false,
+      "description": "ORE Section 8. The four conformance questions answered on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the refusal to combine grades (Section 2) and the Verification-Summary-Attestation shape.",
+      "properties": {
+        "no_grade_as_worth_verdict": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "outputs_expose_grade_profile": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "posture_declared_and_enforced": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "sources_graded_on_dimensions": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "posture_declared_and_enforced",
+        "sources_graded_on_dimensions",
+        "outputs_expose_grade_profile",
+        "no_grade_as_worth_verdict"
+      ],
+      "title": "OreConformance",
+      "type": "object"
+    },
+    "OreGrade": {
+      "additionalProperties": false,
+      "description": "ORE Section 3. The per-dimension grade. Three dimensions are required (provenance integrity, epistemic soundness, confirmation architecture); two are declared extensions (track record, independence) that must each be addressed, graded or with a declared absence. There is deliberately no combined figure: the closed schema forbids one, which enforces the Section 2 refusal to merge into a single confidence number by absence.",
+      "properties": {
+        "confirmation_architecture": {
+          "$ref": "#/$defs/ConfirmationArchitecture",
+          "description": "ORE Section 3.3. What confirmed the source's output when it was produced."
+        },
+        "epistemic_soundness": {
+          "$ref": "#/$defs/GradedDimension",
+          "description": "ORE Section 3.2. Is the output structured so independent truth-evaluation is possible."
+        },
+        "independence": {
+          "$ref": "#/$defs/ExtensionDimension",
+          "description": "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)."
+        },
+        "provenance_integrity": {
+          "$ref": "#/$defs/GradedDimension",
+          "description": "ORE Section 3.1. Did the input come from where it claims, and arrive unchanged."
+        },
+        "track_record": {
+          "$ref": "#/$defs/ExtensionDimension",
+          "description": "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)."
+        }
+      },
+      "required": [
+        "provenance_integrity",
+        "epistemic_soundness",
+        "confirmation_architecture",
+        "track_record",
+        "independence"
+      ],
+      "title": "OreGrade",
+      "type": "object"
+    },
+    "StandingLoss": {
+      "additionalProperties": false,
+      "description": "ORE Section 6. Standing loss is only through a documented, evidence-based process: the evidence, the basis, and the decision are recorded and retained with the source. Adverse findings are never silently discarded. Loss of standing is not retroactive.",
+      "properties": {
+        "basis": {
+          "description": "The basis for the decision.",
+          "type": "string"
+        },
+        "decision": {
+          "description": "The eligibility decision taken.",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "The evidence on which standing was reduced or withdrawn.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence",
+        "basis",
+        "decision"
+      ],
+      "title": "StandingLoss",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/ore/ore.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "ORE Section 8. An admitted source carrying its grading: the per-dimension grade, the intake posture in force when it was admitted, any monitoring obligation, and the conformance declaration. This is the unit ORE conformance is assessed against.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "conformance": {
+      "$ref": "#/$defs/OreConformance",
+      "description": "ORE Section 8. The four conformance questions answered on the face."
+    },
+    "grade": {
+      "$ref": "#/$defs/OreGrade",
+      "description": "ORE Section 3. The per-dimension uncertainty grade of the source."
+    },
+    "monitoring": {
+      "description": "ORE Section 4. The monitoring obligation attached to an admitted opaque or flagged source.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "posture": {
+      "$ref": "#/$defs/IntakePosture",
+      "description": "ORE Section 6.4. The intake posture in force when this source was admitted, recorded so its grading history is never ambiguous later."
+    },
+    "source_identifier": {
+      "description": "What source this grades.",
+      "type": "string"
+    },
+    "standing_loss": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StandingLoss"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "ORE Section 6. The documented, evidence-based record where this source's eligibility was reduced or withdrawn."
+    }
+  },
+  "required": [
+    "source_identifier",
+    "grade",
+    "posture",
+    "conformance"
+  ],
+  "title": "ore",
+  "type": "object",
+  "version": null
+}

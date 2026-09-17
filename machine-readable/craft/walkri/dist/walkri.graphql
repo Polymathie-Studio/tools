@@ -1,0 +1,157 @@
+# metamodel_version: 1.11.0
+enum CompletionSufficiency
+  {
+    sufficient_to_verify_completion
+    supporting_context_only
+  }
+
+enum CriterionRequirement
+  {
+    criterion_intent
+    operational_definition
+    response_form
+    evidence_form
+    conformance_threshold
+  }
+
+enum EvidenceType
+  {
+    standing
+    activity
+    outcome
+    planning
+    financial_accountability
+  }
+
+enum InstrumentModality
+  {
+    form_field
+    prompt_constraint
+    structured_output_schema_element
+    rubric_item
+    extraction_specification
+  }
+
+enum RequirementStatus
+  {
+    pass
+    fail
+    override
+  }
+
+enum ResponseType
+  {
+    single_select
+    multi_select
+    binary
+    numeric
+    text
+    url
+    composite
+  }
+
+type CategoryDefinition
+  {
+    category: String!
+    definition: String!
+    qualifyingExamples: [String]
+    nonQualifyingExamples: [String]
+    edgeCase: String
+  }
+
+type ChainAttribution
+  {
+    standalone: Boolean!
+    chainConditionServed: String
+    resolution: String
+  }
+
+type ConformanceThreshold
+  {
+    referencesExternalStandard: Boolean!
+    applicableComponents: [String]
+    evidencePerComponent: String
+    minimumThreshold: String
+    registryTreatment: String
+    notApplicableReason: String
+  }
+
+type CriterionIntent
+  {
+    label: String!
+    measurementClaim: String!
+  }
+
+type DependencyDeclaration
+  {
+    independent: Boolean!
+    edges: [DependencyEdge]
+  }
+
+type DependencyEdge
+  {
+    dependsOn: String!
+    relation: String!
+  }
+
+type EvidenceForm
+  {
+    evidenceType: EvidenceType!
+    requiredContent: String!
+    accessPath: String!
+    completionSufficiency: CompletionSufficiency
+  }
+
+type InstrumentConformance
+  {
+    criterionIntentStatus: RequirementStatus!
+    operationalDefinitionStatus: RequirementStatus!
+    responseFormStatus: RequirementStatus!
+    evidenceFormStatus: RequirementStatus!
+    conformanceThresholdStatus: RequirementStatus!
+    overrides: [Override]
+  }
+
+type OperationalDefinition
+  {
+    categories: [CategoryDefinition]
+    textScope: String
+    textMinimumContent: String
+  }
+
+type Override
+  {
+    requirement: CriterionRequirement!
+    flagText: String!
+    justification: String!
+    authorizedBy: String!
+  }
+
+type ParticipatorySpecification
+  {
+    participants: String!
+    contribution: String!
+    timing: String!
+  }
+
+type ResponseForm
+  {
+    responseType: ResponseType!
+    justification: String!
+  }
+
+type SpecifiedInstrument
+  {
+    instrumentIdentifier: String!
+    modality: InstrumentModality!
+    criterionIntent: CriterionIntent!
+    operationalDefinition: OperationalDefinition!
+    responseForm: ResponseForm!
+    evidenceForm: [EvidenceForm]!
+    conformanceThreshold: ConformanceThreshold!
+    participatorySpecification: ParticipatorySpecification
+    dependencyDeclaration: DependencyDeclaration!
+    conformance: InstrumentConformance!
+    chainAttribution: ChainAttribution
+  }
+

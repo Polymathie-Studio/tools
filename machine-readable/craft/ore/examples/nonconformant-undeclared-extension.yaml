@@ -1,0 +1,25 @@
+# NON-conformant: the track_record extension is neither graded nor its absence declared
+# (ORE Section 3.4 / Section 7). The ExtensionDimension presence rule must reject it, so an
+# extension can never fall silent or default to a middle value.
+source_identifier: "third-party attestation service"
+grade:
+  provenance_integrity:
+    assessment: "attestations signed and verifiable"
+    basis: "public key registry"
+  epistemic_soundness:
+    assessment: "attested claims stated in refutable terms"
+    basis: "structured attestation schema"
+  confirmation_architecture:
+    modes:
+      - trustless_multi_party
+    basis: "validator-set signature required per attestation"
+  track_record: {}
+  independence:
+    not_applicable_reason: "service independence unassessable this early"
+    resolves_with_history: true
+posture: graded
+conformance:
+  posture_declared_and_enforced: satisfied
+  sources_graded_on_dimensions: satisfied
+  outputs_expose_grade_profile: satisfied
+  no_grade_as_worth_verdict: satisfied

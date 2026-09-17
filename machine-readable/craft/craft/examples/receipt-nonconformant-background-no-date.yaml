@@ -1,0 +1,20 @@
+# Non-conformant inheritance receipt: a declared inheritance claims background_satisfied but
+# names no validation date. CRAFT Section 10, element 4: the distinction between
+# background-satisfied and background-unchecked is a precision requirement, and a
+# background-satisfied claim carries a dated reference to when satisfaction was last
+# validated. The Section 10 rule (background_satisfied -> background_validated_date required)
+# rejects it. Validated against the InheritanceReceipt companion class.
+domain_application: CROSS
+chain_level_receipt:
+  decision_context: "Whether to fund a grant application in this round."
+  technical_ontology: "The eleven-field indicator specification."
+  domain_configuration: "The cohort architecture specific to grants."
+precision_toolkit_scope:
+  - standard_name: Precision-First Design Standard
+    standard_version: "2.4.3"
+    applicable_obligations: "Operational-definition requirement applied to every gate criterion."
+    foregrounding_triggers:
+      - "during any authoring or revision of specification documents"
+    background_state: background_satisfied
+    # background_validated_date intentionally omitted -- the failure under test.
+    version_coupling_procedure: "On a PFDS revision the receipt enters version-bump-pending."

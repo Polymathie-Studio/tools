@@ -1,0 +1,127 @@
+# WALKRI register distillation
+# One row per normative requirement of WALKRI-standard (v0.2.1). The corpus's
+# "register distillation": a typed, enumerable table extracted from prose, one row
+# per entry, each carrying its assertion, a kind code, and a portability flag.
+# `checkable` records whether the requirement is enforceable by a data schema
+# (presence/shape) or is a reader's interpretive judgment (the machine-conformance-
+# is-not-standard-conformance line, made per-requirement). WALKRI is domain-general,
+# so every requirement is portability: universal; the conditional flags below mark
+# requirements whose content activates only in a stated situation, not a domain.
+standard: WALKRI
+standard_version: 0.2.1
+source: WALKRI-standard-0_1_0.md
+entries:
+  - id: W3.0
+    section: "3"
+    obligation: five-requirements
+    kind: MUST
+    portability: universal
+    checkable: shape            # all five requirement slots are present on the instrument
+    assertion: "An instrument must carry all five criterion specification requirements: criterion intent, operational definition, response form, evidence form, and conformance threshold. A field that does not satisfy all five is not conformant, regardless of its label."
+  - id: W3.1
+    section: "3.1"
+    obligation: criterion-intent
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a written intent and label are present (shape); that the intent is a measurement claim distinct from the label is judgment
+    assertion: "State in writing what the instrument measures, distinct from its label: what a true response tells us about the subject."
+  - id: W3.2
+    section: "3.2"
+    obligation: operational-definition
+    kind: MUST
+    portability: universal
+    checkable: mixed            # definitions with qualifying/non-qualifying examples are present (shape); whether they actually constrain interpretation is judgment
+    assertion: "Define each response category completely, with qualifying and non-qualifying examples, or, for a text field, the scope and minimum content of a complete response."
+  - id: W3.3
+    section: "3.3"
+    obligation: response-form
+    kind: MUST
+    portability: universal
+    checkable: mixed            # response_type and a justification are present (shape); whether the type captures the required variance is judgment
+    assertion: "State the response type with a written justification that it can capture the variance in the construct the criterion intent requires."
+  - id: W3.4
+    section: "3.4"
+    obligation: evidence-form
+    kind: MUST
+    portability: universal
+    checkable: mixed            # evidence_type from the taxonomy, required content, and access path are present (shape); whether the type matches the criterion intent is judgment
+    assertion: "Specify the artifact that satisfies the criterion: the evidence type from the taxonomy, its required content, the independent access path, and, for a completion claim, whether the type verifies completion or only supports context."
+  - id: W3.4a
+    section: "3.4"
+    obligation: evidence-form
+    kind: MUST
+    portability: universal
+    checkable: judgment         # that the access path resolves without login or applicant contact cannot be read from the specification alone
+    assertion: "Every evidence link must resolve without the reviewer logging in, requesting access, or contacting the applicant; evidence behind an authentication wall does not satisfy the evidence form regardless of the document's strength."
+  - id: W3.5
+    section: "3.5"
+    obligation: conformance-threshold
+    kind: MUST
+    portability: universal
+    condition: "the instrument references an external standard"
+    checkable: mixed            # applicable components + minimum threshold present (shape); their correctness against the external standard is judgment
+    assertion: "For an instrument referencing an external standard, specify which components apply, what evidence satisfies each, the minimum passage threshold, and whether registry membership is accepted as sufficient evidence of current qualification."
+  - id: W3.6
+    section: "3.6"
+    obligation: participatory-specification
+    kind: MAY
+    portability: universal
+    condition: "the instrument measures a condition an identifiable group experiences"
+    checkable: shape            # where present, the who/what/when of participation is recorded
+    assertion: "Where the instrument measures a condition an identifiable group experiences, optionally record who participated in the definition, what they contributed or validated, and when relative to publication."
+  - id: W3.9
+    section: "3.9"
+    obligation: dependency-declaration
+    kind: MUST
+    portability: universal
+    checkable: shape            # dependency edges are derived-and-attested, or the Declared-Absent independence value is present
+    assertion: "Declare the instrument's dependency edges, derived mechanically from the instrument set's formal logic and attested, or the Declared-Absent value where the instrument is independent."
+  - id: W5.1
+    section: "5.1"
+    obligation: data-quality-validity
+    kind: MUST
+    portability: universal
+    checkable: judgment         # validity is a reader's assessment of the logical chain from evidence to claim
+    assertion: "Validity: the instrument has a documented logical chain from the evidence specified in the evidence form to the result claimed in the criterion intent."
+  - id: W5.2
+    section: "5.2"
+    obligation: data-quality-integrity
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the evidence-form access path is shape; whether collection is separated from the beneficiary is judgment
+    assertion: "Integrity: evidence collection is separated from the actor who benefits from a favorable outcome."
+  - id: W5.3
+    section: "5.3"
+    obligation: data-quality-precision
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the instrument resolves differences at the decision-relevant magnitude is a reader's assessment
+    assertion: "Precision: the instrument can detect differences at the magnitude relevant to the decisions the data will inform."
+  - id: W5.4
+    section: "5.4"
+    obligation: data-quality-reliability
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a calibration record is required and representable where a conformance threshold exists (shape); consistency across reviewers is judgment
+    assertion: "Reliability: the methodology is consistent across periods and reviewers; where a conformance threshold exists, a calibration record with worked passing, failing, and borderline examples is part of the specification."
+  - id: W5.5
+    section: "5.5"
+    obligation: data-quality-timeliness
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the evidence is current to the decision cycle is a reader's assessment
+    assertion: "Timeliness: the evidence specified in the evidence form is current to the decision cycle for which the data is collected."
+  - id: W8.3
+    section: "8.3"
+    obligation: conformance-record
+    kind: MUST
+    portability: universal
+    checkable: shape            # the record carries audit date, versions, per-requirement statuses, overrides, dependency, and chain attribution
+    assertion: "Produce a conformance record carrying the audit date, the WALKRI version, the form version, the per-requirement pass/fail/override status of each instrument, each override's flag/justification/authorizer, each instrument's dependency declaration, and, inside a chain, the condition served with the resolution achieved rather than a bare pass mark."
+  - id: W8.4
+    section: "8.4"
+    obligation: minimum-conformance-threshold
+    kind: MUST
+    portability: universal
+    checkable: shape            # all five statuses pass, or an override carries its flag/justification/authorizer; computed over the five, never a stored total
+    assertion: "A field passes certification only if it satisfies all five requirements; four of five produces a flag that must be resolved or overridden with documentation, and a form with unresolved, undocumented flags cannot be certified."

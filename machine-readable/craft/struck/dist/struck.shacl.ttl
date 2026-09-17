@@ -1,0 +1,276 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix struck: <https://standards.crosswalkri.org/struck/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+struck:EvidenceGradeOutput a sh:NodeShape ;
+    rdfs:comment "An output offered as evidence-grade, carrying the five STRUCK obligations on its face." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class struck:WorthJudgment ;
+            sh:description "STRUCK Section 6. The sufficiency judgment left to the consumer." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path struck:worth_judgment ],
+        [ sh:class struck:DerivationChain ;
+            sh:description "STRUCK Section 5. Support traced to ultimate origin, rungs labeled by role." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path struck:derivation_chains ],
+        [ sh:class struck:ConformanceDeclaration ;
+            sh:description "STRUCK Section 7. The five conformance questions answered on the face." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path struck:conformance ],
+        [ sh:class struck:RefutationExposure ;
+            sh:description "STRUCK Section 3. What would overturn the output, or a declared unfalsifiability." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path struck:refutation ],
+        [ sh:class struck:ContestedRegion ;
+            sh:description "STRUCK Section 4. Regions of disagreement in the support, represented rather than averaged." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path struck:contested_regions ],
+        [ sh:class struck:GradeProfile ;
+            sh:description "STRUCK Section 2. The grade profile of the material support." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path struck:graded_evidence ],
+        [ sh:datatype xsd:string ;
+            sh:description "The conclusion the output asserts." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:claim ] ;
+    sh:targetClass struck:EvidenceGradeOutput .
+
+struck:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "S7. The five conformance questions answered on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the refusal to combine grades (S2.4) and the SLSA Verification-Summary-Attestation shape." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path struck:worth_left_to_consumer ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path struck:refutation_stated ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path struck:graded_evidence_exposed ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path struck:contest_represented ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path struck:chains_labeled ] ;
+    sh:targetClass struck:ConformanceDeclaration .
+
+struck:ContestedRegion a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "S4.4. The losing position retained in the record." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path struck:retained_losing_position ],
+        [ sh:datatype xsd:string ;
+            sh:description "S4.4. The basis of any resolution the producer made." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path struck:resolution_basis ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:disputed ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path struck:turns_on ],
+        [ sh:datatype xsd:string ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path struck:support_each_side ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "S4.5. True where absence of contest is an unexamined state, not agreement." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path struck:unexamined ] ;
+    sh:targetClass struck:ContestedRegion .
+
+struck:DerivationChain a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class struck:Rung ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path struck:rungs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path struck:stop_reason ],
+        [ sh:datatype xsd:string ;
+            sh:description "S5.3. Where the walk to origin stopped, if it could not be completed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path struck:stopped_at ],
+        [ sh:datatype xsd:string ;
+            sh:description "S5.5. Other chains this one converges with on the same origin." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path struck:converges_with ] ;
+    sh:targetClass struck:DerivationChain .
+
+struck:DimensionGrade a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path struck:flags ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:dimension ],
+        [ sh:datatype xsd:string ;
+            sh:description "The weakest assessment present anywhere in the support for this dimension." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path struck:weakest_assessment ] ;
+    sh:targetClass struck:DimensionGrade .
+
+struck:GradeProfile a sh:NodeShape ;
+    rdfs:comment "Per-dimension grade of the support; no combined figure (S2.4)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class struck:DimensionGrade ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path struck:per_dimension ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "S2.3. Separately admitted sources not distinct in effective origin." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path struck:joint_support_flag ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "S2.2. True if the output rests on ungraded material admitted under an Open posture, declared on the face." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path struck:open_posture_ungraded ] ;
+    sh:targetClass struck:GradeProfile .
+
+struck:RefutationCondition a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "S3.1/S3.2. The refuting thing, stated in terms of what could be found in the world." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:world_observable ] ;
+    sh:targetClass struck:RefutationCondition .
+
+struck:RefutationExposure a sh:NodeShape ;
+    rdfs:comment "S3. Either world-terms refutation conditions, or a declared unfalsifiability that names a reason. The \"if unfalsifiable then a reason is required\" obligation is modeled as native nested-required (reason is required inside the unfalsifiability object), and the \"conditions or a declaration, never silence\" obligation as a presence-based rule. Both are enforced by a standard JSON Schema validator." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class struck:RefutationCondition ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path struck:conditions ],
+        [ sh:class struck:Unfalsifiability ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path struck:unfalsifiability ] ;
+    sh:targetClass struck:RefutationExposure .
+
+struck:Rung a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "originating_observation" "primary_record" "aggregator" "secondary_reporting" "review" "restatement" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path struck:role ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "S5.1. The named source this rung restates, if role is restatement." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path struck:restates ] ;
+    sh:targetClass struck:Rung .
+
+struck:Unfalsifiability a sh:NodeShape ;
+    rdfs:comment "S3.3. A declared unfalsifiability names a reason (native nested-required)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "definitional" "domain_limited" "impressionistic" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path struck:reason ] ;
+    sh:targetClass struck:Unfalsifiability .
+
+struck:WorthJudgment a sh:NodeShape ;
+    rdfs:comment "S6. The sufficiency judgment left to the consumer; no adequacy assertion." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "S6.2. Optional. What it would take to raise confidence and what it would cost." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path struck:cost_to_raise_confidence ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path struck:consumer_facing ] ;
+    sh:targetClass struck:WorthJudgment .
+
+

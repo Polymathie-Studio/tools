@@ -1,0 +1,21 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "on-chain disbursement registry (contract 0xabc, 2025)",
+      "digest": {
+        "sha256": "<sha256 of the source record>"
+      }
+    }
+  ],
+  "predicateType": "https://standards.crosswalkri.org/ore/conformance/v0.1.2",
+  "predicate": {
+    "verifier": "ore-conformance",
+    "obligations": {
+      "posture_declared_and_enforced": "satisfied",
+      "sources_graded_on_dimensions": "satisfied",
+      "outputs_expose_grade_profile": "satisfied",
+      "no_grade_as_worth_verdict": "satisfied"
+    }
+  }
+}

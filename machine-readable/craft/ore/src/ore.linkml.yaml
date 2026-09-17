@@ -1,0 +1,238 @@
+id: https://standards.crosswalkri.org/ore
+name: ore
+title: ORE graded source
+description: >-
+  The one canonical source for ORE's machine-readable layer (ore-specification, v0.1.2):
+  a LinkML model of the shape an ORE-conformant grading of a source must carry, plus the
+  grade profile an output exposes. Every machine-readable artifact in dist/ is generated
+  from this file. The structural obligations (which fields must be present, that an
+  ungraded extension declares its absence, that no combined figure is carried) are modeled
+  here; the interpretive obligations (whether a grade is being used as a worth-verdict,
+  whether party count was substituted for independence, whether opacity was judged by an
+  unrecorded reason) are not schema-expressible and belong to the conformance checker,
+  marked per-requirement in ore-register.yaml. A grade measures how much of a source's
+  reliability can be seen, never how good the source is.
+license: CC0-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  ore: https://standards.crosswalkri.org/ore/
+default_prefix: ore
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  GradedSource:
+    tree_root: true
+    description: >-
+      ORE Section 8. An admitted source carrying its grading: the per-dimension grade, the
+      intake posture in force when it was admitted, any monitoring obligation, and the
+      conformance declaration. This is the unit ORE conformance is assessed against.
+    attributes:
+      source_identifier:
+        description: What source this grades.
+        required: true
+      grade:
+        description: ORE Section 3. The per-dimension uncertainty grade of the source.
+        range: OreGrade
+        required: true
+      posture:
+        description: ORE Section 6.4. The intake posture in force when this source was admitted, recorded so its grading history is never ambiguous later.
+        range: IntakePosture
+        required: true
+      monitoring:
+        description: ORE Section 4. The monitoring obligation attached to an admitted opaque or flagged source.
+      standing_loss:
+        description: ORE Section 6. The documented, evidence-based record where this source's eligibility was reduced or withdrawn.
+        range: StandingLoss
+      conformance:
+        description: ORE Section 8. The four conformance questions answered on the face.
+        range: OreConformance
+        required: true
+
+  OreGrade:
+    description: >-
+      ORE Section 3. The per-dimension grade. Three dimensions are required (provenance
+      integrity, epistemic soundness, confirmation architecture); two are declared
+      extensions (track record, independence) that must each be addressed, graded or with
+      a declared absence. There is deliberately no combined figure: the closed schema
+      forbids one, which enforces the Section 2 refusal to merge into a single confidence
+      number by absence.
+    attributes:
+      provenance_integrity:
+        description: ORE Section 3.1. Did the input come from where it claims, and arrive unchanged.
+        range: GradedDimension
+        required: true
+      epistemic_soundness:
+        description: ORE Section 3.2. Is the output structured so independent truth-evaluation is possible.
+        range: GradedDimension
+        required: true
+      confirmation_architecture:
+        description: ORE Section 3.3. What confirmed the source's output when it was produced.
+        range: ConfirmationArchitecture
+        required: true
+      track_record:
+        description: ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation).
+        range: ExtensionDimension
+        required: true
+      independence:
+        description: ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation).
+        range: ExtensionDimension
+        required: true
+
+  GradedDimension:
+    description: >-
+      ORE Section 3. A dimension records an assessment and the basis on which it was made.
+      Any sub-assessment that could not be computed is a named flag, never a silent default
+      or an assumed middle value.
+    attributes:
+      assessment:
+        description: The uncertainty assessment on this dimension. Not a quality rank.
+        required: true
+      basis:
+        description: The basis on which the assessment was made.
+        required: true
+      flag:
+        description: A named limitation where a sub-assessment could not be computed. Never a silent default.
+
+  ConfirmationArchitecture:
+    description: >-
+      ORE Section 3.3. Records each confirmation mode present rather than forcing one cell.
+      Party count is not a substitute for independence; where effective independence cannot
+      be assessed, that is recorded as a named flag.
+    attributes:
+      modes:
+        description: One or more confirmation modes present when the source produced its output.
+        range: ConfirmationMode
+        multivalued: true
+        required: true
+      basis:
+        description: The basis for the confirmation-architecture reading.
+        required: true
+      independence_flag:
+        description: ORE Section 3.3 party-count limit. Set where effective independence cannot be assessed; party count is never a substitute.
+
+  ExtensionDimension:
+    description: >-
+      ORE Section 3.4 and Section 7. A declared extension dimension is either graded (with
+      a basis) or its absence is declared with a named reason. The "if not graded then a
+      reason is required" obligation is modeled as a presence-based rule and enforced by a
+      standard JSON Schema validator, so an extension can never fall silent or default to a
+      middle value.
+    attributes:
+      graded:
+        description: The grading of this extension, where the system grades it.
+        range: GradedDimension
+      not_applicable_reason:
+        description: ORE Section 7. Where the extension is not graded, the named reason (a genesis limitation for a new source, a permanent property of the source class, or a declared choice not to grade).
+      resolves_with_history:
+        description: ORE Section 7.3. Whether the limitation is expected to resolve as history accumulates.
+        range: boolean
+    rules:
+      - preconditions:
+          slot_conditions:
+            graded:
+              value_presence: ABSENT
+        postconditions:
+          slot_conditions:
+            not_applicable_reason:
+              required: true
+        description: ORE 3.4 / Section 7. An ungraded extension dimension must declare its absence with a named reason, never fall silent or default to a middle value.
+
+  StandingLoss:
+    description: >-
+      ORE Section 6. Standing loss is only through a documented, evidence-based process: the
+      evidence, the basis, and the decision are recorded and retained with the source.
+      Adverse findings are never silently discarded. Loss of standing is not retroactive.
+    attributes:
+      evidence:
+        description: The evidence on which standing was reduced or withdrawn.
+        required: true
+      basis:
+        description: The basis for the decision.
+        required: true
+      decision:
+        description: The eligibility decision taken.
+        required: true
+
+  OreConformance:
+    description: >-
+      ORE Section 8. The four conformance questions answered on the face. There is
+      deliberately no overall or total field: conformance is per-obligation, mirroring the
+      refusal to combine grades (Section 2) and the Verification-Summary-Attestation shape.
+    attributes:
+      posture_declared_and_enforced:
+        range: ConformanceAnswer
+        required: true
+      sources_graded_on_dimensions:
+        range: ConformanceAnswer
+        required: true
+      outputs_expose_grade_profile:
+        range: ConformanceAnswer
+        required: true
+      no_grade_as_worth_verdict:
+        range: ConformanceAnswer
+        required: true
+
+  GradeProfile:
+    description: >-
+      ORE Section 5. The grade profile an output exposes: for each grading dimension, the
+      weakest assessment present anywhere in the output's support and every flag any source
+      in that support carries. Never a combined figure. This is the companion object to
+      GradedSource, carried on outputs rather than on sources.
+    attributes:
+      per_dimension:
+        range: DimensionExposure
+        multivalued: true
+        required: true
+      joint_support_flag:
+        description: ORE Section 5. Separately admitted sources in the support that cannot be shown distinct in effective origin.
+        range: boolean
+      rests_on_open_posture_material:
+        description: ORE Section 5. True where the output rests partly on ungraded material admitted under an Open posture, declared on the face.
+        range: boolean
+
+  DimensionExposure:
+    description: ORE Section 5. Per-dimension exposure on an output.
+    attributes:
+      dimension:
+        required: true
+      weakest_assessment:
+        description: The weakest assessment present anywhere in the support for this dimension.
+        required: true
+      flags:
+        multivalued: true
+
+enums:
+
+  IntakePosture:
+    description: "ORE Section 6. The intake posture: when grading happens and what ungraded material may touch."
+    permissible_values:
+      screened:
+        description: Nothing enters without being graded first.
+      graded:
+        description: Everything admitted enters at the grade its visible properties warrant; review is prioritized by uncertainty.
+      open:
+        description: Bulk material enters ungraded into a quarantined state; it may serve discovery but must not support findings until graded.
+
+  ConfirmationMode:
+    description: ORE Section 3.3. The confirmation modes a source's output can carry; more than one may be present.
+    permissible_values:
+      trustless_single_party:
+        description: Cryptographic proof from one attester; origin guaranteed, underlying claim confirmed by no one.
+      trustless_multi_party:
+        description: Mechanism-required confirmation (multisig, validator set, passed vote), subject to the opacity limit.
+      trust_based_single_party:
+        description: One evaluator, curator, or badgeholder; social provenance, no independent check on content.
+      trust_based_multi_party:
+        description: Adversarial or consensus confirmation built into the mechanism.
+      unconfirmed:
+        description: No cryptographic proof and no confirming party; the highest confirmation uncertainty.
+
+  ConformanceAnswer:
+    description: ORE Section 8. Per-obligation answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

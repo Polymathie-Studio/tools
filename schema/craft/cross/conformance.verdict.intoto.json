@@ -1,0 +1,27 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "unique_active_wallets",
+      "digest": {
+        "sha256": "<sha256 of the indicator specification>"
+      }
+    }
+  ],
+  "predicateType": "https://standards.crosswalkri.org/cross/indicator/v0.5.7",
+  "predicate": {
+    "verifier": "cross-indicator-conformance",
+    "profile": {
+      "obligation_mode": "change",
+      "source_type": "on_chain_verifiable",
+      "measurement_form": "quantitative",
+      "aggregation_type": "non_cumulative",
+      "contract_centric": false
+    },
+    "conditional_obligations": {
+      "baseline_present": true,
+      "execution_verification_present": false,
+      "independent_corroboration_present": false
+    }
+  }
+}

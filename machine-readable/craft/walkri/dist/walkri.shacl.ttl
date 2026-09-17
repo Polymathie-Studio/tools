@@ -1,0 +1,416 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix walkri: <https://standards.crosswalkri.org/walkri/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+walkri:SpecifiedInstrument a sh:NodeShape ;
+    rdfs:comment "WALKRI Part I and Part III. A specified instrument carrying its five criterion specification requirements, its optional participatory record, its dependency declaration, its conformance record, and, where it operates inside an evaluation chain, its layer attribution. This is the unit WALKRI conformance is assessed against. The requirements are stated in their form-field instantiation because that is the most familiar one, but they attach to the instrument in whatever modality renders it." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class walkri:InstrumentConformance ;
+            sh:description "WALKRI Part VIII. The per-requirement conformance status of this instrument. There is deliberately no overall pass mark." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path walkri:conformance ],
+        [ sh:class walkri:ChainAttribution ;
+            sh:description "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves (its layer attribution), or the Declared-Absent value where WALKRI is used standalone." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path walkri:chain_attribution ],
+        [ sh:description "WALKRI Part I. The modality in which this instrument is rendered. The five requirements attach regardless of modality." ;
+            sh:in ( "form_field" "prompt_constraint" "structured_output_schema_element" "rubric_item" "extraction_specification" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path walkri:modality ],
+        [ sh:class walkri:EvidenceForm ;
+            sh:description "WALKRI Section 3.4. The artifact that satisfies the criterion, one entry per required evidence type. A single criterion may require more than one type." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path walkri:evidence_form ],
+        [ sh:class walkri:OperationalDefinition ;
+            sh:description "WALKRI Section 3.2. A complete definition of each response category, with qualifying and non-qualifying examples, or the scope and minimum content for a text field." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path walkri:operational_definition ],
+        [ sh:class walkri:DependencyDeclaration ;
+            sh:description "WALKRI Section 3.9. The instrument's dependency edges, derived and attested, or the Declared-Absent value where the instrument is independent." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path walkri:dependency_declaration ],
+        [ sh:class walkri:CriterionIntent ;
+            sh:description "WALKRI Section 3.1. A written statement of what the instrument measures, distinct from its label." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path walkri:criterion_intent ],
+        [ sh:class walkri:ConformanceThreshold ;
+            sh:description "WALKRI Section 3.5. For an instrument that references an external standard, which components apply, what evidence satisfies each, and the minimum passage threshold. Where no external standard is referenced, this is declared not-applicable with a reason." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path walkri:conformance_threshold ],
+        [ sh:class walkri:ResponseForm ;
+            sh:description "WALKRI Section 3.3. The response type with a written justification that it can capture the variance the criterion intent requires." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path walkri:response_form ],
+        [ sh:class walkri:ParticipatorySpecification ;
+            sh:description "WALKRI Section 3.6. Optional. The record of population input into the definition, where the instrument measures a condition an identifiable group experiences." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path walkri:participatory_specification ],
+        [ sh:datatype xsd:string ;
+            sh:description "What instrument this specifies (the field name or instrument label)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:instrument_identifier ] ;
+    sh:targetClass walkri:SpecifiedInstrument .
+
+walkri:CategoryDefinition a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.2. One option's definition with qualifying and non-qualifying examples, and, for a binary field, at least one edge-case determination." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "For a binary field, an edge-case determination." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path walkri:edge_case ],
+        [ sh:datatype xsd:string ;
+            sh:description "The option or response category being defined." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "Examples that qualify for this category." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:qualifying_examples ],
+        [ sh:datatype xsd:string ;
+            sh:description "The complete definition of this category." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:definition ],
+        [ sh:datatype xsd:string ;
+            sh:description "Examples that do not qualify for this category." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path walkri:non_qualifying_examples ] ;
+    sh:targetClass walkri:CategoryDefinition .
+
+walkri:ChainAttribution a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 8.3. Where WALKRI operates inside an evaluation chain, the chain condition this instrument serves, so the conformance record recomposes into condition-satisfaction evidence upward. Standalone use declares its absence." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The chain condition this instrument's quality serves (its layer attribution), where WALKRI operates inside a chain." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:chain_condition_served ],
+        [ sh:datatype xsd:string ;
+            sh:description "WALKRI Section 8.3. The resolution the instrument's criterion elements specify, carried upward rather than a bare pass mark, so the precision actually achieved at the capture point travels." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:resolution ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "The Declared-Absent value. True where WALKRI is used standalone, outside any evaluation chain." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:standalone ] ;
+    sh:targetClass walkri:ChainAttribution .
+
+walkri:ConformanceThreshold a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.5. For an instrument that references an external standard, the components that apply, the evidence that satisfies each, the minimum passage threshold, and the treatment of any registry the standard maintains. Where no external standard is referenced, references_external_standard is false and a not_applicable_reason is declared, never left silent." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Where the external standard maintains a registry, whether registry membership is accepted as sufficient evidence of current qualification or independent assessment is required regardless of registry status." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path walkri:registry_treatment ],
+        [ sh:datatype xsd:string ;
+            sh:description "The minimum threshold for passage (which components must be met, and which are non-waivable)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path walkri:minimum_threshold ],
+        [ sh:datatype xsd:string ;
+            sh:description "What evidence satisfies each applicable component." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:evidence_per_component ],
+        [ sh:datatype xsd:string ;
+            sh:description "Where no external standard is referenced, the declared reason the conformance-threshold content is not applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path walkri:not_applicable_reason ],
+        [ sh:datatype xsd:string ;
+            sh:description "Which components of the external standard apply to this criterion." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:applicable_components ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether this instrument references an external standard." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:references_external_standard ] ;
+    sh:targetClass walkri:ConformanceThreshold .
+
+walkri:CriterionIntent a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.1. A measurement claim, not a name. Records the label and the intent separately so the intent's distinctness from the label is legible." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The instrument's label (a name)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:label ],
+        [ sh:datatype xsd:string ;
+            sh:description "What a true response tells us about the subject. A measurement claim distinct from the label." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:measurement_claim ] ;
+    sh:targetClass walkri:CriterionIntent .
+
+walkri:DependencyDeclaration a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.9. The instrument's dependency graph, derived mechanically from the instrument set's own formal logic and attested, or the Declared-Absent value where the instrument has no dependency edges. An independent instrument declares its independence rather than falling silent." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "The Declared-Absent value. True where the instrument has no dependency edges." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:independent ],
+        [ sh:class walkri:DependencyEdge ;
+            sh:description "The derived and attested dependency edges, where the instrument depends on others." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path walkri:edges ] ;
+    sh:targetClass walkri:DependencyDeclaration .
+
+walkri:DependencyEdge a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.9. One derived-and-attested dependency of this instrument on another." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The formal relation from which the edge was derived (the conditional logic that produced it)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:relation ],
+        [ sh:datatype xsd:string ;
+            sh:description "The instrument this one depends on." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:depends_on ] ;
+    sh:targetClass walkri:DependencyEdge .
+
+walkri:EvidenceForm a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.4. One evidence-type specification: the type from the taxonomy, the required content within that type, the access path by which a reviewer independently locates and verifies it, and, for a completion claim, whether the type is sufficient to verify completion or serves only as supporting context." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Where the criterion involves a completion claim, whether this evidence type is sufficient to verify completion or serves only as supporting context." ;
+            sh:in ( "sufficient_to_verify_completion" "supporting_context_only" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path walkri:completion_sufficiency ],
+        [ sh:datatype xsd:string ;
+            sh:description "The path by which a reviewer independently locates and verifies the evidence, resolving without login, access request, or contact with the applicant." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:access_path ],
+        [ sh:description "The evidence type required, from the WALKRI Section 3.4 taxonomy." ;
+            sh:in ( "standing" "activity" "outcome" "planning" "financial_accountability" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path walkri:evidence_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "The specific elements this evidence type must contain (the required elements named for the type)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:required_content ] ;
+    sh:targetClass walkri:EvidenceForm .
+
+walkri:InstrumentConformance a sh:NodeShape ;
+    rdfs:comment "WALKRI Part VIII. The per-requirement conformance status of the instrument: for each of the five criterion specification requirements, pass, fail, or override. There is deliberately no overall or total field. The minimum conformance threshold (Section 8.4, all five pass, overrides permitted where documented) is a computed rule over these five statuses, never a stored bare pass mark." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "pass" "fail" "override" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path walkri:conformance_threshold_status ],
+        [ sh:in ( "pass" "fail" "override" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path walkri:evidence_form_status ],
+        [ sh:in ( "pass" "fail" "override" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path walkri:criterion_intent_status ],
+        [ sh:class walkri:Override ;
+            sh:description "WALKRI Section 8.3. One entry for each requirement whose status is override, carrying the flag, the justification, and the authorizer." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path walkri:overrides ],
+        [ sh:in ( "pass" "fail" "override" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path walkri:operational_definition_status ],
+        [ sh:in ( "pass" "fail" "override" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path walkri:response_form_status ] ;
+    sh:targetClass walkri:InstrumentConformance .
+
+walkri:OperationalDefinition a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.2. A complete definition of each option, with qualifying and non-qualifying examples, or, for a text field, the scope and minimum content that constitutes a complete response." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "For a text or narrative instrument, the minimum content that constitutes a complete response." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:text_minimum_content ],
+        [ sh:datatype xsd:string ;
+            sh:description "For a text or narrative instrument, the scope of acceptable response content." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:text_scope ],
+        [ sh:class walkri:CategoryDefinition ;
+            sh:description "Per-option definitions for a categorical, binary, or numeric instrument." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path walkri:categories ] ;
+    sh:targetClass walkri:OperationalDefinition .
+
+walkri:Override a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 8.3 and 8.4. An override on one of the five requirements, permitted only where documented: the flag text, the justification, and the name or identifier of the person who authorized it. An override without all three is an unresolved flag, and a form with unresolved undocumented flags cannot be certified." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The justification for the override." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:justification ],
+        [ sh:description "Which of the five criterion specification requirements this override applies to." ;
+            sh:in ( "criterion_intent" "operational_definition" "response_form" "evidence_form" "conformance_threshold" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path walkri:requirement ],
+        [ sh:datatype xsd:string ;
+            sh:description "The text of the flag being overridden." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:flag_text ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name or identifier of the person who authorized the override." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path walkri:authorized_by ] ;
+    sh:targetClass walkri:Override .
+
+walkri:ParticipatorySpecification a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.6. Optional. Where the instrument measures a condition an identifiable group experiences, the record of who participated in the definition, what they contributed or validated, and when, relative to publication." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "When the participation occurred relative to the instrument's publication." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path walkri:timing ],
+        [ sh:datatype xsd:string ;
+            sh:description "Who participated, described by role or relationship to the measured condition." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path walkri:participants ],
+        [ sh:datatype xsd:string ;
+            sh:description "What aspect of the definition they contributed to or validated." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:contribution ] ;
+    sh:targetClass walkri:ParticipatorySpecification .
+
+walkri:ResponseForm a sh:NodeShape ;
+    rdfs:comment "WALKRI Section 3.3. The response type and a written justification that the type can capture the variance in the construct the criterion intent requires. Response type is a measurement decision, not a formatting one." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Why this response type is appropriate for the criterion intent, addressing whether it captures the required variance." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path walkri:justification ],
+        [ sh:description "The response type of the instrument." ;
+            sh:in ( "single_select" "multi_select" "binary" "numeric" "text" "url" "composite" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path walkri:response_type ] ;
+    sh:targetClass walkri:ResponseForm .
+
+

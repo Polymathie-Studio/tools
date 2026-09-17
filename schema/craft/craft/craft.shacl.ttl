@@ -1,0 +1,328 @@
+@prefix craft: <https://standards.crosswalkri.org/craft/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+craft:ComplianceReport a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 12.3. Whether a specification document meets CRAFT requirements, produced at audit time (not when the chain evaluates data). Each finding declares its layer, so a domain-application finding is distinguishable from a CRAFT base finding." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class craft:ConditionResult ;
+            sh:description "CRAFT Section 12.3. One result per condition, each declaring its layer." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path craft:condition_results ],
+        [ sh:description "Declared so an automated consumer never infers the document type." ;
+            sh:in ( "compliance_report" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path craft:record_type ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.3. Which specification document was evaluated." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:evaluated_specification_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.3. The version of that specification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:evaluated_specification_version ] ;
+    sh:targetClass craft:ComplianceReport .
+
+craft:EvaluationRecord a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 12.2. What the chain did with one input at one point in time. One record per evaluation instance. Carries the outcome against the Condition 4 threshold with the Condition 3 instrument uncertainty, the per-condition findings with their layer attribution, and the propagation targets a non-accept outcome must feed back." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2. Date and time of evaluation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path craft:evaluation_timestamp ],
+        [ sh:class craft:PropagationTarget ;
+            sh:description "CRAFT Section 12.2. For rejection and indeterminate outcomes, the prior condition(s) the signal must propagate to under Condition 6. An indeterminate outcome propagates as its own signal class." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path craft:propagation_targets ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2. A reference to the input in sufficient form to allow the finding to be checked independently." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path craft:input_provenance ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2. The specification document in force at evaluation time." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:specification_id ],
+        [ sh:description "CRAFT Section 12.2. Accepted, rejected, or indeterminate, derived from the reading evaluated against the Condition 4 threshold carrying the Condition 3 uncertainty. Indeterminate is not collapsible into accepted or rejected." ;
+            sh:in ( "accepted" "rejected" "indeterminate" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 5 ;
+            sh:path craft:outcome ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2 and 7.1. The adversarial gate result at evaluation time." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path craft:gate_check_result ],
+        [ sh:class craft:ConditionFinding ;
+            sh:description "CRAFT Section 12.2. For each condition evaluated, the result, the basis, and the layer attribution; with the uncertainty band where Condition 3 specified one." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path craft:condition_findings ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2. The exact version of that specification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:specification_version ],
+        [ sh:description "CRAFT Section 12.2. Declared so an automated consumer never infers the document type." ;
+            sh:in ( "evaluation_record" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path craft:record_type ] ;
+    sh:targetClass craft:EvaluationRecord .
+
+craft:InheritanceReceipt a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 10. The formal declaration a CRAFT-conformant domain application produces: the chain-level receipt, the full Precision Toolkit scope (CSIS standards and Frame Language discipline, not CRAFT alone), and the activity profile for each declared inheritance. A receipt that declares CRAFT conformance without also declaring CSIS and Frame Language inheritance is structurally incomplete." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class craft:ChainLevelReceipt ;
+            sh:description "CRAFT Section 10. The decision context, technical ontology, and domain configuration in CRAFT-compliant form, traceable to Conditions 1 through 6." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path craft:chain_level_receipt ],
+        [ sh:class craft:DeclaredInheritance ;
+            sh:description "CRAFT Section 10. The declared inheritances (CSIS standards and Frame Language), each with its activity profile. Declaring CRAFT alone is structurally incomplete." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path craft:precision_toolkit_scope ],
+        [ sh:datatype xsd:string ;
+            sh:description "The domain application this receipt is for." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path craft:domain_application ],
+        [ sh:class craft:AxisPositioning ;
+            sh:description "CRAFT Section 10. Where a domain application implements per-axis quality assessment, which CRAFT condition each axis serves and where it sits in the domain configuration." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path craft:axis_positioning ] ;
+    sh:targetClass craft:InheritanceReceipt .
+
+craft:AxisPositioning a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 10. One axis's positioning, naming which CRAFT condition it serves and where it sits in the domain configuration." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Which CRAFT condition this axis serves." ;
+            sh:in ( "condition_1_decision_context" "condition_2_technical_ontology" "condition_3_measurement_instruments" "condition_4_pre_specified_criteria" "condition_5_decision_logic" "condition_6_feedback_propagation" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path craft:serves_condition ],
+        [ sh:datatype xsd:string ;
+            sh:description "The quality axis." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path craft:axis ],
+        [ sh:datatype xsd:string ;
+            sh:description "Where this axis sits within the domain configuration." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:position ] ;
+    sh:targetClass craft:AxisPositioning .
+
+craft:ChainLevelReceipt a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 10. The chain-level receipt component, the chain specification in CRAFT-compliant form, traceable to the six conditions." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The specific structural facts that constitute this domain's instantiation of CRAFT." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:domain_configuration ],
+        [ sh:datatype xsd:string ;
+            sh:description "Condition 1. The decision context of the chain specification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path craft:decision_context ],
+        [ sh:datatype xsd:string ;
+            sh:description "Condition 2. The technical ontology of the chain specification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:technical_ontology ] ;
+    sh:targetClass craft:ChainLevelReceipt .
+
+craft:ConditionFinding a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 12.2. One condition's result at evaluation time, with its basis and layer attribution. A rejection finding without layer attribution cannot be used for root cause analysis, because the propagation target at Condition 6 depends on whether the failure originates at the CRAFT base or the domain application layer." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Which of the six conditions this finding concerns." ;
+            sh:in ( "condition_1_decision_context" "condition_2_technical_ontology" "condition_3_measurement_instruments" "condition_4_pre_specified_criteria" "condition_5_decision_logic" "condition_6_feedback_propagation" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path craft:condition ],
+        [ sh:datatype xsd:string ;
+            sh:description "The result of evaluating this condition on this input." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:result ],
+        [ sh:datatype xsd:string ;
+            sh:description "The basis on which the result was reached." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:basis ],
+        [ sh:description "CRAFT Section 12.2. Which layer's specification produced this finding." ;
+            sh:in ( "craft_base" "domain_application" "per_axis_quality" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path craft:layer ],
+        [ sh:datatype xsd:string ;
+            sh:description "CRAFT Section 12.2 and Condition 3. The instrument uncertainty band, where Condition 3 specified one for the instrument producing this finding, so the outcome against the Condition 4 threshold is independently checkable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path craft:uncertainty_band ] ;
+    sh:targetClass craft:ConditionFinding .
+
+craft:ConditionResult a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 12.3. One condition's compliance result, with its layer attribution." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Which of the six conditions this result concerns." ;
+            sh:in ( "condition_1_decision_context" "condition_2_technical_ontology" "condition_3_measurement_instruments" "condition_4_pre_specified_criteria" "condition_5_decision_logic" "condition_6_feedback_propagation" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path craft:condition ],
+        [ sh:description "CRAFT Section 12.3. Whether the finding concerns a CRAFT base, domain-application, or per-axis quality requirement." ;
+            sh:in ( "craft_base" "domain_application" "per_axis_quality" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path craft:layer ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the specification meets this condition's requirement." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:compliant ],
+        [ sh:datatype xsd:string ;
+            sh:description "The basis on which compliance was determined." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:basis ] ;
+    sh:targetClass craft:ConditionResult .
+
+craft:DeclaredInheritance a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 10. One declared inheritance with its five required elements. The activity profile converts the receipt from a static declaration into an operational specification. Background-unchecked is not a valid operating state; it must appear as a finding in any compliance review." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Element 5. The procedure for detecting when this standard revises and the named response (entering version-bump-pending and triggering a Condition 6 event at the specification layer)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path craft:version_coupling_procedure ],
+        [ sh:description "Element 4. Background-satisfied with a dated reference, or background-unchecked declared as a current gap." ;
+            sh:in ( "background_satisfied" "background_unchecked" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path craft:background_state ],
+        [ sh:datatype xsd:string ;
+            sh:description "Element 1. The inherited standard's name." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path craft:standard_name ],
+        [ sh:datatype xsd:string ;
+            sh:description "Element 1. The specific version against which obligations are declared." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:standard_version ],
+        [ sh:datatype xsd:string ;
+            sh:description "Element 3. The contexts in which this standard's obligations become active demands." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path craft:foregrounding_triggers ],
+        [ sh:datatype xsd:string ;
+            sh:description "Element 4. Where background-satisfied, the date satisfaction was last validated." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path craft:background_validated_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Element 2. Which of the standard's obligations apply to this domain application and what they require." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path craft:applicable_obligations ] ;
+    sh:targetClass craft:DeclaredInheritance .
+
+craft:PropagationTarget a sh:NodeShape ;
+    rdfs:comment "CRAFT Section 12.2 and Condition 6. One prior condition a non-accept signal propagates to, with the signal class it carries." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The prior condition the signal propagates to." ;
+            sh:in ( "condition_1_decision_context" "condition_2_technical_ontology" "condition_3_measurement_instruments" "condition_4_pre_specified_criteria" "condition_5_decision_logic" "condition_6_feedback_propagation" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path craft:target_condition ],
+        [ sh:datatype xsd:string ;
+            sh:description "The signal class propagated (for an indeterminate outcome, the non-resolution signal class distinct from a rejection)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path craft:signal_class ] ;
+    sh:targetClass craft:PropagationTarget .
+
+

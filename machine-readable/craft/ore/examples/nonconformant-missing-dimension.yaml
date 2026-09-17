@@ -1,0 +1,22 @@
+# NON-conformant: missing the required epistemic_soundness dimension (ORE Section 3). Must fail.
+source_identifier: "uploaded contributor spreadsheet"
+grade:
+  provenance_integrity:
+    assessment: "unverified upload; origin asserted by the contributor only"
+    basis: "no signature, no chain of custody"
+  confirmation_architecture:
+    modes:
+      - unconfirmed
+    basis: "bare upload; no confirming party"
+  track_record:
+    not_applicable_reason: "new contributor, no history"
+    resolves_with_history: true
+  independence:
+    not_applicable_reason: "contributor stake unknown"
+    resolves_with_history: true
+posture: open
+conformance:
+  posture_declared_and_enforced: satisfied
+  sources_graded_on_dimensions: satisfied
+  outputs_expose_grade_profile: not_applicable
+  no_grade_as_worth_verdict: satisfied

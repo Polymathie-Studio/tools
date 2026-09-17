@@ -1,0 +1,266 @@
+@prefix ore: <https://standards.crosswalkri.org/ore/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ore:GradeProfile a sh:NodeShape ;
+    rdfs:comment "ORE Section 5. The grade profile an output exposes: for each grading dimension, the weakest assessment present anywhere in the output's support and every flag any source in that support carries. Never a combined figure. This is the companion object to GradedSource, carried on outputs rather than on sources." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ore:DimensionExposure ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path ore:per_dimension ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "ORE Section 5. Separately admitted sources in the support that cannot be shown distinct in effective origin." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:joint_support_flag ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "ORE Section 5. True where the output rests partly on ungraded material admitted under an Open posture, declared on the face." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:rests_on_open_posture_material ] ;
+    sh:targetClass ore:GradeProfile .
+
+ore:GradedSource a sh:NodeShape ;
+    rdfs:comment "ORE Section 8. An admitted source carrying its grading: the per-dimension grade, the intake posture in force when it was admitted, any monitoring obligation, and the conformance declaration. This is the unit ORE conformance is assessed against." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ore:OreConformance ;
+            sh:description "ORE Section 8. The four conformance questions answered on the face." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path ore:conformance ],
+        [ sh:description "ORE Section 6.4. The intake posture in force when this source was admitted, recorded so its grading history is never ambiguous later." ;
+            sh:in ( "screened" "graded" "open" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path ore:posture ],
+        [ sh:class ore:OreGrade ;
+            sh:description "ORE Section 3. The per-dimension uncertainty grade of the source." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path ore:grade ],
+        [ sh:datatype xsd:string ;
+            sh:description "ORE Section 4. The monitoring obligation attached to an admitted opaque or flagged source." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ore:monitoring ],
+        [ sh:datatype xsd:string ;
+            sh:description "What source this grades." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ore:source_identifier ],
+        [ sh:class ore:StandingLoss ;
+            sh:description "ORE Section 6. The documented, evidence-based record where this source's eligibility was reduced or withdrawn." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path ore:standing_loss ] ;
+    sh:targetClass ore:GradedSource .
+
+ore:ConfirmationArchitecture a sh:NodeShape ;
+    rdfs:comment "ORE Section 3.3. Records each confirmation mode present rather than forcing one cell. Party count is not a substitute for independence; where effective independence cannot be assessed, that is recorded as a named flag." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "One or more confirmation modes present when the source produced its output." ;
+            sh:in ( "trustless_single_party" "trustless_multi_party" "trust_based_single_party" "trust_based_multi_party" "unconfirmed" ) ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ore:modes ],
+        [ sh:datatype xsd:string ;
+            sh:description "ORE Section 3.3 party-count limit. Set where effective independence cannot be assessed; party count is never a substitute." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:independence_flag ],
+        [ sh:datatype xsd:string ;
+            sh:description "The basis for the confirmation-architecture reading." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:basis ] ;
+    sh:targetClass ore:ConfirmationArchitecture .
+
+ore:DimensionExposure a sh:NodeShape ;
+    rdfs:comment "ORE Section 5. Per-dimension exposure on an output." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ore:dimension ],
+        [ sh:datatype xsd:string ;
+            sh:description "The weakest assessment present anywhere in the support for this dimension." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:weakest_assessment ],
+        [ sh:datatype xsd:string ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:flags ] ;
+    sh:targetClass ore:DimensionExposure .
+
+ore:OreConformance a sh:NodeShape ;
+    rdfs:comment "ORE Section 8. The four conformance questions answered on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the refusal to combine grades (Section 2) and the Verification-Summary-Attestation shape." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path ore:sources_graded_on_dimensions ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ore:posture_declared_and_enforced ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path ore:outputs_expose_grade_profile ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path ore:no_grade_as_worth_verdict ] ;
+    sh:targetClass ore:OreConformance .
+
+ore:OreGrade a sh:NodeShape ;
+    rdfs:comment "ORE Section 3. The per-dimension grade. Three dimensions are required (provenance integrity, epistemic soundness, confirmation architecture); two are declared extensions (track record, independence) that must each be addressed, graded or with a declared absence. There is deliberately no combined figure: the closed schema forbids one, which enforces the Section 2 refusal to merge into a single confidence number by absence." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ore:ExtensionDimension ;
+            sh:description "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path ore:track_record ],
+        [ sh:class ore:ConfirmationArchitecture ;
+            sh:description "ORE Section 3.3. What confirmed the source's output when it was produced." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path ore:confirmation_architecture ],
+        [ sh:class ore:GradedDimension ;
+            sh:description "ORE Section 3.2. Is the output structured so independent truth-evaluation is possible." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path ore:epistemic_soundness ],
+        [ sh:class ore:GradedDimension ;
+            sh:description "ORE Section 3.1. Did the input come from where it claims, and arrive unchanged." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path ore:provenance_integrity ],
+        [ sh:class ore:ExtensionDimension ;
+            sh:description "ORE Section 3.4. Declared extension. Graded, or absence declared (Section 7 genesis limitation)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path ore:independence ] ;
+    sh:targetClass ore:OreGrade .
+
+ore:StandingLoss a sh:NodeShape ;
+    rdfs:comment "ORE Section 6. Standing loss is only through a documented, evidence-based process: the evidence, the basis, and the decision are recorded and retained with the source. Adverse findings are never silently discarded. Loss of standing is not retroactive." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The evidence on which standing was reduced or withdrawn." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ore:evidence ],
+        [ sh:datatype xsd:string ;
+            sh:description "The eligibility decision taken." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:decision ],
+        [ sh:datatype xsd:string ;
+            sh:description "The basis for the decision." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:basis ] ;
+    sh:targetClass ore:StandingLoss .
+
+ore:ExtensionDimension a sh:NodeShape ;
+    rdfs:comment "ORE Section 3.4 and Section 7. A declared extension dimension is either graded (with a basis) or its absence is declared with a named reason. The \"if not graded then a reason is required\" obligation is modeled as a presence-based rule and enforced by a standard JSON Schema validator, so an extension can never fall silent or default to a middle value." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ore:GradedDimension ;
+            sh:description "The grading of this extension, where the system grades it." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path ore:graded ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "ORE Section 7.3. Whether the limitation is expected to resolve as history accumulates." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:resolves_with_history ],
+        [ sh:datatype xsd:string ;
+            sh:description "ORE Section 7. Where the extension is not graded, the named reason (a genesis limitation for a new source, a permanent property of the source class, or a declared choice not to grade)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:not_applicable_reason ] ;
+    sh:targetClass ore:ExtensionDimension .
+
+ore:GradedDimension a sh:NodeShape ;
+    rdfs:comment "ORE Section 3. A dimension records an assessment and the basis on which it was made. Any sub-assessment that could not be computed is a named flag, never a silent default or an assumed middle value." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The uncertainty assessment on this dimension. Not a quality rank." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ore:assessment ],
+        [ sh:datatype xsd:string ;
+            sh:description "The basis on which the assessment was made." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ore:basis ],
+        [ sh:datatype xsd:string ;
+            sh:description "A named limitation where a sub-assessment could not be computed. Never a silent default." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ore:flag ] ;
+    sh:targetClass ore:GradedDimension .
+
+

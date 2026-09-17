@@ -1,0 +1,140 @@
+# CRAFT register distillation
+# One row per normative requirement of craft-specification (internal v0.4.6). The corpus's
+# "register distillation": a typed, enumerable table extracted from prose, one row per entry,
+# each carrying its assertion, a kind code, and a portability flag. `checkable` records
+# whether the requirement is enforceable by a data schema (presence/shape) or is a reader's
+# interpretive judgment (the machine-conformance-is-not-standard-conformance line, made
+# per-requirement). CRAFT is a meta-standard: most of its obligations are audit-time
+# judgments about whether a chain or a domain application satisfies a condition, and are
+# marked judgment; the shape rows are the Section 12 output-schema constraints, which a
+# schema does enforce.
+standard: CRAFT
+standard_version: 0.4.6
+source: craft-specification-0_4_4.md
+entries:
+  - id: C5.1
+    section: "5"
+    obligation: condition-1-decision-context
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the decision, parties, validity and scope boundaries are specified before design is a reader's assessment
+    assertion: "Specify the decision, the parties it is made for, the conditions under which the evaluation is a good input (in refutable terms) and under which it is invalid, and the out-of-scope uses, before any data collection or design begins."
+  - id: C5.2
+    section: "5"
+    obligation: condition-2-technical-ontology
+    kind: MUST
+    portability: universal
+    checkable: judgment         # construct-to-estimand adequacy is a claim a reader tests against the independent-observer criterion
+    assertion: "Provide a technical ontology adequate to the decision context, stating the grounds (empirical, logical, or documented precedent) on which its constructs operationalize the Condition 1 estimand for the actual risk-bearers."
+  - id: C5.3
+    section: "5"
+    obligation: condition-3-measurement-instruments
+    kind: MUST
+    portability: universal
+    checkable: judgment         # instrument validity and systematic-uncertainty declaration are assessed by a reader; the resolution floor is a design declaration
+    assertion: "Provide valid measurement instruments within the ontology, naming systematic uncertainty as a carried requirement and declaring the cohort-size resolution floor below which a statistical reading is not relied upon."
+  - id: C5.4
+    section: "5"
+    obligation: condition-4-pre-specified-criteria
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether criteria are genuinely pre-specified and reference the instrument uncertainty is a reader's assessment
+    assertion: "Pre-specify the evaluation criteria, with thresholds that reference the Condition 3 systematic uncertainty so a threshold is not set inside the range the instrument cannot resolve."
+  - id: C5.5
+    section: "5"
+    obligation: condition-5-decision-logic
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the decision logic is explicit is a reader's assessment
+    assertion: "State the decision logic explicitly: how criteria results map to the decision the chain supports."
+  - id: C5.6
+    section: "5"
+    obligation: condition-6-feedback-propagation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the propagation-target and outcome shape are enforced in the evaluation record (shape); loop-depth adequacy is judgment
+    assertion: "Provide a feedback mechanism that propagates: rejection and indeterminate outcomes carry the prior conditions their signal must reach, and version monitoring of inherited standards is a named responsibility."
+  - id: C7.1
+    section: "7.1"
+    obligation: adversarial-gate
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the gate_check_result field is shape; whether the gate is genuinely adversarial is judgment
+    assertion: "Run an adversarial gate on every evaluation and record its result."
+  - id: C7.2
+    section: "7.2"
+    obligation: non-self-adjudication
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the basis for overturning a claim is outside the claimant's control is interpretive
+    assertion: "The basis on which a claim can be overturned must not be controlled by the claimant (non-self-adjudication), realized ex-ante by designated attestation or ex-post by adversarial challenge."
+  - id: C9.1
+    section: "9.1"
+    obligation: structural-operativity
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether each condition runs on the execution path rather than as a periodic audit is a reader's assessment
+    assertion: "Each of the six conditions must be structurally operative in the domain application's execution architecture (present on the execution path, non-bypassable without a detectable signal, logged as a coordination record), not compliance-scheduled."
+  - id: C9.2
+    section: "9.2"
+    obligation: response-architecture
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether each detection condition has a response declaration with modality, speed, and class is assessed by a reader
+    assertion: "For each detection condition, declare a corresponding response before deployment, specifying the modality, the speed requirement, and the response class (accidental failure versus adversarial input)."
+  - id: C9.3
+    section: "9.3"
+    obligation: direction-validation
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the specification was examined from at least two directional origins is interpretive
+    assertion: "Examine the specification from at least two directional origins before accepting it as compliant; the deploying organization's origin is required but not sufficient."
+  - id: C9.4
+    section: "9.4"
+    obligation: domain-bifurcation
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether the covered and out-of-scope instrument classes are declared with a boundary criterion is a reader's assessment
+    assertion: "Declare which instrument classes the application covers, which it does not, and the boundary criterion; leaving impressionistic classes unaddressed by default is not permitted."
+  - id: C10.1
+    section: "10"
+    obligation: inheritance-receipt
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the receipt structure (three components, five elements each) is shape; whether the declared inheritances are complete and correct is judgment
+    assertion: "Produce an inheritance receipt with the chain-level receipt, the full Precision Toolkit scope (CSIS standards and Frame Language, not CRAFT alone), and a five-element activity profile per declared inheritance; declaring CRAFT alone is structurally incomplete."
+  - id: C10.4
+    section: "10"
+    obligation: inheritance-receipt
+    kind: MUST
+    portability: universal
+    checkable: shape            # background_satisfied requires a validated date; background_unchecked is an explicit enum value, never silence
+    assertion: "Declare each inheritance's background state as background-satisfied with a dated reference or background-unchecked as an explicit gap; background-unchecked is not a valid operating state and must appear as a compliance-review finding."
+  - id: C12.1
+    section: "12.1"
+    obligation: specification-schema
+    kind: MUST
+    portability: universal
+    checkable: shape            # craft_base_version and per-field-group layer attribution are representable fields
+    assertion: "Emit a specification-time document declaring the chain design, with craft_base_version at the top level and layer attribution for each field group (CRAFT base, domain application, per-axis quality)."
+  - id: C12.2
+    section: "12.2"
+    obligation: evaluation-record-schema
+    kind: MUST
+    portability: universal
+    checkable: shape            # the required fields, the accepted/rejected/indeterminate outcome, per-finding layer attribution, and propagation targets are enforced by the schema
+    assertion: "Emit one evaluation record per instance with record_type, specification id and version, timestamp, input provenance, an accepted/rejected/indeterminate outcome that is not collapsible, per-condition findings carrying layer attribution and uncertainty band, the gate result, and propagation targets on every non-accept outcome."
+  - id: C12.3
+    section: "12.3"
+    obligation: compliance-report-schema
+    kind: MUST
+    portability: universal
+    checkable: shape            # the evaluated-specification identifiers and per-finding layer field are representable
+    assertion: "Emit a compliance report at audit time with the evaluated specification id and version and a layer field per condition result, so a domain-application finding is distinguishable from a CRAFT base finding."
+  - id: C12.0
+    section: "12"
+    obligation: machine-readable-output
+    kind: MUST_NOT
+    portability: universal
+    checkable: judgment         # whether a field encodes structural information in prose an automated system cannot parse is a reader's assessment
+    assertion: "No field in any of the three schemas may require human interpretation to be processed by an automated consuming system; the architectural hierarchy must be preserved rather than flattened."

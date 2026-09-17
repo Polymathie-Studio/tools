@@ -1,0 +1,30 @@
+# Non-conformant: the data source is applicant-controlled (not independently accessible) and
+# names no independent corroboration. CROSS Part V: an applicant-controlled source without named
+# independent corroboration does not satisfy the data-quality standard. The data-source rule
+# (independently_accessible false -> independent_corroboration required) rejects it.
+indicator_name: beneficiaries_reached
+obligation_mode: change
+rationale: "Beneficiaries reached was chosen over sessions held because the aim is coverage of distinct people, not activity volume."
+measurement_form:
+  plain_language_form: "A count of distinct individuals who received the service in the period."
+  source_type: qualitative_narrative
+  form: quantitative
+  aggregation_type: non_cumulative
+  contract_centric: false
+operational_definition:
+  inclusion_criteria: "A distinct individual who completed at least one service session."
+  exclusion_criteria: "Staff, volunteers, and repeat counts of the same individual within the period."
+  unit_of_analysis: "individual"
+  edge_case_determination: "An individual served in two sites in the same period counts once, deduplicated by a stable pseudonymous identifier."
+construction_methodology: "Deduplicate the internal attendance log by the pseudonymous identifier and count."
+data_source:
+  source: "The grantee's internal attendance log."
+  collection_method: "The grantee's own record-keeping."
+  independently_accessible: false
+  # independent_corroboration intentionally omitted -- the failure under test.
+data_cost_estimation: "Collected as part of normal operations at no marginal cost."
+baseline:
+  documented_state: "0 individuals reached before the program began."
+  data_source: "The program's start-date record."
+target:
+  documented_state: "1200 distinct individuals reached by grant end."

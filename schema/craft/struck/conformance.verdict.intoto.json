@@ -1,0 +1,22 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "Program X disbursed 1.2M USD across 40 grants in the 2025 cycle.",
+      "digest": {
+        "sha256": "<sha256 of the output>"
+      }
+    }
+  ],
+  "predicateType": "https://standards.crosswalkri.org/struck/conformance/v0.1.2",
+  "predicate": {
+    "verifier": "struck-conformance",
+    "obligations": {
+      "graded_evidence_exposed": "satisfied",
+      "refutation_stated": "satisfied",
+      "contest_represented": "satisfied",
+      "chains_labeled": "satisfied",
+      "worth_left_to_consumer": "satisfied"
+    }
+  }
+}

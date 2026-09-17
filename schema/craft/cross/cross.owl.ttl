@@ -1,0 +1,673 @@
+@prefix cross: <https://standards.crosswalkri.org/cross/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.crosswalkri.org/cross.owl.ttl> a owl:Ontology ;
+    rdfs:label "cross" ;
+    dcterms:license "CC0-1.0" ;
+    dcterms:title "CROSS indicator specification" ;
+    skos:definition "The one canonical source for CROSS's machine-readable layer (CROSS-common-reporting-outcome- standards-schema, internal v0.5.7): a LinkML model of the self-specified outcome indicator CROSS requires of every applicant (Part V), the conformance-bearing measurement unit of a CROSS grant round. CROSS is the grants domain application of CRAFT; the indicator specification is CROSS's realization of CRAFT Condition 4 (pre-specified evaluation criteria), and its operational definition is where CROSS composes with WALKRI at the field level. The structural obligations are modeled here (which fields a claimed indicator must carry, that a contract-centric indicator names its execution and verification instruments, that a change or retroactive indicator carries a baseline, that an applicant-controlled source names independent corroboration); the interpretive obligations (whether the rationale engages seriously with alternatives, whether the operational definition actually meets WALKRI's inclusion/exclusion/unit/edge-case bar, and the Part VIII data-quality assessments) are not schema-expressible and belong to the conformance checker, marked per-requirement in cross-register.yaml. Without an operational definition, a claimed indicator is a name, not a measurement instrument. This is the conformance layer for working with CROSS. It is distinct from and complementary to the repository's schemas/ directory, which is the input-and-output layer for moving form data and machine-readable exported data into and out of CROSS (round configuration, operator runbooks, applicant-facing publication). Neither supersedes the other." .
+
+cross:ExecutionVerification a owl:Class ;
+    rdfs:label "ExecutionVerification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:verification_artifact ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:invariant_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:verification_artifact ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:verification_artifact ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:verification_method ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:verification_method ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:invariant_specification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:invariant_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:verification_method ] ;
+    skos:definition "CROSS Part V. The execution and verification path for a contract-centric obligation: the invariants the contract must satisfy, how they are assessed, the artifact that constitutes completion evidence, and at least one failure the instrument would detect." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:OperationalDefinition a owl:Class ;
+    rdfs:label "OperationalDefinition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:edge_case_determination ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:inclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:inclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:inclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:edge_case_determination ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:exclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:exclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:exclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:edge_case_determination ] ;
+    skos:definition "CROSS Part V, meeting WALKRI Part III Criterion 2. What counts and what does not count as one unit of the claimed result. This is the field-level composition point with WALKRI: CROSS frames the chain and WALKRI ensures the instrument is sound." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:SustainabilityPlan a owl:Class ;
+    rdfs:label "SustainabilityPlan" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:cost_coverage ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:handoff ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:end_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:end_state ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:continuation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:handoff ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:continuation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:continuation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:end_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:handoff ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:cost_coverage ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:cost_coverage ] ;
+    skos:definition "CROSS Part V. A documented position on continuation beyond the grant period, activated by funder configuration. Not a guarantee; a position the funder may use in subsequent continuation-gate assessments." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+<https://standards.crosswalkri.org/cross/AggregationType#cumulative> a owl:Class ;
+    rdfs:label "cumulative" ;
+    rdfs:subClassOf cross:AggregationType ;
+    skos:definition "Values sum correctly across reporting periods; the life-of-grant target is achieved by addition." .
+
+<https://standards.crosswalkri.org/cross/AggregationType#non_cumulative> a owl:Class ;
+    rdfs:label "non_cumulative" ;
+    rdfs:subClassOf cross:AggregationType ;
+    skos:definition "Values describe a point-in-time state; summing across periods is a construction error." .
+
+cross:DataSource a owl:Class ;
+    rdfs:label "DataSource" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:independent_corroboration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:independently_accessible ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty cross:independently_accessible ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:independent_corroboration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:independently_accessible ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:independent_corroboration ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:source ] ;
+    skos:definition "CROSS Part V. The named source and collection method. The source must be accessible to an independent reviewer; an applicant-controlled source without named independent corroboration does not satisfy the data-quality standard." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:IndicatorSpecification a owl:Class ;
+    rdfs:label "IndicatorSpecification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:DataSource ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:indicator_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:MeasurementFormClassification ;
+            owl:onProperty cross:measurement_form ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:StateSpecification ;
+            owl:onProperty cross:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:baseline ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:target ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:rationale ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:sustainability_plan ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:baseline ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:measurement_form ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:data_cost_estimation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:sustainability_plan ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:ObligationMode ;
+            owl:onProperty cross:obligation_mode ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:obligation_mode ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:data_cost_estimation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:indicator_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:StateSpecification ;
+            owl:onProperty cross:baseline ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:disaggregation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:OperationalDefinition ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:disaggregation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:obligation_mode ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:measurement_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:SustainabilityPlan ;
+            owl:onProperty cross:sustainability_plan ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:data_cost_estimation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:indicator_name ] ;
+    skos:definition "CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of it. The applicant specifies what their intervention produces; CROSS specifies the fields the indicator must contain and the quality standards those fields must satisfy. This is the unit CROSS indicator conformance is assessed against." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+<https://standards.crosswalkri.org/cross/MeasurementForm#binary> a owl:Class ;
+    rdfs:label "binary" ;
+    rdfs:subClassOf cross:MeasurementForm ;
+    skos:definition "Met or not met against named completion criteria." .
+
+<https://standards.crosswalkri.org/cross/MeasurementForm#ordinal> a owl:Class ;
+    rdfs:label "ordinal" ;
+    rdfs:subClassOf cross:MeasurementForm ;
+    skos:definition "A position on a defined ordered scale." .
+
+<https://standards.crosswalkri.org/cross/MeasurementForm#qualitative> a owl:Class ;
+    rdfs:label "qualitative" ;
+    rdfs:subClassOf cross:MeasurementForm ;
+    skos:definition "A documented condition, verified artifact, or narrative record assessed against named criteria." .
+
+<https://standards.crosswalkri.org/cross/MeasurementForm#quantitative> a owl:Class ;
+    rdfs:label "quantitative" ;
+    rdfs:subClassOf cross:MeasurementForm ;
+    skos:definition "A number, proportion, rate, currency amount, or duration." .
+
+cross:MeasurementFormClassification a owl:Class ;
+    rdfs:label "MeasurementFormClassification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:form ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:plain_language_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:MeasurementForm ;
+            owl:onProperty cross:form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:execution_verification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:aggregation_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:plain_language_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:source_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:contract_centric ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty cross:contract_centric ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:source_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:contract_centric ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:AggregationType ;
+            owl:onProperty cross:aggregation_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:aggregation_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:SourceType ;
+            owl:onProperty cross:source_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:execution_verification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:plain_language_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:ExecutionVerification ;
+            owl:onProperty cross:execution_verification ] ;
+    skos:definition "CROSS Part V. The measurement form in plain language, classified on three axes for data-quality assessment, with the execution-and-verification instruments named where the obligation object is a contract's behavior rather than a discrete artifact or count." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+<https://standards.crosswalkri.org/cross/ObligationMode#build> a owl:Class ;
+    rdfs:label "build" ;
+    rdfs:subClassOf cross:ObligationMode ;
+    skos:definition "The obligation is to deliver a defined artifact; completion is verified against named criteria." .
+
+<https://standards.crosswalkri.org/cross/ObligationMode#change> a owl:Class ;
+    rdfs:label "change" ;
+    rdfs:subClassOf cross:ObligationMode ;
+    skos:definition "The obligation is to move a measured condition; the claim is a quantified or ordinal change from a baseline." .
+
+<https://standards.crosswalkri.org/cross/ObligationMode#retroactive> a owl:Class ;
+    rdfs:label "retroactive" ;
+    rdfs:subClassOf cross:ObligationMode ;
+    skos:definition "The obligation is recognition of a contribution already made; the state is documented at the award period." .
+
+<https://standards.crosswalkri.org/cross/SourceType#off_chain_verifiable> a owl:Class ;
+    rdfs:label "off_chain_verifiable" ;
+    rdfs:subClassOf cross:SourceType ;
+    skos:definition "Accessible from public sources outside the blockchain, such as a public repository, a published report, or a named API." .
+
+<https://standards.crosswalkri.org/cross/SourceType#on_chain_verifiable> a owl:Class ;
+    rdfs:label "on_chain_verifiable" ;
+    rdfs:subClassOf cross:SourceType ;
+    skos:definition "Accessible from public blockchain data with a named contract or address." .
+
+<https://standards.crosswalkri.org/cross/SourceType#qualitative_narrative> a owl:Class ;
+    rdfs:label "qualitative_narrative" ;
+    rdfs:subClassOf cross:SourceType ;
+    skos:definition "Documented through structured narrative, interview data, or artifact review requiring a human evaluator." .
+
+cross:StateSpecification a owl:Class ;
+    rdfs:label "StateSpecification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:documented_state ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:documented_state ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:data_source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:documented_state ] ;
+    skos:definition "CROSS Part V. A documented state (a baseline FROM state or a target TO state) with the data source that evidences it." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:disaggregation a owl:DatatypeProperty ;
+    rdfs:label "disaggregation" ;
+    skos:definition "CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:AggregationType a owl:Class ;
+    rdfs:label "AggregationType" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/cross/AggregationType#cumulative> <https://standards.crosswalkri.org/cross/AggregationType#non_cumulative> ) ;
+    skos:definition "CROSS Part V. Whether values sum across reporting periods." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/cross/AggregationType#cumulative>,
+        <https://standards.crosswalkri.org/cross/AggregationType#non_cumulative> .
+
+cross:aggregation_type a owl:ObjectProperty ;
+    rdfs:label "aggregation_type" ;
+    skos:definition "CROSS Part V. Whether values sum correctly across reporting periods (cumulative) or describe a point-in-time state (non-cumulative, where summing is a construction error)." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:collection_method a owl:DatatypeProperty ;
+    rdfs:label "collection_method" ;
+    skos:definition "How the data is collected." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:construction_methodology a owl:DatatypeProperty ;
+    rdfs:label "construction_methodology" ;
+    skos:definition "CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:continuation a owl:DatatypeProperty ;
+    rdfs:label "continuation" ;
+    skos:definition "What happens to the funded work at the end of the grant period, who maintains it, and under what conditions it remains publicly accessible." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:cost_coverage a owl:DatatypeProperty ;
+    rdfs:label "cost_coverage" ;
+    skos:definition "How ongoing costs will be covered after the grant ends, naming the expected source with enough specificity to assess plausibility." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:data_cost_estimation a owl:DatatypeProperty ;
+    rdfs:label "data_cost_estimation" ;
+    skos:definition "CROSS Part V. Attestation that data collection is feasible within the project budget, with the approximate cost and funding source. An indicator that cannot be collected within budget has not been operationalized." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:documented_state a owl:DatatypeProperty ;
+    rdfs:label "documented_state" ;
+    skos:definition "The documented state, expressed for a change indicator in the same units as the paired state." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:edge_case_determination a owl:DatatypeProperty ;
+    rdfs:label "edge_case_determination" ;
+    skos:definition "At least one example of how an ambiguous instance is handled." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:end_state a owl:DatatypeProperty ;
+    rdfs:label "end_state" ;
+    skos:definition "Where the work reaches a defined end state after which maintenance is not required, the specification of that state and when it will be declared reached." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:exclusion_criteria a owl:DatatypeProperty ;
+    rdfs:label "exclusion_criteria" ;
+    skos:definition "What the indicator explicitly does not count." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:failure_surface a owl:DatatypeProperty ;
+    rdfs:label "failure_surface" ;
+    skos:definition "At least one example of behavior that would constitute a failure to meet the invariant, and how the chosen instrument would detect it." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:form a owl:ObjectProperty ;
+    rdfs:label "form" ;
+    skos:definition "CROSS Part V. How the result is expressed." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:handoff a owl:DatatypeProperty ;
+    rdfs:label "handoff" ;
+    skos:definition "Where the work is handed to another party, the receiving party's identity and the transition conditions." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:inclusion_criteria a owl:DatatypeProperty ;
+    rdfs:label "inclusion_criteria" ;
+    skos:definition "What qualifies as one instance of the claimed result." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:indicator_name a owl:DatatypeProperty ;
+    rdfs:label "indicator_name" ;
+    skos:definition "CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:invariant_specification a owl:DatatypeProperty ;
+    rdfs:label "invariant_specification" ;
+    skos:definition "A narrative description of the invariants or properties the contract must satisfy (conservation of balances, absence of re-entrancy on named functions, bounded slippage), the human-readable counterpart of the formal specification." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:measurement_form a owl:ObjectProperty ;
+    rdfs:label "measurement_form" ;
+    skos:definition "CROSS Part V. The plain-language measurement form and its classification on the three data-quality axes, plus the execution-and-verification path where the obligation object is a contract's behavior." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:operational_definition a owl:ObjectProperty ;
+    rdfs:label "operational_definition" ;
+    skos:definition "CROSS Part V. What counts and what does not count as one unit of the claimed result. Must meet WALKRI Part III Criterion 2 (inclusion, exclusion, unit of analysis, edge case)." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:plain_language_form a owl:DatatypeProperty ;
+    rdfs:label "plain_language_form" ;
+    skos:definition "What a result looks like and in what form it will be reported, in plain language (a count of unique addresses, a shipped library version, a binary against defined completion criteria)." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:rationale a owl:DatatypeProperty ;
+    rdfs:label "rationale" ;
+    skos:definition "CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:source a owl:DatatypeProperty ;
+    rdfs:label "source" ;
+    skos:definition "The named data source." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:source_type a owl:ObjectProperty ;
+    rdfs:label "source_type" ;
+    skos:definition "CROSS Part V. Where the result is verified from; each source type carries different minimum verification requirements." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:sustainability_plan a owl:ObjectProperty ;
+    rdfs:label "sustainability_plan" ;
+    skos:definition "CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:target a owl:ObjectProperty ;
+    rdfs:label "target" ;
+    skos:definition "CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:unit_of_analysis a owl:DatatypeProperty ;
+    rdfs:label "unit_of_analysis" ;
+    skos:definition "The named unit (person, wallet address, transaction, repository, site, or other)." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:verification_artifact a owl:DatatypeProperty ;
+    rdfs:label "verification_artifact" ;
+    skos:definition "The concrete completion evidence, a proof object, a named-firm audit report, or a named contract and query a reviewer can use to reproduce the behavioral check from public chain data." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:verification_method a owl:DatatypeProperty ;
+    rdfs:label "verification_method" ;
+    skos:definition "Whether the invariant is assessed by formal verification, independent audit, manual review of on-chain behavior, continuous monitoring, or a combination; if formal, the named tool or approach." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:ObligationMode a owl:Class ;
+    rdfs:label "ObligationMode" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/cross/ObligationMode#build> <https://standards.crosswalkri.org/cross/ObligationMode#change> <https://standards.crosswalkri.org/cross/ObligationMode#retroactive> ) ;
+    skos:definition "CROSS Part III. The obligation mode an indicator serves." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/cross/ObligationMode#build>,
+        <https://standards.crosswalkri.org/cross/ObligationMode#change>,
+        <https://standards.crosswalkri.org/cross/ObligationMode#retroactive> .
+
+cross:SourceType a owl:Class ;
+    rdfs:label "SourceType" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/cross/SourceType#on_chain_verifiable> <https://standards.crosswalkri.org/cross/SourceType#off_chain_verifiable> <https://standards.crosswalkri.org/cross/SourceType#qualitative_narrative> ) ;
+    skos:definition "CROSS Part V. Where a result is verified from." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/cross/SourceType#off_chain_verifiable>,
+        <https://standards.crosswalkri.org/cross/SourceType#on_chain_verifiable>,
+        <https://standards.crosswalkri.org/cross/SourceType#qualitative_narrative> .
+
+cross:contract_centric a owl:DatatypeProperty ;
+    rdfs:label "contract_centric" ;
+    skos:definition "CROSS Part V. True where the obligation object is a contract's behavior under specified conditions rather than a discrete artifact or count." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:execution_verification a owl:ObjectProperty ;
+    rdfs:label "execution_verification" ;
+    skos:definition "CROSS Part V. Where the obligation object is a contract's behavior, the execution and verification instruments that confirm completion." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:independent_corroboration a owl:DatatypeProperty ;
+    rdfs:label "independent_corroboration" ;
+    skos:definition "CROSS Part V. Where the source is applicant-controlled (not independently accessible), the named independent corroboration that makes the data auditable." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:independently_accessible a owl:DatatypeProperty ;
+    rdfs:label "independently_accessible" ;
+    skos:definition "Whether the source is accessible to an independent reviewer without relying on the applicant." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:MeasurementForm a owl:Class ;
+    rdfs:label "MeasurementForm" ;
+    owl:unionOf ( <https://standards.crosswalkri.org/cross/MeasurementForm#quantitative> <https://standards.crosswalkri.org/cross/MeasurementForm#ordinal> <https://standards.crosswalkri.org/cross/MeasurementForm#binary> <https://standards.crosswalkri.org/cross/MeasurementForm#qualitative> ) ;
+    skos:definition "CROSS Part V. How a result is expressed." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> ;
+    linkml:permissible_values <https://standards.crosswalkri.org/cross/MeasurementForm#binary>,
+        <https://standards.crosswalkri.org/cross/MeasurementForm#ordinal>,
+        <https://standards.crosswalkri.org/cross/MeasurementForm#qualitative>,
+        <https://standards.crosswalkri.org/cross/MeasurementForm#quantitative> .
+
+cross:baseline a owl:ObjectProperty ;
+    rdfs:label "baseline" ;
+    skos:definition "CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:obligation_mode a owl:ObjectProperty ;
+    rdfs:label "obligation_mode" ;
+    skos:definition "CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below." ;
+    skos:inScheme <https://standards.crosswalkri.org/cross> .
+
+cross:data_source a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:independent_corroboration ;
+            owl:someValuesFrom xsd:string ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:independently_accessible ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "false" ] ) ] ] cross:DataSource ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:baseline ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:obligation_mode ;
+                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:execution_verification ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:contract_centric ;
+                owl:someValuesFrom [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "true" ] ) ] ] cross:MeasurementFormClassification ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:baseline ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:obligation_mode ;
+                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
+
+
