@@ -93,6 +93,14 @@
       "group": "compressive",
       "canonicalSource": "tensegrity-suite/compressive/standards/standards-3_0-coordination-scaling-0_1_5.md",
       "description": "Specifies how rigor scales with coordination context. Provides the calibration framework that determines what evidence pressure is appropriate for what scale of public impact claim.",
+      "machineReadable": {
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/css.schema.json",
+        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/css.zod.ts",
+        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/css.jsonld",
+        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/conformance.verdict.intoto.json",
+        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/conformance.sarif",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/"
+      },
       "companions": {
         "skill": "standards/claude-skills/claude-skill-coordination-scaling-0_1_0.md",
         "prompts": "standards/prompts/coordination-scaling/"
