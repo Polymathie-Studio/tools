@@ -251,6 +251,14 @@
       "group": "generative",
       "canonicalSource": "tensegrity-suite/generative/standards/standards-3_0-four-batteries-capacity-0_3_7.md",
       "description": "Specifies the four capacity dimensions that sustain coordination work: Mission battery, Contribution battery, Relational battery, and a fourth. Requires that depletion in any dimension be reportable as a structural condition rather than left as a private experience.",
+      "machineReadable": {
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/fbcs.schema.json",
+        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/fbcs.zod.ts",
+        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/fbcs.jsonld",
+        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/conformance.verdict.intoto.json",
+        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/conformance.sarif",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/"
+      },
       "companions": {
         "skill": "standards/claude-skills/claude-skill-four-batteries-0_1_1.md",
         "prompts": "standards/prompts/four-batteries/"
