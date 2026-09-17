@@ -1,0 +1,40 @@
+# NON-conformant: the record makes no conformance declaration. Conformance answers on the
+# face are required (silence is not one of the values), so a record with no conformance
+# block is rejected. Must fail.
+subject: "A 40-member studio"
+effective_radius:
+  function_breaks:
+    - function: state_legibility
+      radius: radius_5
+      broken: true
+    - function: sympathy_network
+      radius: radius_15
+      broken: true
+  aggregate_factors:
+    - name: member_count
+      value: "40 members"
+  nominal_effective_radius: radius_15
+  robust_effective_radius: radius_15
+crossed_thresholds:
+  - radius:
+      radius: radius_5
+      function_break: "full bilateral state awareness no longer holds"
+      attack_surface: "state opacity"
+    minimum_conditions:
+      - condition: "full mutual state legibility maintained through a structural mechanism"
+        status: present
+    maximum_conditions:
+      - condition: "no single member holds unilateral veto without renewed group consent"
+        status: absent
+  - radius:
+      radius: radius_15
+      function_break: "the sympathy network fragments"
+      attack_surface: "social isolation and trust exploitation"
+    minimum_conditions:
+      - condition: "an explicit mutual-support architecture with named signal and response mechanisms"
+        status: present
+    maximum_conditions:
+      - condition: "no member can be structurally isolated from the support network"
+        status: absent
+adoption_level: assessed
+# conformance block deliberately omitted: the conformance declaration is required

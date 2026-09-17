@@ -1,0 +1,97 @@
+# A PFDS-conformant precision review of a governed artifact. The corollaries and failure
+# patterns are structured objects, not labels. Validates against dist/pfds.schema.json.
+subject: "The fee-change coordination rule, section 4 of the protocol charter"
+adoption_depth: design_time
+obligation_tier: loop_closed
+congruence_checked: true
+corollaries:
+  - id: operational_definition
+    name: Operational definition
+    condition: "A term is operationally defined iff an independent observer can determine its presence or absence from the definition and observable evidence."
+    deficit_direction: "A term requiring a privileged interpreter."
+    imposition_direction: "A definition so narrow it excludes genuine cases that fail the form but not the purpose."
+    corrective: "The Wheel of Consent two-axis decomposition."
+  - id: taxonomy_completeness
+    name: Taxonomy completeness
+    condition: "A taxonomy is complete iff it specifies what falls outside all its categories."
+    deficit_direction: "No edge-case procedure hides a gap."
+    imposition_direction: "More categories than distinguishable states force cases into ill-fitting boxes."
+    corrective: "Ostrom's eight independently checkable principles."
+  - id: detection_instrument_precision
+    name: Detection instrument precision
+    condition: "An instrument is precise iff it distinguishes its target from the most likely false positives and can state its false-negative boundary."
+    deficit_direction: "An instrument that cannot say what it would not detect."
+    imposition_direction: "Narrowing the target until it misses what it was built to catch."
+    corrective: "ASEP's explicit adverse-signal boundary."
+  - id: coordination_process_precision
+    name: Coordination process precision
+    condition: "A process is precise iff its initiation, continuation, and conclusion conditions are operationally defined."
+    deficit_direction: "Discretion at critical junctures substitutes judgment for structure."
+    imposition_direction: "A process too elaborate for the parties who need it to get through."
+    corrective: "Ostrom's monitored enforcement and graduated sanctions."
+  - id: detection_completeness
+    name: Detection completeness
+    condition: "A detection system is complete iff the failure to respond is detectable without the non-responder's cooperation."
+    deficit_direction: "A system that observes a failure but not its own inaction has a false-negative class."
+    imposition_direction: "Escalation that over-fires becomes background noise."
+    corrective: "Time-governed escalation converting elapsed time into visibility."
+  - id: defense_in_depth
+    name: Defense in depth
+    condition: "A specification is precise about failure modes iff no critical property depends on a single defensive mechanism."
+    deficit_direction: "A critical property with one guardian has an undocumented failure mode."
+    imposition_direction: "Overlapping mechanisms pile up into defense through inaccessibility."
+    corrective: "A layered architecture where compromising one tier is detectable by the others."
+  - id: external_falsifiability
+    name: External falsifiability
+    condition: "A specification is externally falsifiable iff no mechanism prevents an independent observer's challenge from reaching the deficit record."
+    deficit_direction: "Internal verifiability is self-consistency, not falsifiability."
+    imposition_direction: "A challenge pathway with so many steps no independent actor can complete one."
+    corrective: "An architecture in which the deficit record is reachable by outside observers."
+  - id: descriptive_completeness
+    name: Descriptive completeness
+    condition: "A specification is descriptively complete iff it declares its operative classes and at least one boundary class."
+    deficit_direction: "The absence of an entire descriptive class produces no internal signal."
+    imposition_direction: "Claiming operative coverage of classes the vocabulary cannot support."
+    corrective: "The typological declaration, auditable by an independent observer."
+  - id: interpretive_precision
+    name: Interpretive precision
+    condition: "A detection system is interpretively precise iff it requires a contextual baseline when identical outputs indicate distinct conditions."
+    deficit_direction: "Correct readings producing incorrect prescriptions against an unspecified reference."
+    imposition_direction: "A baseline that takes longer than the detection or that no case can satisfy."
+    corrective: "The structural inheritance statement."
+  - id: claim_object_grounding
+    name: Claim-object grounding
+    condition: "An evaluation claim is grounded only if its object is a criterion or a construct with a declared indicator direction and validation regime."
+    deficit_direction: "A reflective construct claim with no nomological network."
+    imposition_direction: "Demanding relationships not yet established; a declared-partial network is not a deficit."
+    corrective: "The reflective, causal-formative, composite-aggregate distinction."
+failure_patterns:
+  - id: normative_substitution
+    name: Normative substitution
+    structural_signature: "The new term cannot be violated in a falsifiable way."
+    response: "Decompose the normative term into independently evaluable conditions and specify each operationally."
+  - id: category_collapse
+    name: Category collapse
+    structural_signature: "Cases handled differently under the prior taxonomy are now handled identically though they are not identical."
+    response: "Restate the distinction, specify the assignment criterion, and reclassify the merged cases."
+  - id: discretion_point_accumulation
+    name: Discretion point accumulation
+    structural_signature: "Language like 'as appropriate' without criteria."
+    response: "Specify the criteria or name a bounded discretion zone with a response obligation and a defined perimeter."
+  - id: detection_instrument_degradation
+    name: Detection instrument degradation
+    structural_signature: "The modified instrument would not detect events the prior one would, framed as a refinement."
+    response: "Require any instrument change to specify its false-negative boundary before and after."
+  - id: inheritance_without_specification
+    name: Inheritance without specification
+    structural_signature: "The inheritance claim is not falsifiable."
+    response: "Require a provision-by-provision mapping an independent observer can determine without the author's intent."
+deficits:
+  - location: "Charter section 4.2, the phrase 'material fee change'"
+    pattern: normative_substitution
+    decision: "Remediation: replaced with a numeric threshold and an affected-population trigger; charter bumped."
+conformance:
+  violations_detectable: satisfied
+  compliance_serves_purpose: satisfied
+  method_structure_congruent: satisfied
+  deficits_mapped: satisfied

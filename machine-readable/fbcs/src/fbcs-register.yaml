@@ -1,0 +1,231 @@
+# FBCS register distillation
+# One row per normative entry of the Four Batteries Capacity Standard
+# (standards-3_0-four-batteries-capacity, v0.3.7), the second Tensegrity Generative Standard.
+# FBCS specifies enabling "soil conditions", not conformance floors: four batteries (Personal,
+# Relational, Contribution, Mission), each on two independent axes, charge (cyclical, restorable)
+# and developmental state (depth, breadth, durability, transformed only by integration events).
+# The four batteries are mechanism-individuated (each a distinct resource condition), so the
+# register renders them as distinct structural conditions and the model encodes them as typed
+# Battery objects rather than a flat enum. Rendering them as bare labels would collapse the
+# structure into names, a precision deficit under the Precision-First Design Standard (Corollary 11).
+#
+# Much of FBCS is interpretive and hypothesis-grade: the depletion and generative archetypes
+# (Sections 4 and 5), the altitude-mapped hypotheses (Section 6), and the two traversal modes
+# (Section 3) are descriptive vocabulary and registered predictions, not conformance conditions,
+# so they are carried as DECLARATION entries flagged checkable judgment. The assessable skeleton
+# is the four batteries, the two-tier conformance and its checking-practice conditions (Section 7),
+# and the four scope-and-delegation conditions with their tiered adoption (Section 8); those carry
+# shape or mixed flags. A record declares its battery status and its scope conformance; whether a
+# battery is at depth is a transparency-and-judgment reading routed to the checker, not a floor.
+standard: FBCS
+standard_version: 0.3.7
+source: standards-3_0-four-batteries-capacity-0_3_7.md
+entries:
+
+  # --- Purpose and framing (Section 1) ---
+  - id: FBCS-PURPOSE
+    section: "1"
+    obligation: scope
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "FBCS specifies the soil conditions in which generative coordination becomes naturally possible, organized across four batteries and two independent axes. It is generative, not a floor: compressive standards fence off what must not happen, this standard cultivates the substrate in which coordination health develops. Conformance does not certify battery levels; it certifies that the enabling conditions and an honest checking practice are structurally present. Written for organizations in the Complex and Complicated Cynefin domains."
+
+  # --- The four batteries (Section 2), rendered as typed constructs ---
+  - id: FBCS-BATTERY-PERSONAL
+    section: "2"
+    obligation: battery
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Personal battery: physical, cognitive, and emotional capacity available to the individual. Depletion here limits all downstream capacity regardless of the state of other batteries, so Personal-initiated cascades compress rather than sequence. At depth: the capacity, built through transclusion events, to exit the interpretive assumptions one is operating inside and to discriminate what is structurally real from a frame artifact, without requiring the environment to confirm the development."
+  - id: FBCS-BATTERY-RELATIONAL
+    section: "2"
+    obligation: battery
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Relational battery: the quality of trust, psychological safety, and reciprocity in working relationships. Depletion suppresses signal, a contributor with a depleted Relational battery will not surface coordination problems even when invited. At depth: distributed depth coverage across enough people that the relational field survives individual exits, and accurate cross-domain recognition of person-value that narrow categorical frames filter out."
+  - id: FBCS-BATTERY-CONTRIBUTION
+    section: "2"
+    obligation: battery
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Contribution battery: the degree to which a contributor finds meaning and agency in their formally recognized work. Depletion makes informal workarounds more attractive as identity sources, accelerating coordination failures outside the visible record (the Hidden Factory). At depth: the capacity to bring work across categorical domain boundaries before external confirmation of its relevance exists, producing durable, portable work."
+  - id: FBCS-BATTERY-MISSION
+    section: "2"
+    obligation: battery
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Mission battery: belief in the purpose that animates the organization and one's place within it, the felt sense of why the work matters. Contributors often tolerate structurally dysfunctional coordination while Mission is high; when it fails the tolerance collapses abruptly. At depth: a frame expansive enough to hold multiple dimensions (technical, coordination, spiritual, relational) simultaneously without any one dominating, so people are present as whole persons."
+
+  # --- The two independent axes and developmental mechanisms (Section 2) ---
+  - id: FBCS-AXIS-CHARGE
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Charge: the cyclical axis, each battery's accessible state at a given time, depletable and restorable. Maintaining full charge is the actual work; the Tensegrity Compressive Standards and the depletion archetypes operate primarily at the charge layer."
+  - id: FBCS-AXIS-DEVELOPMENTAL
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Developmental state: the permanent axis, transformed by integration events, not restored by recovery. It determines what full charge enables. Three mutually constituting dimensions: depth (precision of interpretive capacity, built through transclusion events that move a prior position from ceiling to floor), breadth (the inclusivity of the frame, how many perspectives it holds without collapsing), and durability (persistence of developmental state under conditions that would reverse it). Two organizations at identical charge but different developmental state produce structurally different coordination outputs."
+  - id: FBCS-TRANSCLUSION-INTEGRATION
+    section: "2.1"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Developmental state is transformed by two mechanisms. Transclusion events are individual frame-shifts in which a prior position becomes the floor of a new one rather than its ceiling; permanent, granular, may pass unrecognized. Integration events are consolidating plateaus reached once transclusion events of similar type accumulate, marked by a felt crystallization; three classes (consolidating, reorienting, tier-crossing) require structurally different conditions. Neither can be forced; full charge is the precondition for both, which is why maintaining charge is the actual work."
+
+  # --- Interpretive vocabulary (Sections 3, 4, 5, 6), descriptive not conformance ---
+  - id: FBCS-TRAVERSAL-MODES
+    section: "3"
+    obligation: vocabulary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Two traversal modes of the Generative Interactions configuration. Mode 1 (systems thinking plus governing constraints) produces reliable, transferable, reproducible outputs and is correct for ordered or complicated conditions. Mode 2 (complexity thinking plus enabling constraints) produces genuine emergence and is required for complex conditions. The Tier asymmetry is load-bearing: Tier 1 participants have Mode 1 only and cannot hold both polarity poles simultaneously; Tier 2 can hold both and choose appropriately. The Moderator role requires Tier 2 capacity. Three failure modes share one root, absence of Tier 2 moderator capacity: bottom-only 'just build it', top-truncation 'sensemaking theater', and role-capacity mismatch."
+  - id: FBCS-DEPLETION-ARCHETYPES
+    section: "4"
+    obligation: vocabulary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Depletion archetypes are named patterns of battery failure, each specified by five elements (named pattern; primary battery failure with layer, charge or developmental-state; characteristic cascade; organizational signature; time-series indicators). One is fully specified (the Founding Leader Departure); eight are candidates requiring empirical pressure on Web3 applicability (Mission Drift, Token Price Collapse, Coordination Capture, Public Fracture, Recognition Gap, Scope Creep Exhaustion, Sustained Sprint, Values Inversion). Charge-layer failures escalate across recurrences; developmental-state failures recur at the same ceiling."
+  - id: FBCS-GENERATIVE-ARCHETYPES
+    section: "5"
+    obligation: vocabulary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Generative archetypes specify conditions under which coordination produces superlinear outputs: results no individual could produce alone, persisting beyond their origin context. Two are specified: the Recognizer-Translator Exchange (Mission and Relational batteries at depth in both parties; a two-party generative unit) and the Frame Builder (all four batteries at depth and durability; work whose structural logic travels beyond its origin context without translation overhead)."
+  - id: FBCS-ALTITUDE-HYPOTHESES
+    section: "6"
+    obligation: vocabulary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "The altitude-mapped hypothesis layer predicts that coordination failure patterns cluster by developmental altitude (first-tier blue/amber, orange, green; and the Tier 1 to Tier 2 transition), producing distinct battery initiation points, cascades, and signatures. Registered as testable hypotheses with disconfirming conditions, not established findings; the genesis cohort is the first instrument capable of validating the mapping. This is interpretive and awaits empirical pressure."
+
+  # --- Conformance architecture (Section 7) ---
+  - id: FBCS-CONFORMANCE-TWO-TIER
+    section: "7.1"
+    obligation: conformance-architecture
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Two conformance tiers reflecting the two axes. Charge-layer conformance is threshold-based: batteries are demonstrably above specified thresholds on defined instruments (a floor met, like a compressive standard). Developmental-state conformance is transparency-based: the organization makes its developmental state legible, tracks it over time, and demonstrates trajectory, not 'you are at this depth' but 'you are reading your depth honestly and responding'. Developmental state cannot be required as a threshold without creating pressure to perform rather than embody it."
+  - id: FBCS-CHECKING-CONDITIONS
+    section: "7.2"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Conformance is defined by the quality of the checking practice, not the level it reveals. Four conditions distinguish a genuine check from theater: regularity (a defined cadence, not only crisis-prompted); structural embeddedness (embedded in coordination activity, the record-keeping is the intervention, not appended as a periodic review); adverse-result integrity (a low or declining result must be shown to be received and responded to); and specificity (a result specific enough to be wrong). Completeness matters: selective checking of only the batteries expected to be healthy defeats its own purpose because the batteries are interdependent."
+
+  # --- Scope and Delegation Conditions (Section 8) ---
+  - id: FBCS-SCOPE-DELEGATION-PATHWAYS
+    section: "8.2"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Delegation pathways active: when scope expands beyond what one person or team can hold with full batteries and genuine competence, a structural response must be available that does not depend on the current holder to find and hand off alone. An active pathway requires a defined process for identifying capable participants, a process for verifying competence, a transfer process the current holder need not initiate alone, and a record making the pathway's state visible to anyone with standing to observe. A pathway that exists in principle with no functioning mechanism is not active; without it, scope accumulation is the only structurally available response."
+  - id: FBCS-SCOPE-ROLE-BOUNDED
+    section: "8.2"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Role scope bounded and reviewed: each role carrying coordination authority or resource control needs a defined scope boundary, documented and accessible, reviewed on a defined cadence. Review must be genuine, an actual check of whether current scope still matches what the role requires, whether the holder can do so with competence and full batteries, and whether the original justifying conditions still apply. A role whose scope has never been formally reviewed is structurally unbounded regardless of its written description."
+  - id: FBCS-SCOPE-EXPANSION-JUSTIFIED
+    section: "8.2"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Expansion requires structural justification: a scope expansion should require an explicit justification naming the specific need not meetable by adjusting delegation, resourcing, or recruitment; the battery cost for the participant taking it on; and the review process that will assess whether the expansion delivered. Without this, expansion is the default and contraction requires justification, a gradient that tilts toward accumulation regardless of individual orientation."
+  - id: FBCS-SCOPE-CONTRACTION-SUPPORTED
+    section: "8.2"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Contraction as procedurally supported as expansion: reducing scope must be as well-specified and accessible as expanding it, and the record must show examples of scope reduction treated as a normal structural adjustment rather than a crisis or failure. When contraction is structurally harder than expansion, holding appropriate scope becomes unsustainable over time even for participants who want to maintain it."
+  - id: FBCS-SCOPE-FAILURE-SIGNATURES
+    section: "8.3"
+    obligation: vocabulary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Three organizational-level failure signatures emerge when the four scope conditions are absent, each a predictable structural output rather than a character assessment: Recruitment Avoidance Hidden Factory (teams absorb expanding scope rather than recruit, accumulating invisible battery debt); Positional Capture (a participant resists structural relief because expanded scope confers status and identity, so review cannot depend on their consent or self-assessment); and Mutual Non-Aggression Equilibrium (participants with standing to challenge a capture will not, being in the same structural position, so review must activate on observable conditions without a challenger)."
+  - id: FBCS-STANDING-PRACTICE
+    section: "8.5"
+    obligation: condition
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: Tier-3
+    assertion: "Participant development as a standing structural practice: because prior organizational formation (extractive Step 01 contexts) prevents an accurate self-knowledge baseline, a standing developmental practice is required, with three minimum properties: it occurs on a defined cadence independent of crisis (running before the crisis is the only condition under which it builds the baseline); it produces a record; and it directly addresses the formation problem by naming what extractive contexts do to self-assessment accuracy."
+
+  # --- Tiered adoption for scope and delegation (Section 8.6) ---
+  - id: FBCS-ADOPT-TIER1
+    section: "8.6"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Tier-1
+    assertion: "Tier 1 (Scope Visibility): role scope boundaries are defined and documented for all roles holding coordination authority or resource control; expansion events are recorded with justification named at the time of the decision; and the documentation is accessible to participants with standing to review it. Makes the structural picture visible without requiring process changes."
+  - id: FBCS-ADOPT-TIER2
+    section: "8.6"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Tier-2
+    assertion: "Tier 2 (Structural Review and Delegation): all Tier 1 conditions plus active delegation pathways with a defined documented process and a named record; role scope reviewed on a defined cadence generating records that distinguish aligned from drifted scope; at least one example of contraction or role transition treated as structural adjustment in the record; and expansion proposals required to name battery costs alongside benefits."
+  - id: FBCS-ADOPT-TIER3
+    section: "8.6"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Tier-3
+    assertion: "Tier 3 (Full Conformance): all Tier 2 conditions plus a standing developmental practice meeting the three minimum properties; delegation, review, and contraction as regular features of the record rather than crisis responses; and at least one case demonstrating the satisfaction signature, scope strain met with delegation or contraction before a crisis required it."
+
+  # --- Connections to the compressive standards (Section 9.1), descriptive ---
+  - id: FBCS-CONNECTIONS
+    section: "9.1"
+    obligation: relation
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Battery depletion creates specific blind spots in each compressive standard's detection surface (seven documented connections): Personal depletion compromises the Adverse-Signal Engagement Principle's monitoring (the battery-signal loop); Relational depletion hollows Structural Consent Legibility's bidirectional awareness and revocability; the Recognition Gap drives Information Asymmetry Class 5 Omission; frame narrowness concentrates power invisibly to the Structural Power Obligation Standard's dimensions; scope pressure sheds the specification capacity the Precision-First Design Standard requires; the two-velocity cascade produces a sensemaking-capacity asymmetry outside the six-class taxonomy; and Contribution depletion co-occurs with a Regenerative Obligation Standard floor violation while depleting the claiming capacity needed to surface it. Battery state data is required to break these loops."

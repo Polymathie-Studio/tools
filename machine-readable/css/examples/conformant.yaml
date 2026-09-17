@@ -1,0 +1,74 @@
+# Conformant: a 60-member cooperative assessed at Radius 50 by its functional breaks,
+# minimum conditions present at every crossed threshold, maximum conditions absent,
+# sequential build respected. Every structural weld satisfied.
+subject: "The Riverside housing cooperative, a 60-member coordination unit"
+effective_radius:
+  function_breaks:
+    - function: state_legibility
+      radius: radius_5
+      broken: true
+    - function: sympathy_network
+      radius: radius_15
+      broken: true
+    - function: capacity_inventory
+      radius: radius_50
+      broken: true
+    - function: reputation_norm_response
+      radius: radius_150
+      broken: false
+      approach_noted: false
+  aggregate_factors:
+    - name: member_count
+      value: "60 active members"
+    - name: interaction_quality
+      value: "weekly in-person plus a maintained shared record"
+    - name: shared_context_depth
+      value: "moderate, a two-year operating history"
+    - name: medium_mix
+      value: "in-person, asynchronous text, and a role register"
+  nominal_effective_radius: radius_50
+  robust_effective_radius: radius_50
+  contextual_baseline: "Western, digital-native cooperative; the research-derived anchor thresholds apply."
+crossed_thresholds:
+  - radius:
+      radius: radius_5
+      function_break: "full bilateral state awareness no longer holds"
+      attack_surface: "state opacity"
+    minimum_conditions:
+      - condition: "full mutual state legibility maintained through a structural mechanism"
+        status: present
+    maximum_conditions:
+      - condition: "no single member holds unilateral veto without renewed group consent"
+        status: absent
+    interface_conditions_documented: true
+  - radius:
+      radius: radius_15
+      function_break: "the sympathy network fragments"
+      attack_surface: "social isolation and trust exploitation"
+    minimum_conditions:
+      - condition: "an explicit mutual-support architecture with named signal and response mechanisms"
+        status: present
+    maximum_conditions:
+      - condition: "no member can be structurally isolated from the support network"
+        status: absent
+    interface_conditions_documented: true
+  - radius:
+      radius: radius_50
+      function_break: "the informal capacity inventory becomes unreliable"
+      attack_surface: "gravitas claims without verification, and invisible single points of failure"
+    minimum_conditions:
+      - condition: "explicit role and capacity legibility, current and accessible without permission"
+        status: present
+        detection_signal: "a maintained role register naming each load-bearing function"
+      - condition: "named redundancy or succession for every load-bearing function"
+        status: present
+    maximum_conditions:
+      - condition: "no single member or small cluster holds multiple load-bearing roles without acknowledgment and consent"
+        status: absent
+    interface_conditions_documented: true
+adoption_level: operational
+conformance:
+  effective_radius_assessed: satisfied
+  minimum_conditions_present: satisfied
+  maximum_conditions_absent: satisfied
+  sequential_build_respected: satisfied

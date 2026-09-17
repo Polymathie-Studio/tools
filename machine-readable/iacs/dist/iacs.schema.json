@@ -1,0 +1,285 @@
+{
+  "$defs": {
+    "AdoptionTier": {
+      "description": "Section 6. The adoption tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "AsymmetryMechanism": {
+      "additionalProperties": false,
+      "description": "Section 2, 3, 5. One distinct information-asymmetry mechanism, individuated by its causal process and its detection surface, not by a label. A mechanism with no detection surface cannot be instrumented (Section 2 validity criterion 3), so detection_surface is required.",
+      "properties": {
+        "cynefin_domain": {
+          "$ref": "#/$defs/CynefinDomain",
+          "description": "Section 4.1. The Cynefin domain that sets the detection action mode."
+        },
+        "detection_surface": {
+          "description": "Section 2 criterion 3. The observable signals in the coordination record that indicate the mechanism is active.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "description": "The mechanism handle (for example, positional, interpretive, synthetic_coordination).",
+          "type": "string"
+        },
+        "mechanism": {
+          "description": "Section 2 criterion 1. The distinct causal process by which advantage accumulates through informational position.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "orthogonal_at_mechanism": {
+          "description": "Section 2 criterion 4. True when the mechanism is individuated at the level of causal process, so its presence does not entail another's.",
+          "type": "boolean"
+        },
+        "remediation_direction": {
+          "description": "Section 5 Scope. The structural remediation direction the mechanism implies; a pointer, since IACS defers the remediation architecture.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/MechanismStatus",
+          "description": "Section 5. Whether the mechanism is primary, a fully specified extension, or a scoped-out stub (not usable in a conforming detection architecture)."
+        },
+        "sub_pattern": {
+          "description": "A named sub-pattern of this mechanism (for example, Distributed Monoculture, Coordination Record Asymmetry, Consensus Manufacturing).",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "mechanism",
+        "detection_surface",
+        "orthogonal_at_mechanism",
+        "status"
+      ],
+      "title": "AsymmetryMechanism",
+      "type": "object"
+    },
+    "Classification": {
+      "additionalProperties": false,
+      "description": "Section 6. One classification of a coordination record against a mechanism.",
+      "properties": {
+        "cynefin_domain": {
+          "$ref": "#/$defs/CynefinDomain",
+          "description": "Section 4.1. The Cynefin domain classification applied, with its action mode."
+        },
+        "detection_signals_observed": {
+          "description": "The specific detection-surface signals observed in the record.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mechanism": {
+          "description": "The handle of the mechanism assigned (references an applicable_mechanisms entry).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mechanism",
+        "detection_signals_observed",
+        "cynefin_domain"
+      ],
+      "title": "Classification",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-obligation answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "The per-obligation conformance answers on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "applicability_mapped": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "classification_process_documented": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "detection_instrumented": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "applicability_mapped",
+        "classification_process_documented",
+        "detection_instrumented"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "CynefinDomain": {
+      "description": "Section 4.1. The Cynefin domains and their detection action modes.",
+      "enum": [
+        "clear",
+        "complicated",
+        "complex",
+        "chaotic"
+      ],
+      "title": "CynefinDomain",
+      "type": "string"
+    },
+    "IACSArchitecture": {
+      "additionalProperties": false,
+      "description": "The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies.",
+      "properties": {
+        "adopted_tier": {
+          "$ref": "#/$defs/AdoptionTier"
+        },
+        "applicability_inventory": {
+          "description": "Section 6 Assessed. A class applicability inventory naming applicable, partial, and not-applicable mechanisms with a present, assumed, or absent detection state.",
+          "type": "boolean"
+        },
+        "audience_baseline_declared": {
+          "description": "Section 6 Instrumented. The audience linguistic, epistemic, and ontological baseline, required when Descriptive Capacity asymmetry is applicable in a document-production context.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "classification_process_documented": {
+          "description": "Section 6 Operational. A documented classification process per applicable mechanism.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "cynefin_documented": {
+          "description": "Section 6 Instrumented. A documented Cynefin domain classification per mechanism with the matching action mode.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "detection_architecture_present": {
+          "description": "Section 6 Instrumented. A real-time detection architecture instrumenting the surfaces, disclosed to participants.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "adopted_tier",
+        "applicability_inventory"
+      ],
+      "title": "IACSArchitecture",
+      "type": "object"
+    },
+    "IACSConformanceRecord": {
+      "additionalProperties": false,
+      "description": "A system's declaration of the mechanisms it instruments, its classifications, its detection architecture, and its conformance.",
+      "properties": {
+        "applicable_mechanisms": {
+          "description": "Section 6. The mechanisms the system identifies as applicable, rendered as structured objects (the code system, not a label list). Each carries its causal process, detection surface, orthogonality, status, Cynefin domain, and remediation direction.",
+          "items": {
+            "$ref": "#/$defs/AsymmetryMechanism"
+          },
+          "type": "array"
+        },
+        "architecture": {
+          "$ref": "#/$defs/IACSArchitecture",
+          "description": "The system's detection architecture and adopted tier."
+        },
+        "classifications": {
+          "description": "Section 6. The classifications the system has produced, each referencing a mechanism and the signals observed.",
+          "items": {
+            "$ref": "#/$defs/Classification"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "Per-obligation conformance answers on the face; no total."
+        }
+      },
+      "required": [
+        "applicable_mechanisms",
+        "architecture",
+        "conformance"
+      ],
+      "title": "IACSConformanceRecord",
+      "type": "object"
+    },
+    "MechanismStatus": {
+      "description": "Section 5. The specification status of a mechanism.",
+      "enum": [
+        "primary",
+        "extension_specified",
+        "extension_stub_scoped_out"
+      ],
+      "title": "MechanismStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/iacs/iacs.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A system's declaration of the mechanisms it instruments, its classifications, its detection architecture, and its conformance.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "applicable_mechanisms": {
+      "description": "Section 6. The mechanisms the system identifies as applicable, rendered as structured objects (the code system, not a label list). Each carries its causal process, detection surface, orthogonality, status, Cynefin domain, and remediation direction.",
+      "items": {
+        "$ref": "#/$defs/AsymmetryMechanism"
+      },
+      "type": "array"
+    },
+    "architecture": {
+      "$ref": "#/$defs/IACSArchitecture",
+      "description": "The system's detection architecture and adopted tier."
+    },
+    "classifications": {
+      "description": "Section 6. The classifications the system has produced, each referencing a mechanism and the signals observed.",
+      "items": {
+        "$ref": "#/$defs/Classification"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "Per-obligation conformance answers on the face; no total."
+    }
+  },
+  "required": [
+    "applicable_mechanisms",
+    "architecture",
+    "conformance"
+  ],
+  "title": "iacs",
+  "type": "object",
+  "version": null
+}

@@ -1,0 +1,350 @@
+id: https://standards.example/sms
+name: sms
+title: SMS sensemaking record
+description: >-
+  The one canonical source for the machine-readable layer of the Sensemaking Standard
+  (standards-3_0-sensemaking, v1.1.23), the first Tensegrity Generative Standard. SMS is a process
+  standard: its five invariants are tests applied to a single sensemaking process, and Section 9.3
+  mandates a per-process record. So the tree root is a per-process SensemakingRecord that carries one
+  sensemaking episode through the disruption, liminal, and resolution phases, in the same family as
+  the Adverse-Signal Engagement record (one signal through Notice, Name, Navigate). The system-level
+  obligations (the adopted tier, the adoption condition, the capacity assessment, the acknowledged
+  structural assumptions) are a SensemakingArchitecture the record declares its context against, with
+  the higher-tier blocks optional and tier-gated to the checker.
+
+  The five structural invariants are realized as five typed lifecycle sub-objects carrying the
+  process content on the face (the initiating disruption, the cue-frame relating, the
+  action-information entanglement, the sufficiency criterion, and the temporal phases including the
+  liminal phase, the diagnostic marker whose absence is the applying-without-understanding failure of
+  Section 2.3), not as a flat enum of invariant names; the three action invariants are typed objects
+  welded to their observable markers. Rendering either set as bare labels would collapse the
+  structure into names, a precision deficit under the Precision-First Design Standard whose absent
+  structure leaves no gap marker; the structural rendering is deliberate.
+
+  Conformance is per-process across the five invariants, with no total, and the joint condition (all
+  five satisfied is sensemaking) is the non-averaging floor: one invariant failing does not average
+  away against the others. Being a generative standard, SMS names enabling conditions rather than
+  floors that reject an artifact, so whether a process satisfies an invariant is largely judgment
+  against the structural satisfaction test and routes to the checker, and the loop-closure and
+  auditability obligations are tier-gated to the checker rather than to the schema. The capacity
+  obligation defers to a conformant capacity framework (the Four Batteries Capacity Standard is one),
+  an interlock the record carries as a named link. A sensemaking process is produced by any adopter,
+  an agent with no protocol included, so the record makes no protocol assumption. Every artifact in
+  dist/ is generated from this file.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sms: https://standards.example/sms/
+default_prefix: sms
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  SensemakingRecord:
+    tree_root: true
+    description: One sensemaking process carried through its disruption, liminal, and resolution phases, with the five invariants realized on the face and the system context it was produced under.
+    attributes:
+      disruption:
+        description: Section 3.1. The initiating disruption, the break in intelligibility that occasioned the process.
+        range: Disruption
+        required: true
+      relating:
+        description: Section 3.2. The particular-to-general relating between the specific cues and the general frame.
+        range: Relating
+        required: true
+      entanglement:
+        description: Section 3.3. The action-information entanglement, the loop between actions taken and what was understood.
+        range: ActionEntanglement
+        required: true
+      sufficiency:
+        description: Section 3.4. The sufficiency criterion, the provisional frame with its revision conditions and the next action designed to test it.
+        range: SufficiencyCriterion
+        required: true
+      temporal_phases:
+        description: Section 3.5. The temporal phases traversed, including the liminal phase, the diagnostic marker distinguishing sensemaking from pattern-matching.
+        range: TemporalPhases
+        required: true
+      action_invariants:
+        description: >-
+          Section 5. The three action invariants (residue, direction, phase), each rendered as a typed
+          object carrying its observable marker. An action invariant named without its observable
+          marker is a label, not a structural property.
+        range: ActionInvariant
+        multivalued: true
+        inlined_as_list: true
+      scales_addressed:
+        description: Section 4. The operational scales at which this process operates.
+        range: OperationalScale
+        multivalued: true
+      architecture:
+        description: The system-level SMS context this record declares against.
+        range: SensemakingArchitecture
+        required: true
+      conformance:
+        description: Section 3. The five per-process invariant answers on the face; no total, and the joint condition is their non-averaging conjunction.
+        range: ConformanceDeclaration
+        required: true
+
+  Disruption:
+    description: >-
+      Section 3.1. The disruption-occasioned invariant realized: an event that cannot be accounted for
+      by the current operative frame without revising it. A disruption with no specifiable initiating
+      event is not disruption-occasioned, so description and specifiable are required.
+    attributes:
+      description:
+        description: What stopped making sense, the surprise, gap, or expectation violation that broke intelligibility.
+        required: true
+      specifiable:
+        description: Section 3.1. Whether the specific disruption event can be identified and the process would not have run in its absence.
+        range: boolean
+        required: true
+      recorded_as_initiating:
+        description: Section 3.1. Whether the disruption is recorded as the initiating event rather than reconstructed after the fact.
+        range: boolean
+
+  Relating:
+    description: >-
+      Section 3.2. The particular-to-general relating invariant realized, bidirectional between cues
+      and frame. Operates at practitioner trace tier: what an independent observer verifies is whether
+      the record documents traced cues, the frame they informed, and the revisions they produced. Cues
+      and a frame are required; a frame with no traceable cues is assertion, cues with no frame are
+      cataloging.
+    attributes:
+      cues:
+        description: The specific cues attended to during the process.
+        multivalued: true
+        required: true
+      frame:
+        description: The general frame generated or revised from the cues.
+        required: true
+      frame_revisions:
+        description: How the frame was revised in response to cues that did not fit it.
+        multivalued: true
+      personal_framing_avoided:
+        description: Section 3.2. Whether structural failure modes were routed to structural causation rather than misapplied to personal causation.
+        range: boolean
+
+  ActionEntanglement:
+    description: >-
+      Section 3.3. The action-entangled invariant realized: action generates the data sensemaking
+      needs, and sensemaking shapes the action taken. Both directions of the loop are required, since
+      severing either (analysis paralysis one way, unreflective execution the other) breaks the
+      invariant.
+    attributes:
+      actions_changed_understanding:
+        description: Section 3.3. Whether actions taken during the process changed what was understood.
+        range: boolean
+        required: true
+      understanding_changed_actions:
+        description: Section 3.3. Whether what was understood changed which actions were taken next.
+        range: boolean
+        required: true
+      not_pre_planned:
+        description: Section 3.3. Whether the action sequence emerged from the interaction rather than being pre-planned.
+        range: boolean
+
+  SufficiencyCriterion:
+    description: >-
+      Section 3.4. The sufficiency-oriented invariant realized: a plausible account that enables a next
+      action whose outcome generates information for revising it, satisficing rather than optimizing.
+      The provisional frame, its named revision conditions, and a frame-testing next action are
+      required; optimizing (seeking the correct answer first) and guessing (no revision conditions)
+      both violate it.
+    attributes:
+      frame_provisional:
+        description: Section 3.4. Whether the frame is treated as provisional rather than definitive.
+        range: boolean
+        required: true
+      revision_conditions:
+        description: Section 3.4. The evidence that would cause the frame to be revised, recorded explicitly.
+        required: true
+      stopped_before_complete:
+        description: Section 3.4. Whether the process terminated before all available information was incorporated, naming the unresolved questions not pursued before acting.
+        range: boolean
+        required: true
+      next_action_tests_frame:
+        description: Section 3.4. Whether the next action was designed to generate information that could disconfirm the frame.
+        range: boolean
+        required: true
+
+  TemporalPhases:
+    description: >-
+      Section 3.5. The temporally-structured invariant realized, the Adverse-Signal lifecycle-state
+      analogue. The disruption, liminal, and resolution phases, with the liminal phase the diagnostic
+      marker: its documented presence, together with a resolution frame distinct from any pre-existing
+      frame, is what distinguishes sensemaking from applying a pre-existing frame (the
+      applying-without-understanding failure of Section 2.3). All three phases and the two markers are
+      required.
+    attributes:
+      disruption_phase:
+        description: The phase in which intelligibility broke down and existing frames were inadequate.
+        required: true
+      liminal_phase:
+        description: The period of not-knowing, the prior frame suspended and no replacement yet formed.
+        required: true
+      liminal_phase_documented:
+        description: Section 3.5, 2.3. Whether the liminal phase is documented; its absence with a resolution frame identical to a pre-existing frame is the applying-without-understanding failure mode.
+        range: boolean
+        required: true
+      resolution_phase:
+        description: The phase in which a new or revised frame emerged.
+        required: true
+      resolution_distinct_from_prior:
+        description: Section 3.5. Whether the resolution frame is not identical to any frame available before the disruption.
+        range: boolean
+        required: true
+      independently_verifiable:
+        description: Section 3.5. Whether the satisfaction is verifiable by an independent observer without depending solely on participant self-report (required by the checker at SMS-Loop-Closed and above).
+        range: boolean
+
+  ActionInvariant:
+    description: >-
+      Section 5. One of the three action invariants, individuated by its observable marker, not by a
+      label. An action invariant with no observable marker is a name, so action and observable_marker
+      are required.
+    attributes:
+      action:
+        description: Which of the three action invariants this is.
+        range: ActionInvariantName
+        required: true
+      observable_marker:
+        description: Section 5. The marker in the coordination record by which the action invariant is assessed.
+        required: true
+      assessment:
+        description: What the record observed against the marker.
+
+  SensemakingArchitecture:
+    description: >-
+      The system-level SMS context the record declares against. The adopted tier, the adoption
+      condition, the acknowledged structural assumptions, the capacity assessment, and the higher-tier
+      loop-closure and auditability blocks. The higher-tier blocks are optional in the schema; the
+      checker requires them at the tiers the register specifies.
+    attributes:
+      adopted_tier:
+        description: Section 9. The adoption tier the record declares.
+        range: AdoptionTier
+        required: true
+      structural_assumptions_acknowledged:
+        description: Section 7.1, 9.6. Whether the three named structural assumptions (agent-priority, human-scope, separability) are acknowledged; constitutive, so required.
+        range: boolean
+        required: true
+      adoption_condition:
+        description: >-
+          Section 9. Which adoption condition applies, since the founding-window finding gives
+          constitutional, remedial-born-without, and remedial-crossed-below different intervention
+          profiles and the assessment should name which applies.
+        range: AdoptionCondition
+      capacity_assessment:
+        description: >-
+          Section 6. The capacity obligation, required by the checker at SMS-Instrumented and above.
+          Deferred to a conformant capacity framework; names the four capacity categories, the
+          bilateral obligation, and participant consent without prescribing an instrument.
+        range: CapacityAssessment
+      loop_closure_present:
+        description: Section 9.4. Whether the closed coordination loop is in place, so a detected sensemaking failure produces a mandatory documented review and the absence of a review is structurally visible (required by the checker at SMS-Loop-Closed and above).
+        range: boolean
+      independent_auditability:
+        description: Section 9.5. Whether the complete sensemaking record is verifiable by an independent auditor without operator cooperation (required by the checker at SMS-Auditable).
+        range: boolean
+
+  CapacityAssessment:
+    description: >-
+      Section 6. The capacity obligation the record declares, the interlock with a conformant capacity
+      framework. SMS prescribes no framework; it requires that a conformant one assess the four
+      capacity categories, carry the bilateral obligation, and operate under participant consent. So
+      method, participant_consent, the bilateral obligation, and the four category assessments are
+      required; the named framework is optional because the standard is method-neutral.
+    attributes:
+      method:
+        description: The agreed-upon method for making participants' capacity states legible to each other.
+        required: true
+      individual_states_assessed:
+        description: Section 6.1. Whether the inner states of individual participants are assessed.
+        range: boolean
+        required: true
+      relational_conditions_assessed:
+        description: Section 6.1. Whether the quality of working relationships is assessed.
+        range: boolean
+        required: true
+      contribution_conditions_assessed:
+        description: Section 6.1. Whether the conditions of participants' recognized contributions are assessed.
+        range: boolean
+        required: true
+      alignment_conditions_assessed:
+        description: Section 6.1. Whether the alignment between participants and the purpose is assessed.
+        range: boolean
+        required: true
+      bilateral_obligation_present:
+        description: Section 6.2. Whether the bilateral obligation holds (structural adjustment when depleted, accountability when charged).
+        range: boolean
+        required: true
+      participant_consent:
+        description: Section 6.1. Whether participants consented to the assessment method rather than it being imposed by management.
+        range: boolean
+        required: true
+      conformant_framework:
+        description: The named capacity framework satisfying the obligation when one is used (the Four Batteries Capacity Standard is one).
+
+  ConformanceDeclaration:
+    description: >-
+      Section 3. The five per-process invariant answers on the face. There is deliberately no overall
+      or total field: conformance is per-invariant, and the joint condition is the non-averaging
+      conjunction of the five (a single violated invariant does not average away against the others),
+      mirroring the suite's refusal to collapse a profile into a single number.
+    attributes:
+      disruption_occasioned_satisfied:
+        range: ConformanceAnswer
+        required: true
+      particular_to_general_satisfied:
+        range: ConformanceAnswer
+        required: true
+      action_entangled_satisfied:
+        range: ConformanceAnswer
+        required: true
+      sufficiency_oriented_satisfied:
+        range: ConformanceAnswer
+        required: true
+      temporally_structured_satisfied:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  OperationalScale:
+    description: Section 4. The three scales of operation.
+    permissible_values:
+      intra_personal:
+      inter_personal:
+      witness_reception:
+
+  ActionInvariantName:
+    description: Section 5. The three action invariants.
+    permissible_values:
+      residue:
+      direction:
+      phase:
+
+  AdoptionCondition:
+    description: Section 9. Which adoption condition the adopter is in.
+    permissible_values:
+      constitutional:
+      remedial_born_without:
+      remedial_crossed_below:
+
+  AdoptionTier:
+    description: Section 9. The five adoption tiers.
+    permissible_values:
+      assessed:
+      operational:
+      instrumented:
+      loop_closed:
+      auditable:
+
+  ConformanceAnswer:
+    description: Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

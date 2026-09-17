@@ -1,0 +1,297 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spos: <https://standards.example/spos/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+spos:SPOSPowerRecord a sh:NodeShape ;
+    rdfs:comment "A system's power-distribution record across the three dimensions, its override assessment, its detected shifts, and its conformance." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class spos:DimensionAssessment ;
+            sh:description "Section 3, 4.1. The per-dimension assessment (current versus authorized profile and the gap), across all three dimensions." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path spos:dimensions ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 4.1. The authorized distribution profile exists; its absence is itself a finding." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path spos:authorized_profile_established ],
+        [ sh:class spos:OverrideClassAssessment ;
+            sh:description "Section 4.5. The assessment of the seven external-override classes, active or not, with addressability." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path spos:override_assessment ],
+        [ sh:class spos:SPOSArchitecture ;
+            sh:description "The system's detection architecture and adopted tier." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path spos:architecture ],
+        [ sh:class spos:ConcentrationShift ;
+            sh:description "Section 5. Concentration shifts detected and classified." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path spos:detected_shifts ],
+        [ sh:class spos:ConformanceDeclaration ;
+            sh:description "Section 4. The three invariant answers on the face; no total." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path spos:conformance ] ;
+    sh:targetClass spos:SPOSPowerRecord .
+
+spos:ChangeClassification a sh:NodeShape ;
+    rdfs:comment "Section 5.1. One change classification, individuated by its detection signature and its response obligation, not by a label." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The response the classification triggers." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path spos:response_obligation ],
+        [ sh:datatype xsd:string ;
+            sh:description "The observable signature that distinguishes this classification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:detection_signature ],
+        [ sh:datatype xsd:string ;
+            sh:description "The classification handle (drift, coherent_evolution, strategic_pivot, capture)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path spos:id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:name ] ;
+    sh:targetClass spos:ChangeClassification .
+
+spos:ConcentrationShift a sh:NodeShape ;
+    rdfs:comment "Section 5. A detected concentration shift, classified before any response." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class spos:ChangeClassification ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path spos:classification ],
+        [ sh:datatype xsd:string ;
+            sh:description "Which of the three dimensions the shift implicates." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:dimensions_implicated ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the response obligation for the classification was completed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:review_completed ] ;
+    sh:targetClass spos:ConcentrationShift .
+
+spos:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "Section 4. The three invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path spos:distribute_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path spos:monitor_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path spos:authorize_satisfied ] ;
+    sh:targetClass spos:ConformanceDeclaration .
+
+spos:DimensionAssessment a sh:NodeShape ;
+    rdfs:comment "Section 4.1. The current-versus-authorized assessment for one dimension." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The authorized distribution profile in this dimension." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:authorized_level ],
+        [ sh:class spos:PowerDimension ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path spos:dimension ],
+        [ sh:datatype xsd:string ;
+            sh:description "The current distribution profile in this dimension." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:current_concentration ],
+        [ sh:datatype xsd:string ;
+            sh:description "The gap between current and authorized in this dimension." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path spos:gap ] ;
+    sh:targetClass spos:DimensionAssessment .
+
+spos:OverrideClass a sh:NodeShape ;
+    rdfs:comment "Section 4.5. One external-override class, a distinct structural mechanism through which an external actor can supersede internal outcomes, individuated by its mechanism and its detection instrument." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The instrument that detects the class." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path spos:detection_instrument ],
+        [ sh:datatype xsd:string ;
+            sh:description "The class handle (financial, military, regulatory, platform, epistemic, normative, relational)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path spos:id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The distinct structural mechanism of the override." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:mechanism ] ;
+    sh:targetClass spos:OverrideClass .
+
+spos:OverrideClassAssessment a sh:NodeShape ;
+    rdfs:comment "Section 4.5. Whether an override class is active in the system's context, with addressability." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class spos:OverrideClass ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path spos:override_class ],
+        [ sh:datatype xsd:string ;
+            sh:description "Whether the structural condition can still be redesigned before it becomes load-bearing, or can only be disclosed and monitored." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path spos:addressability ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Whether the class is active; a not-active determination requires a named rationale." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:active ],
+        [ sh:datatype xsd:string ;
+            sh:description "A structural exposure disclosure, required for an active class that is no longer addressable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path spos:exposure_disclosure ],
+        [ sh:datatype xsd:string ;
+            sh:description "Required in prose when active is false, a named rationale rather than a default omission." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:not_active_rationale ] ;
+    sh:targetClass spos:OverrideClassAssessment .
+
+spos:PowerDimension a sh:NodeShape ;
+    rdfs:comment "Section 2.2, 3. One power dimension, a distinct relational-topological axis individuated by its power concern and its detection surface, not by a label. A dimension with no detection surface cannot be instrumented, so detection_surface is required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The dimension handle (authority, coordination, specialization)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path spos:id ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 2.3. True, because the three dimensions vary independently and are assessed independently." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path spos:independent_by_design ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The distinct structural power concern of the dimension." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:power_concern ],
+        [ sh:datatype xsd:string ;
+            sh:description "The normative reference the dimension is assessed against (for example Ostrom's third principle, subsidiarity, Lukes' three dimensions)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path spos:normative_benchmark ],
+        [ sh:datatype xsd:string ;
+            sh:description "Section 6. The primary, secondary, and tertiary signals that instrument the dimension." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path spos:detection_surface ] ;
+    sh:targetClass spos:PowerDimension .
+
+spos:SPOSArchitecture a sh:NodeShape ;
+    rdfs:comment "The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "assessed" "operational" "instrumented" "loop_closed" "auditable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path spos:adopted_tier ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 4.3. Continuous detection across all three dimensions." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path spos:monitor_all_dimensions ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.4. The detection surface is disclosed to participants; an undisclosed surface is a consent failure." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path spos:detection_disclosed ] ;
+    sh:targetClass spos:SPOSArchitecture .
+
+

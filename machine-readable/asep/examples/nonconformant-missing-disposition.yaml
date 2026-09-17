@@ -1,0 +1,35 @@
+# NON-conformant: omits the required terminal disposition (ASEP 2.2, the finite path to
+# decision / no silent erasure). Must fail validation. Otherwise identical to conformant.
+observation:
+  description: "Three treasury withdrawals executed below the oracle mid within declared parameters."
+  when: "2026-09-10 to 2026-09-16"
+  where: "Treasury contract 0xabc, mainnet"
+  who_affected: "Depositors in the treasury pool"
+source:
+  reporter: "A pool depositor"
+  role: "external constituency"
+classification:
+  category: "aggregate-pattern value-leakage"
+  severity: high
+  framework_version: "1.4.0"
+navigate:
+  time_to_assessment: "6 hours from report"
+  time_to_first_decision: "2 days from report"
+  action: monitor
+  rationale: "Aggregate pattern warrants structural assessment before attribution."
+escalation:
+  stage: acknowledged
+  acknowledgment_window: "24 hours for high severity"
+  window_pre_specified: true
+architecture:
+  adopted_tier: operational
+  classification_framework:
+    version: "1.4.0"
+    ex_ante: true
+  logging:
+    durable: true
+    tamper_evident: true
+conformance:
+  no_silent_erasure: satisfied
+  ex_ante_criteria: satisfied
+  finite_path_to_decision: satisfied

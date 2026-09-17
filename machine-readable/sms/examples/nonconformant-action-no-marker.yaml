@@ -1,0 +1,37 @@
+# NON-conformant: an action invariant carries no observable_marker, so it is a bare label rather than
+# an action property individuated by how it is assessed in the coordination record (the structural
+# weld). Must fail.
+disruption:
+  description: "A partner stopped responding on a shared channel."
+  specifiable: true
+relating:
+  cues:
+    - "Messages went unanswered for a week."
+  frame: "The partnership frame no longer fit the silence."
+entanglement:
+  actions_changed_understanding: true
+  understanding_changed_actions: true
+sufficiency:
+  frame_provisional: true
+  revision_conditions: "Revised if the partner resurfaces with a stated reason."
+  stopped_before_complete: true
+  next_action_tests_frame: true
+temporal_phases:
+  disruption_phase: "The silence broke the partnership frame."
+  liminal_phase: "A period of not knowing whether the partnership had ended."
+  liminal_phase_documented: true
+  resolution_phase: "A revised frame naming the partnership as dormant, not ended."
+  resolution_distinct_from_prior: true
+action_invariants:
+  - action: residue
+    # observable_marker deliberately omitted: an action invariant with no marker is a label
+    assessment: "Something was produced."
+architecture:
+  adopted_tier: operational
+  structural_assumptions_acknowledged: true
+conformance:
+  disruption_occasioned_satisfied: satisfied
+  particular_to_general_satisfied: satisfied
+  action_entangled_satisfied: satisfied
+  sufficiency_oriented_satisfied: satisfied
+  temporally_structured_satisfied: satisfied

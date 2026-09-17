@@ -1,0 +1,309 @@
+id: https://standards.example/asep
+name: asep
+title: ASEP adverse-signal record
+description: >-
+  The one canonical source for the machine-readable layer of the Adverse-Signal Engagement
+  Principle Core Standard (standards-3_0-adverse-signal-engagement, v0.7.13). ASEP is a
+  process-and-detection standard, so the tree root is a per-signal AdverseSignalRecord that
+  carries one adverse signal through the Notice, Name, and Navigate lifecycle and the
+  time-governed Signal Escalation state; the system-level obligations (the adopted tier, the
+  classification framework, the logging paths, the escalation architecture) are an
+  ASEPArchitecture the record declares its context against. Every artifact in dist/ is
+  generated from this file.
+
+  The structural obligations (which lifecycle steps and log fields must be present, which
+  escalation stage was reached) are modeled here. The interpretive obligations are not
+  schema-expressible and belong to the conformance checker: severity classification,
+  proportionality of observation, coverage adequacy of the framework, cost-bearing-party
+  participation, whether an action was retaliatory, and genuine transformation of a
+  conflict-class signal. asep-register.yaml marks each requirement shape, judgment, or mixed.
+
+  Tier-gating (which obligations bind at Assessed, Operational, Instrumented, Loop-Closed, or
+  Auditable) is enforced by the checker against the register's tier field, so the schema
+  models the full shape with tier-gated blocks optional rather than encoding enum-precondition
+  rules. The audit's reliability is bounded by the Four Batteries Relational Battery condition,
+  a cross-standard dependency, not a field here.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  asep: https://standards.example/asep/
+default_prefix: asep
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  AdverseSignalRecord:
+    tree_root: true
+    description: One adverse signal carried through Notice, Name, and Navigate, with its escalation state and terminal disposition on the face.
+    attributes:
+      observation:
+        description: ASEP 3.2.1. The observable description and the when, where, and who-affected log fields.
+        range: Observation
+        required: true
+      source:
+        description: ASEP 3.2.1, 4.2. Who reported the signal and in what role.
+        range: Source
+        required: true
+      classification:
+        description: ASEP 3.2.2. The category and severity assigned against the ex-ante framework.
+        range: Classification
+        required: true
+      navigate:
+        description: ASEP 3.3. The signal-processing lifecycle, covering time bounds, action, and rationale.
+        range: Navigate
+        required: true
+      escalation:
+        description: ASEP 3.3.6. The Signal Escalation state this signal has reached.
+        range: EscalationState
+        required: true
+      disposition:
+        description: ASEP 2.2. The terminal disposition (the finite path to decision); a non-adverse judgment is itself recorded.
+        range: Disposition
+        required: true
+      architecture:
+        description: The system-level ASEP context this record declares against.
+        range: ASEPArchitecture
+        required: true
+      conformance:
+        description: ASEP 2.2. The three invariant answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  Observation:
+    description: ASEP 3.2.1. The durable log entry, observation separated from evaluation.
+    attributes:
+      description:
+        description: What happened, stated as observation not evaluation.
+        required: true
+      when:
+        required: true
+      where:
+        required: true
+      who_affected:
+        required: true
+      power_context:
+        description: ASEP 3.2.2. Relative power or dependency, history, and incentives, where salient.
+
+  Source:
+    description: ASEP 3.2.1, 4.2. Any actor may log a signal that meets minimal criteria.
+    attributes:
+      reporter:
+        required: true
+      role:
+        required: true
+
+  Classification:
+    description: ASEP 3.2.2. Category and severity assigned against the ex-ante versioned framework.
+    attributes:
+      category:
+        required: true
+      severity:
+        range: Severity
+        required: true
+      complexity_domain:
+        description: ASEP 3.3.6. The Cynefin domain that sets escalation tempo and Navigate shape.
+        range: ComplexityDomain
+      framework_version:
+        description: ASEP 2.2. The version of the classification framework in effect at signal generation (ex-ante criteria).
+        required: true
+
+  Navigate:
+    description: ASEP 3.3. The signal-processing lifecycle from assessment through decision.
+    attributes:
+      time_to_assessment:
+        description: ASEP 3.3.1. The recorded first substantive look against the per-severity bound.
+        required: true
+      time_to_first_decision:
+        description: ASEP 3.3.1. The recorded first decision against the per-severity bound.
+        required: true
+      action:
+        description: ASEP 3.3.1. The action chosen from the bounded set.
+        range: NavigateAction
+        required: true
+      rationale:
+        description: ASEP 3.3.1. The documented basis for the decision.
+        required: true
+      conflict_engagement:
+        description: ASEP 3.3.1a. Present for a conflict-class signal; opens an engagement pathway and records a documented exchange before termination.
+        range: ConflictEngagement
+      structural_root_cause_finding:
+        description: ASEP 3.3.3. Present when a pattern threshold triggered reclassification; one of the three named findings.
+        range: RootCauseFinding
+
+  ConflictEngagement:
+    description: ASEP 3.3.1a. The engagement pathway for a conflict-class signal.
+    attributes:
+      pathway_opened:
+        range: boolean
+        required: true
+      documented_exchange:
+        description: A documented exchange within the engagement process took place before Navigate terminated the signal.
+        range: boolean
+        required: true
+
+  EscalationState:
+    description: ASEP 3.3.6. The time-governed Signal Escalation stage, driven by elapsed time not human initiative.
+    attributes:
+      stage:
+        range: EscalationStage
+        required: true
+      acknowledgment_window:
+        description: ASEP 3.3.6. The maximum elapsed time from generation to first acknowledgment, pre-specified.
+        required: true
+      window_pre_specified:
+        description: ASEP 3.3.6. The window length was published before it began running (window validity).
+        range: boolean
+        required: true
+
+  Disposition:
+    description: ASEP 2.2. The terminal disposition on the finite path to decision.
+    attributes:
+      kind:
+        range: DispositionKind
+        required: true
+      rationale:
+        required: true
+      non_adverse_judgment_recorded:
+        description: ASEP 2.2. If the signal was judged non-adverse, that judgment is itself recorded (no silent erasure).
+        range: boolean
+
+  ASEPArchitecture:
+    description: The system-level ASEP context. Higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies.
+    attributes:
+      adopted_tier:
+        range: AdoptionTier
+        required: true
+      classification_framework:
+        description: ASEP 3.2.2. The documented, ex-ante, versioned framework.
+        range: ClassificationFramework
+        required: true
+      logging:
+        description: ASEP 3.2.1, 4.3. The logging paths and their integrity properties.
+        range: LoggingPaths
+        required: true
+      escalation_architecture_present:
+        description: ASEP 3.3.6. The Signal Escalation state machine is implemented (required by the checker at Instrumented and above).
+        range: boolean
+      anti_retaliation_policy:
+        description: ASEP 4.1. Explicit anti-retaliation commitment (required by the checker at Instrumented and above).
+        range: boolean
+      reliability_disclosure:
+        description: ASEP 2.3. Disclosure that audit reliability is bounded until the Four Batteries Relational Battery is jointly instrumented.
+        range: boolean
+
+  ClassificationFramework:
+    description: ASEP 3.2.2. The adverse-signal categories and severity levels.
+    attributes:
+      version:
+        description: ASEP 2.2. Versioned, defined ex-ante.
+        required: true
+      ex_ante:
+        description: Defined before specific disputes.
+        range: boolean
+        required: true
+      coverage_review:
+        description: Subject to periodic coverage review for missing harm classes.
+        range: boolean
+
+  LoggingPaths:
+    description: ASEP 3.2.1, 4.3. Durability and independence of the logs.
+    attributes:
+      durable:
+        range: boolean
+        required: true
+      tamper_evident:
+        range: boolean
+        required: true
+      independent_of_evaluated_actors:
+        description: ASEP 4.3. At least one path is independent of the actors being evaluated (required by the checker at Instrumented and above).
+        range: boolean
+
+  RootCauseFinding:
+    description: ASEP 3.3.3. The structural root cause assessment finding.
+    attributes:
+      finding:
+        range: RootCauseKind
+        required: true
+
+  ConformanceDeclaration:
+    description: >-
+      ASEP 2.2. The three invariant answers on the face. There is deliberately no overall or
+      total field: conformance is per-invariant, mirroring the suite's refusal to collapse a
+      profile into a single number.
+    attributes:
+      no_silent_erasure:
+        range: ConformanceAnswer
+        required: true
+      ex_ante_criteria:
+        range: ConformanceAnswer
+        required: true
+      finite_path_to_decision:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  Severity:
+    description: ASEP 3.3.2. Graduated severity.
+    permissible_values:
+      low:
+      medium:
+      high:
+
+  ComplexityDomain:
+    description: ASEP 3.3.6, 3.3.7. The Cynefin domains.
+    permissible_values:
+      clear:
+      complicated:
+      complex:
+      chaotic:
+
+  NavigateAction:
+    description: ASEP 3.3.1. The bounded action set.
+    permissible_values:
+      mitigate_or_contain:
+      escalate:
+      initiate_engagement:
+      monitor:
+      close:
+
+  EscalationStage:
+    description: ASEP 3.3.6. The time-governed escalation stages.
+    permissible_values:
+      generated:
+      acknowledged:
+      auto_escalated:
+      obligation_triggered:
+      terminal_visibility:
+
+  DispositionKind:
+    description: ASEP 2.2. The finite-path terminal outcomes.
+    permissible_values:
+      act:
+      monitor:
+      close:
+
+  RootCauseKind:
+    description: ASEP 3.3.3. The three structural root cause findings.
+    permissible_values:
+      no_structural_condition:
+      structural_condition_identified:
+      insufficient_information:
+
+  AdoptionTier:
+    description: ASEP 5. The adoption tiers.
+    permissible_values:
+      assessed:
+      operational:
+      instrumented:
+      loop_closed:
+      auditable:
+
+  ConformanceAnswer:
+    description: ASEP. Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

@@ -1,0 +1,287 @@
+# SPOS register distillation
+# One row per normative entry of the Structural Power Obligation Standard
+# (standards-3_0-structural-power-obligation, v0.1.26; tier prefix SPDS). The standard
+# individuates power by MECHANISM, so three enum-like sets are rendered structurally, not as
+# label lists: the three power dimensions (each a distinct relational-topological axis with a
+# power concern and a detection surface), the seven external-override classes (each "names a
+# distinct structural mechanism" with its own detection instrument), and the four change
+# classifications (each individuated by a detection signature and a response obligation).
+# Rendering any of these as a flat taxonomy would collapse the mechanism structure into
+# labels, a precision deficit under PFDS; the model encodes them as typed objects.
+#
+# The invariants (Distribute, Authorize, Monitor) and the tiers are the obligation entries.
+# Assessing whether a dimension is concentrated, or which override class is active, is
+# judgment; the detection surfaces are computable signals that indicate where to look.
+standard: SPOS
+standard_version: 0.1.26
+source: standards-3_0-structural-power-obligation-0_1_26.md
+entries:
+
+  # The three power dimensions (Sections 2.2, 3), rendered structurally, not as a taxonomy
+  - id: SPOS-DIM-AUTHORITY
+    section: "3.1"
+    obligation: dimension
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # a defined structural axis; assessing its distribution is the Distribute invariant's job
+    tier: All
+    assertion: "Authority (Dimension A, Locus of Authority): where binding decision-making formally resides. Power concern: concentration of binding decision capacity. Detection surface: Nakamoto Coefficient trend (primary), authorization-event frequency (secondary), affected-constituency participation in rule modification (tertiary). Normative benchmark: Ostrom's third principle (the affected participate in modifying the rules) and subsidiarity across levels. Includes the legal-entity override class and the stake-weighted versus participation-weighted distinction."
+  - id: SPOS-DIM-COORDINATION
+    section: "3.2"
+    obligation: dimension
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    cross_standard_ref: "IACS Class 3 (Interpretive asymmetry): the information-dimension expression of interpretive capacity concentration; apply jointly in the coordination dimension at Instrumented"
+    assertion: "Coordination (Dimension C, Degree of Coordination and Integration): the density of alignment mechanisms and, as the power vector, the concentration of interpretive capacity (who defines what the mechanisms mean). Detection surface (Lukes' three dimensions): framework concentration (primary), agenda-exclusion pattern (secondary), legitimacy-transition indicator (tertiary, normative-to-cognitive drift read longitudinally)."
+  - id: SPOS-DIM-SPECIALIZATION
+    section: "3.3"
+    obligation: dimension
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    cross_standard_ref: "SCLS enduring shadow dynamic: the consent-dimension expression of exit-and-voice-ratio deterioration"
+    assertion: "Specialization (Dimension S, Degree of Specialization and Differentiation): network power and participation stratification, concentration of meaningful participation among those with accumulated interpretive bandwidth, intensifying with scale. Detection surface: participation-stratification index (primary), exit-and-voice ratio (secondary, Hirschman), network-convergence pressure (tertiary, Grewal's convergence dynamic, not adoption growth itself)."
+  - id: SPOS-DIM-INDEPENDENCE
+    section: "2.3"
+    obligation: structure
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment         # independence is a structural property, assessed, not a record shape
+    tier: All
+    assertion: "The three dimensions are independent by design (high coordination does not require centralized authority; distributed authority does not require low coordination; deep specialization requires neither), so each is assessed independently. The durable accumulation patterns are the interactions: authority-plus-coordination-density makes alternatives structurally unavailable, and specialization-plus-interpretive-concentration is self-reinforcing. Conflating the dimensions into a single slider is itself a detection signal."
+
+  # The invariants (Section 4)
+  - id: SPOS-DISTRIBUTE-1
+    section: "4.1"
+    obligation: distribute
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the current-profile, authorized-profile, and gap must be documented per dimension (shape); the distribution reads are judgment
+    tier: Assessed
+    assertion: "Power distribution is assessed and documented across all three dimensions: the current distribution profile, the authorized distribution profile established through legitimate coordination, and the gap between them per dimension. An absent authorized profile is itself a finding (at Assessed it may be identified as an open coordination task; at Operational and above it must be established and accessible)."
+  - id: SPOS-DISTRIBUTE-2
+    section: "4.1"
+    obligation: distribute
+    kind: MUST
+    portability: universal
+    checkable: shape            # a durable constituency definition is present; a modification event triggers Authorize
+    tier: Operational
+    assertion: "A defined constituency is a precondition of the assessment; an undefined or implicitly defined constituency is a finding. Modification of the constituency definition by parties holding concentrated authority is an authority-dimension concentration event that triggers the Authorize invariant, whether deliberate or through drift."
+  - id: SPOS-DISTRIBUTE-3
+    section: "4.1"
+    obligation: distribute
+    kind: MUST
+    portability: conditional
+    condition: "affected parties cannot participate through standard mechanisms, or do not yet exist"
+    checkable: mixed            # the named-and-assessed exclusion and the guardian authorization are shape; adequacy is judgment
+    tier: Operational
+    assertion: "Where affected parties cannot participate (proxy and guardian architecture, e.g. ecological guardianship) or do not yet exist (conditions-of-possibility guardianship, which represents structural prerequisites not interests), the exclusion is named and assessed under Distribute, and the guardian authorization is concentration-sensitive and subject to Authorize."
+  - id: SPOS-DISTRIBUTE-4
+    section: "4.1"
+    obligation: distribute
+    kind: MUST
+    portability: conditional
+    condition: "the unit's affected population exceeds the affected-party reach ceiling"
+    checkable: mixed            # the proxy/guardian channel is present above the ceiling; the reach determination is judgment
+    tier: Operational
+    cross_standard_ref: "Coordination Scaling Standard: the affected-party reach ceiling that triggers the channel"
+    assertion: "Above the affected-party reach ceiling, the proxy or guardian channel is a minimum condition of Distribute for the affected-party constituency, and the partial-satisfaction-by-disclosure provisions do not apply to it (disclosure without an operative channel leaves the affected-party signal unrepaired)."
+  - id: SPOS-AUTHORIZE-1
+    section: "4.2"
+    obligation: authorize
+    kind: MUST
+    portability: conditional
+    condition: "concentration exceeds authorized thresholds in any dimension"
+    checkable: shape            # the affected constituency is identified before ratification, each has a documented opportunity to record authorization or refusal, the record is durable and accessible
+    tier: Operational
+    cross_standard_ref: "SCLS: what structural consent means and how it is verified; joint adoption satisfies both Authorize invariants through one consent process"
+    assertion: "Concentration exceeding authorized thresholds requires legitimate authorization from the affected constituency before ratification: identified before the event, a documented opportunity to record authorization or refusal, and a durable accessible record. Drift is not exempt (the requirement is on the structural condition), and ratifying detected concentration without consent is authorization theater."
+  - id: SPOS-MONITOR-1
+    section: "4.3"
+    obligation: monitor
+    kind: MUST
+    portability: universal
+    checkable: shape            # continuous detection across all three dimensions, trend plus point-in-time, capable of producing a change classification, durable and tamper-evident
+    tier: Instrumented
+    assertion: "Ongoing detection instruments all three dimensions continuously, establishing trend direction as well as point-in-time values, is capable of producing a change classification for any detected shift, and keeps results durable, tamper-evident, and accessible to the affected constituency."
+  - id: SPOS-MULTILEVEL-1
+    section: "4.4"
+    obligation: monitor
+    kind: MUST
+    portability: universal
+    checkable: mixed            # per-level assessment is shape; cross-boundary detection is an open design question (11.3)
+    tier: Instrumented
+    assertion: "The three invariants apply at each level of any nested or polycentric structure the system participates in. At Assessed and below, cross-boundary exposure may be partially satisfied by documented disclosure (only where Section 11.3 is open); at Instrumented, the system implements cross-boundary detection or explicitly declines the multi-level extension with a structural exposure disclosure."
+
+  # External override capacity (Section 4.5): the seven classes, each a distinct mechanism
+  - id: SPOS-OVERRIDE-INVARIANT
+    section: "4.5"
+    obligation: override
+    kind: MUST
+    portability: universal
+    checkable: mixed            # all seven classes assessed with an active/not-active determination and addressability; a not-active call needs a named rationale
+    tier: Assessed
+    assertion: "External override capacity (external actors superseding internal outcomes regardless of the coordination process) is assessed across all seven classes: which are active, the addressability status of each active class, and a structural exposure disclosure for each active class that is no longer addressable. A not-active determination requires a named rationale, not a default omission; at Instrumented each active class carries a detection instrument."
+  - id: SPOS-OVERRIDE-FINANCIAL
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 1 Financial: material resource dependency (loans, grants, revenue channels, token concentration, treasury control) lets a resource holder impose conditions as the price of access. Detection instrument: token distribution assessment and resource dependency mapping at each tier review."
+  - id: SPOS-OVERRIDE-MILITARY
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 2 Military or coercive: credible capacity to apply physical force against the system's actors, infrastructure, or assets, the credible threat sufficient without a formal action. Detection instrument: assessment of the jurisdictions with coercive authority over key actors, infrastructure, and asset holders."
+  - id: SPOS-OVERRIDE-REGULATORY
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 3 Regulatory: legal and jurisdictional architecture (securities enforcement, jurisdictional mismatch, legal-entity override authority, and the default legal structure of an unincorporated organization) supersedes internal outcomes. Detection instrument: assessment of applicable regimes, external contractual obligations, asset and infrastructure jurisdiction, and the system's legal-entity status."
+  - id: SPOS-OVERRIDE-PLATFORM
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 4 Platform: dependency on infrastructure the system does not control (banking and on/off ramps, stablecoin issuers, custodians, contract platforms, distribution channels) creates override by whoever controls it; addressability is greatest before the dependency becomes load-bearing. Detection instrument: an inventory of uncontrolled infrastructure with an alternatives-landscape assessment per dependency."
+  - id: SPOS-OVERRIDE-EPISTEMIC
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 5 Epistemic: control of recognized knowledge frameworks lets an actor declare a coordination outcome illegitimate within the recognized framework regardless of internal legitimacy; the system cannot contest the framework from within it. Detection instrument: identification of external actors whose frameworks shape how the system's outputs are evaluated, and whether its architecture is legible and defensible within them."
+  - id: SPOS-OVERRIDE-NORMATIVE
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "Class 6 Normative: control of legitimacy standards (what values coordination must appeal to, which institutional forms are recognized) voids outcomes on normative grounds without a factual dispute; the claim need not be correct, only recognized by actors who can enforce it. Detection instrument: identification of external normative authorities whose legitimacy determinations apply, and the system's standing to contest a normative override."
+  - id: SPOS-OVERRIDE-RELATIONAL
+    section: "4.5"
+    obligation: override-class
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # presence assessment is shape; the behavioral detection architecture is an open design question (11.6), partial disclosure at Instrumented
+    tier: Assessed
+    assertion: "Class 7 Relational dependency: relational centrality itself is the override (the system cannot proceed or maintain identity without the actor), requiring no infrastructure, authority, or external framework; it takes an enabling form and a constraining form with different behavioral profiles. Detection instrument: behavioral pattern analysis of informal records (consultation asymmetry, framing adoption, decision-stall correlation, legitimacy attribution); the full architecture is an open design question, so Instrumented allows partial satisfaction by disclosure for this class only."
+
+  # Change classification (Section 5): four classifications, each individuated by signature
+  - id: SPOS-CHANGE-DRIFT
+    section: "5.1"
+    obligation: change-classification
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # the detection signature is computable; distinguishing drift from evolution is judgment
+    tier: Instrumented
+    assertion: "Drift: unintentional accumulation, the structural equilibrium when extraction-resistance is absent. Signature: concentration increasing over time without a coordination authorization, without an articulable diagnosis, and without a coherent guiding policy. Response obligation: a documented review, a concentration report accessible to the affected constituency, and a coordination outcome within a defined timeframe."
+  - id: SPOS-CHANGE-EVOLUTION
+    section: "5.1"
+    obligation: change-classification
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Instrumented
+    assertion: "Coherent evolution: gradual refinement continuous with prior direction. Signature: concentration within authorized thresholds with a documentable Rumelt kernel (diagnosis, guiding policy, coherent actions) explaining it as strategically coherent. Response obligation: maintain an accessible record of the kernel."
+  - id: SPOS-CHANGE-PIVOT
+    section: "5.1"
+    obligation: change-classification
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Instrumented
+    assertion: "Strategic pivot: intentional, authorized departure from the prior profile responsive to external conditions. Signature: a shift exceeding prior authorized thresholds accompanied by a documented authorization event with affected-constituency participation. Response obligation: the Authorize invariant process (if not already completed) plus documentation of the authorized-profile change."
+  - id: SPOS-CHANGE-CAPTURE
+    section: "5.1"
+    obligation: change-classification
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # the co-occurring signals are computable; distinguishing intent from outcome is the hardest judgment
+    tier: Instrumented
+    assertion: "Capture: intentional concentration by a subset at the affected constituency's expense, disguised as drift, evolution, or pivot, the hardest to establish. Signature: concentration benefiting a consistent subset across cycles, plus suppression of dissent, a legitimacy transition from normative to cognitive (Lukes' third dimension), and resistance to the Authorize invariant's transparency. Response obligation: the drift response plus independent evaluation not conducted by the actors whose concentration is the potential capture."
+  - id: SPOS-CHANGE-PROCEDURE
+    section: "5.2"
+    obligation: change-classification
+    kind: MUST
+    portability: universal
+    checkable: shape            # the three-step procedure is a determinable sequence over the record
+    tier: Instrumented
+    assertion: "Every detected concentration shift is classified before any response, by a three-step procedure: an authorization event satisfying Authorize gives strategic pivot (or capture-pending if it did not satisfy Authorize); else the Rumelt kernel test gives coherent evolution within the authorized profile (or initiates Authorize if it exceeds it); else the absence of both gives drift (or capture if the kernel consistently benefits a concentrated subset)."
+
+  # Detection architecture (Section 6) and signal handling (Section 8)
+  - id: SPOS-DETECT-1
+    section: "6.4"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: shape            # the composite trigger and the disclosed detection surface are determinable
+    tier: Instrumented
+    cross_standard_ref: "SCLS Observation domain: the monitoring scope is a coordination decision subject to the Authorize invariant; an undisclosed detection surface is a consent failure"
+    assertion: "Detection is composite: an individual signal triggers monitoring, and persistent primary, secondary, and tertiary signals across multiple cycles trigger classification review, with no single signal conclusive. The detection surface is disclosed to participants (an undisclosed surface is a structural consent failure)."
+  - id: SPOS-SIGNAL-1
+    section: "8.2"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed            # routing concentration to adverse-signal processing is shape; the implausible-absence read is judgment
+    tier: Operational
+    cross_standard_ref: "ASEP: unauthorized concentration is an adverse signal; the implausible absence of monitoring results is itself an adverse signal"
+    assertion: "Unauthorized concentration is treated as an adverse signal requiring notice, classification, and a navigation path; the implausible absence of concentration-monitoring results in a continuously operating system is itself an adverse signal (absence of detection is not evidence of absence of concentration)."
+
+  # Adoption tiers (Section 7)
+  - id: SPOS-TIER-1
+    section: "7.1"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Assessed
+    assertion: "Assessed: an initial distribution assessment across all three dimensions, the authorized profile documented or named as an open task, and the three misuse patterns named as known structural risks."
+  - id: SPOS-TIER-2
+    section: "7.2"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Operational
+    assertion: "Operational: a documented assessment process per dimension satisfying Distribute and Authorize, the change classification architecture applied to detected shifts, and the authorized profile established and accessible."
+  - id: SPOS-TIER-3
+    section: "7.3"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Instrumented
+    assertion: "Instrumented: a detection architecture instrumenting all three dimensions continuously with the composite classification trigger and the mandatory response obligations, the detection surface disclosed."
+  - id: SPOS-TIER-4
+    section: "7.4"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the detection-to-review path and automatic disclosure are verifiable from the append-only record
+    tier: Loop-Closed
+    assertion: "Loop-Closed: every concentration output above an authorized threshold produces a documented review within a defined window, the absence of a review produces automatic disclosure to all coordination actors without any actor's initiation, and the review record is append-only."
+  - id: SPOS-TIER-5
+    section: "7.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the full record is independently verifiable for completeness, dimension integrity, and response completeness
+    tier: Auditable
+    assertion: "Auditable: the full concentration-event record is independently verifiable without operator cooperation for completeness (a count or hash of outputs), dimension integrity (the three-dimension and change-classification frameworks applied with the authorized profile in effect at detection), and response completeness, with the audit documented and disclosed."

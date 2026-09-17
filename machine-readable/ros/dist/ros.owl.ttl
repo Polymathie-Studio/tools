@@ -1,0 +1,501 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ros: <https://standards.example/ros/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/ros.owl.ttl> a owl:Ontology ;
+    rdfs:label "ros" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "ROS regenerative obligation record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Regenerative Obligation Standard (standards-3_0-regenerative-obligation, v0.1.8). ROS individuates by structural mechanism, so the three-part validity condition and the four categorical disqualifiers are rendered as typed objects, each carrying its constitutive structure (a condition its test and register, a disqualifier its mechanism and why it is categorical rather than a failure of degree), not as flat label enums. Rendering either as a taxonomy would collapse the mechanism structure into labels, a precision deficit under PFDS. A disqualifier with no mechanism is not a disqualifier, so mechanism and why_categorical are required.
+The tree root is a RegenerativeObligationRecord: a system's stance declaration, its extraction visibility, the three validity conditions and four disqualifiers it screens returns against, its return assessments, its registered harm-bearing affiliations, its tier (the three named ROS tiers, not the five-tier pattern), and its per-invariant conformance. Every artifact in dist/ is generated from this file.
+The interpretive obligations are not schema-expressible and belong to the conformance checker: whether a return actually satisfies a condition, whether an instrument trips a disqualifier, and adequacy, which the standard assigns to registered harm-bearing parties (Ostrom DP3), not to a universal threshold. Tier-gating stays in the checker.""" .
+
+ros:RegenerativeObligationRecord a owl:Class ;
+    rdfs:label "RegenerativeObligationRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom ros:ConformanceDeclaration ;
+            owl:onProperty ros:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:stance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ValidityCondition ;
+            owl:onProperty ros:validity_conditions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:returns ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ReturnAssessment ;
+            owl:onProperty ros:returns ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:validity_conditions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:HarmBearingAffiliation ;
+            owl:onProperty ros:harm_bearing_affiliations ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:StanceDeclaration ;
+            owl:onProperty ros:stance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:harm_bearing_affiliations ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:disqualifiers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:CategoricalDisqualifier ;
+            owl:onProperty ros:disqualifiers ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ROSTier ;
+            owl:onProperty ros:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:stance ] ;
+    skos:definition "A system's stance, extraction visibility, the validity conditions and disqualifiers it screens against, its returns, its registered affiliations, and its conformance." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:CategoricalDisqualifier a owl:Class ;
+    rdfs:label "CategoricalDisqualifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:why_categorical ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:mechanism ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:why_categorical ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:why_categorical ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:mechanism ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:mechanism ] ;
+    skos:definition "Section 3.2. One categorical disqualifier, a distinct wrong-architecture mechanism that no degree of better measurement fixes. A disqualifier with no mechanism is not a disqualifier, so mechanism and why_categorical are required." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:stance_declared ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ConformanceAnswer ;
+            owl:onProperty ros:stance_declared ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ConformanceAnswer ;
+            owl:onProperty ros:no_retroactive_reclassification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:three_conditions_met ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ConformanceAnswer ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:no_retroactive_reclassification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:three_conditions_met ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:no_retroactive_reclassification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:ConformanceAnswer ;
+            owl:onProperty ros:three_conditions_met ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:extraction_visible ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:stance_declared ] ;
+    skos:definition "Section 2.2. The four invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:HarmBearingAffiliation a owl:Class ;
+    rdfs:label "HarmBearingAffiliation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:satisfying_return_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:extraction_class ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:satisfying_return_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:access_rights ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:extraction_class ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:satisfying_return_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:domain_of_action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:extraction_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:access_rights ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:domain_of_action ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:domain_of_action ] ;
+    skos:definition "Section 5. An affirmatively registered harm-bearing affiliation." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:ReturnAssessment a owl:Class ;
+    rdfs:label "ReturnAssessment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:conditions_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:delivered_to_registered_party ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ros:clear_of_disqualifiers ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:conditions_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:clear_of_disqualifiers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:clear_of_disqualifiers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:delivered_to_registered_party ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty ros:delivered_to_registered_party ] ;
+    skos:definition "Section 3. A return assessed against the conditions and screened against the disqualifiers." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:StanceDeclaration a owl:Class ;
+    rdfs:label "StanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty ros:review_cycle_months ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:review_cycle_months ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:challengers ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:scope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:challengers ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:scope ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:stance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:stance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:scope ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ros:StanceKind ;
+            owl:onProperty ros:stance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:review_cycle_months ] ;
+    skos:definition "Section 4. The declared stance and its minimum required contents." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:ValidityCondition a owl:Class ;
+    rdfs:label "ValidityCondition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:test ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ros:register ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:register ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:test ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty ros:test ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ros:register ] ;
+    skos:definition "Section 3. One of the three-part validity conditions, individuated by its test and the register it operates in. A condition with no test cannot be verified, so test is required." ;
+    skos:inScheme <https://standards.example/ros> .
+
+<https://standards.example/ros/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf ros:ConformanceAnswer .
+
+<https://standards.example/ros/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf ros:ConformanceAnswer .
+
+<https://standards.example/ros/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf ros:ConformanceAnswer .
+
+<https://standards.example/ros/ROSTier#extraction_visibility> a owl:Class ;
+    rdfs:label "extraction_visibility" ;
+    rdfs:subClassOf ros:ROSTier .
+
+<https://standards.example/ros/ROSTier#full_conformance> a owl:Class ;
+    rdfs:label "full_conformance" ;
+    rdfs:subClassOf ros:ROSTier .
+
+<https://standards.example/ros/ROSTier#return_architecture> a owl:Class ;
+    rdfs:label "return_architecture" ;
+    rdfs:subClassOf ros:ROSTier .
+
+<https://standards.example/ros/StanceKind#more_regenerative_than_extractive> a owl:Class ;
+    rdfs:label "more_regenerative_than_extractive" ;
+    rdfs:subClassOf ros:StanceKind .
+
+<https://standards.example/ros/StanceKind#non_extractive> a owl:Class ;
+    rdfs:label "non_extractive" ;
+    rdfs:subClassOf ros:StanceKind .
+
+ros:access_rights a owl:DatatypeProperty ;
+    rdfs:label "access_rights" ;
+    skos:definition "The coordination access rights the standing confers (at minimum, to challenge the stance and to verify return)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:challengers a owl:DatatypeProperty ;
+    rdfs:label "challengers" ;
+    skos:definition "The parties with standing to challenge the stance (defaulting to registered harm-bearing parties)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:conditions_satisfied a owl:DatatypeProperty ;
+    rdfs:label "conditions_satisfied" ;
+    skos:definition "Which validity conditions the return satisfies (all three are required for validity)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:disqualifiers a owl:ObjectProperty ;
+    rdfs:label "disqualifiers" ;
+    skos:definition "Section 3.2. The categorical disqualifiers the system screens returns against, each a structural wrong-architecture mechanism." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:harm_bearing_affiliations a owl:ObjectProperty ;
+    rdfs:label "harm_bearing_affiliations" ;
+    skos:definition "Section 5. The affirmatively registered harm-bearing affiliations." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:returns a owl:ObjectProperty ;
+    rdfs:label "returns" ;
+    skos:definition "The return assessments, each screened against the conditions and disqualifiers." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:validity_conditions a owl:ObjectProperty ;
+    rdfs:label "validity_conditions" ;
+    skos:definition "Section 3. The three-part validity condition rendered structurally (conjunctive)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:StanceKind a owl:Class ;
+    rdfs:label "StanceKind" ;
+    owl:unionOf ( <https://standards.example/ros/StanceKind#non_extractive> <https://standards.example/ros/StanceKind#more_regenerative_than_extractive> ) ;
+    skos:definition "Section 4. The two stances." ;
+    skos:inScheme <https://standards.example/ros> ;
+    linkml:permissible_values <https://standards.example/ros/StanceKind#more_regenerative_than_extractive>,
+        <https://standards.example/ros/StanceKind#non_extractive> .
+
+ros:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:clear_of_disqualifiers a owl:DatatypeProperty ;
+    rdfs:label "clear_of_disqualifiers" ;
+    skos:definition "Section 3.2. True when the return trips none of the categorical disqualifiers." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "Section 2.2. The four invariant answers on the face; no total." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:delivered_to_registered_party a owl:DatatypeProperty ;
+    rdfs:label "delivered_to_registered_party" ;
+    skos:definition "Section 5. Whether return delivery to a registered harm-bearing party is attested." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:domain_of_action a owl:DatatypeProperty ;
+    rdfs:label "domain_of_action" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:extraction_class a owl:DatatypeProperty ;
+    rdfs:label "extraction_class" ;
+    skos:definition "The class of extraction the standing applies to." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:mechanism a owl:DatatypeProperty ;
+    rdfs:label "mechanism" ;
+    skos:definition "The structural mechanism by which the architecture fails the proximity condition." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:no_retroactive_reclassification a owl:ObjectProperty ;
+    rdfs:label "no_retroactive_reclassification" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:register a owl:DatatypeProperty ;
+    rdfs:label "register" ;
+    skos:definition "The structural register in which the condition operates (for example the register of the harm)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:review_cycle_months a owl:DatatypeProperty ;
+    rdfs:label "review_cycle_months" ;
+    skos:definition "The review cycle, a default maximum of twelve months." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:satisfying_return_form a owl:DatatypeProperty ;
+    rdfs:label "satisfying_return_form" ;
+    skos:definition "The form of return that would satisfy the obligation, consulted with the registering party." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:scope a owl:DatatypeProperty ;
+    rdfs:label "scope" ;
+    skos:definition "The domains, roles, and contribution types the declaration covers." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:stance_declared a owl:ObjectProperty ;
+    rdfs:label "stance_declared" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:test a owl:DatatypeProperty ;
+    rdfs:label "test" ;
+    skos:definition "The verifiable test that distinguishes a return that satisfies the condition." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:three_conditions_met a owl:ObjectProperty ;
+    rdfs:label "three_conditions_met" ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:why_categorical a owl:DatatypeProperty ;
+    rdfs:label "why_categorical" ;
+    skos:definition "Why the failure is categorical (structural, not a failure of degree that better measurement fixes)." ;
+    skos:inScheme <https://standards.example/ros> .
+
+ros:ROSTier a owl:Class ;
+    rdfs:label "ROSTier" ;
+    owl:unionOf ( <https://standards.example/ros/ROSTier#extraction_visibility> <https://standards.example/ros/ROSTier#return_architecture> <https://standards.example/ros/ROSTier#full_conformance> ) ;
+    skos:definition "Section 7. The three named ROS tiers." ;
+    skos:inScheme <https://standards.example/ros> ;
+    linkml:permissible_values <https://standards.example/ros/ROSTier#extraction_visibility>,
+        <https://standards.example/ros/ROSTier#full_conformance>,
+        <https://standards.example/ros/ROSTier#return_architecture> .
+
+ros:extraction_visible a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+ros:id a owl:DatatypeProperty .
+
+ros:name a owl:DatatypeProperty .
+
+ros:stance a owl:ObjectProperty .
+
+ros:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/ros/ConformanceAnswer#satisfied> <https://standards.example/ros/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/ros/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-invariant answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/ros> ;
+    linkml:permissible_values <https://standards.example/ros/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/ros/ConformanceAnswer#not_applicable>,
+        <https://standards.example/ros/ConformanceAnswer#satisfied> .
+
+

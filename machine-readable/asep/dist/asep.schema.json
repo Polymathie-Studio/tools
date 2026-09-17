@@ -1,0 +1,525 @@
+{
+  "$defs": {
+    "ASEPArchitecture": {
+      "additionalProperties": false,
+      "description": "The system-level ASEP context. Higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies.",
+      "properties": {
+        "adopted_tier": {
+          "$ref": "#/$defs/AdoptionTier"
+        },
+        "anti_retaliation_policy": {
+          "description": "ASEP 4.1. Explicit anti-retaliation commitment (required by the checker at Instrumented and above).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "classification_framework": {
+          "$ref": "#/$defs/ClassificationFramework",
+          "description": "ASEP 3.2.2. The documented, ex-ante, versioned framework."
+        },
+        "escalation_architecture_present": {
+          "description": "ASEP 3.3.6. The Signal Escalation state machine is implemented (required by the checker at Instrumented and above).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "logging": {
+          "$ref": "#/$defs/LoggingPaths",
+          "description": "ASEP 3.2.1, 4.3. The logging paths and their integrity properties."
+        },
+        "reliability_disclosure": {
+          "description": "ASEP 2.3. Disclosure that audit reliability is bounded until the Four Batteries Relational Battery is jointly instrumented.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "adopted_tier",
+        "classification_framework",
+        "logging"
+      ],
+      "title": "ASEPArchitecture",
+      "type": "object"
+    },
+    "AdoptionTier": {
+      "description": "ASEP 5. The adoption tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "AdverseSignalRecord": {
+      "additionalProperties": false,
+      "description": "One adverse signal carried through Notice, Name, and Navigate, with its escalation state and terminal disposition on the face.",
+      "properties": {
+        "architecture": {
+          "$ref": "#/$defs/ASEPArchitecture",
+          "description": "The system-level ASEP context this record declares against."
+        },
+        "classification": {
+          "$ref": "#/$defs/Classification",
+          "description": "ASEP 3.2.2. The category and severity assigned against the ex-ante framework."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "ASEP 2.2. The three invariant answers on the face; no total."
+        },
+        "disposition": {
+          "$ref": "#/$defs/Disposition",
+          "description": "ASEP 2.2. The terminal disposition (the finite path to decision); a non-adverse judgment is itself recorded."
+        },
+        "escalation": {
+          "$ref": "#/$defs/EscalationState",
+          "description": "ASEP 3.3.6. The Signal Escalation state this signal has reached."
+        },
+        "navigate": {
+          "$ref": "#/$defs/Navigate",
+          "description": "ASEP 3.3. The signal-processing lifecycle, covering time bounds, action, and rationale."
+        },
+        "observation": {
+          "$ref": "#/$defs/Observation",
+          "description": "ASEP 3.2.1. The observable description and the when, where, and who-affected log fields."
+        },
+        "source": {
+          "$ref": "#/$defs/Source",
+          "description": "ASEP 3.2.1, 4.2. Who reported the signal and in what role."
+        }
+      },
+      "required": [
+        "observation",
+        "source",
+        "classification",
+        "navigate",
+        "escalation",
+        "disposition",
+        "architecture",
+        "conformance"
+      ],
+      "title": "AdverseSignalRecord",
+      "type": "object"
+    },
+    "Classification": {
+      "additionalProperties": false,
+      "description": "ASEP 3.2.2. Category and severity assigned against the ex-ante versioned framework.",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "complexity_domain": {
+          "$ref": "#/$defs/ComplexityDomain",
+          "description": "ASEP 3.3.6. The Cynefin domain that sets escalation tempo and Navigate shape."
+        },
+        "framework_version": {
+          "description": "ASEP 2.2. The version of the classification framework in effect at signal generation (ex-ante criteria).",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        }
+      },
+      "required": [
+        "category",
+        "severity",
+        "framework_version"
+      ],
+      "title": "Classification",
+      "type": "object"
+    },
+    "ClassificationFramework": {
+      "additionalProperties": false,
+      "description": "ASEP 3.2.2. The adverse-signal categories and severity levels.",
+      "properties": {
+        "coverage_review": {
+          "description": "Subject to periodic coverage review for missing harm classes.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "ex_ante": {
+          "description": "Defined before specific disputes.",
+          "type": "boolean"
+        },
+        "version": {
+          "description": "ASEP 2.2. Versioned, defined ex-ante.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "ex_ante"
+      ],
+      "title": "ClassificationFramework",
+      "type": "object"
+    },
+    "ComplexityDomain": {
+      "description": "ASEP 3.3.6, 3.3.7. The Cynefin domains.",
+      "enum": [
+        "clear",
+        "complicated",
+        "complex",
+        "chaotic"
+      ],
+      "title": "ComplexityDomain",
+      "type": "string"
+    },
+    "ConflictEngagement": {
+      "additionalProperties": false,
+      "description": "ASEP 3.3.1a. The engagement pathway for a conflict-class signal.",
+      "properties": {
+        "documented_exchange": {
+          "description": "A documented exchange within the engagement process took place before Navigate terminated the signal.",
+          "type": "boolean"
+        },
+        "pathway_opened": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "pathway_opened",
+        "documented_exchange"
+      ],
+      "title": "ConflictEngagement",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "ASEP. Per-invariant answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "ASEP 2.2. The three invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "ex_ante_criteria": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "finite_path_to_decision": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "no_silent_erasure": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "no_silent_erasure",
+        "ex_ante_criteria",
+        "finite_path_to_decision"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "Disposition": {
+      "additionalProperties": false,
+      "description": "ASEP 2.2. The terminal disposition on the finite path to decision.",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/DispositionKind"
+        },
+        "non_adverse_judgment_recorded": {
+          "description": "ASEP 2.2. If the signal was judged non-adverse, that judgment is itself recorded (no silent erasure).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "rationale"
+      ],
+      "title": "Disposition",
+      "type": "object"
+    },
+    "DispositionKind": {
+      "description": "ASEP 2.2. The finite-path terminal outcomes.",
+      "enum": [
+        "act",
+        "monitor",
+        "close"
+      ],
+      "title": "DispositionKind",
+      "type": "string"
+    },
+    "EscalationStage": {
+      "description": "ASEP 3.3.6. The time-governed escalation stages.",
+      "enum": [
+        "generated",
+        "acknowledged",
+        "auto_escalated",
+        "obligation_triggered",
+        "terminal_visibility"
+      ],
+      "title": "EscalationStage",
+      "type": "string"
+    },
+    "EscalationState": {
+      "additionalProperties": false,
+      "description": "ASEP 3.3.6. The time-governed Signal Escalation stage, driven by elapsed time not human initiative.",
+      "properties": {
+        "acknowledgment_window": {
+          "description": "ASEP 3.3.6. The maximum elapsed time from generation to first acknowledgment, pre-specified.",
+          "type": "string"
+        },
+        "stage": {
+          "$ref": "#/$defs/EscalationStage"
+        },
+        "window_pre_specified": {
+          "description": "ASEP 3.3.6. The window length was published before it began running (window validity).",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "stage",
+        "acknowledgment_window",
+        "window_pre_specified"
+      ],
+      "title": "EscalationState",
+      "type": "object"
+    },
+    "LoggingPaths": {
+      "additionalProperties": false,
+      "description": "ASEP 3.2.1, 4.3. Durability and independence of the logs.",
+      "properties": {
+        "durable": {
+          "type": "boolean"
+        },
+        "independent_of_evaluated_actors": {
+          "description": "ASEP 4.3. At least one path is independent of the actors being evaluated (required by the checker at Instrumented and above).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "tamper_evident": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "durable",
+        "tamper_evident"
+      ],
+      "title": "LoggingPaths",
+      "type": "object"
+    },
+    "Navigate": {
+      "additionalProperties": false,
+      "description": "ASEP 3.3. The signal-processing lifecycle from assessment through decision.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/NavigateAction",
+          "description": "ASEP 3.3.1. The action chosen from the bounded set."
+        },
+        "conflict_engagement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ConflictEngagement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "ASEP 3.3.1a. Present for a conflict-class signal; opens an engagement pathway and records a documented exchange before termination."
+        },
+        "rationale": {
+          "description": "ASEP 3.3.1. The documented basis for the decision.",
+          "type": "string"
+        },
+        "structural_root_cause_finding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RootCauseFinding"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "ASEP 3.3.3. Present when a pattern threshold triggered reclassification; one of the three named findings."
+        },
+        "time_to_assessment": {
+          "description": "ASEP 3.3.1. The recorded first substantive look against the per-severity bound.",
+          "type": "string"
+        },
+        "time_to_first_decision": {
+          "description": "ASEP 3.3.1. The recorded first decision against the per-severity bound.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "time_to_assessment",
+        "time_to_first_decision",
+        "action",
+        "rationale"
+      ],
+      "title": "Navigate",
+      "type": "object"
+    },
+    "NavigateAction": {
+      "description": "ASEP 3.3.1. The bounded action set.",
+      "enum": [
+        "mitigate_or_contain",
+        "escalate",
+        "initiate_engagement",
+        "monitor",
+        "close"
+      ],
+      "title": "NavigateAction",
+      "type": "string"
+    },
+    "Observation": {
+      "additionalProperties": false,
+      "description": "ASEP 3.2.1. The durable log entry, observation separated from evaluation.",
+      "properties": {
+        "description": {
+          "description": "What happened, stated as observation not evaluation.",
+          "type": "string"
+        },
+        "power_context": {
+          "description": "ASEP 3.2.2. Relative power or dependency, history, and incentives, where salient.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "when": {
+          "type": "string"
+        },
+        "where": {
+          "type": "string"
+        },
+        "who_affected": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "when",
+        "where",
+        "who_affected"
+      ],
+      "title": "Observation",
+      "type": "object"
+    },
+    "RootCauseFinding": {
+      "additionalProperties": false,
+      "description": "ASEP 3.3.3. The structural root cause assessment finding.",
+      "properties": {
+        "finding": {
+          "$ref": "#/$defs/RootCauseKind"
+        }
+      },
+      "required": [
+        "finding"
+      ],
+      "title": "RootCauseFinding",
+      "type": "object"
+    },
+    "RootCauseKind": {
+      "description": "ASEP 3.3.3. The three structural root cause findings.",
+      "enum": [
+        "no_structural_condition",
+        "structural_condition_identified",
+        "insufficient_information"
+      ],
+      "title": "RootCauseKind",
+      "type": "string"
+    },
+    "Severity": {
+      "description": "ASEP 3.3.2. Graduated severity.",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "description": "ASEP 3.2.1, 4.2. Any actor may log a signal that meets minimal criteria.",
+      "properties": {
+        "reporter": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reporter",
+        "role"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/asep/asep.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One adverse signal carried through Notice, Name, and Navigate, with its escalation state and terminal disposition on the face.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "architecture": {
+      "$ref": "#/$defs/ASEPArchitecture",
+      "description": "The system-level ASEP context this record declares against."
+    },
+    "classification": {
+      "$ref": "#/$defs/Classification",
+      "description": "ASEP 3.2.2. The category and severity assigned against the ex-ante framework."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "ASEP 2.2. The three invariant answers on the face; no total."
+    },
+    "disposition": {
+      "$ref": "#/$defs/Disposition",
+      "description": "ASEP 2.2. The terminal disposition (the finite path to decision); a non-adverse judgment is itself recorded."
+    },
+    "escalation": {
+      "$ref": "#/$defs/EscalationState",
+      "description": "ASEP 3.3.6. The Signal Escalation state this signal has reached."
+    },
+    "navigate": {
+      "$ref": "#/$defs/Navigate",
+      "description": "ASEP 3.3. The signal-processing lifecycle, covering time bounds, action, and rationale."
+    },
+    "observation": {
+      "$ref": "#/$defs/Observation",
+      "description": "ASEP 3.2.1. The observable description and the when, where, and who-affected log fields."
+    },
+    "source": {
+      "$ref": "#/$defs/Source",
+      "description": "ASEP 3.2.1, 4.2. Who reported the signal and in what role."
+    }
+  },
+  "required": [
+    "observation",
+    "source",
+    "classification",
+    "navigate",
+    "escalation",
+    "disposition",
+    "architecture",
+    "conformance"
+  ],
+  "title": "asep",
+  "type": "object",
+  "version": null
+}

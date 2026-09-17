@@ -1,0 +1,27 @@
+# NON-conformant: no conformance declaration. The five per-process invariant answers on the face are
+# required. Must fail.
+disruption:
+  description: "A recurring incident pattern did not fit the current model."
+  specifiable: true
+relating:
+  cues:
+    - "The same incident class recurred across unrelated teams."
+  frame: "A structural cause rather than a set of local mistakes."
+entanglement:
+  actions_changed_understanding: true
+  understanding_changed_actions: true
+sufficiency:
+  frame_provisional: true
+  revision_conditions: "Revised if the pattern stops under a local fix."
+  stopped_before_complete: true
+  next_action_tests_frame: true
+temporal_phases:
+  disruption_phase: "The recurrence broke the local-mistake frame."
+  liminal_phase: "A period holding that no known cause fit."
+  liminal_phase_documented: true
+  resolution_phase: "A named structural cause."
+  resolution_distinct_from_prior: true
+architecture:
+  adopted_tier: assessed
+  structural_assumptions_acknowledged: true
+# conformance block deliberately omitted

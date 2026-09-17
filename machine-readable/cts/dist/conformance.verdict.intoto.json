@@ -1,0 +1,22 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "The Meridian coordination cooperative, a Radius-50 unit with an onchain coordination record, instrumented tier, 5 invariants",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/conformance/v0.2.10",
+  "predicate": {
+    "verifier": "cts-conformance",
+    "obligations": {
+      "conflict_legible": "satisfied",
+      "graduated_architecture_present": "satisfied",
+      "proactive_disposition_protected": "satisfied",
+      "transformation_capacity_provisioned": "satisfied",
+      "engagement_recognized": "satisfied"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+# A structurally-legible SCLS consent record for a coordination-consent action.
+# Validates against dist/scls.schema.json.
+action:
+  specification: "Increase the cross-organizational confirmation fee from 0.10 to 0.30 units per confirmation, effective next period, affecting organizations that use more than five confirmations per period."
+  category_level: false
+affected_constituency:
+  identified_before_action: true
+  identification_basis:
+    - "system evidence: organizations above five confirmations per period across the last three periods"
+    - "self-identification: any organization may claim standing"
+wheel:
+  who_acts: "The fee committee"
+  who_benefits: "The protocol treasury, not the fee-paying organizations"
+  both_legible_to_both_parties: true
+cost_bearing_party:
+  identity: "High-volume confirming organizations"
+  consent_to_cost_distribution: true
+negotiated_limits:
+  - limit: "The fee is capped at 0.30 units for this period; any further increase requires a new consent process."
+  - limit: "An organization may cap its exposure by reducing confirmation volume without penalty."
+withdrawal:
+  mechanism: "An organization may exit the fee schedule by opting out of cross-organizational confirmations, effective the following period."
+  structural_cost: "Loss of cross-organizational confirmation capability, with no reputational or access penalty."
+authorization:
+  authorizing_set:
+    - "The identified high-volume confirming organizations"
+  response_status: authorized
+  system_obligations:
+    legibility: true
+    time: true
+    support: true
+    exit_or_objection_cost_not_punitive: true
+verification:
+  who_acted: "The fee committee"
+  who_benefited: "The protocol treasury"
+  who_was_affected: "High-volume confirming organizations"
+  who_bears_cost: "High-volume confirming organizations"
+  agreed_limits: "A 0.30 unit cap for the period, with volume-based exposure control"
+  durable: true
+  tamper_evident: true
+domains_touched:
+  - coordination
+architecture:
+  domains_applicable:
+    - coordination
+    - participation
+  adopted_tier: instrumented
+  durable_constituency_definition:
+    accessible_without_authority_gating: true
+    independent_observer_determinable: true
+  external_override_disclosure:
+    jurisdictions:
+      - "US securities law (fee-token classification risk)"
+    gap_treatment: "Fees are denominated in non-transferable protocol units; a linked legal-review memo is updated per applicable jurisdiction."
+  standing_evaluation:
+    self_identification: true
+    evidence_backed_evaluation: true
+    implausible_absence_detection: true
+    distributed_evaluation: true
+  detection_architecture:
+    shadow_detections:
+      - shadow_type: entitlement_stealing
+        monitoring_threshold: "benefit-vote correlation above the calibrated monitoring level across three actions"
+        escalation_threshold: "benefit-vote correlation together with an affected-constituency participation gap"
+      - shadow_type: enduring
+        monitoring_threshold: "compliance-deliberation divergence above the monitoring level"
+        escalation_threshold: "divergence concentrated among the highest exit-cost participants"
+      - shadow_type: martyrdom
+        monitoring_threshold: "service concentration with declining quality on a single actor"
+        escalation_threshold: "concentration together with resistance to relief"
+    transparent_to_participants: true
+conformance:
+  identify_satisfied: satisfied
+  authorize_satisfied: satisfied
+  verify_satisfied: satisfied
+  cost_bearer_identified: satisfied

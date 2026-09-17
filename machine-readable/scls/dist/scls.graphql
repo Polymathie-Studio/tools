@@ -1,0 +1,169 @@
+# metamodel_version: 1.11.0
+enum AdoptionTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum ConsentDomain
+  {
+    coordination
+    data
+    participation
+    output
+    observation
+  }
+
+enum ResponseStatus
+  {
+    authorized
+    not_yet_responded
+    unable_to_respond
+  }
+
+enum ShadowType
+  {
+    entitlement_stealing
+    enduring
+    martyrdom
+  }
+
+type Action
+  {
+    specification: String!
+    categoryLevel: Boolean
+    triggerCondition: String
+  }
+
+type AffectedConstituency
+  {
+    identifiedBeforeAction: Boolean!
+    identificationBasis: [String]
+  }
+
+type Authorization
+  {
+    authorizingSet: [String]!
+    responseStatus: ResponseStatus!
+    systemObligations: SystemObligations!
+  }
+
+type ConformanceDeclaration
+  {
+    identifySatisfied: ConformanceAnswer!
+    authorizeSatisfied: ConformanceAnswer!
+    verifySatisfied: ConformanceAnswer!
+    costBearerIdentified: ConformanceAnswer!
+  }
+
+type ConsentArchitecture
+  {
+    domainsApplicable: [ConsentDomain]!
+    adoptedTier: AdoptionTier!
+    durableConstituencyDefinition: DurableConstituencyDefinition!
+    externalOverrideDisclosure: ExternalOverrideDisclosure!
+    standingEvaluation: StandingEvaluation
+    detectionArchitecture: DetectionArchitecture
+  }
+
+type ConsentRecord
+  {
+    action: Action!
+    affectedConstituency: AffectedConstituency!
+    wheel: WheelAxes!
+    costBearingParty: CostBearingParty
+    negotiatedLimits: [NegotiatedLimit]!
+    withdrawal: Withdrawal!
+    authorization: Authorization!
+    verification: Verification!
+    domainsTouched: [ConsentDomain]!
+    architecture: ConsentArchitecture!
+    conformance: ConformanceDeclaration!
+  }
+
+type CostBearingParty
+  {
+    identity: String!
+    consentToCostDistribution: Boolean!
+  }
+
+type DetectionArchitecture
+  {
+    shadowDetections: [ShadowDetection]!
+    transparentToParticipants: Boolean!
+  }
+
+type DurableConstituencyDefinition
+  {
+    accessibleWithoutAuthorityGating: Boolean!
+    independentObserverDeterminable: Boolean!
+  }
+
+type ExternalOverrideDisclosure
+  {
+    jurisdictions: [String]!
+    gapTreatment: String!
+  }
+
+type NegotiatedLimit
+  {
+    limit: String!
+  }
+
+type ShadowDetection
+  {
+    shadowType: ShadowType!
+    monitoringThreshold: String!
+    escalationThreshold: String!
+  }
+
+type StandingEvaluation
+  {
+    selfIdentification: Boolean!
+    evidenceBackedEvaluation: Boolean!
+    implausibleAbsenceDetection: Boolean!
+    distributedEvaluation: Boolean!
+  }
+
+type SystemObligations
+  {
+    legibility: Boolean!
+    time: Boolean!
+    support: Boolean!
+    exitOrObjectionCostNotPunitive: Boolean!
+  }
+
+type Verification
+  {
+    whoActed: String!
+    whoBenefited: String!
+    whoWasAffected: String!
+    whoBearsCost: String!
+    agreedLimits: String!
+    durable: Boolean!
+    tamperEvident: Boolean!
+  }
+
+type WheelAxes
+  {
+    whoActs: String!
+    whoBenefits: String!
+    bothLegibleToBothParties: Boolean!
+  }
+
+type Withdrawal
+  {
+    mechanism: String!
+    structuralCost: String
+  }
+

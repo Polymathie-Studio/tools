@@ -1,0 +1,85 @@
+# metamodel_version: 1.11.0
+enum BatteryName
+  {
+    personal
+    relational
+    contribution
+    mission
+  }
+
+enum ChargeState
+  {
+    full
+    partial
+    depleted
+  }
+
+enum ConditionState
+  {
+    present
+    absent
+    not_applicable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum ScopeAdoptionTier
+  {
+    scope_visibility
+    structural_review
+    full_conformance
+  }
+
+type Battery
+  {
+    battery: BatteryName!
+    chargeState: ChargeState!
+    developmentalState: DevelopmentalState
+  }
+
+type CheckingPractice
+  {
+    regularity: Boolean!
+    structuralEmbeddedness: Boolean!
+    adverseResultIntegrity: Boolean!
+    specificity: Boolean!
+  }
+
+type ConditionStatus
+  {
+    condition: String!
+    status: ConditionState!
+  }
+
+type ConformanceDeclaration
+  {
+    personalBatteryCharged: ConformanceAnswer!
+    relationalBatteryCharged: ConformanceAnswer!
+    contributionBatteryCharged: ConformanceAnswer!
+    missionBatteryCharged: ConformanceAnswer!
+    checkingPracticeGenuine: ConformanceAnswer!
+    scopeConditionsPresent: ConformanceAnswer!
+  }
+
+type DevelopmentalState
+  {
+    depth: String
+    breadth: String
+    durability: String
+  }
+
+type FourBatteriesRecord
+  {
+    subject: String!
+    batteries: [Battery]!
+    checkingPractice: CheckingPractice!
+    scopeConditions: [ConditionStatus]
+    scopeAdoptionTier: ScopeAdoptionTier
+    conformance: ConformanceDeclaration!
+  }
+

@@ -1,0 +1,20 @@
+# NON-conformant: a battery carries no charge_state, so it is a bare label rather than a resource
+# condition individuated by its charge and developmental state (the structural weld). Must fail.
+subject: "A working group"
+batteries:
+  - battery: personal
+    # charge_state deliberately omitted: a battery with no charge state is a label, not a condition
+    developmental_state:
+      depth: "some depth"
+checking_practice:
+  regularity: true
+  structural_embeddedness: true
+  adverse_result_integrity: true
+  specificity: true
+conformance:
+  personal_battery_charged: not_applicable
+  relational_battery_charged: not_applicable
+  contribution_battery_charged: not_applicable
+  mission_battery_charged: not_applicable
+  checking_practice_genuine: satisfied
+  scope_conditions_present: not_applicable

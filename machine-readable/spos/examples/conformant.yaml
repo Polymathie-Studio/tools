@@ -1,0 +1,77 @@
+# An SPOS-conformant power-distribution record at the Instrumented tier. The dimensions,
+# override classes, and change classification are structured objects, not labels.
+# Validates against dist/spos.schema.json.
+authorized_profile_established: true
+dimensions:
+  - dimension:
+      id: authority
+      name: Locus of Authority
+      power_concern: "Concentration of binding decision-making capacity in a small set of actors."
+      detection_surface:
+        - "Nakamoto Coefficient trend"
+        - "authorization-event frequency"
+        - "affected-constituency participation in rule modification"
+      normative_benchmark: "Ostrom's third principle, plus subsidiarity across levels"
+      independent_by_design: true
+    current_concentration: "Nakamoto Coefficient 14, stable over six epochs"
+    authorized_level: "Nakamoto Coefficient at or above 10"
+    gap: "Within the authorized profile"
+  - dimension:
+      id: coordination
+      name: Degree of Coordination and Integration
+      power_concern: "Concentration of interpretive capacity: who defines what the coordination mechanisms mean."
+      detection_surface:
+        - "framework concentration"
+        - "agenda-exclusion pattern"
+        - "legitimacy-transition indicator"
+      normative_benchmark: "Lukes' three dimensions of power"
+      independent_by_design: true
+    current_concentration: "Framework decisions concentrated in a working group of five"
+    authorized_level: "Framework participation proportional to the affected constituency"
+    gap: "Above the authorized profile; a review is open"
+  - dimension:
+      id: specialization
+      name: Degree of Specialization and Differentiation
+      power_concern: "Network power and participation stratification among those with accumulated interpretive bandwidth."
+      detection_surface:
+        - "participation-stratification index"
+        - "exit-and-voice ratio"
+        - "network-convergence pressure"
+      normative_benchmark: "Grewal network power and Hirschman exit-and-voice"
+      independent_by_design: true
+    current_concentration: "Meaningful specialized participation spread across 40 percent of members"
+    authorized_level: "No calibrated ceiling breached"
+    gap: "Within the authorized profile"
+override_assessment:
+  - override_class:
+      id: regulatory
+      name: Class 3 Regulatory
+      mechanism: "Legal and jurisdictional architecture, including a legal entity holding enforceable override authority."
+      detection_instrument: "Assessment of applicable regimes, external obligations, asset jurisdiction, and legal-entity status."
+    active: true
+    addressability: "Load-bearing; disclose and monitor"
+    exposure_disclosure: "The foundation entity can supersede treasury decisions; disclosed to participants in the coordination charter."
+  - override_class:
+      id: relational
+      name: Class 7 Relational dependency
+      mechanism: "Relational centrality itself is the override; the system cannot proceed without the actor."
+      detection_instrument: "Behavioral pattern analysis of informal records; the full architecture is an open design question."
+    active: false
+    not_active_rationale: "No single actor's absence stalls coordination across cycles on the four behavioral indicators."
+detected_shifts:
+  - classification:
+      id: drift
+      name: Drift
+      detection_signature: "Concentration increasing over time without a coordination authorization, articulable diagnosis, or coherent guiding policy."
+      response_obligation: "A documented review, a concentration report to the affected constituency, and a coordination outcome within a defined timeframe."
+    dimensions_implicated:
+      - coordination
+    review_completed: true
+architecture:
+  adopted_tier: instrumented
+  monitor_all_dimensions: true
+  detection_disclosed: true
+conformance:
+  distribute_satisfied: satisfied
+  authorize_satisfied: satisfied
+  monitor_satisfied: satisfied

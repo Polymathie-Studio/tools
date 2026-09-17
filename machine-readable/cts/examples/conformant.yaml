@@ -1,0 +1,45 @@
+# Conformant: a cooperative declaring conflict-transformation capacity, all five invariants
+# satisfied and carrying their satisfaction tests and epistemic tiers, at the CT-Instrumented tier.
+subject: "The Meridian coordination cooperative, a Radius-50 unit with an onchain coordination record"
+constitutional_precondition_established: true
+invariants:
+  - id: legibility
+    name: Conflict Legibility
+    satisfaction_test: "Conflict events are depositable and retained, the taxonomy has distinct conflict types, and early surfacers are not penalized in coordination standing."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_a
+    signature: "Conflict events appear in proportion to coordination activity; three named conflict event types in the taxonomy."
+  - id: graduated_engagement
+    name: Graduated Engagement Architecture
+    satisfaction_test: "At least three distinct engagement levels with operationally defined resolution and escalation conditions, the first accessible without formal process, adjudication last."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_b
+    signature: "Four levels documented (informal, facilitated, mediated, adjudication); the majority of disputes resolve at the first two."
+  - id: proactive_disposition
+    name: Proactive Disposition Enablement
+    satisfaction_test: "Early-level initiators do not show systematically lower standing than those who wait or avoid, and no mechanism penalizes early initiation."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_b
+    signature: "The proactive-engagement ratio computed from the record shows early raisers with no standing penalty."
+  - id: capacity_provision
+    name: Transformation Capacity Provision
+    satisfaction_test: "A specified operator role with a documented resourcing model (time and attention, support during, recovery after) and cross-mode developmental prerequisites, not volunteer-dependent."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_b
+    signature: "The operator role is funded with a resourcing model; no depletion pattern in the record."
+  - id: recognition
+    name: Recognition as Coordination Work
+    satisfaction_test: "The record distinguishes conflict-engagement events, operator work is depositable, and engagement carries positive contribution status."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_a
+    signature: "Engagement events carry positive contribution status; operator contributions are weighted as coordination work."
+scales_addressed:
+  - intra_organizational
+  - inter_organizational
+adoption_tier: instrumented
+conformance:
+  conflict_legible: satisfied
+  graduated_architecture_present: satisfied
+  proactive_disposition_protected: satisfied
+  transformation_capacity_provisioned: satisfied
+  engagement_recognized: satisfied

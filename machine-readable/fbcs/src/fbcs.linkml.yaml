@@ -1,0 +1,194 @@
+id: https://standards.example/fbcs
+name: fbcs
+title: FBCS four batteries capacity record
+description: >-
+  The one canonical source for the machine-readable layer of the Four Batteries Capacity Standard
+  (standards-3_0-four-batteries-capacity, v0.3.7), the second Tensegrity Generative Standard. FBCS
+  specifies enabling soil conditions through four batteries (Personal, Relational, Contribution,
+  Mission), each on two independent axes, charge and developmental state, so the model renders the
+  four as typed Battery objects rather than a flat enum of battery names. Rendering them as bare
+  labels would collapse the structure into names, a precision deficit under the Precision-First
+  Design Standard whose absent structure leaves no gap marker; the structural rendering is deliberate.
+
+  The tree root is a FourBatteriesRecord, an organization's declaration of its battery capacity and
+  its scope-and-delegation conformance: the four batteries each with a charge state and, when the
+  organization tracks it, a developmental state of depth, breadth, and durability; the checking
+  practice against the four Section 7.2 conditions; the four Section 8.2 scope-and-delegation
+  conditions; the scope adoption tier; and per-tier conformance. Being a generative and interpretive
+  standard, most of FBCS (the depletion and generative archetypes, the altitude-mapped hypotheses,
+  the traversal modes) is descriptive vocabulary that routes to the checker and to human judgment,
+  not schema-expressible conformance; developmental-state conformance is transparency-based rather
+  than threshold-based, so the developmental state is declared and tracked, not required at a level.
+  The assessable skeleton is the four charge states, the checking practice, and the scope conditions.
+  Every artifact in dist/ is generated from this file.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  fbcs: https://standards.example/fbcs/
+default_prefix: fbcs
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  FourBatteriesRecord:
+    tree_root: true
+    description: An organization's declaration of its four-battery capacity and its scope-and-delegation conformance.
+    attributes:
+      subject:
+        description: The coordination unit or organization whose capacity is declared.
+        required: true
+      batteries:
+        description: >-
+          Section 2. The four batteries, each rendered as a typed object carrying its charge state
+          and, when tracked, its developmental state. They are constitutive of a capacity
+          declaration; a record naming no batteries could claim capacity while assessing nothing.
+        range: Battery
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      checking_practice:
+        description: Section 7.2. Whether the organization's battery-checking practice meets the four conditions that distinguish a genuine check from theater.
+        range: CheckingPractice
+        required: true
+      scope_conditions:
+        description: Section 8.2. The four scope-and-delegation conditions, each with its status.
+        range: ConditionStatus
+        multivalued: true
+        inlined_as_list: true
+      scope_adoption_tier:
+        description: Section 8.6. The scope-and-delegation adoption tier the record supports.
+        range: ScopeAdoptionTier
+      conformance:
+        description: The conformance answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  Battery:
+    description: >-
+      Section 2. One of the four batteries, individuated as a distinct resource condition carrying
+      its own charge state and developmental state, not a label. A battery with no charge state is a
+      name, so battery and charge_state are required; developmental state is optional because
+      developmental-state conformance is transparency-based, not threshold-based.
+    attributes:
+      battery:
+        description: Which of the four batteries this is.
+        range: BatteryName
+        required: true
+      charge_state:
+        description: Section 2. The cyclical axis, the battery's currently accessible state.
+        range: ChargeState
+        required: true
+      developmental_state:
+        description: Section 2. The permanent axis, when the organization tracks it, across depth, breadth, and durability.
+        range: DevelopmentalState
+
+  DevelopmentalState:
+    description: >-
+      Section 2. The developmental state of a battery across its three mutually constituting
+      dimensions. Transformed by integration events, not restored by recovery; declared and tracked
+      rather than required at a level.
+    attributes:
+      depth:
+        description: Precision of interpretive capacity, built through transclusion events that move a prior position from ceiling to floor.
+      breadth:
+        description: The inclusivity of the frame, how many distinct perspectives it can hold simultaneously without collapsing to a dominant one.
+      durability:
+        description: The persistence of developmental state under conditions that would reverse or suppress it.
+
+  CheckingPractice:
+    description: >-
+      Section 7.2. The four conditions that make a battery check genuine rather than theater.
+      Conformance is defined by the quality of the checking practice, not the level it reveals.
+    attributes:
+      regularity:
+        description: The check happens on a defined cadence, not only when prompted by crisis.
+        range: boolean
+        required: true
+      structural_embeddedness:
+        description: The check is embedded in coordination activity rather than appended as a separate periodic review.
+        range: boolean
+        required: true
+      adverse_result_integrity:
+        description: A low or declining result is demonstrably received and responded to.
+        range: boolean
+        required: true
+      specificity:
+        description: The check produces a result specific enough to be wrong.
+        range: boolean
+        required: true
+
+  ConditionStatus:
+    description: Section 8.2. One scope-and-delegation condition and its status, so a condition is never asserted without a present-or-absent determination.
+    attributes:
+      condition:
+        description: The scope-and-delegation condition, stated operationally.
+        required: true
+      status:
+        range: ConditionState
+        required: true
+
+  ConformanceDeclaration:
+    description: >-
+      The conformance answers on the face. There is deliberately no overall or total field:
+      conformance is per-battery at the charge layer plus the checking practice and the scope
+      conditions, mirroring the suite's refusal to collapse a profile into a single number. The
+      developmental-state axis is transparency-based and is not a conformance threshold.
+    attributes:
+      personal_battery_charged:
+        range: ConformanceAnswer
+        required: true
+      relational_battery_charged:
+        range: ConformanceAnswer
+        required: true
+      contribution_battery_charged:
+        range: ConformanceAnswer
+        required: true
+      mission_battery_charged:
+        range: ConformanceAnswer
+        required: true
+      checking_practice_genuine:
+        range: ConformanceAnswer
+        required: true
+      scope_conditions_present:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  BatteryName:
+    description: Section 2. The four batteries.
+    permissible_values:
+      personal:
+      relational:
+      contribution:
+      mission:
+
+  ChargeState:
+    description: Section 2. The charge state of a battery; silence is not one of the values.
+    permissible_values:
+      full:
+      partial:
+      depleted:
+
+  ConditionState:
+    description: The status of a scope-and-delegation condition; silence is not one of the values.
+    permissible_values:
+      present:
+      absent:
+      not_applicable:
+
+  ScopeAdoptionTier:
+    description: Section 8.6. The three scope-and-delegation adoption tiers.
+    permissible_values:
+      scope_visibility:
+      structural_review:
+      full_conformance:
+
+  ConformanceAnswer:
+    description: Per-condition answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

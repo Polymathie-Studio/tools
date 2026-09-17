@@ -1,0 +1,225 @@
+{
+  "$defs": {
+    "AdoptionTier": {
+      "description": "Section 8. The five adoption tiers.",
+      "enum": [
+        "declared",
+        "structured",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "ConflictTransformationRecord": {
+      "additionalProperties": false,
+      "description": "A coordination system's declaration of its conflict-transformation capacity across the five invariants, the scales it addresses, and its adoption tier.",
+      "properties": {
+        "adoption_tier": {
+          "$ref": "#/$defs/AdoptionTier",
+          "description": "Section 8. The adoption tier the record supports."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "The per-invariant conformance answers on the face; no total."
+        },
+        "constitutional_precondition_established": {
+          "description": "Section 4. Whether parties share sufficient foundational vocabulary about what the organization is to name what they are in conflict about; if not, the required first engagement is constitutional dialogue, not conflict transformation.",
+          "type": "boolean"
+        },
+        "invariants": {
+          "description": "Section 4. The five structural invariants, each rendered as a typed object carrying its satisfaction status and epistemic tier. They are constitutive of a capacity declaration; a record that names no invariants could claim capacity while assessing nothing.",
+          "items": {
+            "$ref": "#/$defs/StructuralInvariant"
+          },
+          "type": "array"
+        },
+        "scales_addressed": {
+          "description": "Section 5. The operational scales at which the record declares the invariants apply.",
+          "items": {
+            "$ref": "#/$defs/OperationalScale"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "subject": {
+          "description": "The coordination system whose conflict-transformation capacity is declared.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "constitutional_precondition_established",
+        "invariants",
+        "adoption_tier",
+        "conformance"
+      ],
+      "title": "ConflictTransformationRecord",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-invariant answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "The per-invariant conformance answers. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "conflict_legible": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "engagement_recognized": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "graduated_architecture_present": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "proactive_disposition_protected": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "transformation_capacity_provisioned": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "conflict_legible",
+        "graduated_architecture_present",
+        "proactive_disposition_protected",
+        "transformation_capacity_provisioned",
+        "engagement_recognized"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "EpistemicTier": {
+      "description": "Section 4. The three epistemic tiers.",
+      "enum": [
+        "tier_a",
+        "tier_b",
+        "tier_c"
+      ],
+      "title": "EpistemicTier",
+      "type": "string"
+    },
+    "OperationalScale": {
+      "description": "Section 5. The three operational scales.",
+      "enum": [
+        "intra_organizational",
+        "inter_organizational",
+        "platform_level"
+      ],
+      "title": "OperationalScale",
+      "type": "string"
+    },
+    "SatisfactionStatus": {
+      "description": "The status of a structural invariant against the system; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "violated",
+        "partial",
+        "not_applicable"
+      ],
+      "title": "SatisfactionStatus",
+      "type": "string"
+    },
+    "StructuralInvariant": {
+      "additionalProperties": false,
+      "description": "Section 4. One of the five structural invariants, individuated by its satisfaction test and its epistemic tier, not by a label. An invariant with no satisfaction test is a name, so satisfaction_test, satisfaction_status, and epistemic_tier are required.",
+      "properties": {
+        "epistemic_tier": {
+          "$ref": "#/$defs/EpistemicTier",
+          "description": "Section 4. The invariant's epistemic tier (A structural, B literature-plus-structural, C measurement-calibration)."
+        },
+        "id": {
+          "description": "The invariant handle (for example legibility, graduated_engagement, proactive_disposition, capacity_provision, recognition).",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "satisfaction_status": {
+          "$ref": "#/$defs/SatisfactionStatus"
+        },
+        "satisfaction_test": {
+          "description": "The structural test that determines whether the invariant is satisfied, stated so an independent observer can apply it.",
+          "type": "string"
+        },
+        "signature": {
+          "description": "The observed violation or satisfaction signature supporting the status; some signatures are computable from the coordination record.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "satisfaction_test",
+        "satisfaction_status",
+        "epistemic_tier"
+      ],
+      "title": "StructuralInvariant",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/cts.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A coordination system's declaration of its conflict-transformation capacity across the five invariants, the scales it addresses, and its adoption tier.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "adoption_tier": {
+      "$ref": "#/$defs/AdoptionTier",
+      "description": "Section 8. The adoption tier the record supports."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "The per-invariant conformance answers on the face; no total."
+    },
+    "constitutional_precondition_established": {
+      "description": "Section 4. Whether parties share sufficient foundational vocabulary about what the organization is to name what they are in conflict about; if not, the required first engagement is constitutional dialogue, not conflict transformation.",
+      "type": "boolean"
+    },
+    "invariants": {
+      "description": "Section 4. The five structural invariants, each rendered as a typed object carrying its satisfaction status and epistemic tier. They are constitutive of a capacity declaration; a record that names no invariants could claim capacity while assessing nothing.",
+      "items": {
+        "$ref": "#/$defs/StructuralInvariant"
+      },
+      "type": "array"
+    },
+    "scales_addressed": {
+      "description": "Section 5. The operational scales at which the record declares the invariants apply.",
+      "items": {
+        "$ref": "#/$defs/OperationalScale"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "subject": {
+      "description": "The coordination system whose conflict-transformation capacity is declared.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject",
+    "constitutional_precondition_established",
+    "invariants",
+    "adoption_tier",
+    "conformance"
+  ],
+  "title": "cts",
+  "type": "object",
+  "version": null
+}

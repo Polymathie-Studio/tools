@@ -1,0 +1,81 @@
+# metamodel_version: 1.11.0
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum ROSTier
+  {
+    extraction_visibility
+    return_architecture
+    full_conformance
+  }
+
+enum StanceKind
+  {
+    non_extractive
+    more_regenerative_than_extractive
+  }
+
+type CategoricalDisqualifier
+  {
+    id: String!
+    name: String!
+    mechanism: String!
+    whyCategorical: String!
+  }
+
+type ConformanceDeclaration
+  {
+    extractionVisible: ConformanceAnswer!
+    threeConditionsMet: ConformanceAnswer!
+    stanceDeclared: ConformanceAnswer!
+    noRetroactiveReclassification: ConformanceAnswer!
+  }
+
+type HarmBearingAffiliation
+  {
+    domainOfAction: String!
+    extractionClass: String!
+    satisfyingReturnForm: String
+    accessRights: [String]
+  }
+
+type RegenerativeObligationRecord
+  {
+    stance: StanceDeclaration!
+    extractionVisible: Boolean!
+    validityConditions: [ValidityCondition]!
+    disqualifiers: [CategoricalDisqualifier]!
+    returns: [ReturnAssessment]
+    harmBearingAffiliations: [HarmBearingAffiliation]
+    adoptedTier: ROSTier!
+    conformance: ConformanceDeclaration!
+  }
+
+type ReturnAssessment
+  {
+    description: String!
+    conditionsSatisfied: [String]!
+    clearOfDisqualifiers: Boolean!
+    deliveredToRegisteredParty: Boolean
+  }
+
+type StanceDeclaration
+  {
+    stance: StanceKind!
+    scope: String!
+    challengers: [String]!
+    reviewCycleMonths: Int!
+  }
+
+type ValidityCondition
+  {
+    id: String!
+    name: String!
+    test: String!
+    register: String
+  }
+

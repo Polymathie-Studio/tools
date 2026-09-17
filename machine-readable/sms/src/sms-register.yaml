@@ -1,0 +1,293 @@
+# SMS register distillation
+# One row per normative entry of the Sensemaking Standard
+# (standards-3_0-sensemaking, v1.1.23), the first Tensegrity Generative Standard.
+# SMS specifies what sensemaking must structurally provide, not conformance floors: five structural
+# invariants, each individuated by its own operational definition, satisfaction test, violation and
+# satisfaction signatures, and epistemic tier (A empirically documented across the surveyed
+# traditions, B convergent with an interpretive extrapolation); three action invariants, each
+# individuated by its observable marker. SMS is a process standard (its invariants are tests applied
+# to a single sensemaking process, and Section 9.3 mandates a per-process record), so the model
+# renders a per-process SensemakingRecord in the Adverse-Signal Engagement family (one signal through
+# a lifecycle): the five invariants are realized as five typed lifecycle sub-objects carrying the
+# process content on the face (the disruption, the cue-frame relating, the action-information
+# entanglement, the sufficiency criterion, and the temporal phases including the liminal phase), and
+# the three action invariants are typed objects welded to their observable markers. Rendering either
+# set as a bare label list would collapse the structure into names, a precision deficit under the
+# Precision-First Design Standard (Corollary 11); the structural rendering is deliberate. The
+# system-level obligations ride in a SensemakingArchitecture block, tier-gated to the checker.
+#
+# The register carries every provision: the obligation argument, the five invariants and their joint
+# condition, the three scales, the three action invariants, the capacity obligation, the three named
+# structural assumptions, the founding window, and the five adoption tiers. Whether a coordination
+# system satisfies a given invariant is largely judgment against the structural satisfaction test;
+# the temporally-structured invariant carries an independent-observer requirement at SMS-Loop-Closed
+# and above, and the loop-closure and auditability obligations are tier-gated to the checker. Being a
+# generative standard, SMS names enabling conditions, not floors that reject an artifact; a record
+# declares its capacity status per invariant.
+standard: SMS
+standard_version: 1.1.23
+source: standards-3_0-sensemaking-1_1_23.md
+entries:
+
+  # --- The obligation argument (Section 2) ---
+  - id: SMS-OBLIGATION
+    section: "2"
+    obligation: obligation-argument
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Sensemaking is a structural dependency of coordination, not a useful practice. Coordination without shared language is coincidence of motion; any system that depends on coordination depends on sensemaking whether or not it names that dependency. The argument has three legs corresponding to the three scales (inter-personal: shared language distinguishes coordination from coincidence; intra-personal: an agent that cannot make sense of its own state contributes interpretation as observation, contaminating the shared-language process at the source; witness-reception: durable artifacts carry coordination capacity across personnel transitions). Disconfirmed if a system produces genuine coordination with no sensemaking process producing shared language."
+
+  # --- The five structural invariants (Section 3), rendered as typed structural conditions ---
+  - id: SMS-INV-DISRUPTION-OCCASIONED
+    section: "3.1"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Disruption-Occasioned: sensemaking is triggered by a disruption to the ongoing flow of experience (a surprise, a gap, an expectation violation, a situation that does not fit existing frames), not continuous monitoring. A disruption is an event that cannot be accounted for by the current operative frame without revising it. Satisfaction test: the specific disruption that initiated the process can be identified, and the process would not have run in its absence. Violation: a process that runs continuously without a triggering disruption is monitoring; one initiated by schedule or checklist is compliance. Satisfaction signature: the process begins with a named disruption recorded as the initiating event, not reconstructed after the fact. Epistemic tier A (biological precedent in the orienting response; documented across Weick, Klein, Dervin, Snowden, Heidegger, Buddhist epistemology)."
+  - id: SMS-INV-PARTICULAR-TO-GENERAL
+    section: "3.2"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Particular-to-General Relating: sensemaking moves bidirectionally between specific cues and general frames; general frames shape which particulars are noticed, and particulars that do not fit trigger frame revision, mutually constitutive. Satisfaction test: both the specific cues that informed the general frame and the general frame that shaped which cues were attended to can be identified from the process record. Operates at practitioner trace tier: the mutual relating is a cognitive process not directly observable from outside, so what an independent observer verifies is whether the record documents traced cues, the frames they informed, and the frame revisions the cues produced. Violation: beginning with a conclusion and searching for confirming evidence (confirmation); accumulating observations with no frame (cataloging); routing structural failure modes to personal causation (personal-framing misapplication, observable when an organization consistently attributes recurring structural patterns to how individuals operate rather than how the system is designed). Epistemic tier A."
+  - id: SMS-INV-ACTION-ENTANGLED
+    section: "3.3"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Action-Entangled: sensemaking is not a cognitive precursor that completes before action begins; action generates the data sensemaking needs and sensemaking shapes the action taken, the feedback loop constitutive of the process. Satisfaction test: actions taken during the process changed what was understood, and what was understood changed which actions were taken next. Violation: prohibiting action until understanding is complete (analysis paralysis) severs the entanglement one way; action with no feedback loop to understanding (unreflective execution) severs it the other. Satisfaction signature: specific actions that changed understanding and specific understandings that changed the next action are identifiable; the action sequence is not pre-planned. Epistemic tier A (Weick enactment, Klein recognition-primed decision, Buddhist view-and-conduct inseparability, Snowden probe-sense-respond)."
+  - id: SMS-INV-SUFFICIENCY-ORIENTED
+    section: "3.4"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Sufficiency-Oriented: sensemaking seeks a plausible account that enables a next action whose outcome generates information for revising the account; it satisfices rather than seeking an optimal or complete account, because requiring completeness before action severs the action-entanglement. Satisfaction test, three observable markers: the frame is recorded with explicit revision conditions; the process terminated before all available information was incorporated (the frame record names unresolved questions the participants chose not to pursue before acting); and the next action was designed to test the frame (it could generate disconfirming information). Violation: seeking the correct answer before acting (optimizing); accepting the first frame with no revision conditions (guessing). Epistemic tier B: strong convergence across traditions, but the normative claim that sufficiency is structurally appropriate is this standard's interpretive contribution, not a direct finding."
+  - id: SMS-INV-TEMPORALLY-STRUCTURED
+    section: "3.5"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Temporally Structured: sensemaking passes through a disruption phase, a liminal phase (the old frame suspended, a new frame not yet formed), and a resolution phase; phases can overlap and recurse, but the liminal phase is the diagnostic marker distinguishing sensemaking from pattern-matching. Satisfaction test: participants can identify the point at which the prior frame was recognized as inadequate and no replacement had yet formed, and the resolution frame is not identical to any pre-existing frame. At SMS-Loop-Closed and above, satisfaction must be verifiable by an independent observer without depending solely on participant self-report; the verification method is set by the adopting organization or protocol. Violation: jumping from disruption to resolution with no liminal phase (applying a pre-existing frame, the applying-without-understanding failure mode); remaining in the liminal phase indefinitely (stalled). Epistemic tier B (Weick, Turner's liminality, Heidegger, Buddhist arising-abiding-cessation; the three-phase formulation is a synthesis, not a direct quotation)."
+  - id: SMS-JOINT-CONDITION
+    section: "3"
+    obligation: joint-condition
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Joint condition: full satisfaction of all five invariants is the requirement for a process to qualify as sensemaking; a process that satisfies some but not others is doing something else (disruption-occasioned and temporally structured but not action-entangled is deliberation; action-entangled and sufficiency-oriented but not disruption-occasioned is adaptive execution). The individual invariants can be assessed independently; the joint condition is an additional requirement, read as the AND of the five statuses, not a collapsed score. Disconfirmed if a tradition is identified in which sensemaking occurs while an invariant is violated, or if a sixth property holds across all surveyed traditions and is not derivable from the five."
+
+  # --- Three scales of operation (Section 4) ---
+  - id: SMS-SCALE-INTRA-PERSONAL
+    section: "4.1"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Intra-personal scale: sensemaking within a single agent, coordinating among its own parts, perspectives, and conflicting interpretations. The foundational scale: before an agent can participate in inter-personal sensemaking it must distinguish its own experience from its automatic interpretation of that experience, or it contributes interpretation as observation and contaminates the shared-language process at the source. Capacity here is not a fixed trait; it varies with fatigue, overload, psychological safety, and reflective practices, and a system that chronically depletes these depletes its own sensemaking substrate."
+  - id: SMS-SCALE-INTER-PERSONAL
+    section: "4.2"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Inter-personal scale: sensemaking between agents, producing shared language. The product is mutual legibility, each party understanding what the other is actually experiencing rather than what their own framework predicts. Depends on intra-personal capacity: if a party cannot distinguish experience from interpretation, they contribute interpretation as though it were the shared frame, and the process produces compliance or conflict rather than shared language."
+  - id: SMS-SCALE-WITNESS-RECEPTION
+    section: "4.3"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Witness-reception scale: encountering others' crystallized sensemaking (sensemaking output encoded in a persistent medium) across time. A future participant receives a document, standard, coordination record, or protocol specification without having participated in the process that produced it. The scale at which coordination capacity accumulates or decays across personnel transitions; the dependency runs both ways, since the artifacts a participant has encountered condition which disruptions they recognize and which frames they bring."
+
+  # --- Three action invariants (Section 5), rendered as typed structural conditions ---
+  - id: SMS-ACTION-RESIDUE
+    section: "5.1"
+    obligation: action-invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Residue: actions leave traces that condition future states; a coordination system is its accumulated residue. The shared language sensemaking produces is itself residue (a revised frame, a new distinction, a named failure mode); sensemaking that produces no durable residue coordinated the participants in the moment but contributed nothing to accumulated coordination capacity. Observable marker: a new artifact appears in the coordination record that did not exist before the process; residue is assessed by comparing the record before and after, and absence of new artifacts is absence of residue. Derived from Sanskrit Dimension 1, held across all cross-cultural pressure tests without distortion."
+  - id: SMS-ACTION-DIRECTION
+    section: "5.2"
+    obligation: action-invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Direction: actions extend or withdraw engagement, both active and both serving coordination functions. Extension deepens investment in a shared frame; withdrawal releases investment, creating space for reconfiguration. For sensemaking, recognizing when to stop extending and begin withdrawing is itself a sensemaking judgment. Observable marker: the sequence of successive sensemaking outputs shows whether artifacts are deepening the same frame (extension) or naming its inadequacy and creating space for a different one (withdrawal); a system that only extends accumulates shared language without testing it, one that only withdraws cannot build on prior work. Derived from Sanskrit Dimension 3."
+  - id: SMS-ACTION-PHASE
+    section: "5.3"
+    obligation: action-invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Phase: actions participate in generative, sustaining, and dissolving cycles; no action is outside the cycle, the question is which phase it serves. Generative sensemaking creates new shared language where none existed; sustaining maintains and updates it against changing conditions; dissolving retires shared language that has become an obstacle. All three are structurally necessary. Observable marker: the relationship between a process and the shared language that preceded it marks it generative, sustaining, or dissolving; the phase distribution over a review period is a structural health indicator assessable from the coordination record. Derived from Sanskrit Dimension 7."
+
+  # --- Sensemaking capacity (Section 6) ---
+  - id: SMS-CAPACITY-OBLIGATION
+    section: "6.1"
+    obligation: capacity
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Instrumented
+    assertion: "The capacity obligation: a system that specifies sensemaking requirements without addressing the capacity conditions those requirements depend on has specified a process without its substrate. The adopting organization must have an agreed-upon method for making participants' capacity states legible to each other and must document and monitor what it reveals. The method must account for, at minimum: the inner states of individual participants, the quality of working relationships, the conditions of participants' recognized contributions, and the alignment between participants and the organization's purpose. The method must be agreed among participants, not imposed as a performance-monitoring tool, or it produces the same detection blind spot as no assessment at all. Required at SMS-Instrumented and above."
+  - id: SMS-CAPACITY-BILATERAL
+    section: "6.2"
+    obligation: capacity
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Instrumented
+    assertion: "The bilateral obligation: the participant agrees to be honest about their capacity state including when depleted (requiring structural safety, so honesty about depletion produces no punitive consequence); the organization agrees to respond in both directions (structural adjustment when depleted, accountability when fully charged). Structural adjustment without accountability is accommodation; accountability without structural adjustment is performance extraction; the requirement is both together. A second bilateral obligation on the developmental dimension: the organization supports developmental growth, not just charge maintenance, and the participant engages with developmental goals, not just their current ceiling."
+  - id: SMS-CAPACITY-FRAMEWORK
+    section: "6.3"
+    obligation: capacity
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Instrumented
+    cross_standard_ref: "Four Batteries Capacity Standard: the conformant capacity framework whose Personal, Relational, Contribution, and Mission batteries map to the four capacity categories"
+    assertion: "Conformant capacity frameworks: SMS prescribes no specific framework. Any conformant framework must provide assessment of individual capacity states, relational conditions, contribution conditions, and alignment conditions; the bilateral obligation architecture; participant consent to the method; documentation and monitoring of results; and structural protection against punitive use of disclosures. The Four Batteries Capacity Standard is one conformant implementation (its Personal, Relational, Contribution, and Mission batteries map to the four categories). A framework addressing only individual capacity without the relational, contribution, or alignment conditions is a partial implementation and should be disclosed as such."
+  - id: SMS-CAPACITY-THREE-SCALES
+    section: "6.5"
+    obligation: capacity
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Instrumented
+    assertion: "Capacity assessment at the three scales: intra-personal (participants can assess and communicate their own capacity state, self-report being the structural floor, since external evaluation alone severs the bilateral obligation); inter-personal (capacity states legible across working relationships, including developmental trajectory alongside current state); witness-reception (aggregate capacity patterns assessable across teams and the whole, supporting detection of systemic patterns without individual-level disclosure beyond what participants consented to). The standard specifies what must be assessable, not how; instruments are determined by the adopting organization."
+
+  # --- Three structural assumptions (Section 7.1), constitutive per Section 9.6 ---
+  - id: SMS-ASSUMPTION-AGENT-PRIORITY
+    section: "7.1"
+    obligation: structural-assumption
+    kind: DECLARATION
+    portability: scoped
+    checkable: judgment
+    tier: All
+    assertion: "Agent-priority: the standard assumes a pre-existing agent who then acts; the five invariants are written from the perspective of an agent encountering a disruption and producing a response. Traditions that constitute the agent through action and relation (Haudenosaunee governance, Maori whakapapa) or posit situation-originated action (Daoist wu wei) cannot be accommodated without fundamental redesign of the invariant architecture. A named scope limitation, not a defect to be corrected at current scope."
+  - id: SMS-ASSUMPTION-HUMAN-SCOPE
+    section: "7.1"
+    obligation: structural-assumption
+    kind: DECLARATION
+    portability: scoped
+    checkable: judgment
+    tier: All
+    assertion: "Human-scope: the operational definitions assume human-like agents (entities that experience disruption, attend to cues, form frames, take actions, and articulate reasoning). Traditions requiring non-human agency (Andean Pachamama, Maori kaitiakitanga where a river is an ancestor and legal person, Dagara cosmological relationship with ancestral forces) fall outside scope; the standard does not claim they are wrong, only that its instruments cannot reach them."
+  - id: SMS-ASSUMPTION-SEPARABILITY
+    section: "7.1"
+    obligation: structural-assumption
+    kind: DECLARATION
+    portability: scoped
+    checkable: judgment
+    tier: All
+    assertion: "Separability: the standard assumes its invariants can be examined at least somewhat independently. Aboriginal Australian Songlines are the sharpest counter-case, where place, procedure, quality, and residue are globally coupled such that the dimensions are projections of an irreducible whole rather than separable components. The standard operates in the decomposition mode and names that as a choice, not a universal. Related, the relational ground finding (7.2): relational structure is constitutive of the action-space, not context for it, which constrains the strength of the standard's universality claims."
+
+  # --- Cross-standard scope boundaries (Section 7.3), the four joint-adoption tensions (interlocks) ---
+  - id: SMS-XSTD-LIMINAL-ASEP
+    section: "7.3"
+    obligation: cross-standard-boundary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    cross_standard_ref: "ASEP: a signal remains subject to Signal Escalation timing regardless of whether the sensemaking process that would classify it has completed"
+    assertion: "Cross-standard boundary, liminal phase and signal escalation: the temporal-structure invariant's liminal phase (3.5) has unspecified duration, so a system could defer signal classification indefinitely by staying in it. Joint adoption must specify that the liminal phase does not suspend the Adverse-Signal Engagement Principle's escalation windows: a signal remains subject to ASEP timing regardless of whether sensemaking has produced a frame. Sensemaking that has not produced a frame by the time an ASEP window expires has not failed; the signal escalates while sensemaking continues."
+  - id: SMS-XSTD-AUTHORITY-SPOS
+    section: "7.3"
+    obligation: cross-standard-boundary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Loop-Closed
+    cross_standard_ref: "SPOS: sensemaking-failure classification authority is a coordination-dimension power concentration subject to the Authorize invariant"
+    assertion: "Cross-standard boundary, interpretive authority concentration: at SMS-Loop-Closed the review loop requires a body to determine whether the five invariants were satisfied, concentrating interpretive authority over what counts as coordination substance versus compliance theater. Joint adoption at SMS-Loop-Closed should treat sensemaking-failure classification authority as a coordination-dimension power concentration subject to the Structural Power Obligation Standard's Authorize invariant."
+  - id: SMS-XSTD-CAPACITY-ASYMMETRY-IACS
+    section: "7.3"
+    obligation: cross-standard-boundary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Instrumented
+    cross_standard_ref: "IACS: sensemaking capacity asymmetry is invisible to the six-class taxonomy; Four Batteries Connection 6 (battery-state differentials) supplies the measurement surface"
+    assertion: "Cross-standard boundary, sensemaking capacity asymmetry: participants with higher sensemaking capacity can recognize and exploit process failures others cannot detect. This asymmetry is invisible to the Information Asymmetry Classification Standard's six classes because it operates in the substrate rather than in content-level flows. The Four Batteries Capacity Standard's Connection 6 (battery-state differentials across participants) supplies the measurement surface, so joint adoption should include battery-state assessment as part of the sensemaking capacity assessment."
+  - id: SMS-XSTD-PERSONAL-FRAMING-IACS
+    section: "7.3"
+    obligation: cross-standard-boundary
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    cross_standard_ref: "IACS: personal-framing misapplication (3.2) is the predictable output of Class 3 Interpretive Asymmetry, warranting both a sensemaking and an asymmetry investigation"
+    assertion: "Cross-standard boundary, personal-framing misapplication and interpretive asymmetry: when Information Asymmetry Classification Standard Class 3 Interpretive Asymmetry is present, personal-framing misapplication (3.2) is not merely a sensemaking failure but the predictable output of the asymmetry, since the party without the structural causal model cannot route particulars to the structural general frame. Joint adoption warrants two parallel investigations, sensemaking and asymmetry; correcting the individual's frame without closing the asymmetry leaves the structural enabler intact."
+
+  # --- The founding window (Section 9) ---
+  - id: SMS-FOUNDING-WINDOW
+    section: "9"
+    obligation: adoption-finding
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "The founding window: shared language absent at the founding of a coordination system is the most consequential structural deficit in the coordination-failure research base examined. Organizations that begin high-stakes coordination without establishing shared language at the constitutional layer consistently exhibit the applying-without-understanding failure mode at organizational-culture scale, which once established does not respond to the same interventions as individual or group-level instances. Constitutional adoption (invariants embedded before implicit culture forms) and remedial adoption (overlaid on a culture already sensemaking its own way) have different challenge profiles; born-without (never had the window open) and crossed-below (established shared language at founding and let it degrade) have different intervention profiles and prognoses. The assessment should name which condition applies. Not a requirement: the tier architecture holds organizations at any lifecycle stage."
+
+  # --- Adoption architecture (Section 9), five tiers ---
+  - id: SMS-ADOPT-ASSESSED
+    section: "9.1"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Assessed
+    assertion: "SMS-Assessed: the organization acknowledges sensemaking capacity is structurally relevant and has conducted a sensemaking inventory mapping its coordination practices to the three scales, identifying which practices involve explicit sensemaking and which assume shared language already exists, and naming the absence of explicit sensemaking capacity as a structural risk where applicable. The structured entry point for remedial adoption."
+  - id: SMS-ADOPT-OPERATIONAL
+    section: "9.2"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Operational
+    assertion: "SMS-Operational: for each coordination practice in the inventory, a documented assessment of which structural invariants it satisfies and which it does not, with the evidence basis; sensemaking outputs recorded in the coordination record; the organization can distinguish in practice between sensemaking and the applying-without-understanding failure mode. Spoken coordination channels are brought into the record through transcription conducted under the adopting system's consent architecture."
+  - id: SMS-ADOPT-INSTRUMENTED
+    section: "9.3"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: SMS-Instrumented
+    assertion: "SMS-Instrumented: the five invariants are used as real-time quality criteria; each sensemaking process produces a record including the initiating disruption, the cues and frames that interacted, the actions taken and the information they generated, the sufficiency criterion applied, and the temporal phases traversed including the liminal phase. Sensemaking capacity at each of the three scales is assessed periodically, intra-personal as a leading indicator. Measurement-system legibility gaps are named rather than allowed to appear as absence."
+  - id: SMS-ADOPT-LOOP-CLOSED
+    section: "9.4"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: SMS-Loop-Closed
+    assertion: "SMS-Loop-Closed: all SMS-Instrumented requirements plus closed coordination loop architecture. Every detected sensemaking failure (a process violating one or more invariants, or a decision made without passing through sensemaking) produces a documented coordination review within a defined window, recording the process or decision identifier, the invariant(s) violated or bypassed, the outcome, the responsible actor or body, and the rationale; absence of a review within the window produces automatic disclosure to all coordination actors without any actor's initiation. The review record is append-only. Minimum annual cadence including a loop-integrity check and a capacity assessment across all three scales."
+  - id: SMS-ADOPT-AUDITABLE
+    section: "9.5"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: SMS-Auditable
+    assertion: "SMS-Auditable: all SMS-Loop-Closed requirements plus independent auditability. The complete sensemaking record (from initiating disruption through coordination review or automatic disclosure) is accessible to an independent auditor without operator cooperation during a defined audit period; the auditor can verify completeness, invariant-assessment integrity against the five invariants as specified in Section 3, and response completeness. The audit itself is documented (scope, period, auditor, findings, organization response) under the same append-only constraints, and audit reports are made available to the participant population within a defined period."

@@ -1,0 +1,48 @@
+# An ASEP-conformant adverse-signal record for an aggregate-pattern signal.
+# Validates against dist/asep.schema.json.
+observation:
+  description: "Three treasury withdrawals in the last week executed at prices four percent below the oracle mid, each within an individual actor's declared parameters."
+  when: "2026-09-10 to 2026-09-16"
+  where: "Treasury contract 0xabc, mainnet"
+  who_affected: "Depositors in the treasury pool"
+  power_context: "Reporter is a depositor; the executing actors are multisig signers with larger stake"
+source:
+  reporter: "A pool depositor"
+  role: "external constituency"
+classification:
+  category: "aggregate-pattern value-leakage"
+  severity: high
+  complexity_domain: complicated
+  framework_version: "1.4.0"
+navigate:
+  time_to_assessment: "6 hours from report"
+  time_to_first_decision: "2 days from report"
+  action: monitor
+  rationale: "No single execution breached its declared parameters, so the aggregate pattern warrants a structural root cause assessment before attribution."
+  structural_root_cause_finding:
+    finding: structural_condition_identified
+escalation:
+  stage: acknowledged
+  acknowledgment_window: "24 hours for high severity"
+  window_pre_specified: true
+disposition:
+  kind: monitor
+  rationale: "Extended monitoring opened alongside a double-loop review of the pricing-parameter framework."
+  non_adverse_judgment_recorded: false
+architecture:
+  adopted_tier: instrumented
+  classification_framework:
+    version: "1.4.0"
+    ex_ante: true
+    coverage_review: true
+  logging:
+    durable: true
+    tamper_evident: true
+    independent_of_evaluated_actors: true
+  escalation_architecture_present: true
+  anti_retaliation_policy: true
+  reliability_disclosure: true
+conformance:
+  no_silent_erasure: satisfied
+  ex_ante_criteria: satisfied
+  finite_path_to_decision: satisfied

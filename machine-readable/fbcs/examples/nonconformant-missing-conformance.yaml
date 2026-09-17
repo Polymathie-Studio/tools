@@ -1,0 +1,12 @@
+# NON-conformant: no conformance declaration. The conformance answers on the face are required.
+# Must fail.
+subject: "A studio"
+batteries:
+  - battery: personal
+    charge_state: full
+checking_practice:
+  regularity: true
+  structural_embeddedness: true
+  adverse_result_integrity: true
+  specificity: true
+# conformance block deliberately omitted

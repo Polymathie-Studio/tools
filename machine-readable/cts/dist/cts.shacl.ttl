@@ -1,0 +1,124 @@
+@prefix cts: <https://standards.example/cts/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cts:ConflictTransformationRecord a sh:NodeShape ;
+    rdfs:comment "A coordination system's declaration of its conflict-transformation capacity across the five invariants, the scales it addresses, and its adoption tier." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The coordination system whose conflict-transformation capacity is declared." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cts:subject ],
+        [ sh:description "Section 5. The operational scales at which the record declares the invariants apply." ;
+            sh:in ( "intra_organizational" "inter_organizational" "platform_level" ) ;
+            sh:order 3 ;
+            sh:path cts:scales_addressed ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 4. Whether parties share sufficient foundational vocabulary about what the organization is to name what they are in conflict about; if not, the required first engagement is constitutional dialogue, not conflict transformation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cts:constitutional_precondition_established ],
+        [ sh:class cts:StructuralInvariant ;
+            sh:description "Section 4. The five structural invariants, each rendered as a typed object carrying its satisfaction status and epistemic tier. They are constitutive of a capacity declaration; a record that names no invariants could claim capacity while assessing nothing." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path cts:invariants ],
+        [ sh:description "Section 8. The adoption tier the record supports." ;
+            sh:in ( "declared" "structured" "instrumented" "loop_closed" "auditable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path cts:adoption_tier ],
+        [ sh:class cts:ConformanceDeclaration ;
+            sh:description "The per-invariant conformance answers on the face; no total." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path cts:conformance ] ;
+    sh:targetClass cts:ConflictTransformationRecord .
+
+cts:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "The per-invariant conformance answers. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cts:proactive_disposition_protected ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path cts:graduated_architecture_present ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cts:conflict_legible ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path cts:transformation_capacity_provisioned ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path cts:engagement_recognized ] ;
+    sh:targetClass cts:ConformanceDeclaration .
+
+cts:StructuralInvariant a sh:NodeShape ;
+    rdfs:comment "Section 4. One of the five structural invariants, individuated by its satisfaction test and its epistemic tier, not by a label. An invariant with no satisfaction test is a name, so satisfaction_test, satisfaction_status, and epistemic_tier are required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The invariant handle (for example legibility, graduated_engagement, proactive_disposition, capacity_provision, recognition)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cts:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "The observed violation or satisfaction signature supporting the status; some signatures are computable from the coordination record." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cts:signature ],
+        [ sh:description "Section 4. The invariant's epistemic tier (A structural, B literature-plus-structural, C measurement-calibration)." ;
+            sh:in ( "tier_a" "tier_b" "tier_c" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path cts:epistemic_tier ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cts:name ],
+        [ sh:in ( "satisfied" "violated" "partial" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path cts:satisfaction_status ],
+        [ sh:datatype xsd:string ;
+            sh:description "The structural test that determines whether the invariant is satisfied, stated so an independent observer can apply it." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cts:satisfaction_test ] ;
+    sh:targetClass cts:StructuralInvariant .
+
+

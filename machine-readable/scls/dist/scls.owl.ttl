@@ -1,0 +1,1044 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scls: <https://standards.example/scls/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/scls.owl.ttl> a owl:Ontology ;
+    rdfs:label "scls" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "SCLS structural consent record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Structural Consent Legibility Standard (standards-3_0-structural-consent, v0.3.25): a LinkML model of the shape a consent-bearing action's record must carry to be structurally legible. SCLS is a relational-predicate standard, so the tree root is a per-action ConsentRecord whose core is the relational predicates (who acts, who benefits, who bears cost, who is affected), and the system-level obligations are a ConsentArchitecture the record declares its context against. Every machine-readable artifact in dist/ is generated from this file.
+The structural obligations (which relations and exposures must be present) are modeled here. The interpretive obligations are NOT schema-expressible and belong to the conformance checker: whether consent is genuine rather than hollow (the standard states its own surface cannot tell them apart under relational depletion, Section 6), whether a description is evaluable by the constituency, whether an exit cost is punitive, and the bandwidth sufficiency judgment. scls-register.yaml marks each requirement shape, judgment, or mixed.
+Tier-gating (which obligations bind at Assessed, Operational, Instrumented, Loop-Closed, or Auditable) is enforced by the checker against the register's per-entry tier field, not by this schema, so the schema models the full shape with tier-gated blocks optional rather than encoding enum-precondition rules (the known silent-failure mode).""" .
+
+scls:ConsentRecord a owl:Class ;
+    rdfs:label "ConsentRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom scls:NegotiatedLimit ;
+            owl:onProperty scls:negotiated_limits ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:cost_bearing_party ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:Verification ;
+            owl:onProperty scls:verification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:Authorization ;
+            owl:onProperty scls:authorization ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConsentDomain ;
+            owl:onProperty scls:domains_touched ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:wheel ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:verification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:authorization ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:affected_constituency ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:WheelAxes ;
+            owl:onProperty scls:wheel ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:action ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:cost_bearing_party ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:withdrawal ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:Action ;
+            owl:onProperty scls:action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:Withdrawal ;
+            owl:onProperty scls:withdrawal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:domains_touched ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConsentArchitecture ;
+            owl:onProperty scls:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:AffectedConstituency ;
+            owl:onProperty scls:affected_constituency ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:authorization ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:withdrawal ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:CostBearingParty ;
+            owl:onProperty scls:cost_bearing_party ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:wheel ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:verification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:negotiated_limits ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:action ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:affected_constituency ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConformanceDeclaration ;
+            owl:onProperty scls:conformance ] ;
+    skos:definition "A per-action consent record. Carries the relational predicates and the invariant exposures (Identify, Authorize, Verify) on its face, and declares the system context it was produced under." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:Action a owl:Class ;
+    rdfs:label "Action" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:specification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:category_level ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:category_level ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:trigger_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:trigger_condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:specification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:trigger_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:category_level ] ;
+    skos:definition "SCLS 3.1. The specified action; a category-level authorization names the trigger condition that requires a standing evaluation before a specific action proceeds." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:AffectedConstituency a owl:Class ;
+    rdfs:label "AffectedConstituency" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:identification_basis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:identified_before_action ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:identified_before_action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:identification_basis ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:identified_before_action ] ;
+    skos:definition "SCLS 3.1, 3.1.1. The materially-affected set, identified before the action, on an evidence-and-self-identification basis." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:Authorization a owl:Class ;
+    rdfs:label "Authorization" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:response_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ResponseStatus ;
+            owl:onProperty scls:response_status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:SystemObligations ;
+            owl:onProperty scls:system_obligations ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:system_obligations ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:authorizing_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:authorizing_set ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:system_obligations ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:response_status ] ;
+    skos:definition "SCLS 3.2, 6.1. A meaningful opportunity to authorize or refuse, the four system obligations, and the response-status distinction." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:cost_bearer_identified ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:authorize_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:authorize_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:identify_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConformanceAnswer ;
+            owl:onProperty scls:identify_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConformanceAnswer ;
+            owl:onProperty scls:verify_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:verify_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:verify_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:identify_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConformanceAnswer ;
+            owl:onProperty scls:cost_bearer_identified ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:cost_bearer_identified ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConformanceAnswer ;
+            owl:onProperty scls:authorize_satisfied ] ;
+    skos:definition "SCLS. The invariant conformance answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number and the SLSA Verification-Summary-Attestation shape." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:ConsentArchitecture a owl:Class ;
+    rdfs:label "ConsentArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom scls:AdoptionTier ;
+            owl:onProperty scls:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:durable_constituency_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:StandingEvaluation ;
+            owl:onProperty scls:standing_evaluation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:domains_applicable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:DetectionArchitecture ;
+            owl:onProperty scls:detection_architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:DurableConstituencyDefinition ;
+            owl:onProperty scls:durable_constituency_definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:detection_architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:standing_evaluation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:external_override_disclosure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ExternalOverrideDisclosure ;
+            owl:onProperty scls:external_override_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:external_override_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:durable_constituency_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ConsentDomain ;
+            owl:onProperty scls:domains_applicable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:detection_architecture ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:standing_evaluation ] ;
+    skos:definition "SCLS system-level context. Which domains apply, the adopted tier, the durable constituency definition, the external-override disclosure, and the higher-tier blocks (standing evaluation, detection architecture) that a record declares its context against. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:CostBearingParty a owl:Class ;
+    rdfs:label "CostBearingParty" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:consent_to_cost_distribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:consent_to_cost_distribution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:identity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:identity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:identity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:consent_to_cost_distribution ] ;
+    skos:definition "SCLS 2.1. A cost-bearer distinct from the acting and benefiting parties; identified explicitly with consent to the cost distribution obtained before the action." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:DetectionArchitecture a owl:Class ;
+    rdfs:label "DetectionArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:transparent_to_participants ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:transparent_to_participants ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:transparent_to_participants ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:shadow_detections ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ShadowDetection ;
+            owl:onProperty scls:shadow_detections ] ;
+    skos:definition "SCLS 5.3.1. Per shadow type, a graduated detection with a monitoring and an escalation threshold; flags for Signal Escalation, never adjudicates." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:DurableConstituencyDefinition a owl:Class ;
+    rdfs:label "DurableConstituencyDefinition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:accessible_without_authority_gating ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:independent_observer_determinable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:independent_observer_determinable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:independent_observer_determinable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:accessible_without_authority_gating ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:accessible_without_authority_gating ] ;
+    skos:definition "SCLS 3.1.2. The durable, accessible definition of who holds participation rights." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:ExternalOverrideDisclosure a owl:Class ;
+    rdfs:label "ExternalOverrideDisclosure" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:jurisdictions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:jurisdictions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:gap_treatment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:gap_treatment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:gap_treatment ] ;
+    skos:definition "SCLS 2.3.2. The disclosure whose absence is a consent legibility failure." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:NegotiatedLimit a owl:Class ;
+    rdfs:label "NegotiatedLimit" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:limit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:limit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:limit ] ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:ShadowDetection a owl:Class ;
+    rdfs:label "ShadowDetection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:shadow_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom scls:ShadowType ;
+            owl:onProperty scls:shadow_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:monitoring_threshold ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:escalation_threshold ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:monitoring_threshold ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:escalation_threshold ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:shadow_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:escalation_threshold ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:monitoring_threshold ] ;
+    skos:definition "SCLS 5.3.1. One shadow type's graduated detection." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:StandingEvaluation a owl:Class ;
+    rdfs:label "StandingEvaluation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:evidence_backed_evaluation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:evidence_backed_evaluation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:evidence_backed_evaluation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:distributed_evaluation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:self_identification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:implausible_absence_detection ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:implausible_absence_detection ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:self_identification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:implausible_absence_detection ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:distributed_evaluation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:distributed_evaluation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:self_identification ] ;
+    skos:definition "SCLS 3.1.1. The four elements, none concentrated in a single actor." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:SystemObligations a owl:Class ;
+    rdfs:label "SystemObligations" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:support ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:exit_or_objection_cost_not_punitive ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:exit_or_objection_cost_not_punitive ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:support ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:legibility ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:time ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:legibility ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:legibility ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:time ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:time ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:support ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:exit_or_objection_cost_not_punitive ] ;
+    skos:definition "SCLS 6.1. The four obligations are on the system, not the participant. Presence is shape; the qualitative reads (is the description evaluable, is the exit cost punitive) are checked." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:Verification a owl:Class ;
+    rdfs:label "Verification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_benefited ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:durable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_was_affected ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_acted ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:agreed_limits ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_bears_cost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:durable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:agreed_limits ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_benefited ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_acted ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_was_affected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_acted ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_was_affected ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_bears_cost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_bears_cost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_benefited ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:durable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:agreed_limits ] ;
+    skos:definition "SCLS 3.3. The consent record's completeness and durability." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:WheelAxes a owl:Class ;
+    rdfs:label "WheelAxes" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_acts ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty scls:both_legible_to_both_parties ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_benefits ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:who_benefits ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_acts ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:who_benefits ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:who_acts ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:both_legible_to_both_parties ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:both_legible_to_both_parties ] ;
+    skos:definition "SCLS 2.1, 3.2. The two independent axes, both legible to both parties (2.3.1 bidirectional awareness)." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:Withdrawal a owl:Class ;
+    rdfs:label "Withdrawal" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty scls:structural_cost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:mechanism ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:structural_cost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty scls:structural_cost ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty scls:mechanism ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty scls:mechanism ] ;
+    skos:definition "SCLS 2.3.1. Revocability. Structurally feasible, not merely formally permitted." ;
+    skos:inScheme <https://standards.example/scls> .
+
+<https://standards.example/scls/AdoptionTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf scls:AdoptionTier .
+
+<https://standards.example/scls/AdoptionTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf scls:AdoptionTier .
+
+<https://standards.example/scls/AdoptionTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf scls:AdoptionTier .
+
+<https://standards.example/scls/AdoptionTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf scls:AdoptionTier .
+
+<https://standards.example/scls/AdoptionTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf scls:AdoptionTier .
+
+<https://standards.example/scls/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf scls:ConformanceAnswer .
+
+<https://standards.example/scls/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf scls:ConformanceAnswer .
+
+<https://standards.example/scls/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf scls:ConformanceAnswer .
+
+<https://standards.example/scls/ConsentDomain#coordination> a owl:Class ;
+    rdfs:label "coordination" ;
+    rdfs:subClassOf scls:ConsentDomain .
+
+<https://standards.example/scls/ConsentDomain#data> a owl:Class ;
+    rdfs:label "data" ;
+    rdfs:subClassOf scls:ConsentDomain .
+
+<https://standards.example/scls/ConsentDomain#observation> a owl:Class ;
+    rdfs:label "observation" ;
+    rdfs:subClassOf scls:ConsentDomain .
+
+<https://standards.example/scls/ConsentDomain#output> a owl:Class ;
+    rdfs:label "output" ;
+    rdfs:subClassOf scls:ConsentDomain .
+
+<https://standards.example/scls/ConsentDomain#participation> a owl:Class ;
+    rdfs:label "participation" ;
+    rdfs:subClassOf scls:ConsentDomain .
+
+<https://standards.example/scls/ResponseStatus#authorized> a owl:Class ;
+    rdfs:label "authorized" ;
+    rdfs:subClassOf scls:ResponseStatus .
+
+<https://standards.example/scls/ResponseStatus#not_yet_responded> a owl:Class ;
+    rdfs:label "not_yet_responded" ;
+    rdfs:subClassOf scls:ResponseStatus .
+
+<https://standards.example/scls/ResponseStatus#unable_to_respond> a owl:Class ;
+    rdfs:label "unable_to_respond" ;
+    rdfs:subClassOf scls:ResponseStatus .
+
+<https://standards.example/scls/ShadowType#enduring> a owl:Class ;
+    rdfs:label "enduring" ;
+    rdfs:subClassOf scls:ShadowType .
+
+<https://standards.example/scls/ShadowType#entitlement_stealing> a owl:Class ;
+    rdfs:label "entitlement_stealing" ;
+    rdfs:subClassOf scls:ShadowType .
+
+<https://standards.example/scls/ShadowType#martyrdom> a owl:Class ;
+    rdfs:label "martyrdom" ;
+    rdfs:subClassOf scls:ShadowType .
+
+scls:authorizing_set a owl:DatatypeProperty ;
+    rdfs:label "authorizing_set" ;
+    skos:definition "SCLS 3.2. Neither excludes affected parties nor includes unaffected parties who dilute the affected constituency's voice." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:domains_applicable a owl:ObjectProperty ;
+    rdfs:label "domains_applicable" ;
+    skos:definition "SCLS 4. The consent domains identified as relevant to the system's operations." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:domains_touched a owl:ObjectProperty ;
+    rdfs:label "domains_touched" ;
+    skos:definition "SCLS 4. Which of the five consent domains this action implicates." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:identification_basis a owl:DatatypeProperty ;
+    rdfs:label "identification_basis" ;
+    skos:definition "SCLS 3.1. Evidence-based where system evidence exists; self-identification permitted." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:jurisdictions a owl:DatatypeProperty ;
+    rdfs:label "jurisdictions" ;
+    skos:definition "The external legal jurisdictions that apply." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:negotiated_limits a owl:ObjectProperty ;
+    rdfs:label "negotiated_limits" ;
+    skos:definition "SCLS 2.3.1. Explicit limits set by the consenting party. Absence in a serving or allowing quadrant is a shadow indicator." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:shadow_detections a owl:ObjectProperty ;
+    rdfs:label "shadow_detections" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:accessible_without_authority_gating a owl:DatatypeProperty ;
+    rdfs:label "accessible_without_authority_gating" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:action a owl:ObjectProperty ;
+    rdfs:label "action" ;
+    skos:definition "SCLS 3.1. The action being consented to, specified precisely enough to evaluate material effect." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:definition "SCLS 5. The declared adoption tier." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:affected_constituency a owl:ObjectProperty ;
+    rdfs:label "affected_constituency" ;
+    skos:definition "SCLS 3.1. The set identified as materially affected, before the action proceeds." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:agreed_limits a owl:DatatypeProperty ;
+    rdfs:label "agreed_limits" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:architecture a owl:ObjectProperty ;
+    rdfs:label "architecture" ;
+    skos:definition "SCLS system-level context the record declares against." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:authorization a owl:ObjectProperty ;
+    rdfs:label "authorization" ;
+    skos:definition "SCLS 3.2, 6.1. The opportunity to authorize or refuse, the four system obligations, and the response-status distinction." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:authorize_satisfied a owl:ObjectProperty ;
+    rdfs:label "authorize_satisfied" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:both_legible_to_both_parties a owl:DatatypeProperty ;
+    rdfs:label "both_legible_to_both_parties" ;
+    skos:definition "SCLS 2.3.1. Both axes were legible to both parties at the time of the interaction." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:category_level a owl:DatatypeProperty ;
+    rdfs:label "category_level" ;
+    skos:definition "True if this is a category-level authorization rather than a specific action." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "SCLS. Per-invariant conformance answers on the face; no total." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:consent_to_cost_distribution a owl:DatatypeProperty ;
+    rdfs:label "consent_to_cost_distribution" ;
+    skos:definition "SCLS 2.1. Obtained before the action proceeds (native nested-required)." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:cost_bearer_identified a owl:ObjectProperty ;
+    rdfs:label "cost_bearer_identified" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:cost_bearing_party a owl:ObjectProperty ;
+    rdfs:label "cost_bearing_party" ;
+    skos:definition "SCLS 2.1. Present when the cost-bearing party is distinct from both the acting and the benefiting party; when present it carries consent to the cost distribution (native nested-required). Whether a distinct cost-bearer exists is domain fact and is checked, not schema-enforced." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:detection_architecture a owl:ObjectProperty ;
+    rdfs:label "detection_architecture" ;
+    skos:definition "SCLS 5.3.1. Graduated shadow-dynamics detection. Required by the checker at Instrumented and above." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:distributed_evaluation a owl:DatatypeProperty ;
+    rdfs:label "distributed_evaluation" ;
+    skos:definition "The evaluation function is not concentrated in a single actor." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:durable a owl:DatatypeProperty ;
+    rdfs:label "durable" ;
+    skos:definition "SCLS 3.3. The record is durable." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:durable_constituency_definition a owl:ObjectProperty ;
+    rdfs:label "durable_constituency_definition" ;
+    skos:definition "SCLS 3.1.2. Accessible without authority-gating and specific enough for an independent observer to determine participation rights." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:escalation_threshold a owl:DatatypeProperty ;
+    rdfs:label "escalation_threshold" ;
+    skos:definition "The signal or combination that triggers Signal Escalation." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:evidence_backed_evaluation a owl:DatatypeProperty ;
+    rdfs:label "evidence_backed_evaluation" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:exit_or_objection_cost_not_punitive a owl:DatatypeProperty ;
+    rdfs:label "exit_or_objection_cost_not_punitive" ;
+    skos:definition "SCLS 6.1. The structural cost of dissent is recorded; whether it is punitive is a checked judgment." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:external_override_disclosure a owl:ObjectProperty ;
+    rdfs:label "external_override_disclosure" ;
+    skos:definition "SCLS 2.3.2. Names the external-legal-override threat, the applicable jurisdictions, and how the gap is addressed." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:gap_treatment a owl:DatatypeProperty ;
+    rdfs:label "gap_treatment" ;
+    skos:definition "How the gap between explicit consent and externally imposed obligations is addressed. Presence is shape; adequacy is checked." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:identified_before_action a owl:DatatypeProperty ;
+    rdfs:label "identified_before_action" ;
+    skos:definition "SCLS 3.1. The identification event precedes execution." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:identify_satisfied a owl:ObjectProperty ;
+    rdfs:label "identify_satisfied" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:identity a owl:DatatypeProperty ;
+    rdfs:label "identity" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:implausible_absence_detection a owl:DatatypeProperty ;
+    rdfs:label "implausible_absence_detection" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:independent_observer_determinable a owl:DatatypeProperty ;
+    rdfs:label "independent_observer_determinable" ;
+    skos:definition "Specific enough that an independent observer can determine whether a party holds participation rights without the author's intent." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:legibility a owl:DatatypeProperty ;
+    rdfs:label "legibility" ;
+    skos:definition "SCLS 6.1. The action described in terms the constituency can evaluate." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:limit a owl:DatatypeProperty ;
+    rdfs:label "limit" ;
+    skos:definition "An explicit boundary set by the consenting party." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:mechanism a owl:DatatypeProperty ;
+    rdfs:label "mechanism" ;
+    skos:definition "The mechanism by which consent can be withdrawn." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:monitoring_threshold a owl:DatatypeProperty ;
+    rdfs:label "monitoring_threshold" ;
+    skos:definition "The signal that initiates monitoring." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:response_status a owl:ObjectProperty ;
+    rdfs:label "response_status" ;
+    skos:definition "SCLS 3.2. Silence, inaction, and absence of objection are not consent; the system distinguishes authorized, not-yet-responded, and unable-to-respond." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:self_identification a owl:DatatypeProperty ;
+    rdfs:label "self_identification" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:shadow_type a owl:ObjectProperty ;
+    rdfs:label "shadow_type" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:specification a owl:DatatypeProperty ;
+    rdfs:label "specification" ;
+    skos:definition "The action stated precisely enough for affected parties to evaluate whether they are materially affected." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:standing_evaluation a owl:ObjectProperty ;
+    rdfs:label "standing_evaluation" ;
+    skos:definition "SCLS 3.1.1. The four-element standing evaluation mechanism. Required by the checker at Instrumented and above." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:structural_cost a owl:DatatypeProperty ;
+    rdfs:label "structural_cost" ;
+    skos:definition "The structural cost of withdrawing. Whether it exceeds participation benefit is a checked judgment." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:support a owl:DatatypeProperty ;
+    rdfs:label "support" ;
+    skos:definition "SCLS 6.1. Analytical infrastructure to evaluate implications." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:system_obligations a owl:ObjectProperty ;
+    rdfs:label "system_obligations" ;
+    skos:definition "SCLS 6.1. The four obligations whose presence makes the opportunity meaningful." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:tamper_evident a owl:DatatypeProperty ;
+    rdfs:label "tamper_evident" ;
+    skos:definition "SCLS 3.3. The record is tamper-evident (the ASEP durable-logging requirement)." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:time a owl:DatatypeProperty ;
+    rdfs:label "time" ;
+    skos:definition "SCLS 6.1. A consent window proportional to complexity (Section 6.4)." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:transparent_to_participants a owl:DatatypeProperty ;
+    rdfs:label "transparent_to_participants" ;
+    skos:definition "SCLS 5.3.1. The monitored patterns are transparent to participants (itself an Observation-domain consent requirement)." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:trigger_condition a owl:DatatypeProperty ;
+    rdfs:label "trigger_condition" ;
+    skos:definition "SCLS 3.1. Required inside a category-level authorization, naming the condition under which a specific action within the class triggers a standing evaluation." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:verification a owl:ObjectProperty ;
+    rdfs:label "verification" ;
+    skos:definition "SCLS 3.3. The consent record's completeness and durability." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:verify_satisfied a owl:ObjectProperty ;
+    rdfs:label "verify_satisfied" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:wheel a owl:ObjectProperty ;
+    rdfs:label "wheel" ;
+    skos:definition "SCLS 2.1, 3.2. The two Wheel axes, both legible to both parties." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_acted a owl:DatatypeProperty ;
+    rdfs:label "who_acted" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_acts a owl:DatatypeProperty ;
+    rdfs:label "who_acts" ;
+    skos:definition "The action axis. Who is acting." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_bears_cost a owl:DatatypeProperty ;
+    rdfs:label "who_bears_cost" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_benefited a owl:DatatypeProperty ;
+    rdfs:label "who_benefited" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_benefits a owl:DatatypeProperty ;
+    rdfs:label "who_benefits" ;
+    skos:definition "The benefit axis. Who the action is for." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:who_was_affected a owl:DatatypeProperty ;
+    rdfs:label "who_was_affected" ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:withdrawal a owl:ObjectProperty ;
+    rdfs:label "withdrawal" ;
+    skos:definition "SCLS 2.3.1. The withdrawal mechanism. Its presence is shape; whether its cost exceeds participation benefit is a checked exit-cost judgment." ;
+    skos:inScheme <https://standards.example/scls> .
+
+scls:ResponseStatus a owl:Class ;
+    rdfs:label "ResponseStatus" ;
+    owl:unionOf ( <https://standards.example/scls/ResponseStatus#authorized> <https://standards.example/scls/ResponseStatus#not_yet_responded> <https://standards.example/scls/ResponseStatus#unable_to_respond> ) ;
+    skos:definition "SCLS 3.2. The distinction silence cannot collapse." ;
+    skos:inScheme <https://standards.example/scls> ;
+    linkml:permissible_values <https://standards.example/scls/ResponseStatus#authorized>,
+        <https://standards.example/scls/ResponseStatus#not_yet_responded>,
+        <https://standards.example/scls/ResponseStatus#unable_to_respond> .
+
+scls:ShadowType a owl:Class ;
+    rdfs:label "ShadowType" ;
+    owl:unionOf ( <https://standards.example/scls/ShadowType#entitlement_stealing> <https://standards.example/scls/ShadowType#enduring> <https://standards.example/scls/ShadowType#martyrdom> ) ;
+    skos:definition "SCLS 5.3.1. The shadow dynamics with detection signatures." ;
+    skos:inScheme <https://standards.example/scls> ;
+    linkml:permissible_values <https://standards.example/scls/ShadowType#enduring>,
+        <https://standards.example/scls/ShadowType#entitlement_stealing>,
+        <https://standards.example/scls/ShadowType#martyrdom> .
+
+scls:AdoptionTier a owl:Class ;
+    rdfs:label "AdoptionTier" ;
+    owl:unionOf ( <https://standards.example/scls/AdoptionTier#assessed> <https://standards.example/scls/AdoptionTier#operational> <https://standards.example/scls/AdoptionTier#instrumented> <https://standards.example/scls/AdoptionTier#loop_closed> <https://standards.example/scls/AdoptionTier#auditable> ) ;
+    skos:definition "SCLS 5. The adoption tiers." ;
+    skos:inScheme <https://standards.example/scls> ;
+    linkml:permissible_values <https://standards.example/scls/AdoptionTier#assessed>,
+        <https://standards.example/scls/AdoptionTier#auditable>,
+        <https://standards.example/scls/AdoptionTier#instrumented>,
+        <https://standards.example/scls/AdoptionTier#loop_closed>,
+        <https://standards.example/scls/AdoptionTier#operational> .
+
+scls:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/scls/ConformanceAnswer#satisfied> <https://standards.example/scls/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/scls/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "SCLS. Per-invariant answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/scls> ;
+    linkml:permissible_values <https://standards.example/scls/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/scls/ConformanceAnswer#not_applicable>,
+        <https://standards.example/scls/ConformanceAnswer#satisfied> .
+
+scls:ConsentDomain a owl:Class ;
+    rdfs:label "ConsentDomain" ;
+    owl:unionOf ( <https://standards.example/scls/ConsentDomain#coordination> <https://standards.example/scls/ConsentDomain#data> <https://standards.example/scls/ConsentDomain#participation> <https://standards.example/scls/ConsentDomain#output> <https://standards.example/scls/ConsentDomain#observation> ) ;
+    skos:definition "SCLS 4. The five domains in which consent operates." ;
+    skos:inScheme <https://standards.example/scls> ;
+    linkml:permissible_values <https://standards.example/scls/ConsentDomain#coordination>,
+        <https://standards.example/scls/ConsentDomain#data>,
+        <https://standards.example/scls/ConsentDomain#observation>,
+        <https://standards.example/scls/ConsentDomain#output>,
+        <https://standards.example/scls/ConsentDomain#participation> .
+
+

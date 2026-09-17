@@ -1,0 +1,643 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "description": "SCLS 3.1. The specified action; a category-level authorization names the trigger condition that requires a standing evaluation before a specific action proceeds.",
+      "properties": {
+        "category_level": {
+          "description": "True if this is a category-level authorization rather than a specific action.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "specification": {
+          "description": "The action stated precisely enough for affected parties to evaluate whether they are materially affected.",
+          "type": "string"
+        },
+        "trigger_condition": {
+          "description": "SCLS 3.1. Required inside a category-level authorization, naming the condition under which a specific action within the class triggers a standing evaluation.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "specification"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "AdoptionTier": {
+      "description": "SCLS 5. The adoption tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "AffectedConstituency": {
+      "additionalProperties": false,
+      "description": "SCLS 3.1, 3.1.1. The materially-affected set, identified before the action, on an evidence-and-self-identification basis.",
+      "properties": {
+        "identification_basis": {
+          "description": "SCLS 3.1. Evidence-based where system evidence exists; self-identification permitted.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "identified_before_action": {
+          "description": "SCLS 3.1. The identification event precedes execution.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "identified_before_action"
+      ],
+      "title": "AffectedConstituency",
+      "type": "object"
+    },
+    "Authorization": {
+      "additionalProperties": false,
+      "description": "SCLS 3.2, 6.1. A meaningful opportunity to authorize or refuse, the four system obligations, and the response-status distinction.",
+      "properties": {
+        "authorizing_set": {
+          "description": "SCLS 3.2. Neither excludes affected parties nor includes unaffected parties who dilute the affected constituency's voice.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "response_status": {
+          "$ref": "#/$defs/ResponseStatus",
+          "description": "SCLS 3.2. Silence, inaction, and absence of objection are not consent; the system distinguishes authorized, not-yet-responded, and unable-to-respond."
+        },
+        "system_obligations": {
+          "$ref": "#/$defs/SystemObligations",
+          "description": "SCLS 6.1. The four obligations whose presence makes the opportunity meaningful."
+        }
+      },
+      "required": [
+        "authorizing_set",
+        "response_status",
+        "system_obligations"
+      ],
+      "title": "Authorization",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "SCLS. Per-invariant answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "SCLS. The invariant conformance answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number and the SLSA Verification-Summary-Attestation shape.",
+      "properties": {
+        "authorize_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "cost_bearer_identified": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "identify_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "verify_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "identify_satisfied",
+        "authorize_satisfied",
+        "verify_satisfied",
+        "cost_bearer_identified"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "ConsentArchitecture": {
+      "additionalProperties": false,
+      "description": "SCLS system-level context. Which domains apply, the adopted tier, the durable constituency definition, the external-override disclosure, and the higher-tier blocks (standing evaluation, detection architecture) that a record declares its context against. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies.",
+      "properties": {
+        "adopted_tier": {
+          "$ref": "#/$defs/AdoptionTier",
+          "description": "SCLS 5. The declared adoption tier."
+        },
+        "detection_architecture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DetectionArchitecture"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SCLS 5.3.1. Graduated shadow-dynamics detection. Required by the checker at Instrumented and above."
+        },
+        "domains_applicable": {
+          "description": "SCLS 4. The consent domains identified as relevant to the system's operations.",
+          "items": {
+            "$ref": "#/$defs/ConsentDomain"
+          },
+          "type": "array"
+        },
+        "durable_constituency_definition": {
+          "$ref": "#/$defs/DurableConstituencyDefinition",
+          "description": "SCLS 3.1.2. Accessible without authority-gating and specific enough for an independent observer to determine participation rights."
+        },
+        "external_override_disclosure": {
+          "$ref": "#/$defs/ExternalOverrideDisclosure",
+          "description": "SCLS 2.3.2. Names the external-legal-override threat, the applicable jurisdictions, and how the gap is addressed."
+        },
+        "standing_evaluation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StandingEvaluation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SCLS 3.1.1. The four-element standing evaluation mechanism. Required by the checker at Instrumented and above."
+        }
+      },
+      "required": [
+        "domains_applicable",
+        "adopted_tier",
+        "durable_constituency_definition",
+        "external_override_disclosure"
+      ],
+      "title": "ConsentArchitecture",
+      "type": "object"
+    },
+    "ConsentDomain": {
+      "description": "SCLS 4. The five domains in which consent operates.",
+      "enum": [
+        "coordination",
+        "data",
+        "participation",
+        "output",
+        "observation"
+      ],
+      "title": "ConsentDomain",
+      "type": "string"
+    },
+    "ConsentRecord": {
+      "additionalProperties": false,
+      "description": "A per-action consent record. Carries the relational predicates and the invariant exposures (Identify, Authorize, Verify) on its face, and declares the system context it was produced under.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/Action",
+          "description": "SCLS 3.1. The action being consented to, specified precisely enough to evaluate material effect."
+        },
+        "affected_constituency": {
+          "$ref": "#/$defs/AffectedConstituency",
+          "description": "SCLS 3.1. The set identified as materially affected, before the action proceeds."
+        },
+        "architecture": {
+          "$ref": "#/$defs/ConsentArchitecture",
+          "description": "SCLS system-level context the record declares against."
+        },
+        "authorization": {
+          "$ref": "#/$defs/Authorization",
+          "description": "SCLS 3.2, 6.1. The opportunity to authorize or refuse, the four system obligations, and the response-status distinction."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "SCLS. Per-invariant conformance answers on the face; no total."
+        },
+        "cost_bearing_party": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CostBearingParty"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "SCLS 2.1. Present when the cost-bearing party is distinct from both the acting and the benefiting party; when present it carries consent to the cost distribution (native nested-required). Whether a distinct cost-bearer exists is domain fact and is checked, not schema-enforced."
+        },
+        "domains_touched": {
+          "description": "SCLS 4. Which of the five consent domains this action implicates.",
+          "items": {
+            "$ref": "#/$defs/ConsentDomain"
+          },
+          "type": "array"
+        },
+        "negotiated_limits": {
+          "description": "SCLS 2.3.1. Explicit limits set by the consenting party. Absence in a serving or allowing quadrant is a shadow indicator.",
+          "items": {
+            "$ref": "#/$defs/NegotiatedLimit"
+          },
+          "type": "array"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification",
+          "description": "SCLS 3.3. The consent record's completeness and durability."
+        },
+        "wheel": {
+          "$ref": "#/$defs/WheelAxes",
+          "description": "SCLS 2.1, 3.2. The two Wheel axes, both legible to both parties."
+        },
+        "withdrawal": {
+          "$ref": "#/$defs/Withdrawal",
+          "description": "SCLS 2.3.1. The withdrawal mechanism. Its presence is shape; whether its cost exceeds participation benefit is a checked exit-cost judgment."
+        }
+      },
+      "required": [
+        "action",
+        "affected_constituency",
+        "wheel",
+        "negotiated_limits",
+        "withdrawal",
+        "authorization",
+        "verification",
+        "domains_touched",
+        "architecture",
+        "conformance"
+      ],
+      "title": "ConsentRecord",
+      "type": "object"
+    },
+    "CostBearingParty": {
+      "additionalProperties": false,
+      "description": "SCLS 2.1. A cost-bearer distinct from the acting and benefiting parties; identified explicitly with consent to the cost distribution obtained before the action.",
+      "properties": {
+        "consent_to_cost_distribution": {
+          "description": "SCLS 2.1. Obtained before the action proceeds (native nested-required).",
+          "type": "boolean"
+        },
+        "identity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity",
+        "consent_to_cost_distribution"
+      ],
+      "title": "CostBearingParty",
+      "type": "object"
+    },
+    "DetectionArchitecture": {
+      "additionalProperties": false,
+      "description": "SCLS 5.3.1. Per shadow type, a graduated detection with a monitoring and an escalation threshold; flags for Signal Escalation, never adjudicates.",
+      "properties": {
+        "shadow_detections": {
+          "items": {
+            "$ref": "#/$defs/ShadowDetection"
+          },
+          "type": "array"
+        },
+        "transparent_to_participants": {
+          "description": "SCLS 5.3.1. The monitored patterns are transparent to participants (itself an Observation-domain consent requirement).",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "shadow_detections",
+        "transparent_to_participants"
+      ],
+      "title": "DetectionArchitecture",
+      "type": "object"
+    },
+    "DurableConstituencyDefinition": {
+      "additionalProperties": false,
+      "description": "SCLS 3.1.2. The durable, accessible definition of who holds participation rights.",
+      "properties": {
+        "accessible_without_authority_gating": {
+          "type": "boolean"
+        },
+        "independent_observer_determinable": {
+          "description": "Specific enough that an independent observer can determine whether a party holds participation rights without the author's intent.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "accessible_without_authority_gating",
+        "independent_observer_determinable"
+      ],
+      "title": "DurableConstituencyDefinition",
+      "type": "object"
+    },
+    "ExternalOverrideDisclosure": {
+      "additionalProperties": false,
+      "description": "SCLS 2.3.2. The disclosure whose absence is a consent legibility failure.",
+      "properties": {
+        "gap_treatment": {
+          "description": "How the gap between explicit consent and externally imposed obligations is addressed. Presence is shape; adequacy is checked.",
+          "type": "string"
+        },
+        "jurisdictions": {
+          "description": "The external legal jurisdictions that apply.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "jurisdictions",
+        "gap_treatment"
+      ],
+      "title": "ExternalOverrideDisclosure",
+      "type": "object"
+    },
+    "NegotiatedLimit": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "limit": {
+          "description": "An explicit boundary set by the consenting party.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "limit"
+      ],
+      "title": "NegotiatedLimit",
+      "type": "object"
+    },
+    "ResponseStatus": {
+      "description": "SCLS 3.2. The distinction silence cannot collapse.",
+      "enum": [
+        "authorized",
+        "not_yet_responded",
+        "unable_to_respond"
+      ],
+      "title": "ResponseStatus",
+      "type": "string"
+    },
+    "ShadowDetection": {
+      "additionalProperties": false,
+      "description": "SCLS 5.3.1. One shadow type's graduated detection.",
+      "properties": {
+        "escalation_threshold": {
+          "description": "The signal or combination that triggers Signal Escalation.",
+          "type": "string"
+        },
+        "monitoring_threshold": {
+          "description": "The signal that initiates monitoring.",
+          "type": "string"
+        },
+        "shadow_type": {
+          "$ref": "#/$defs/ShadowType"
+        }
+      },
+      "required": [
+        "shadow_type",
+        "monitoring_threshold",
+        "escalation_threshold"
+      ],
+      "title": "ShadowDetection",
+      "type": "object"
+    },
+    "ShadowType": {
+      "description": "SCLS 5.3.1. The shadow dynamics with detection signatures.",
+      "enum": [
+        "entitlement_stealing",
+        "enduring",
+        "martyrdom"
+      ],
+      "title": "ShadowType",
+      "type": "string"
+    },
+    "StandingEvaluation": {
+      "additionalProperties": false,
+      "description": "SCLS 3.1.1. The four elements, none concentrated in a single actor.",
+      "properties": {
+        "distributed_evaluation": {
+          "description": "The evaluation function is not concentrated in a single actor.",
+          "type": "boolean"
+        },
+        "evidence_backed_evaluation": {
+          "type": "boolean"
+        },
+        "implausible_absence_detection": {
+          "type": "boolean"
+        },
+        "self_identification": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "self_identification",
+        "evidence_backed_evaluation",
+        "implausible_absence_detection",
+        "distributed_evaluation"
+      ],
+      "title": "StandingEvaluation",
+      "type": "object"
+    },
+    "SystemObligations": {
+      "additionalProperties": false,
+      "description": "SCLS 6.1. The four obligations are on the system, not the participant. Presence is shape; the qualitative reads (is the description evaluable, is the exit cost punitive) are checked.",
+      "properties": {
+        "exit_or_objection_cost_not_punitive": {
+          "description": "SCLS 6.1. The structural cost of dissent is recorded; whether it is punitive is a checked judgment.",
+          "type": "boolean"
+        },
+        "legibility": {
+          "description": "SCLS 6.1. The action described in terms the constituency can evaluate.",
+          "type": "boolean"
+        },
+        "support": {
+          "description": "SCLS 6.1. Analytical infrastructure to evaluate implications.",
+          "type": "boolean"
+        },
+        "time": {
+          "description": "SCLS 6.1. A consent window proportional to complexity (Section 6.4).",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "legibility",
+        "time",
+        "support",
+        "exit_or_objection_cost_not_punitive"
+      ],
+      "title": "SystemObligations",
+      "type": "object"
+    },
+    "Verification": {
+      "additionalProperties": false,
+      "description": "SCLS 3.3. The consent record's completeness and durability.",
+      "properties": {
+        "agreed_limits": {
+          "type": "string"
+        },
+        "durable": {
+          "description": "SCLS 3.3. The record is durable.",
+          "type": "boolean"
+        },
+        "tamper_evident": {
+          "description": "SCLS 3.3. The record is tamper-evident (the ASEP durable-logging requirement).",
+          "type": "boolean"
+        },
+        "who_acted": {
+          "type": "string"
+        },
+        "who_bears_cost": {
+          "type": "string"
+        },
+        "who_benefited": {
+          "type": "string"
+        },
+        "who_was_affected": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "who_acted",
+        "who_benefited",
+        "who_was_affected",
+        "who_bears_cost",
+        "agreed_limits",
+        "durable",
+        "tamper_evident"
+      ],
+      "title": "Verification",
+      "type": "object"
+    },
+    "WheelAxes": {
+      "additionalProperties": false,
+      "description": "SCLS 2.1, 3.2. The two independent axes, both legible to both parties (2.3.1 bidirectional awareness).",
+      "properties": {
+        "both_legible_to_both_parties": {
+          "description": "SCLS 2.3.1. Both axes were legible to both parties at the time of the interaction.",
+          "type": "boolean"
+        },
+        "who_acts": {
+          "description": "The action axis. Who is acting.",
+          "type": "string"
+        },
+        "who_benefits": {
+          "description": "The benefit axis. Who the action is for.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "who_acts",
+        "who_benefits",
+        "both_legible_to_both_parties"
+      ],
+      "title": "WheelAxes",
+      "type": "object"
+    },
+    "Withdrawal": {
+      "additionalProperties": false,
+      "description": "SCLS 2.3.1. Revocability. Structurally feasible, not merely formally permitted.",
+      "properties": {
+        "mechanism": {
+          "description": "The mechanism by which consent can be withdrawn.",
+          "type": "string"
+        },
+        "structural_cost": {
+          "description": "The structural cost of withdrawing. Whether it exceeds participation benefit is a checked judgment.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "mechanism"
+      ],
+      "title": "Withdrawal",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/scls/scls.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A per-action consent record. Carries the relational predicates and the invariant exposures (Identify, Authorize, Verify) on its face, and declares the system context it was produced under.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "action": {
+      "$ref": "#/$defs/Action",
+      "description": "SCLS 3.1. The action being consented to, specified precisely enough to evaluate material effect."
+    },
+    "affected_constituency": {
+      "$ref": "#/$defs/AffectedConstituency",
+      "description": "SCLS 3.1. The set identified as materially affected, before the action proceeds."
+    },
+    "architecture": {
+      "$ref": "#/$defs/ConsentArchitecture",
+      "description": "SCLS system-level context the record declares against."
+    },
+    "authorization": {
+      "$ref": "#/$defs/Authorization",
+      "description": "SCLS 3.2, 6.1. The opportunity to authorize or refuse, the four system obligations, and the response-status distinction."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "SCLS. Per-invariant conformance answers on the face; no total."
+    },
+    "cost_bearing_party": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CostBearingParty"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "SCLS 2.1. Present when the cost-bearing party is distinct from both the acting and the benefiting party; when present it carries consent to the cost distribution (native nested-required). Whether a distinct cost-bearer exists is domain fact and is checked, not schema-enforced."
+    },
+    "domains_touched": {
+      "description": "SCLS 4. Which of the five consent domains this action implicates.",
+      "items": {
+        "$ref": "#/$defs/ConsentDomain"
+      },
+      "type": "array"
+    },
+    "negotiated_limits": {
+      "description": "SCLS 2.3.1. Explicit limits set by the consenting party. Absence in a serving or allowing quadrant is a shadow indicator.",
+      "items": {
+        "$ref": "#/$defs/NegotiatedLimit"
+      },
+      "type": "array"
+    },
+    "verification": {
+      "$ref": "#/$defs/Verification",
+      "description": "SCLS 3.3. The consent record's completeness and durability."
+    },
+    "wheel": {
+      "$ref": "#/$defs/WheelAxes",
+      "description": "SCLS 2.1, 3.2. The two Wheel axes, both legible to both parties."
+    },
+    "withdrawal": {
+      "$ref": "#/$defs/Withdrawal",
+      "description": "SCLS 2.3.1. The withdrawal mechanism. Its presence is shape; whether its cost exceeds participation benefit is a checked exit-cost judgment."
+    }
+  },
+  "required": [
+    "action",
+    "affected_constituency",
+    "wheel",
+    "negotiated_limits",
+    "withdrawal",
+    "authorization",
+    "verification",
+    "domains_touched",
+    "architecture",
+    "conformance"
+  ],
+  "title": "scls",
+  "type": "object",
+  "version": null
+}

@@ -1,0 +1,47 @@
+# Conformant: an organization declaring all four batteries with their charge (and, where tracked,
+# developmental) states, a genuine checking practice, and the four scope conditions present, at the
+# Tier 2 (structural review and delegation) scope tier. Contribution charge is honestly partial.
+subject: "The Aurora contributor commons, a Radius-150 organization tracking battery health quarterly"
+batteries:
+  - battery: personal
+    charge_state: full
+    developmental_state:
+      depth: "Contributors can exit their operating frame and discriminate structural reality from a frame artifact under stress."
+      breadth: "Multiple domain perspectives held without collapse to a dominant one."
+      durability: "Holds across project endings and market cycles."
+  - battery: relational
+    charge_state: full
+    developmental_state:
+      depth: "Depth distributed across enough people that the relational field survives individual exits."
+      breadth: "Cross-domain person-value recognized before credentials confirm it."
+      durability: "Relationships persist across organizational boundaries."
+  - battery: contribution
+    charge_state: partial
+    developmental_state:
+      depth: "Cross-domain contribution brought forward before external confirmation of relevance."
+      breadth: "Work legible across categorical boundaries."
+      durability: "Outputs travel beyond their origin context."
+  - battery: mission
+    charge_state: full
+checking_practice:
+  regularity: true
+  structural_embeddedness: true
+  adverse_result_integrity: true
+  specificity: true
+scope_conditions:
+  - condition: "Delegation pathways active with a defined process, competence verification, and a visible record."
+    status: present
+  - condition: "Role scope bounded and reviewed on a defined cadence."
+    status: present
+  - condition: "Expansion requires structural justification naming the need, the battery cost, and the review process."
+    status: present
+  - condition: "Contraction is as procedurally supported as expansion, with examples in the record."
+    status: present
+scope_adoption_tier: structural_review
+conformance:
+  personal_battery_charged: satisfied
+  relational_battery_charged: satisfied
+  contribution_battery_charged: declared_absent_with_justification
+  mission_battery_charged: satisfied
+  checking_practice_genuine: satisfied
+  scope_conditions_present: satisfied

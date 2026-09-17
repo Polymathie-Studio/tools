@@ -1,0 +1,20 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "IACS detection architecture, 3 mechanisms, instrumented tier",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/iacs/conformance/v0.1.28",
+  "predicate": {
+    "verifier": "iacs-conformance",
+    "obligations": {
+      "applicability_mapped": "satisfied",
+      "classification_process_documented": "satisfied",
+      "detection_instrumented": "satisfied"
+    }
+  }
+}

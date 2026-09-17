@@ -1,0 +1,19 @@
+# NON-conformant: omits the required invariant conformance block. Must fail validation.
+subject: "The fee-change coordination rule, section 4 of the protocol charter"
+adoption_depth: auditing
+obligation_tier: assessed
+congruence_checked: true
+corollaries:
+  - id: operational_definition
+    name: Operational definition
+    condition: "A term is operationally defined iff an independent observer can determine it from definition and evidence."
+    deficit_direction: "A term requiring a privileged interpreter."
+    imposition_direction: "A definition so narrow it excludes genuine cases."
+failure_patterns:
+  - id: normative_substitution
+    name: Normative substitution
+    structural_signature: "The new term cannot be violated in a falsifiable way."
+    response: "Decompose into independently evaluable conditions."
+deficits:
+  - location: "Charter section 4.2, the phrase 'material fee change'"
+    pattern: normative_substitution

@@ -1,0 +1,91 @@
+# metamodel_version: 1.11.0
+enum AdoptionTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+type ChangeClassification
+  {
+    id: String!
+    name: String!
+    detectionSignature: String!
+    responseObligation: String!
+  }
+
+type ConcentrationShift
+  {
+    classification: ChangeClassification!
+    dimensionsImplicated: [String]!
+    reviewCompleted: Boolean
+  }
+
+type ConformanceDeclaration
+  {
+    distributeSatisfied: ConformanceAnswer!
+    authorizeSatisfied: ConformanceAnswer!
+    monitorSatisfied: ConformanceAnswer!
+  }
+
+type DimensionAssessment
+  {
+    dimension: PowerDimension!
+    currentConcentration: String!
+    authorizedLevel: String
+    gap: String
+  }
+
+type OverrideClass
+  {
+    id: String!
+    name: String!
+    mechanism: String!
+    detectionInstrument: String!
+  }
+
+type OverrideClassAssessment
+  {
+    overrideClass: OverrideClass!
+    active: Boolean!
+    notActiveRationale: String
+    addressability: String
+    exposureDisclosure: String
+  }
+
+type PowerDimension
+  {
+    id: String!
+    name: String!
+    powerConcern: String!
+    detectionSurface: [String]!
+    normativeBenchmark: String
+    independentByDesign: Boolean
+  }
+
+type SPOSArchitecture
+  {
+    adoptedTier: AdoptionTier!
+    monitorAllDimensions: Boolean
+    detectionDisclosed: Boolean
+  }
+
+type SPOSPowerRecord
+  {
+    authorizedProfileEstablished: Boolean!
+    dimensions: [DimensionAssessment]!
+    overrideAssessment: [OverrideClassAssessment]!
+    detectedShifts: [ConcentrationShift]
+    architecture: SPOSArchitecture!
+    conformance: ConformanceDeclaration!
+  }
+

@@ -1,0 +1,69 @@
+# metamodel_version: 1.11.0
+enum AdoptionDepth
+  {
+    auditing
+    remediation
+    design_time
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum ObligationTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+type ConformanceDeclaration
+  {
+    violationsDetectable: ConformanceAnswer!
+    complianceServesPurpose: ConformanceAnswer!
+    methodStructureCongruent: ConformanceAnswer!
+    deficitsMapped: ConformanceAnswer!
+  }
+
+type Corollary
+  {
+    id: String!
+    name: String!
+    condition: String!
+    deficitDirection: String!
+    impositionDirection: String!
+    corrective: String
+  }
+
+type FailurePattern
+  {
+    id: String!
+    name: String!
+    structuralSignature: String!
+    response: String!
+  }
+
+type PrecisionDeficit
+  {
+    location: String!
+    pattern: String!
+    decision: String
+  }
+
+type PrecisionReview
+  {
+    subject: String!
+    adoptionDepth: AdoptionDepth!
+    obligationTier: ObligationTier!
+    corollaries: [Corollary]!
+    failurePatterns: [FailurePattern]!
+    deficits: [PrecisionDeficit]
+    congruenceChecked: Boolean!
+    conformance: ConformanceDeclaration!
+  }
+

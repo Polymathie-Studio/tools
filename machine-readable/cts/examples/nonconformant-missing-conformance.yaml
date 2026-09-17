@@ -1,0 +1,12 @@
+# NON-conformant: no conformance declaration. The per-invariant conformance answers are required.
+# Must fail.
+subject: "A studio collective"
+constitutional_precondition_established: true
+invariants:
+  - id: legibility
+    name: Conflict Legibility
+    satisfaction_test: "Conflict events are depositable and retained with distinct taxonomy types."
+    satisfaction_status: satisfied
+    epistemic_tier: tier_a
+adoption_tier: declared
+# conformance block deliberately omitted

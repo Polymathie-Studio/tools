@@ -1,0 +1,218 @@
+id: https://standards.example/spos
+name: spos
+title: SPOS structural power record
+description: >-
+  The one canonical source for the machine-readable layer of the Structural Power Obligation
+  Standard (standards-3_0-structural-power-obligation, v0.1.26; tier prefix SPDS). The standard
+  individuates power by mechanism, so the three power dimensions, the seven external-override
+  classes, and the four change classifications are rendered as typed objects, each carrying its
+  constitutive structure (a dimension its power concern and detection surface, an override class
+  its mechanism and detection instrument, a change classification its detection signature and
+  response obligation), not as flat label enums. Rendering any of them as a taxonomy would
+  collapse the mechanism structure into labels, a precision deficit under PFDS.
+
+  The tree root is an SPOSPowerRecord: a system's assessment of power distribution across the
+  three dimensions (current versus authorized profile and the gap), its override-class
+  assessment, its detected concentration shifts with their change classifications, its detection
+  architecture and tier, and its per-invariant conformance (Distribute, Authorize, Monitor).
+  Every artifact in dist/ is generated from this file. A dimension with no detection surface
+  cannot be instrumented, so detection_surface is required (mirroring the standard's own logic).
+
+  The interpretive obligations are not schema-expressible and belong to the conformance checker:
+  whether a dimension is actually concentrated, whether an override class is active, and
+  distinguishing capture (intent) from drift (outcome). Tier-gating stays in the checker.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  spos: https://standards.example/spos/
+default_prefix: spos
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  SPOSPowerRecord:
+    tree_root: true
+    description: A system's power-distribution record across the three dimensions, its override assessment, its detected shifts, and its conformance.
+    attributes:
+      authorized_profile_established:
+        description: Section 4.1. The authorized distribution profile exists; its absence is itself a finding.
+        range: boolean
+        required: true
+      dimensions:
+        description: Section 3, 4.1. The per-dimension assessment (current versus authorized profile and the gap), across all three dimensions.
+        range: DimensionAssessment
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      override_assessment:
+        description: Section 4.5. The assessment of the seven external-override classes, active or not, with addressability.
+        range: OverrideClassAssessment
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      detected_shifts:
+        description: Section 5. Concentration shifts detected and classified.
+        range: ConcentrationShift
+        multivalued: true
+        inlined_as_list: true
+      architecture:
+        description: The system's detection architecture and adopted tier.
+        range: SPOSArchitecture
+        required: true
+      conformance:
+        description: Section 4. The three invariant answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  PowerDimension:
+    description: >-
+      Section 2.2, 3. One power dimension, a distinct relational-topological axis individuated by
+      its power concern and its detection surface, not by a label. A dimension with no detection
+      surface cannot be instrumented, so detection_surface is required.
+    attributes:
+      id:
+        description: The dimension handle (authority, coordination, specialization).
+        required: true
+      name:
+        required: true
+      power_concern:
+        description: The distinct structural power concern of the dimension.
+        required: true
+      detection_surface:
+        description: Section 6. The primary, secondary, and tertiary signals that instrument the dimension.
+        multivalued: true
+        required: true
+      normative_benchmark:
+        description: The normative reference the dimension is assessed against (for example Ostrom's third principle, subsidiarity, Lukes' three dimensions).
+      independent_by_design:
+        description: Section 2.3. True, because the three dimensions vary independently and are assessed independently.
+        range: boolean
+
+  DimensionAssessment:
+    description: Section 4.1. The current-versus-authorized assessment for one dimension.
+    attributes:
+      dimension:
+        range: PowerDimension
+        required: true
+      current_concentration:
+        description: The current distribution profile in this dimension.
+        required: true
+      authorized_level:
+        description: The authorized distribution profile in this dimension.
+      gap:
+        description: The gap between current and authorized in this dimension.
+
+  OverrideClass:
+    description: >-
+      Section 4.5. One external-override class, a distinct structural mechanism through which an
+      external actor can supersede internal outcomes, individuated by its mechanism and its
+      detection instrument.
+    attributes:
+      id:
+        description: The class handle (financial, military, regulatory, platform, epistemic, normative, relational).
+        required: true
+      name:
+        required: true
+      mechanism:
+        description: The distinct structural mechanism of the override.
+        required: true
+      detection_instrument:
+        description: The instrument that detects the class.
+        required: true
+
+  OverrideClassAssessment:
+    description: Section 4.5. Whether an override class is active in the system's context, with addressability.
+    attributes:
+      override_class:
+        range: OverrideClass
+        required: true
+      active:
+        description: Whether the class is active; a not-active determination requires a named rationale.
+        range: boolean
+        required: true
+      not_active_rationale:
+        description: Required in prose when active is false, a named rationale rather than a default omission.
+      addressability:
+        description: Whether the structural condition can still be redesigned before it becomes load-bearing, or can only be disclosed and monitored.
+      exposure_disclosure:
+        description: A structural exposure disclosure, required for an active class that is no longer addressable.
+
+  ChangeClassification:
+    description: >-
+      Section 5.1. One change classification, individuated by its detection signature and its
+      response obligation, not by a label.
+    attributes:
+      id:
+        description: The classification handle (drift, coherent_evolution, strategic_pivot, capture).
+        required: true
+      name:
+        required: true
+      detection_signature:
+        description: The observable signature that distinguishes this classification.
+        required: true
+      response_obligation:
+        description: The response the classification triggers.
+        required: true
+
+  ConcentrationShift:
+    description: Section 5. A detected concentration shift, classified before any response.
+    attributes:
+      classification:
+        range: ChangeClassification
+        required: true
+      dimensions_implicated:
+        description: Which of the three dimensions the shift implicates.
+        multivalued: true
+        required: true
+      review_completed:
+        description: Whether the response obligation for the classification was completed.
+        range: boolean
+
+  SPOSArchitecture:
+    description: The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies.
+    attributes:
+      adopted_tier:
+        range: AdoptionTier
+        required: true
+      monitor_all_dimensions:
+        description: Section 4.3. Continuous detection across all three dimensions.
+        range: boolean
+      detection_disclosed:
+        description: Section 6.4. The detection surface is disclosed to participants; an undisclosed surface is a consent failure.
+        range: boolean
+
+  ConformanceDeclaration:
+    description: >-
+      Section 4. The three invariant answers on the face. There is deliberately no overall or
+      total field: conformance is per-invariant, mirroring the suite's refusal to collapse a
+      profile into a single number.
+    attributes:
+      distribute_satisfied:
+        range: ConformanceAnswer
+        required: true
+      authorize_satisfied:
+        range: ConformanceAnswer
+        required: true
+      monitor_satisfied:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  AdoptionTier:
+    description: Section 7. The adoption tiers.
+    permissible_values:
+      assessed:
+      operational:
+      instrumented:
+      loop_closed:
+      auditable:
+
+  ConformanceAnswer:
+    description: Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

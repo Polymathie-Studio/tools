@@ -1,0 +1,77 @@
+# metamodel_version: 1.11.0
+enum AdoptionTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum CynefinDomain
+  {
+    clear
+    complicated
+    complex
+    chaotic
+  }
+
+enum MechanismStatus
+  {
+    primary
+    extension_specified
+    extension_stub_scoped_out
+  }
+
+type AsymmetryMechanism
+  {
+    id: String!
+    name: String!
+    mechanism: String!
+    detectionSurface: [String]!
+    orthogonalAtMechanism: Boolean!
+    status: MechanismStatus!
+    cynefinDomain: CynefinDomain
+    remediationDirection: String
+    subPattern: [String]
+  }
+
+type Classification
+  {
+    mechanism: String!
+    detectionSignalsObserved: [String]!
+    cynefinDomain: CynefinDomain!
+  }
+
+type ConformanceDeclaration
+  {
+    applicabilityMapped: ConformanceAnswer!
+    classificationProcessDocumented: ConformanceAnswer!
+    detectionInstrumented: ConformanceAnswer!
+  }
+
+type IACSArchitecture
+  {
+    adoptedTier: AdoptionTier!
+    applicabilityInventory: Boolean!
+    classificationProcessDocumented: Boolean
+    detectionArchitecturePresent: Boolean
+    cynefinDocumented: Boolean
+    audienceBaselineDeclared: Boolean
+  }
+
+type IACSConformanceRecord
+  {
+    applicableMechanisms: [AsymmetryMechanism]!
+    classifications: [Classification]
+    architecture: IACSArchitecture!
+    conformance: ConformanceDeclaration!
+  }
+

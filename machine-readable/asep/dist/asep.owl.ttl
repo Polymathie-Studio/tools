@@ -1,0 +1,947 @@
+@prefix asep: <https://standards.example/asep/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/asep.owl.ttl> a owl:Ontology ;
+    rdfs:label "asep" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "ASEP adverse-signal record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Adverse-Signal Engagement Principle Core Standard (standards-3_0-adverse-signal-engagement, v0.7.13). ASEP is a process-and-detection standard, so the tree root is a per-signal AdverseSignalRecord that carries one adverse signal through the Notice, Name, and Navigate lifecycle and the time-governed Signal Escalation state; the system-level obligations (the adopted tier, the classification framework, the logging paths, the escalation architecture) are an ASEPArchitecture the record declares its context against. Every artifact in dist/ is generated from this file.
+The structural obligations (which lifecycle steps and log fields must be present, which escalation stage was reached) are modeled here. The interpretive obligations are not schema-expressible and belong to the conformance checker: severity classification, proportionality of observation, coverage adequacy of the framework, cost-bearing-party participation, whether an action was retaliatory, and genuine transformation of a conflict-class signal. asep-register.yaml marks each requirement shape, judgment, or mixed.
+Tier-gating (which obligations bind at Assessed, Operational, Instrumented, Loop-Closed, or Auditable) is enforced by the checker against the register's tier field, so the schema models the full shape with tier-gated blocks optional rather than encoding enum-precondition rules. The audit's reliability is bounded by the Four Batteries Relational Battery condition, a cross-standard dependency, not a field here.""" .
+
+asep:AdverseSignalRecord a owl:Class ;
+    rdfs:label "AdverseSignalRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom asep:Disposition ;
+            owl:onProperty asep:disposition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:escalation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:classification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:disposition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:Source ;
+            owl:onProperty asep:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:Navigate ;
+            owl:onProperty asep:navigate ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:observation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:disposition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:observation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:escalation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:Classification ;
+            owl:onProperty asep:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:navigate ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:EscalationState ;
+            owl:onProperty asep:escalation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:classification ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:Observation ;
+            owl:onProperty asep:observation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ConformanceDeclaration ;
+            owl:onProperty asep:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ASEPArchitecture ;
+            owl:onProperty asep:architecture ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:navigate ] ;
+    skos:definition "One adverse signal carried through Notice, Name, and Navigate, with its escalation state and terminal disposition on the face." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ASEPArchitecture a owl:Class ;
+    rdfs:label "ASEPArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:escalation_architecture_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:reliability_disclosure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ClassificationFramework ;
+            owl:onProperty asep:classification_framework ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:escalation_architecture_present ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:reliability_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:anti_retaliation_policy ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:classification_framework ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:anti_retaliation_policy ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:AdoptionTier ;
+            owl:onProperty asep:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:classification_framework ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:reliability_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:escalation_architecture_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:logging ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:LoggingPaths ;
+            owl:onProperty asep:logging ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:logging ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:anti_retaliation_policy ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:adopted_tier ] ;
+    skos:definition "The system-level ASEP context. Higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:Classification a owl:Class ;
+    rdfs:label "Classification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:complexity_domain ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:complexity_domain ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:Severity ;
+            owl:onProperty asep:severity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:category ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:category ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:framework_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:framework_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:severity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ComplexityDomain ;
+            owl:onProperty asep:complexity_domain ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:framework_version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:severity ] ;
+    skos:definition "ASEP 3.2.2. Category and severity assigned against the ex-ante versioned framework." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ClassificationFramework a owl:Class ;
+    rdfs:label "ClassificationFramework" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:coverage_review ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:ex_ante ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:ex_ante ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:coverage_review ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:coverage_review ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:ex_ante ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:version ] ;
+    skos:definition "ASEP 3.2.2. The adverse-signal categories and severity levels." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ConflictEngagement a owl:Class ;
+    rdfs:label "ConflictEngagement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:pathway_opened ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:documented_exchange ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:documented_exchange ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:pathway_opened ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:documented_exchange ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:pathway_opened ] ;
+    skos:definition "ASEP 3.3.1a. The engagement pathway for a conflict-class signal." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:no_silent_erasure ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:ex_ante_criteria ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:ex_ante_criteria ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ConformanceAnswer ;
+            owl:onProperty asep:ex_ante_criteria ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ConformanceAnswer ;
+            owl:onProperty asep:no_silent_erasure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:finite_path_to_decision ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:no_silent_erasure ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:finite_path_to_decision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ConformanceAnswer ;
+            owl:onProperty asep:finite_path_to_decision ] ;
+    skos:definition "ASEP 2.2. The three invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:Disposition a owl:Class ;
+    rdfs:label "Disposition" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:non_adverse_judgment_recorded ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:rationale ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:kind ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:non_adverse_judgment_recorded ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:non_adverse_judgment_recorded ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:DispositionKind ;
+            owl:onProperty asep:kind ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:rationale ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:kind ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:rationale ] ;
+    skos:definition "ASEP 2.2. The terminal disposition on the finite path to decision." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:EscalationState a owl:Class ;
+    rdfs:label "EscalationState" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom asep:EscalationStage ;
+            owl:onProperty asep:stage ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:window_pre_specified ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:acknowledgment_window ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:stage ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:acknowledgment_window ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:stage ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:window_pre_specified ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:window_pre_specified ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:acknowledgment_window ] ;
+    skos:definition "ASEP 3.3.6. The time-governed Signal Escalation stage, driven by elapsed time not human initiative." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:LoggingPaths a owl:Class ;
+    rdfs:label "LoggingPaths" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:durable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:independent_of_evaluated_actors ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:durable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:independent_of_evaluated_actors ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:tamper_evident ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty asep:durable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:independent_of_evaluated_actors ] ;
+    skos:definition "ASEP 3.2.1, 4.3. Durability and independence of the logs." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:Navigate a owl:Class ;
+    rdfs:label "Navigate" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:time_to_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:NavigateAction ;
+            owl:onProperty asep:action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:time_to_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:rationale ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:structural_root_cause_finding ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:time_to_first_decision ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:time_to_first_decision ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:conflict_engagement ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:RootCauseFinding ;
+            owl:onProperty asep:structural_root_cause_finding ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:conflict_engagement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:action ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:time_to_assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:ConflictEngagement ;
+            owl:onProperty asep:conflict_engagement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:structural_root_cause_finding ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:rationale ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:time_to_first_decision ] ;
+    skos:definition "ASEP 3.3. The signal-processing lifecycle from assessment through decision." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:Observation a owl:Class ;
+    rdfs:label "Observation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:who_affected ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:who_affected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:power_context ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:when ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:where ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:power_context ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:when ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty asep:power_context ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:where ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:where ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:who_affected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:when ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:description ] ;
+    skos:definition "ASEP 3.2.1. The durable log entry, observation separated from evaluation." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:RootCauseFinding a owl:Class ;
+    rdfs:label "RootCauseFinding" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:finding ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:finding ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom asep:RootCauseKind ;
+            owl:onProperty asep:finding ] ;
+    skos:definition "ASEP 3.3.3. The structural root cause assessment finding." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:Source a owl:Class ;
+    rdfs:label "Source" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:reporter ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:reporter ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty asep:role ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty asep:role ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:reporter ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty asep:role ] ;
+    skos:definition "ASEP 3.2.1, 4.2. Any actor may log a signal that meets minimal criteria." ;
+    skos:inScheme <https://standards.example/asep> .
+
+<https://standards.example/asep/AdoptionTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf asep:AdoptionTier .
+
+<https://standards.example/asep/AdoptionTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf asep:AdoptionTier .
+
+<https://standards.example/asep/AdoptionTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf asep:AdoptionTier .
+
+<https://standards.example/asep/AdoptionTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf asep:AdoptionTier .
+
+<https://standards.example/asep/AdoptionTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf asep:AdoptionTier .
+
+<https://standards.example/asep/ComplexityDomain#chaotic> a owl:Class ;
+    rdfs:label "chaotic" ;
+    rdfs:subClassOf asep:ComplexityDomain .
+
+<https://standards.example/asep/ComplexityDomain#clear> a owl:Class ;
+    rdfs:label "clear" ;
+    rdfs:subClassOf asep:ComplexityDomain .
+
+<https://standards.example/asep/ComplexityDomain#complex> a owl:Class ;
+    rdfs:label "complex" ;
+    rdfs:subClassOf asep:ComplexityDomain .
+
+<https://standards.example/asep/ComplexityDomain#complicated> a owl:Class ;
+    rdfs:label "complicated" ;
+    rdfs:subClassOf asep:ComplexityDomain .
+
+<https://standards.example/asep/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf asep:ConformanceAnswer .
+
+<https://standards.example/asep/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf asep:ConformanceAnswer .
+
+<https://standards.example/asep/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf asep:ConformanceAnswer .
+
+<https://standards.example/asep/DispositionKind#act> a owl:Class ;
+    rdfs:label "act" ;
+    rdfs:subClassOf asep:DispositionKind .
+
+<https://standards.example/asep/DispositionKind#close> a owl:Class ;
+    rdfs:label "close" ;
+    rdfs:subClassOf asep:DispositionKind .
+
+<https://standards.example/asep/DispositionKind#monitor> a owl:Class ;
+    rdfs:label "monitor" ;
+    rdfs:subClassOf asep:DispositionKind .
+
+<https://standards.example/asep/EscalationStage#acknowledged> a owl:Class ;
+    rdfs:label "acknowledged" ;
+    rdfs:subClassOf asep:EscalationStage .
+
+<https://standards.example/asep/EscalationStage#auto_escalated> a owl:Class ;
+    rdfs:label "auto_escalated" ;
+    rdfs:subClassOf asep:EscalationStage .
+
+<https://standards.example/asep/EscalationStage#generated> a owl:Class ;
+    rdfs:label "generated" ;
+    rdfs:subClassOf asep:EscalationStage .
+
+<https://standards.example/asep/EscalationStage#obligation_triggered> a owl:Class ;
+    rdfs:label "obligation_triggered" ;
+    rdfs:subClassOf asep:EscalationStage .
+
+<https://standards.example/asep/EscalationStage#terminal_visibility> a owl:Class ;
+    rdfs:label "terminal_visibility" ;
+    rdfs:subClassOf asep:EscalationStage .
+
+<https://standards.example/asep/NavigateAction#close> a owl:Class ;
+    rdfs:label "close" ;
+    rdfs:subClassOf asep:NavigateAction .
+
+<https://standards.example/asep/NavigateAction#escalate> a owl:Class ;
+    rdfs:label "escalate" ;
+    rdfs:subClassOf asep:NavigateAction .
+
+<https://standards.example/asep/NavigateAction#initiate_engagement> a owl:Class ;
+    rdfs:label "initiate_engagement" ;
+    rdfs:subClassOf asep:NavigateAction .
+
+<https://standards.example/asep/NavigateAction#mitigate_or_contain> a owl:Class ;
+    rdfs:label "mitigate_or_contain" ;
+    rdfs:subClassOf asep:NavigateAction .
+
+<https://standards.example/asep/NavigateAction#monitor> a owl:Class ;
+    rdfs:label "monitor" ;
+    rdfs:subClassOf asep:NavigateAction .
+
+<https://standards.example/asep/RootCauseKind#insufficient_information> a owl:Class ;
+    rdfs:label "insufficient_information" ;
+    rdfs:subClassOf asep:RootCauseKind .
+
+<https://standards.example/asep/RootCauseKind#no_structural_condition> a owl:Class ;
+    rdfs:label "no_structural_condition" ;
+    rdfs:subClassOf asep:RootCauseKind .
+
+<https://standards.example/asep/RootCauseKind#structural_condition_identified> a owl:Class ;
+    rdfs:label "structural_condition_identified" ;
+    rdfs:subClassOf asep:RootCauseKind .
+
+<https://standards.example/asep/Severity#high> a owl:Class ;
+    rdfs:label "high" ;
+    rdfs:subClassOf asep:Severity .
+
+<https://standards.example/asep/Severity#low> a owl:Class ;
+    rdfs:label "low" ;
+    rdfs:subClassOf asep:Severity .
+
+<https://standards.example/asep/Severity#medium> a owl:Class ;
+    rdfs:label "medium" ;
+    rdfs:subClassOf asep:Severity .
+
+asep:acknowledgment_window a owl:DatatypeProperty ;
+    rdfs:label "acknowledgment_window" ;
+    skos:definition "ASEP 3.3.6. The maximum elapsed time from generation to first acknowledgment, pre-specified." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:action a owl:ObjectProperty ;
+    rdfs:label "action" ;
+    skos:definition "ASEP 3.3.1. The action chosen from the bounded set." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:anti_retaliation_policy a owl:DatatypeProperty ;
+    rdfs:label "anti_retaliation_policy" ;
+    skos:definition "ASEP 4.1. Explicit anti-retaliation commitment (required by the checker at Instrumented and above)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:architecture a owl:ObjectProperty ;
+    rdfs:label "architecture" ;
+    skos:definition "The system-level ASEP context this record declares against." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:category a owl:DatatypeProperty ;
+    rdfs:label "category" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:classification a owl:ObjectProperty ;
+    rdfs:label "classification" ;
+    skos:definition "ASEP 3.2.2. The category and severity assigned against the ex-ante framework." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:classification_framework a owl:ObjectProperty ;
+    rdfs:label "classification_framework" ;
+    skos:definition "ASEP 3.2.2. The documented, ex-ante, versioned framework." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:complexity_domain a owl:ObjectProperty ;
+    rdfs:label "complexity_domain" ;
+    skos:definition "ASEP 3.3.6. The Cynefin domain that sets escalation tempo and Navigate shape." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:conflict_engagement a owl:ObjectProperty ;
+    rdfs:label "conflict_engagement" ;
+    skos:definition "ASEP 3.3.1a. Present for a conflict-class signal; opens an engagement pathway and records a documented exchange before termination." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "ASEP 2.2. The three invariant answers on the face; no total." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:coverage_review a owl:DatatypeProperty ;
+    rdfs:label "coverage_review" ;
+    skos:definition "Subject to periodic coverage review for missing harm classes." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    skos:definition "What happened, stated as observation not evaluation." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:disposition a owl:ObjectProperty ;
+    rdfs:label "disposition" ;
+    skos:definition "ASEP 2.2. The terminal disposition (the finite path to decision); a non-adverse judgment is itself recorded." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:documented_exchange a owl:DatatypeProperty ;
+    rdfs:label "documented_exchange" ;
+    skos:definition "A documented exchange within the engagement process took place before Navigate terminated the signal." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:durable a owl:DatatypeProperty ;
+    rdfs:label "durable" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:escalation a owl:ObjectProperty ;
+    rdfs:label "escalation" ;
+    skos:definition "ASEP 3.3.6. The Signal Escalation state this signal has reached." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:escalation_architecture_present a owl:DatatypeProperty ;
+    rdfs:label "escalation_architecture_present" ;
+    skos:definition "ASEP 3.3.6. The Signal Escalation state machine is implemented (required by the checker at Instrumented and above)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ex_ante a owl:DatatypeProperty ;
+    rdfs:label "ex_ante" ;
+    skos:definition "Defined before specific disputes." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:ex_ante_criteria a owl:ObjectProperty ;
+    rdfs:label "ex_ante_criteria" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:finding a owl:ObjectProperty ;
+    rdfs:label "finding" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:finite_path_to_decision a owl:ObjectProperty ;
+    rdfs:label "finite_path_to_decision" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:framework_version a owl:DatatypeProperty ;
+    rdfs:label "framework_version" ;
+    skos:definition "ASEP 2.2. The version of the classification framework in effect at signal generation (ex-ante criteria)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:independent_of_evaluated_actors a owl:DatatypeProperty ;
+    rdfs:label "independent_of_evaluated_actors" ;
+    skos:definition "ASEP 4.3. At least one path is independent of the actors being evaluated (required by the checker at Instrumented and above)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:kind a owl:ObjectProperty ;
+    rdfs:label "kind" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:logging a owl:ObjectProperty ;
+    rdfs:label "logging" ;
+    skos:definition "ASEP 3.2.1, 4.3. The logging paths and their integrity properties." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:navigate a owl:ObjectProperty ;
+    rdfs:label "navigate" ;
+    skos:definition "ASEP 3.3. The signal-processing lifecycle, covering time bounds, action, and rationale." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:no_silent_erasure a owl:ObjectProperty ;
+    rdfs:label "no_silent_erasure" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:non_adverse_judgment_recorded a owl:DatatypeProperty ;
+    rdfs:label "non_adverse_judgment_recorded" ;
+    skos:definition "ASEP 2.2. If the signal was judged non-adverse, that judgment is itself recorded (no silent erasure)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:observation a owl:ObjectProperty ;
+    rdfs:label "observation" ;
+    skos:definition "ASEP 3.2.1. The observable description and the when, where, and who-affected log fields." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:pathway_opened a owl:DatatypeProperty ;
+    rdfs:label "pathway_opened" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:power_context a owl:DatatypeProperty ;
+    rdfs:label "power_context" ;
+    skos:definition "ASEP 3.2.2. Relative power or dependency, history, and incentives, where salient." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:reliability_disclosure a owl:DatatypeProperty ;
+    rdfs:label "reliability_disclosure" ;
+    skos:definition "ASEP 2.3. Disclosure that audit reliability is bounded until the Four Batteries Relational Battery is jointly instrumented." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:reporter a owl:DatatypeProperty ;
+    rdfs:label "reporter" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:role a owl:DatatypeProperty ;
+    rdfs:label "role" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:severity a owl:ObjectProperty ;
+    rdfs:label "severity" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:source a owl:ObjectProperty ;
+    rdfs:label "source" ;
+    skos:definition "ASEP 3.2.1, 4.2. Who reported the signal and in what role." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:stage a owl:ObjectProperty ;
+    rdfs:label "stage" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:structural_root_cause_finding a owl:ObjectProperty ;
+    rdfs:label "structural_root_cause_finding" ;
+    skos:definition "ASEP 3.3.3. Present when a pattern threshold triggered reclassification; one of the three named findings." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:tamper_evident a owl:DatatypeProperty ;
+    rdfs:label "tamper_evident" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:time_to_assessment a owl:DatatypeProperty ;
+    rdfs:label "time_to_assessment" ;
+    skos:definition "ASEP 3.3.1. The recorded first substantive look against the per-severity bound." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:time_to_first_decision a owl:DatatypeProperty ;
+    rdfs:label "time_to_first_decision" ;
+    skos:definition "ASEP 3.3.1. The recorded first decision against the per-severity bound." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
+    skos:definition "ASEP 2.2. Versioned, defined ex-ante." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:when a owl:DatatypeProperty ;
+    rdfs:label "when" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:where a owl:DatatypeProperty ;
+    rdfs:label "where" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:who_affected a owl:DatatypeProperty ;
+    rdfs:label "who_affected" ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:window_pre_specified a owl:DatatypeProperty ;
+    rdfs:label "window_pre_specified" ;
+    skos:definition "ASEP 3.3.6. The window length was published before it began running (window validity)." ;
+    skos:inScheme <https://standards.example/asep> .
+
+asep:DispositionKind a owl:Class ;
+    rdfs:label "DispositionKind" ;
+    owl:unionOf ( <https://standards.example/asep/DispositionKind#act> <https://standards.example/asep/DispositionKind#monitor> <https://standards.example/asep/DispositionKind#close> ) ;
+    skos:definition "ASEP 2.2. The finite-path terminal outcomes." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/DispositionKind#act>,
+        <https://standards.example/asep/DispositionKind#close>,
+        <https://standards.example/asep/DispositionKind#monitor> .
+
+asep:RootCauseKind a owl:Class ;
+    rdfs:label "RootCauseKind" ;
+    owl:unionOf ( <https://standards.example/asep/RootCauseKind#no_structural_condition> <https://standards.example/asep/RootCauseKind#structural_condition_identified> <https://standards.example/asep/RootCauseKind#insufficient_information> ) ;
+    skos:definition "ASEP 3.3.3. The three structural root cause findings." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/RootCauseKind#insufficient_information>,
+        <https://standards.example/asep/RootCauseKind#no_structural_condition>,
+        <https://standards.example/asep/RootCauseKind#structural_condition_identified> .
+
+asep:Severity a owl:Class ;
+    rdfs:label "Severity" ;
+    owl:unionOf ( <https://standards.example/asep/Severity#low> <https://standards.example/asep/Severity#medium> <https://standards.example/asep/Severity#high> ) ;
+    skos:definition "ASEP 3.3.2. Graduated severity." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/Severity#high>,
+        <https://standards.example/asep/Severity#low>,
+        <https://standards.example/asep/Severity#medium> .
+
+asep:ComplexityDomain a owl:Class ;
+    rdfs:label "ComplexityDomain" ;
+    owl:unionOf ( <https://standards.example/asep/ComplexityDomain#clear> <https://standards.example/asep/ComplexityDomain#complicated> <https://standards.example/asep/ComplexityDomain#complex> <https://standards.example/asep/ComplexityDomain#chaotic> ) ;
+    skos:definition "ASEP 3.3.6, 3.3.7. The Cynefin domains." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/ComplexityDomain#chaotic>,
+        <https://standards.example/asep/ComplexityDomain#clear>,
+        <https://standards.example/asep/ComplexityDomain#complex>,
+        <https://standards.example/asep/ComplexityDomain#complicated> .
+
+asep:AdoptionTier a owl:Class ;
+    rdfs:label "AdoptionTier" ;
+    owl:unionOf ( <https://standards.example/asep/AdoptionTier#assessed> <https://standards.example/asep/AdoptionTier#operational> <https://standards.example/asep/AdoptionTier#instrumented> <https://standards.example/asep/AdoptionTier#loop_closed> <https://standards.example/asep/AdoptionTier#auditable> ) ;
+    skos:definition "ASEP 5. The adoption tiers." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/AdoptionTier#assessed>,
+        <https://standards.example/asep/AdoptionTier#auditable>,
+        <https://standards.example/asep/AdoptionTier#instrumented>,
+        <https://standards.example/asep/AdoptionTier#loop_closed>,
+        <https://standards.example/asep/AdoptionTier#operational> .
+
+asep:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/asep/ConformanceAnswer#satisfied> <https://standards.example/asep/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/asep/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "ASEP. Per-invariant answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/asep/ConformanceAnswer#not_applicable>,
+        <https://standards.example/asep/ConformanceAnswer#satisfied> .
+
+asep:EscalationStage a owl:Class ;
+    rdfs:label "EscalationStage" ;
+    owl:unionOf ( <https://standards.example/asep/EscalationStage#generated> <https://standards.example/asep/EscalationStage#acknowledged> <https://standards.example/asep/EscalationStage#auto_escalated> <https://standards.example/asep/EscalationStage#obligation_triggered> <https://standards.example/asep/EscalationStage#terminal_visibility> ) ;
+    skos:definition "ASEP 3.3.6. The time-governed escalation stages." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/EscalationStage#acknowledged>,
+        <https://standards.example/asep/EscalationStage#auto_escalated>,
+        <https://standards.example/asep/EscalationStage#generated>,
+        <https://standards.example/asep/EscalationStage#obligation_triggered>,
+        <https://standards.example/asep/EscalationStage#terminal_visibility> .
+
+asep:NavigateAction a owl:Class ;
+    rdfs:label "NavigateAction" ;
+    owl:unionOf ( <https://standards.example/asep/NavigateAction#mitigate_or_contain> <https://standards.example/asep/NavigateAction#escalate> <https://standards.example/asep/NavigateAction#initiate_engagement> <https://standards.example/asep/NavigateAction#monitor> <https://standards.example/asep/NavigateAction#close> ) ;
+    skos:definition "ASEP 3.3.1. The bounded action set." ;
+    skos:inScheme <https://standards.example/asep> ;
+    linkml:permissible_values <https://standards.example/asep/NavigateAction#close>,
+        <https://standards.example/asep/NavigateAction#escalate>,
+        <https://standards.example/asep/NavigateAction#initiate_engagement>,
+        <https://standards.example/asep/NavigateAction#mitigate_or_contain>,
+        <https://standards.example/asep/NavigateAction#monitor> .
+
+asep:rationale a owl:DatatypeProperty .
+
+

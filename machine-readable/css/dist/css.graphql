@@ -1,0 +1,105 @@
+# metamodel_version: 1.11.0
+enum AdoptionLevel
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConditionState
+  {
+    present
+    absent
+    not_applicable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum RadiusValue
+  {
+    radius_5
+    radius_15
+    radius_50
+    radius_150
+    radius_500
+    radius_1500
+  }
+
+type AffectedPartyReach
+  {
+    aboveReachCeiling: Boolean!
+    proxyOrGuardianChannel: Boolean
+    constituencyNotUnilaterallyControlled: Boolean
+  }
+
+type AggregateFactor
+  {
+    name: String!
+    value: String!
+  }
+
+type ConditionStatus
+  {
+    condition: String!
+    status: ConditionState!
+    detectionSignal: String
+  }
+
+type ConformanceDeclaration
+  {
+    effectiveRadiusAssessed: ConformanceAnswer!
+    minimumConditionsPresent: ConformanceAnswer!
+    maximumConditionsAbsent: ConformanceAnswer!
+    sequentialBuildRespected: ConformanceAnswer!
+  }
+
+type CoordinationRadius
+  {
+    radius: RadiusValue!
+    functionBreak: String!
+    attackSurface: String!
+    provisional: Boolean
+  }
+
+type CoordinationScalingRecord
+  {
+    subject: String!
+    effectiveRadius: EffectiveRadiusAssessment!
+    crossedThresholds: [RadiusConformance]!
+    reach: AffectedPartyReach
+    adoptionLevel: AdoptionLevel!
+    conformance: ConformanceDeclaration!
+  }
+
+type EffectiveRadiusAssessment
+  {
+    functionBreaks: [FunctionBreak]!
+    aggregateFactors: [AggregateFactor]!
+    nominalEffectiveRadius: RadiusValue!
+    robustEffectiveRadius: RadiusValue!
+    contextualBaseline: String
+  }
+
+type FunctionBreak
+  {
+    function: String!
+    radius: RadiusValue!
+    broken: Boolean!
+    approachNoted: Boolean
+  }
+
+type RadiusConformance
+  {
+    radius: CoordinationRadius!
+    minimumConditions: [ConditionStatus]!
+    maximumConditions: [ConditionStatus]!
+    interfaceConditionsDocumented: Boolean
+  }
+

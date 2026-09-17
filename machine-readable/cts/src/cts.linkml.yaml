@@ -1,0 +1,153 @@
+id: https://standards.example/cts
+name: cts
+title: CTS conflict transformation record
+description: >-
+  The one canonical source for the machine-readable layer of the Conflict Transformation Standard
+  (standards-3_0-conflict-transformation, v0.2.10), the third Tensegrity Generative Standard. CTS
+  specifies enabling conditions through five structural invariants, each individuated by its own
+  satisfaction test, signatures, and epistemic tier, so the model renders them as typed
+  StructuralInvariant objects rather than a flat enum of invariant names. Rendering the invariants
+  as bare labels would collapse the structure into names, a precision deficit under the
+  Precision-First Design Standard whose absent structure leaves no gap marker; the structural
+  rendering is deliberate.
+
+  The tree root is a ConflictTransformationRecord, a coordination system's declaration of its
+  conflict-transformation capacity: whether the constitutional pre-condition is established, the
+  five invariants each with its satisfaction status and epistemic tier, the operational scales
+  addressed, the adoption tier, and per-invariant conformance. Being a generative standard, CTS
+  names capacity conditions rather than floors that reject an artifact; whether a system satisfies
+  an invariant is largely judgment against the structural satisfaction test and routes to the
+  checker, while a few signatures (the proactive-disposition ratio, implausible absence of conflict
+  events) are computable. Every artifact in dist/ is generated from this file.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cts: https://standards.example/cts/
+default_prefix: cts
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  ConflictTransformationRecord:
+    tree_root: true
+    description: A coordination system's declaration of its conflict-transformation capacity across the five invariants, the scales it addresses, and its adoption tier.
+    attributes:
+      subject:
+        description: The coordination system whose conflict-transformation capacity is declared.
+        required: true
+      constitutional_precondition_established:
+        description: >-
+          Section 4. Whether parties share sufficient foundational vocabulary about what the
+          organization is to name what they are in conflict about; if not, the required first
+          engagement is constitutional dialogue, not conflict transformation.
+        range: boolean
+        required: true
+      invariants:
+        description: >-
+          Section 4. The five structural invariants, each rendered as a typed object carrying its
+          satisfaction status and epistemic tier. They are constitutive of a capacity declaration;
+          a record that names no invariants could claim capacity while assessing nothing.
+        range: StructuralInvariant
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      scales_addressed:
+        description: Section 5. The operational scales at which the record declares the invariants apply.
+        range: OperationalScale
+        multivalued: true
+      adoption_tier:
+        description: Section 8. The adoption tier the record supports.
+        range: AdoptionTier
+        required: true
+      conformance:
+        description: The per-invariant conformance answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  StructuralInvariant:
+    description: >-
+      Section 4. One of the five structural invariants, individuated by its satisfaction test and
+      its epistemic tier, not by a label. An invariant with no satisfaction test is a name, so
+      satisfaction_test, satisfaction_status, and epistemic_tier are required.
+    attributes:
+      id:
+        description: The invariant handle (for example legibility, graduated_engagement, proactive_disposition, capacity_provision, recognition).
+        required: true
+      name:
+        required: true
+      satisfaction_test:
+        description: The structural test that determines whether the invariant is satisfied, stated so an independent observer can apply it.
+        required: true
+      satisfaction_status:
+        range: SatisfactionStatus
+        required: true
+      epistemic_tier:
+        description: Section 4. The invariant's epistemic tier (A structural, B literature-plus-structural, C measurement-calibration).
+        range: EpistemicTier
+        required: true
+      signature:
+        description: The observed violation or satisfaction signature supporting the status; some signatures are computable from the coordination record.
+
+  ConformanceDeclaration:
+    description: >-
+      The per-invariant conformance answers. There is deliberately no overall or total field:
+      conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a
+      single number.
+    attributes:
+      conflict_legible:
+        range: ConformanceAnswer
+        required: true
+      graduated_architecture_present:
+        range: ConformanceAnswer
+        required: true
+      proactive_disposition_protected:
+        range: ConformanceAnswer
+        required: true
+      transformation_capacity_provisioned:
+        range: ConformanceAnswer
+        required: true
+      engagement_recognized:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  SatisfactionStatus:
+    description: The status of a structural invariant against the system; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      violated:
+      partial:
+      not_applicable:
+
+  EpistemicTier:
+    description: Section 4. The three epistemic tiers.
+    permissible_values:
+      tier_a:
+      tier_b:
+      tier_c:
+
+  OperationalScale:
+    description: Section 5. The three operational scales.
+    permissible_values:
+      intra_organizational:
+      inter_organizational:
+      platform_level:
+
+  AdoptionTier:
+    description: Section 8. The five adoption tiers.
+    permissible_values:
+      declared:
+      structured:
+      instrumented:
+      loop_closed:
+      auditable:
+
+  ConformanceAnswer:
+    description: Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

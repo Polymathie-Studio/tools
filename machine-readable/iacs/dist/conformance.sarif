@@ -1,0 +1,57 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "iacs-conformance",
+          "version": "0.1.28",
+          "rules": [
+            {
+              "id": "applicability_mapped",
+              "shortDescription": {
+                "text": "IACS Section 6: class applicability inventory mapped"
+              }
+            },
+            {
+              "id": "classification_process_documented",
+              "shortDescription": {
+                "text": "IACS Section 6: documented classification process per applicable mechanism"
+              }
+            },
+            {
+              "id": "detection_instrumented",
+              "shortDescription": {
+                "text": "IACS Section 6: detection architecture instrumenting the surfaces"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "applicability_mapped",
+          "level": "none",
+          "message": {
+            "text": "IACS Section 6: class applicability inventory mapped: satisfied"
+          }
+        },
+        {
+          "ruleId": "classification_process_documented",
+          "level": "none",
+          "message": {
+            "text": "IACS Section 6: documented classification process per applicable mechanism: satisfied"
+          }
+        },
+        {
+          "ruleId": "detection_instrumented",
+          "level": "none",
+          "message": {
+            "text": "IACS Section 6: detection architecture instrumenting the surfaces: satisfied"
+          }
+        }
+      ]
+    }
+  ]
+}

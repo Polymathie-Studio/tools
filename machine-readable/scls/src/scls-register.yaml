@@ -1,0 +1,458 @@
+# SCLS register distillation
+# One row per normative requirement of the Structural Consent Legibility
+# Standard (standards-3_0-structural-consent, v0.3.25). The corpus's register
+# distillation: a typed, enumerable table extracted from prose, one row per
+# entry, each carrying its assertion, a kind code, a portability flag, and the
+# per-entry `checkable` flag (shape, enforceable by a data schema; judgment,
+# needing a reader; or mixed) that partitions the gateable core from the
+# advisory periphery.
+#
+# Fields beyond the STRUCK register form, set by SCLS's nature:
+#   tier                the lowest adoption tier at which the entry binds
+#                       (All, Assessed, Operational, Instrumented, Loop-Closed,
+#                       Auditable). SCLS's obligation-loop tiers are part of the
+#                       standard, so the register carries them.
+#   cross_standard_ref  present where the entry can only be decided with data or
+#                       a check owned by another standard. The reference is
+#                       recorded here; the resolution mechanism for cross-standard
+#                       references across the CSIS family is an open pipeline
+#                       question (the manifest is the natural place to resolve it).
+#
+# SCLS is mixed by nature: record-completeness and axis-answerability are shape
+# and gateable; genuine-versus-hollow consent is judgment, and the standard
+# states its own surface cannot tell the two apart under relational depletion
+# (Section 6). The judgment entries route to the conformance checker, not the
+# schema.
+standard: SCLS
+standard_version: 0.3.25
+source: standards-3_0-structural-consent-0_3_25.md
+entries:
+
+  # Structural test for consent validity (Section 2.3.1)
+  - id: SCLS-VALID-1
+    section: "2.3.1"
+    obligation: consent-validity
+    kind: MUST
+    portability: universal
+    checkable: shape            # presence of a negotiated-limit record
+    tier: All
+    assertion: "A consent-bearing interaction carries explicit, negotiated limits set by the consenting party; in a serving or allowing quadrant the absence of a negotiated limit is a shadow indicator (martyrdom, enduring)."
+  - id: SCLS-VALID-2
+    section: "2.3.1"
+    obligation: consent-validity
+    kind: MUST
+    portability: universal
+    checkable: shape            # both axes recorded as legible to both parties
+    tier: All
+    assertion: "Both axes (who is acting, who the action is for) were legible to both parties at the time of the interaction; obscuring either axis is a shadow indicator."
+  - id: SCLS-VALID-3
+    section: "2.3.1"
+    obligation: consent-validity
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a withdrawal mechanism's presence is shape; whether its cost exceeds participation benefit is judgment (an exit-cost signal, 5.3.1)
+    tier: All
+    assertion: "Withdrawal of consent is structurally feasible, not merely formally permitted; withdrawal whose cost exceeds the benefit of participation is a shadow indicator."
+
+  # Cost-bearing party and external legal override (Sections 2.1, 2.3.2)
+  - id: SCLS-COST-1
+    section: "2.1"
+    obligation: cost-bearing-party
+    kind: MUST
+    portability: conditional
+    condition: "the cost-bearing party is distinct from both the acting and the benefiting party"
+    checkable: shape            # spine gate: the cost-bearing party is identified and their consent to the cost distribution recorded before the action; protects a cost-bearer otherwise in a shadow they never consented to, even when both Wheel axes are satisfied
+    tier: All
+    assertion: "When the cost-bearing party is distinct from both the acting and benefiting parties, the record identifies the cost-bearing party explicitly and obtains their consent to the cost distribution before the action proceeds."
+  - id: SCLS-EXT-1
+    section: "2.3.2"
+    obligation: external-override
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of the disclosure is shape; adequacy of the gap treatment is judgment
+    tier: All
+    assertion: "The consent architecture names the external-legal-override threat for the adopting context, identifies which external legal jurisdictions apply, and specifies how the gap between explicit consent and externally imposed obligations is addressed; absence of this disclosure is a consent legibility failure."
+
+  # Identify (Section 3.1)
+  - id: SCLS-ID-1
+    section: "3.1"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a trigger-condition specification is shape; whether the action is evaluable is judgment (ties to SCLS-OBL-1)
+    tier: All
+    assertion: "The action being consented to is specified precisely enough for affected parties to evaluate whether they are materially affected; category-level authorization must specify the trigger condition under which a specific action requires a standing evaluation before it proceeds."
+  - id: SCLS-ID-2
+    section: "3.1"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: shape            # weld: an affected-constituency identification event precedes execution; protects the un-identified affected parties
+    tier: All
+    assertion: "The affected constituency is identified before the action proceeds."
+  - id: SCLS-ID-3
+    section: "3.1"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: mixed            # logging and evaluability are shape; whether a self-identified claim is plausible is judgment
+    tier: Operational
+    assertion: "Identification is evidence-based where system evidence exists; self-identification of standing is permitted; standing claims are logged and subject to structured evaluation and challenge."
+  - id: SCLS-ID-4
+    section: "3.1"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the should-be-affected-but-absent monitor is shape; the plausibility of the absence is judgment
+    tier: Instrumented
+    cross_standard_ref: "ASEP: the implausible absence is processed as an adverse signal through Signal Escalation"
+    assertion: "The absence of a standing claim from a party who should be affected on available system evidence is itself an adverse signal, monitored and processed."
+  - id: SCLS-STAND-1
+    section: "3.1.1"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence and non-concentration of the four elements are shape; per-claim evaluation is judgment
+    tier: Instrumented
+    assertion: "The standing evaluation mechanism combines self-identification, evidence-backed evaluation, implausible-absence detection, and distributed evaluation (the evaluation function is not concentrated in a single actor)."
+  - id: SCLS-CONST-1
+    section: "3.1.2"
+    obligation: identify
+    kind: MUST
+    portability: universal
+    checkable: shape            # weld: a consent-bearing action proceeds with no durable constituency definition to identify the affected set against; protects every affected party who cannot assert standing against a reference that does not exist
+    tier: Operational
+    assertion: "A durable constituency definition exists that is accessible without authority-gating and specific enough for an independent observer to determine whether any party holds participation rights without access to the author's intent."
+  - id: SCLS-CONST-2
+    section: "3.1.2"
+    obligation: identify
+    kind: MUST
+    portability: conditional
+    condition: "a modification alters who holds participation rights"
+    checkable: shape
+    tier: Operational
+    assertion: "Any modification that alters who holds participation rights is itself a consent action requiring the Authorize invariant as applied to the affected constituency whose standing is altered."
+
+  # Authorize (Section 3.2) and system obligations (Section 6.1)
+  - id: SCLS-AUTH-1
+    section: "3.2"
+    obligation: authorize
+    kind: MUST
+    portability: universal
+    checkable: mixed            # composite; resolves to the four system-obligation entries (SCLS-OBL-1..4) rather than restating them
+    tier: Operational
+    assertion: "The affected constituency has a meaningful opportunity to authorize or refuse, which requires that the four system obligations (legibility, time, support, exit or objection cost) are satisfied."
+  - id: SCLS-AUTH-2
+    section: "3.2"
+    obligation: authorize
+    kind: MUST
+    portability: universal
+    checkable: shape            # both Wheel questions answered in the authorization record
+    tier: Operational
+    assertion: "The authorization mechanism answers both Wheel questions: who is acting, and who benefits."
+  - id: SCLS-AUTH-3
+    section: "3.2"
+    obligation: authorize
+    kind: MUST
+    portability: universal
+    checkable: shape            # the authorizing set is checkable against the identified constituency
+    tier: Operational
+    assertion: "Authorization neither excludes affected parties nor includes unaffected parties whose participation dilutes the affected constituency's voice."
+  - id: SCLS-AUTH-4
+    section: "3.2"
+    obligation: authorize
+    kind: MUST
+    portability: universal
+    checkable: shape            # weld: an action treats absence-of-objection as authorization; protects the non-responding and unable-to-respond parties
+    tier: Operational
+    assertion: "Silence, inaction, and the absence of objection are not consent; the system structurally distinguishes authorized, not-yet-responded, and unable-to-respond."
+  - id: SCLS-OBL-1
+    section: "6.1"
+    obligation: system-obligation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of a specification at the required precision is shape; whether it is evaluable by the constituency is judgment
+    tier: Operational
+    assertion: "Legibility: the action is described in terms the affected constituency can evaluate; vague description is not a valid basis for consent."
+  - id: SCLS-OBL-2
+    section: "6.1"
+    obligation: system-obligation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of a window is shape; proportionality to complexity is judgment; window durations await pilot calibration (9.3)
+    tier: Operational
+    assertion: "Time: the consent window is proportional to the complexity of what is consented to, calibrated by complexity domain (Section 6.4)."
+  - id: SCLS-OBL-3
+    section: "6.1"
+    obligation: system-obligation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of support infrastructure is shape; its adequacy is judgment
+    tier: Operational
+    assertion: "Support: the system provides the analytical infrastructure for the constituency to evaluate implications (impact assessments, modeling, forums, or expert consultation)."
+  - id: SCLS-OBL-4
+    section: "6.1"
+    obligation: system-obligation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the structural cost is measurable (shape); whether it is punitive relative to participation benefit is judgment; the strongest test of consent validity
+    tier: Operational
+    assertion: "Exit or objection cost: the structural cost of dissent (exit, objection, abstention) is not punitive."
+
+  # Verify (Section 3.3) and consent-failure signals (Section 3.4)
+  - id: SCLS-VER-1
+    section: "3.3"
+    obligation: verify
+    kind: MUST
+    portability: universal
+    checkable: shape            # spine gate: the core record-completeness check; feeds SCLS-COST-1 and the two axes
+    tier: Operational
+    assertion: "The consent record identifies who acted, who benefited, who was affected, who bears the cost, and the agreed limits."
+  - id: SCLS-VER-2
+    section: "3.3"
+    obligation: verify
+    kind: MUST
+    portability: universal
+    checkable: shape
+    tier: Operational
+    cross_standard_ref: "ASEP: durable, tamper-evident logging (the durable-logging requirement)"
+    assertion: "The consent record is durable and tamper-evident."
+  - id: SCLS-VER-3
+    section: "3.3"
+    obligation: verify
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the shadow-detection signals are shape (5.3.1); the adjudication of genuine-versus-hollow is judgment
+    tier: Instrumented
+    assertion: "The system can detect, after the fact, when a nominally consented action operated in a shadow quadrant (a ratification that met quorum but benefited the voting body at the constituency's expense)."
+  - id: SCLS-SIG-1
+    section: "3.4"
+    obligation: consent-failure-signal
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the unanimity condition is shape; whether disagreement is normal for the domain is judgment
+    tier: Instrumented
+    cross_standard_ref: "ASEP: consent failures are adverse signals subject to Signal Escalation"
+    assertion: "Unanimous agreement in a domain where disagreement is normal is an adverse signal (implausible absence of dissent)."
+  - id: SCLS-SIG-2
+    section: "3.4"
+    obligation: consent-failure-signal
+    kind: MUST
+    portability: universal
+    checkable: mixed            # benefit-vote overlap is shape (5.3.1 primary signal); the framing-as-service read is judgment
+    tier: Instrumented
+    cross_standard_ref: "ASEP: adverse-signal processing"
+    assertion: "Authorization by a body that benefits from the action at the affected constituency's expense is an adverse signal (a Wheel violation framed as service)."
+  - id: SCLS-SIG-3
+    section: "3.4"
+    obligation: consent-failure-signal
+    kind: MUST
+    portability: universal
+    checkable: mixed            # notification and participation are shape; bandwidth sufficiency is judgment
+    tier: Instrumented
+    cross_standard_ref: "ASEP: adverse-signal processing"
+    assertion: "Affected parties who were not notified, could not participate, or lacked the bandwidth to evaluate what they consented to is an adverse signal."
+  - id: SCLS-SIG-4
+    section: "3.4"
+    obligation: consent-failure-signal
+    kind: MUST
+    portability: universal
+    checkable: shape            # the record shows silence-as-consent with no prior opt-in event
+    tier: Instrumented
+    cross_standard_ref: "ASEP: adverse-signal processing"
+    assertion: "Silence treated as consent without explicit, prior opt-in to that interpretation is an adverse signal."
+  - id: SCLS-SIG-5
+    section: "3.4"
+    obligation: consent-failure-signal
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the monitor is shape; plausibility is judgment (see SCLS-ID-4, SCLS-STAND-1)
+    tier: Instrumented
+    cross_standard_ref: "ASEP: adverse-signal processing"
+    assertion: "A standing claim implausible given available system evidence, and the implausible absence of a standing claim from a party who should be affected, are adverse signals."
+
+  # Consent domains (Section 4)
+  - id: SCLS-DOM-1
+    section: "4"
+    obligation: domains
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the domain-applicability declaration is shape; per-domain satisfaction is per its own entries
+    tier: Assessed
+    assertion: "The system identifies which of the five consent domains (coordination, data, participation, output, observation) are relevant to its operations and satisfies the three invariants in each relevant domain."
+  - id: SCLS-DELEG-1
+    section: "4.3.1"
+    obligation: participation
+    kind: MUST
+    portability: universal
+    checkable: shape            # a delegation-scope statement with the three required contents is present or absent
+    tier: Operational
+    assertion: "Participation entry terms specify what consent authority is delegated to the organizational layer, in which domains, for what actions; delegation without specification is a consent failure."
+  - id: SCLS-DELEG-2
+    section: "4.3.1"
+    obligation: participation
+    kind: MUST
+    portability: conditional
+    condition: "scope expansion: using participant data, modifying terms, or extending observation beyond entry specification"
+    checkable: shape            # weld: an expansion action proceeds without a per-individual re-consent event; protects the individual whose delegated scope is exceeded
+    tier: Operational
+    assertion: "Scope expansion requires per-individual re-consent, not a coordination vote."
+  - id: SCLS-OBS-1
+    section: "4.5.1"
+    obligation: observation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # consent present at each named layer with scope and recourse is shape; whether the scope is genuinely bounded is judgment
+    tier: Operational
+    assertion: "Observation consent is obtained at each layer where participants make an independent decision about what they permit to be monitored (at minimum network, organization, and scope-change), each with specified scope and recourse."
+  - id: SCLS-OBS-2
+    section: "4.5.2"
+    obligation: observation
+    kind: MUST
+    portability: conditional
+    condition: "spoken sessions are designated record sources"
+    checkable: shape
+    tier: Operational
+    cross_standard_ref: "Sensemaking Standard Section 9.2 (spoken coordination channels, recording consent architecture)"
+    assertion: "Where spoken sessions are designated record sources, the observation consent scope explicitly covers recording (what may be recorded, processing, access, retention); recording without named scope coverage is a consent failure, and an individual voice-anonymization request is honored without justification."
+  - id: SCLS-OBS-3
+    section: "4.5.3"
+    obligation: observation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of the perceptual-limits disclosure is shape; its completeness is judgment
+    tier: Instrumented
+    cross_standard_ref: "IACS Extension Class C (Descriptive Capacity Asymmetry): the mechanism by which measurement vocabulary limits produce structural invisibility"
+    assertion: "A party measured by a framework that cannot fully perceive their coordination dynamics has consented under material omission unless the framework's perceptual limits are disclosed at Level 2 and updated through Level 3 on revision."
+  - id: SCLS-XDOM-1
+    section: "4.6"
+    obligation: domain-interaction
+    kind: MUST
+    portability: conditional
+    condition: "an action spans multiple consent domains"
+    checkable: mixed            # the cross-domain analysis is present or absent (shape); the shadow determination is judgment; cross-domain classification is an open design question (9.5)
+    tier: Instrumented
+    assertion: "For actions spanning multiple domains, the system identifies cross-domain consent implications; a process valid in one domain that creates a shadow in another is a consent failure."
+  - id: SCLS-XDOM-2
+    section: "4.6.1"
+    obligation: domain-interaction
+    kind: MUST
+    portability: conditional
+    condition: "individual and organizational consent conflict"
+    checkable: mixed            # the delegation-scope check is shape; the conflict resolution (mediation and escalation) is judgment
+    tier: Operational
+    assertion: "When individual and organizational consent conflict, the layer closest to the affected party is applied unless the affected party has delegated consent authority for the specified scope; the system does not default to organizational override."
+  - id: SCLS-PRIV-1
+    section: "4.6.2"
+    obligation: privacy-directionality
+    kind: MUST
+    portability: conditional
+    condition: "a design choice exists between a more and a less privacy-preserving option"
+    checkable: mixed            # presence of a documented reason on departure is shape; whether the reason requires the less-private option is judgment; departure without a reason is a precision deficit under PFDS
+    tier: All
+    assertion: "The more privacy-preserving option is the default; departure requires a specific documented reason legible to the affected constituency."
+  - id: SCLS-PRIV-2
+    section: "4.6.2"
+    obligation: privacy-directionality
+    kind: MUST
+    portability: universal
+    checkable: shape            # the distinguishing test is whether a specific, documented consent action preceded the disclosure, which the record answers
+    tier: Instrumented
+    assertion: "System-initiated exposure (disclosure without a prior participant consent action) not required for minimum viable function is a consent failure unless explicitly authorized; participant-initiated disclosure (triggered by an explicit consent action) is governed by the three invariants instead."
+
+  # Shadow-dynamics detection architecture (Section 5.3.1)
+  - id: SCLS-DET-1
+    section: "5.3.1"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: shape            # the two thresholds are present per shadow type
+    tier: Instrumented
+    cross_standard_ref: "ASEP: detection flags for Signal Escalation, never adjudicates"
+    assertion: "Detection for each shadow type is graduated: at minimum a monitoring threshold and an escalation threshold; detection flags for Signal Escalation, never adjudicates."
+  - id: SCLS-DET-2
+    section: "5.3.1"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the signals are computable from the record (shape); the calibrated thresholds await pilot data (9.2)
+    tier: Instrumented
+    assertion: "Entitlement or stealing signatures: benefit-vote correlation (primary), affected-constituency participation gap (secondary), conflict-of-interest disclosure absence (tertiary)."
+  - id: SCLS-DET-3
+    section: "5.3.1"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed            # battery-vector stress needs Four Batteries data external to SCLS
+    tier: Instrumented
+    cross_standard_ref: "Four Batteries Capacity Standard: battery-vector stress signatures (a runtime data dependency)"
+    assertion: "Enduring signatures: compliance-deliberation divergence (primary), exit-cost correlation (secondary), battery-vector stress signatures where available (tertiary)."
+  - id: SCLS-DET-4
+    section: "5.3.1"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: Instrumented
+    assertion: "Martyrdom signatures: service concentration with declining quality (primary), delegation absence (secondary), resistance to relief (tertiary)."
+  - id: SCLS-DET-5
+    section: "5.3.1"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the compositional rule and transparency are shape; the escalation determination is judgment
+    tier: Instrumented
+    assertion: "Signals are composite; a single monitoring-threshold signal triggers monitoring, persistent patterns with higher-confidence signals trigger escalation, individual signals are never conclusive; the monitored patterns are transparent to participants (itself an Observation-domain consent requirement)."
+
+  # Bandwidth as system obligation (Sections 6.2, 6.3)
+  - id: SCLS-BW-1
+    section: "6.2, 6.3"
+    obligation: bandwidth
+    kind: MUST
+    portability: universal
+    checkable: judgment         # bandwidth sufficiency is not shape-checkable from the record; routes to the conformance checker; minimum thresholds and instruments await pilot data (9.3)
+    tier: Instrumented
+    cross_standard_ref: "IACS: the six asymmetry classes each suppress specific bandwidth types (6.3)"
+    assertion: "Bandwidth (ontological, epistemic, pedagogical, operational) is a system obligation, not a participant qualification; a system that creates requirements without supporting the bandwidth those requirements draw on produces structurally valid-looking consent that is substantively empty."
+
+  # Adoption tiers (Section 5)
+  - id: SCLS-TIER-1
+    section: "5.1"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Assessed
+    assertion: "Assessed: a consent inventory maps operations to the five domains and identifies where consent is obtained, assumed, or absent."
+  - id: SCLS-TIER-2
+    section: "5.2"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite; resolves to the constituent Identify and Authorize entries
+    tier: Operational
+    assertion: "Operational: a documented consent process per relevant domain satisfying Identify and Authorize; shadow dynamics named as known risks."
+  - id: SCLS-TIER-3
+    section: "5.3"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Instrumented
+    assertion: "Instrumented: a detection architecture identifying shadow dynamics per relevant domain, integrated with adverse-signal processing; standing evaluation; Verify fully satisfied."
+  - id: SCLS-TIER-4
+    section: "5.4"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the detection-to-review path is verifiable from the append-only record
+    tier: Loop-Closed
+    assertion: "Loop-Closed: every consent-failure detection output produces a documented coordination review within a pre-specified public window, or an automatic disclosure to all coordination actors on absence of review, without any actor's initiation; review records are append-only."
+  - id: SCLS-TIER-5
+    section: "5.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Auditable
+    assertion: "Auditable: the full detection-and-response record is independently verifiable without operator cooperation for completeness (the generated-versus-recorded gap is the suppression surface), classification integrity, and response completeness; the audit is documented and disclosed."

@@ -1,0 +1,186 @@
+@prefix fbcs: <https://standards.example/fbcs/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+fbcs:FourBatteriesRecord a sh:NodeShape ;
+    rdfs:comment "An organization's declaration of its four-battery capacity and its scope-and-delegation conformance." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class fbcs:ConditionStatus ;
+            sh:description "Section 8.2. The four scope-and-delegation conditions, each with its status." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path fbcs:scope_conditions ],
+        [ sh:class fbcs:ConformanceDeclaration ;
+            sh:description "The conformance answers on the face; no total." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path fbcs:conformance ],
+        [ sh:description "Section 8.6. The scope-and-delegation adoption tier the record supports." ;
+            sh:in ( "scope_visibility" "structural_review" "full_conformance" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path fbcs:scope_adoption_tier ],
+        [ sh:class fbcs:CheckingPractice ;
+            sh:description "Section 7.2. Whether the organization's battery-checking practice meets the four conditions that distinguish a genuine check from theater." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path fbcs:checking_practice ],
+        [ sh:class fbcs:Battery ;
+            sh:description "Section 2. The four batteries, each rendered as a typed object carrying its charge state and, when tracked, its developmental state. They are constitutive of a capacity declaration; a record naming no batteries could claim capacity while assessing nothing." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path fbcs:batteries ],
+        [ sh:datatype xsd:string ;
+            sh:description "The coordination unit or organization whose capacity is declared." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path fbcs:subject ] ;
+    sh:targetClass fbcs:FourBatteriesRecord .
+
+fbcs:Battery a sh:NodeShape ;
+    rdfs:comment "Section 2. One of the four batteries, individuated as a distinct resource condition carrying its own charge state and developmental state, not a label. A battery with no charge state is a name, so battery and charge_state are required; developmental state is optional because developmental-state conformance is transparency-based, not threshold-based." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Which of the four batteries this is." ;
+            sh:in ( "personal" "relational" "contribution" "mission" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path fbcs:battery ],
+        [ sh:class fbcs:DevelopmentalState ;
+            sh:description "Section 2. The permanent axis, when the organization tracks it, across depth, breadth, and durability." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path fbcs:developmental_state ],
+        [ sh:description "Section 2. The cyclical axis, the battery's currently accessible state." ;
+            sh:in ( "full" "partial" "depleted" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path fbcs:charge_state ] ;
+    sh:targetClass fbcs:Battery .
+
+fbcs:CheckingPractice a sh:NodeShape ;
+    rdfs:comment "Section 7.2. The four conditions that make a battery check genuine rather than theater. Conformance is defined by the quality of the checking practice, not the level it reveals." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "The check is embedded in coordination activity rather than appended as a separate periodic review." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path fbcs:structural_embeddedness ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "The check produces a result specific enough to be wrong." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path fbcs:specificity ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "A low or declining result is demonstrably received and responded to." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path fbcs:adverse_result_integrity ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "The check happens on a defined cadence, not only when prompted by crisis." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path fbcs:regularity ] ;
+    sh:targetClass fbcs:CheckingPractice .
+
+fbcs:ConditionStatus a sh:NodeShape ;
+    rdfs:comment "Section 8.2. One scope-and-delegation condition and its status, so a condition is never asserted without a present-or-absent determination." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The scope-and-delegation condition, stated operationally." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path fbcs:condition ],
+        [ sh:in ( "present" "absent" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path fbcs:status ] ;
+    sh:targetClass fbcs:ConditionStatus .
+
+fbcs:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "The conformance answers on the face. There is deliberately no overall or total field: conformance is per-battery at the charge layer plus the checking practice and the scope conditions, mirroring the suite's refusal to collapse a profile into a single number. The developmental-state axis is transparency-based and is not a conformance threshold." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path fbcs:mission_battery_charged ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path fbcs:relational_battery_charged ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path fbcs:contribution_battery_charged ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path fbcs:personal_battery_charged ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 5 ;
+            sh:path fbcs:scope_conditions_present ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path fbcs:checking_practice_genuine ] ;
+    sh:targetClass fbcs:ConformanceDeclaration .
+
+fbcs:DevelopmentalState a sh:NodeShape ;
+    rdfs:comment "Section 2. The developmental state of a battery across its three mutually constituting dimensions. Transformed by integration events, not restored by recovery; declared and tracked rather than required at a level." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Precision of interpretive capacity, built through transclusion events that move a prior position from ceiling to floor." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path fbcs:depth ],
+        [ sh:datatype xsd:string ;
+            sh:description "The inclusivity of the frame, how many distinct perspectives it can hold simultaneously without collapsing to a dominant one." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path fbcs:breadth ],
+        [ sh:datatype xsd:string ;
+            sh:description "The persistence of developmental state under conditions that would reverse or suppress it." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path fbcs:durability ] ;
+    sh:targetClass fbcs:DevelopmentalState .
+
+

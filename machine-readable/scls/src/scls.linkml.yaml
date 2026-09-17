@@ -1,0 +1,370 @@
+id: https://standards.example/scls
+name: scls
+title: SCLS structural consent record
+description: >-
+  The one canonical source for the machine-readable layer of the Structural Consent
+  Legibility Standard (standards-3_0-structural-consent, v0.3.25): a LinkML model of the
+  shape a consent-bearing action's record must carry to be structurally legible. SCLS is a
+  relational-predicate standard, so the tree root is a per-action ConsentRecord whose core
+  is the relational predicates (who acts, who benefits, who bears cost, who is affected),
+  and the system-level obligations are a ConsentArchitecture the record declares its context
+  against. Every machine-readable artifact in dist/ is generated from this file.
+
+  The structural obligations (which relations and exposures must be present) are modeled
+  here. The interpretive obligations are NOT schema-expressible and belong to the conformance
+  checker: whether consent is genuine rather than hollow (the standard states its own surface
+  cannot tell them apart under relational depletion, Section 6), whether a description is
+  evaluable by the constituency, whether an exit cost is punitive, and the bandwidth
+  sufficiency judgment. scls-register.yaml marks each requirement shape, judgment, or mixed.
+
+  Tier-gating (which obligations bind at Assessed, Operational, Instrumented, Loop-Closed, or
+  Auditable) is enforced by the checker against the register's per-entry tier field, not by
+  this schema, so the schema models the full shape with tier-gated blocks optional rather
+  than encoding enum-precondition rules (the known silent-failure mode).
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  scls: https://standards.example/scls/
+default_prefix: scls
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  ConsentRecord:
+    tree_root: true
+    description: >-
+      A per-action consent record. Carries the relational predicates and the invariant
+      exposures (Identify, Authorize, Verify) on its face, and declares the system context
+      it was produced under.
+    attributes:
+      action:
+        description: SCLS 3.1. The action being consented to, specified precisely enough to evaluate material effect.
+        range: Action
+        required: true
+      affected_constituency:
+        description: SCLS 3.1. The set identified as materially affected, before the action proceeds.
+        range: AffectedConstituency
+        required: true
+      wheel:
+        description: SCLS 2.1, 3.2. The two Wheel axes, both legible to both parties.
+        range: WheelAxes
+        required: true
+      cost_bearing_party:
+        description: >-
+          SCLS 2.1. Present when the cost-bearing party is distinct from both the acting and
+          the benefiting party; when present it carries consent to the cost distribution
+          (native nested-required). Whether a distinct cost-bearer exists is domain fact and
+          is checked, not schema-enforced.
+        range: CostBearingParty
+      negotiated_limits:
+        description: SCLS 2.3.1. Explicit limits set by the consenting party. Absence in a serving or allowing quadrant is a shadow indicator.
+        range: NegotiatedLimit
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      withdrawal:
+        description: SCLS 2.3.1. The withdrawal mechanism. Its presence is shape; whether its cost exceeds participation benefit is a checked exit-cost judgment.
+        range: Withdrawal
+        required: true
+      authorization:
+        description: SCLS 3.2, 6.1. The opportunity to authorize or refuse, the four system obligations, and the response-status distinction.
+        range: Authorization
+        required: true
+      verification:
+        description: SCLS 3.3. The consent record's completeness and durability.
+        range: Verification
+        required: true
+      domains_touched:
+        description: SCLS 4. Which of the five consent domains this action implicates.
+        range: ConsentDomain
+        multivalued: true
+        required: true
+      architecture:
+        description: SCLS system-level context the record declares against.
+        range: ConsentArchitecture
+        required: true
+      conformance:
+        description: SCLS. Per-invariant conformance answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  Action:
+    description: SCLS 3.1. The specified action; a category-level authorization names the trigger condition that requires a standing evaluation before a specific action proceeds.
+    attributes:
+      specification:
+        description: The action stated precisely enough for affected parties to evaluate whether they are materially affected.
+        required: true
+      category_level:
+        description: True if this is a category-level authorization rather than a specific action.
+        range: boolean
+      trigger_condition:
+        description: SCLS 3.1. Required inside a category-level authorization, naming the condition under which a specific action within the class triggers a standing evaluation.
+
+  AffectedConstituency:
+    description: SCLS 3.1, 3.1.1. The materially-affected set, identified before the action, on an evidence-and-self-identification basis.
+    attributes:
+      identified_before_action:
+        description: SCLS 3.1. The identification event precedes execution.
+        range: boolean
+        required: true
+      identification_basis:
+        description: SCLS 3.1. Evidence-based where system evidence exists; self-identification permitted.
+        multivalued: true
+
+  WheelAxes:
+    description: SCLS 2.1, 3.2. The two independent axes, both legible to both parties (2.3.1 bidirectional awareness).
+    attributes:
+      who_acts:
+        description: The action axis. Who is acting.
+        required: true
+      who_benefits:
+        description: The benefit axis. Who the action is for.
+        required: true
+      both_legible_to_both_parties:
+        description: SCLS 2.3.1. Both axes were legible to both parties at the time of the interaction.
+        range: boolean
+        required: true
+
+  CostBearingParty:
+    description: SCLS 2.1. A cost-bearer distinct from the acting and benefiting parties; identified explicitly with consent to the cost distribution obtained before the action.
+    attributes:
+      identity:
+        required: true
+      consent_to_cost_distribution:
+        description: SCLS 2.1. Obtained before the action proceeds (native nested-required).
+        range: boolean
+        required: true
+
+  NegotiatedLimit:
+    attributes:
+      limit:
+        description: An explicit boundary set by the consenting party.
+        required: true
+
+  Withdrawal:
+    description: SCLS 2.3.1. Revocability. Structurally feasible, not merely formally permitted.
+    attributes:
+      mechanism:
+        description: The mechanism by which consent can be withdrawn.
+        required: true
+      structural_cost:
+        description: The structural cost of withdrawing. Whether it exceeds participation benefit is a checked judgment.
+
+  Authorization:
+    description: SCLS 3.2, 6.1. A meaningful opportunity to authorize or refuse, the four system obligations, and the response-status distinction.
+    attributes:
+      authorizing_set:
+        description: SCLS 3.2. Neither excludes affected parties nor includes unaffected parties who dilute the affected constituency's voice.
+        multivalued: true
+        required: true
+      response_status:
+        description: SCLS 3.2. Silence, inaction, and absence of objection are not consent; the system distinguishes authorized, not-yet-responded, and unable-to-respond.
+        range: ResponseStatus
+        required: true
+      system_obligations:
+        description: SCLS 6.1. The four obligations whose presence makes the opportunity meaningful.
+        range: SystemObligations
+        required: true
+
+  SystemObligations:
+    description: >-
+      SCLS 6.1. The four obligations are on the system, not the participant. Presence is shape;
+      the qualitative reads (is the description evaluable, is the exit cost punitive) are checked.
+    attributes:
+      legibility:
+        description: SCLS 6.1. The action described in terms the constituency can evaluate.
+        range: boolean
+        required: true
+      time:
+        description: SCLS 6.1. A consent window proportional to complexity (Section 6.4).
+        range: boolean
+        required: true
+      support:
+        description: SCLS 6.1. Analytical infrastructure to evaluate implications.
+        range: boolean
+        required: true
+      exit_or_objection_cost_not_punitive:
+        description: SCLS 6.1. The structural cost of dissent is recorded; whether it is punitive is a checked judgment.
+        range: boolean
+        required: true
+
+  Verification:
+    description: SCLS 3.3. The consent record's completeness and durability.
+    attributes:
+      who_acted:
+        required: true
+      who_benefited:
+        required: true
+      who_was_affected:
+        required: true
+      who_bears_cost:
+        required: true
+      agreed_limits:
+        required: true
+      durable:
+        description: SCLS 3.3. The record is durable.
+        range: boolean
+        required: true
+      tamper_evident:
+        description: SCLS 3.3. The record is tamper-evident (the ASEP durable-logging requirement).
+        range: boolean
+        required: true
+
+  ConsentArchitecture:
+    description: >-
+      SCLS system-level context. Which domains apply, the adopted tier, the durable
+      constituency definition, the external-override disclosure, and the higher-tier blocks
+      (standing evaluation, detection architecture) that a record declares its context against.
+      The higher-tier blocks are optional in the schema; the checker requires them at the tiers
+      the register specifies.
+    attributes:
+      domains_applicable:
+        description: SCLS 4. The consent domains identified as relevant to the system's operations.
+        range: ConsentDomain
+        multivalued: true
+        required: true
+      adopted_tier:
+        description: SCLS 5. The declared adoption tier.
+        range: AdoptionTier
+        required: true
+      durable_constituency_definition:
+        description: SCLS 3.1.2. Accessible without authority-gating and specific enough for an independent observer to determine participation rights.
+        range: DurableConstituencyDefinition
+        required: true
+      external_override_disclosure:
+        description: SCLS 2.3.2. Names the external-legal-override threat, the applicable jurisdictions, and how the gap is addressed.
+        range: ExternalOverrideDisclosure
+        required: true
+      standing_evaluation:
+        description: SCLS 3.1.1. The four-element standing evaluation mechanism. Required by the checker at Instrumented and above.
+        range: StandingEvaluation
+      detection_architecture:
+        description: SCLS 5.3.1. Graduated shadow-dynamics detection. Required by the checker at Instrumented and above.
+        range: DetectionArchitecture
+
+  DurableConstituencyDefinition:
+    description: SCLS 3.1.2. The durable, accessible definition of who holds participation rights.
+    attributes:
+      accessible_without_authority_gating:
+        range: boolean
+        required: true
+      independent_observer_determinable:
+        description: Specific enough that an independent observer can determine whether a party holds participation rights without the author's intent.
+        range: boolean
+        required: true
+
+  ExternalOverrideDisclosure:
+    description: SCLS 2.3.2. The disclosure whose absence is a consent legibility failure.
+    attributes:
+      jurisdictions:
+        description: The external legal jurisdictions that apply.
+        multivalued: true
+        required: true
+      gap_treatment:
+        description: How the gap between explicit consent and externally imposed obligations is addressed. Presence is shape; adequacy is checked.
+        required: true
+
+  StandingEvaluation:
+    description: SCLS 3.1.1. The four elements, none concentrated in a single actor.
+    attributes:
+      self_identification:
+        range: boolean
+        required: true
+      evidence_backed_evaluation:
+        range: boolean
+        required: true
+      implausible_absence_detection:
+        range: boolean
+        required: true
+      distributed_evaluation:
+        description: The evaluation function is not concentrated in a single actor.
+        range: boolean
+        required: true
+
+  DetectionArchitecture:
+    description: SCLS 5.3.1. Per shadow type, a graduated detection with a monitoring and an escalation threshold; flags for Signal Escalation, never adjudicates.
+    attributes:
+      shadow_detections:
+        range: ShadowDetection
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      transparent_to_participants:
+        description: SCLS 5.3.1. The monitored patterns are transparent to participants (itself an Observation-domain consent requirement).
+        range: boolean
+        required: true
+
+  ShadowDetection:
+    description: SCLS 5.3.1. One shadow type's graduated detection.
+    attributes:
+      shadow_type:
+        range: ShadowType
+        required: true
+      monitoring_threshold:
+        description: The signal that initiates monitoring.
+        required: true
+      escalation_threshold:
+        description: The signal or combination that triggers Signal Escalation.
+        required: true
+
+  ConformanceDeclaration:
+    description: >-
+      SCLS. The invariant conformance answers on the face. There is deliberately no overall or
+      total field: conformance is per-invariant, mirroring the suite's refusal to collapse a
+      profile into a single number and the SLSA Verification-Summary-Attestation shape.
+    attributes:
+      identify_satisfied:
+        range: ConformanceAnswer
+        required: true
+      authorize_satisfied:
+        range: ConformanceAnswer
+        required: true
+      verify_satisfied:
+        range: ConformanceAnswer
+        required: true
+      cost_bearer_identified:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  ConsentDomain:
+    description: SCLS 4. The five domains in which consent operates.
+    permissible_values:
+      coordination:
+      data:
+      participation:
+      output:
+      observation:
+
+  AdoptionTier:
+    description: SCLS 5. The adoption tiers.
+    permissible_values:
+      assessed:
+      operational:
+      instrumented:
+      loop_closed:
+      auditable:
+
+  ResponseStatus:
+    description: SCLS 3.2. The distinction silence cannot collapse.
+    permissible_values:
+      authorized:
+      not_yet_responded:
+      unable_to_respond:
+
+  ShadowType:
+    description: SCLS 5.3.1. The shadow dynamics with detection signatures.
+    permissible_values:
+      entitlement_stealing:
+      enduring:
+      martyrdom:
+
+  ConformanceAnswer:
+    description: SCLS. Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

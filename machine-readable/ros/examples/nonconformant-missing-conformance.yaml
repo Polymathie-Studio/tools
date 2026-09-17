@@ -1,0 +1,24 @@
+# NON-conformant: omits the required per-invariant conformance block. Must fail validation.
+stance:
+  stance: more_regenerative_than_extractive
+  scope: "Coordination labor across contributor roles."
+  challengers:
+    - "Registered harm-bearing contributors"
+  review_cycle_months: 12
+extraction_visible: true
+validity_conditions:
+  - id: non_fungibility
+    name: Non-fungibility
+    test: "Can the return be delivered elsewhere without reducing its value to the extractor's accounting?"
+  - id: proximity
+    name: Proximity
+    test: "Does the return trace to the parties who bore the harm?"
+  - id: embeddedness
+    name: Embeddedness
+    test: "Is the form determined with the harm-bearing parties?"
+disqualifiers:
+  - id: additionality
+    name: The additionality trap
+    mechanism: "Routes payment to parties who would have caused harm, not who bore it."
+    why_categorical: "Wrong accounting architecture; better measurement does not fix it."
+adopted_tier: extraction_visibility

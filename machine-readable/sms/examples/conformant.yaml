@@ -1,0 +1,63 @@
+# Conformant: one sensemaking process carried through its disruption, liminal, and resolution phases,
+# all five invariants satisfied for the process, the three action invariants with observable markers,
+# the system context declared at the SMS-Instrumented tier with a conformant capacity framework.
+disruption:
+  description: "A coordination decision was implemented three incompatible ways, so the shared frame the parties believed they held stopped accounting for what was happening."
+  specifiable: true
+  recorded_as_initiating: true
+relating:
+  cues:
+    - "Three teams produced divergent implementations of the same agreement."
+    - "Each team could cite the meeting record as authority for its version."
+  frame: "The agreement named an outcome without naming the distinction the three teams were each resolving differently."
+  frame_revisions:
+    - "The initial frame (a communication lapse) was revised to a missing shared distinction once the cues showed each team was internally consistent."
+  personal_framing_avoided: true
+entanglement:
+  actions_changed_understanding: true
+  understanding_changed_actions: true
+  not_pre_planned: true
+sufficiency:
+  frame_provisional: true
+  revision_conditions: "The frame is revised if a fourth reading of the agreement surfaces that the teams do not, in fact, share."
+  stopped_before_complete: true
+  next_action_tests_frame: true
+temporal_phases:
+  disruption_phase: "The parties recognized the shared frame no longer accounted for the divergence."
+  liminal_phase: "A period in which the old frame (one agreement, one meaning) was suspended and no replacement had yet formed."
+  liminal_phase_documented: true
+  resolution_phase: "A named shared distinction was produced that neither the agreement nor any prior frame had contained."
+  resolution_distinct_from_prior: true
+  independently_verifiable: true
+action_invariants:
+  - action: residue
+    observable_marker: "A new artifact (the named shared distinction) appears in the coordination record that did not exist before the process."
+    assessment: "The distinction was recorded as a durable frame."
+  - action: direction
+    observable_marker: "The sequence of outputs shows whether the process extended the prior frame or named its inadequacy and created space for a new one."
+    assessment: "This process withdrew from the prior frame and created space for a new one."
+  - action: phase
+    observable_marker: "The relationship between the process and the shared language preceding it marks it generative, sustaining, or dissolving."
+    assessment: "Generative: it produced shared language where none existed for this distinction."
+scales_addressed:
+  - inter_personal
+  - witness_reception
+architecture:
+  adopted_tier: instrumented
+  structural_assumptions_acknowledged: true
+  adoption_condition: constitutional
+  capacity_assessment:
+    method: "A consented battery-check practice by which participants share their capacity states with each other on a defined cadence."
+    individual_states_assessed: true
+    relational_conditions_assessed: true
+    contribution_conditions_assessed: true
+    alignment_conditions_assessed: true
+    bilateral_obligation_present: true
+    participant_consent: true
+    conformant_framework: "Four Batteries Capacity Standard"
+conformance:
+  disruption_occasioned_satisfied: satisfied
+  particular_to_general_satisfied: satisfied
+  action_entangled_satisfied: satisfied
+  sufficiency_oriented_satisfied: satisfied
+  temporally_structured_satisfied: satisfied

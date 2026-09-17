@@ -1,0 +1,21 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "ROS record, more_regenerative_than_extractive stance, return_architecture tier",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/ros/conformance/v0.1.8",
+  "predicate": {
+    "verifier": "ros-conformance",
+    "obligations": {
+      "extraction_visible": "satisfied",
+      "three_conditions_met": "satisfied",
+      "stance_declared": "satisfied",
+      "no_retroactive_reclassification": "satisfied"
+    }
+  }
+}

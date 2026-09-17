@@ -1,0 +1,142 @@
+# CTS register distillation
+# One row per normative entry of the Conflict Transformation Standard
+# (standards-3_0-conflict-transformation, v0.2.10), the third Tensegrity Generative Standard.
+# CTS specifies enabling conditions, not conformance floors: five structural invariants for
+# conflict-transformation capacity, each individuated by its own definition, satisfaction test,
+# violation and satisfaction signatures, and epistemic tier (A structural, B literature-plus-
+# structural, C measurement-calibration). So the register renders the five invariants as distinct
+# structural conditions, each a DECLARATION carrying its satisfaction test and its tier, and the
+# model encodes them as typed StructuralInvariant objects rather than a flat enum. Rendering the
+# invariants as a bare label list would collapse the structure into names, a precision deficit
+# under the Precision-First Design Standard (Corollary 11); the structural rendering is deliberate.
+#
+# The register carries every provision: the constitutional pre-condition, the five invariants, the
+# three operational scales, and the five adoption tiers. Whether a coordination system satisfies a
+# given invariant is largely judgment against the structural satisfaction test; some signatures are
+# computable (the proactive-disposition ratio, implausible absence of conflict events), flagged
+# shape where they are. Being a generative standard, CTS names capacity conditions, not floors that
+# reject an artifact; a record declares its capacity status per invariant.
+standard: CTS
+standard_version: 0.2.10
+source: standards-3_0-conflict-transformation-0_2_10.md
+entries:
+
+  # --- Constitutional pre-condition (Section 4, prior to the five invariants) ---
+  - id: CTS-PRECONDITION-CONSTITUTIONAL
+    section: "4"
+    obligation: precondition
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Before the five invariants can function, parties must share sufficient foundational vocabulary about what the organization is (its commitments, what claims are valid, its register of obligation) to name what they are in conflict about. Without this shared constitutional vocabulary, an apparent substantive conflict is often incompatibility between framings of the organization itself, and the required first engagement is constitutional dialogue, not conflict transformation. Not satisfied by any of the five invariants; satisfied by the organization having addressed the constitutional-vocabulary question at founding or through a formal constitutional process."
+
+  # --- The five structural invariants (Section 4), rendered as typed structural conditions ---
+  - id: CTS-INV-LEGIBILITY
+    section: "4.1"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Conflict Legibility: the coordination system must structurally treat conflict events as coordination data, visible in the record, their presence not automatically degrading the surfacing organization's standing. A conflict event is any interaction meeting at least one of three observer-determinable conditions: contested accounts of the same event, a formal challenge to a determination, or a signal naming a party as responsible for a harm. Satisfaction: conflict events are depositable and retained, the taxonomy has distinct conflict types, early surfacers are not penalized. Violation: implausible absence of conflict events in an active record (computable from the record), systematic underreporting, deposit that degrades standing regardless of timing, no conflict types in the taxonomy. Tier A principle, Tier C measurement. Depends on the record being the primary medium; an off-record architecture yields false-negative absence."
+  - id: CTS-INV-GRADUATED
+    section: "4.2"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Graduated Engagement Architecture: the system must provide a transformation spine, a structured progression from early informal engagement through facilitated transformation through formal adjudication, each level with a resolution pathway and an escalation pathway, adjudication last not first. Satisfaction: at least three distinct engagement levels with operationally defined resolution and escalation conditions, the first accessible without formal process, and a specified handoff when adjudication is reached without resolution. Violation: only adjudicative mechanisms, undifferentiated levels, all conflict routing immediately to formal process, escalation conditions defined only by failure to agree with no guard against indefinite deferral. Tier B (conflict-transformation literature plus the Section 3.3 argument; GravityDAO Conflict Management Cycle, Ostrom graduated sanctions, NVC, Deep Democracy as precedents). Signatures: resolution rate per level, median resolution level, documented legible escalation pathway."
+  - id: CTS-INV-PROACTIVE
+    section: "4.3"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Proactive Disposition Enablement: the system must structurally enable and protect actors who engage conflict before formal dispute, so proactive engagement is not penalized relative to reactive engagement or avoidance. Satisfaction: early-level initiators do not show systematically lower standing than those who wait or avoid, and no mechanism penalizes early-level initiation. Violation: proactive engagement produces lower standing than silence, early raisers disadvantaged versus formal-dispute raisers, avoidance economically rewarded over early engagement, no protection for actors engaging on the system's behalf. Tier B principle, Tier C measurement. Signature: the proactive-engagement ratio (early-level events to formal-dispute events), a computable record signal."
+  - id: CTS-INV-CAPACITY
+    section: "4.4"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Transformation Capacity Provision: the system must structurally provide facilitated transformation capacity, specifying operator roles, resourcing requirements, and developmental prerequisites as design requirements, not volunteer roles absorbing costs from personal resources. Satisfaction: a specified operator role with a documented resourcing model (time and attention per engagement, support structure during, recovery after) and selection criteria including cross-mode developmental prerequisites. Violation: an unfunded or volunteer-dependent role, operators absorbing costs unsupported, systematic depletion (turnover, burnout, withdrawal), resourcing contingent on goodwill (the GravityDAO pattern: universal recognition, zero provision, complete depletion). Tier B structural argument, Tier C resourcing model. The Deliberately Developmental Organization principle applied structurally: development embedded in operations sustains, appended depletes."
+  - id: CTS-INV-RECOGNITION
+    section: "4.5"
+    obligation: invariant
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Recognition as Coordination Work: conflict engagement, dispute facilitation, and transformation-operator work must be recognizable as coordination contributions, depositable in the record, distinguishable from non-conflict events, and subject to the same weighting as other contributions. Satisfaction: the record distinguishes conflict-engagement events, operator contributions are depositable, engagement events carry positive contribution status not only negative or administrative status. Violation: engagement absent from the taxonomy, operator work not depositable, engagement degrading standing with no offset for the act of engaging, recognition only via informal reputation. Tier A structural argument, Tier C measurement. Distinguishes high-quality engagement (early, facilitated, transforming) from low-quality (adversarial, escalatory, depleting)."
+
+  # --- Three operational scales (Section 5) ---
+  - id: CTS-SCALE-INTRA
+    section: "5.1"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Intra-organizational scale: conflict among participants within a single organization (event-description disputes before deposit, role-assignment disputes, internal classification challenges). The five invariants apply: internal record includes conflict events, internal escalation pathways exist that do not route immediately to protocol mechanisms, early internal raisers are not penalized, internal facilitation roles are specified, internal engagement is recorded and recognized."
+  - id: CTS-SCALE-INTER
+    section: "5.2"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Inter-organizational scale: conflict among counterparties in shared coordination events, the primary architectural gap. The graduated engagement architecture is most critical here (without it, disputes route immediately to adversarial adjudication, foreclosing the developmental register); transformation capacity must be accessible to both parties without either supplying it; the record must capture inter-organizational engagement as a distinct contribution."
+  - id: CTS-SCALE-PLATFORM
+    section: "5.3"
+    obligation: scale
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Platform-level scale: disputes about the coordination infrastructure's own operation, not resolvable within any participating organization. Legibility requires a contestation record of contested platform determinations with outcomes; capacity provision requires contestation pathways with facilitated engagement before formal review; recognition requires that legitimate contestation of platform determinations be treated as coordination work, not adversarial action."
+
+  # --- Adoption architecture (Section 8), five tiers ---
+  - id: CTS-ADOPT-DECLARED
+    section: "8"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: CT-Declared
+    assertion: "CT-Declared: conflict transformation is declared as coordination work, conflict events are depositable, no operator role or process architecture required. The minimum satisfied is conflict legibility: conflict events have named taxonomy types and are not penalized by deposit."
+  - id: CTS-ADOPT-STRUCTURED
+    section: "8"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: CT-Structured
+    assertion: "CT-Structured: a specified conflict-pathway architecture covering all three scales, the graduated engagement architecture specified (at least three levels with named resolution and escalation conditions), the conditions for movement between levels operationally defined."
+  - id: CTS-ADOPT-INSTRUMENTED
+    section: "8"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: CT-Instrumented
+    assertion: "CT-Instrumented: conflict-engagement events are observable in the record and distinguishable from non-conflict events, implausible absence is detectable from the record, operator roles are specified with documented resourcing, and the recognition-as-coordination-work invariant is satisfied (engagement events appear as contribution events)."
+  - id: CTS-ADOPT-LOOP-CLOSED
+    section: "8"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: CT-Loop-Closed
+    assertion: "CT-Loop-Closed: all CT-Instrumented requirements plus closed-loop architecture. A conflict-transformation failure (movement to a higher level without satisfying the prior level's resolution conditions, the proactive-disposition ratio below an adopting-organization threshold, or operator resourcing below documented prerequisites) produces a mandatory documented coordination review within a defined window, recording the event or process id, the invariant(s) violated, the outcome, the responsible actor, and the rationale; absence of a review within the window produces automatic disclosure without any actor's initiation. The review record is append-only. Minimum annual review including a loop-integrity check and operator-resourcing verification."
+  - id: CTS-ADOPT-AUDITABLE
+    section: "8"
+    obligation: adoption-tier
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: CT-Auditable
+    assertion: "CT-Auditable: full structural-invariant satisfaction is demonstrable to an external party, transformation outcomes are distinguishable from adjudication outcomes in the record, operator depletion patterns are absent or documented and being addressed, and the formation-to-protection mode switch (the transition from capacity-building to protective response under acute threat) is documented with its invocation history in the record."

@@ -1,0 +1,880 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sms: <https://standards.example/sms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/sms.owl.ttl> a owl:Ontology ;
+    rdfs:label "sms" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "SMS sensemaking record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Sensemaking Standard (standards-3_0-sensemaking, v1.1.23), the first Tensegrity Generative Standard. SMS is a process standard: its five invariants are tests applied to a single sensemaking process, and Section 9.3 mandates a per-process record. So the tree root is a per-process SensemakingRecord that carries one sensemaking episode through the disruption, liminal, and resolution phases, in the same family as the Adverse-Signal Engagement record (one signal through Notice, Name, Navigate). The system-level obligations (the adopted tier, the adoption condition, the capacity assessment, the acknowledged structural assumptions) are a SensemakingArchitecture the record declares its context against, with the higher-tier blocks optional and tier-gated to the checker.
+The five structural invariants are realized as five typed lifecycle sub-objects carrying the process content on the face (the initiating disruption, the cue-frame relating, the action-information entanglement, the sufficiency criterion, and the temporal phases including the liminal phase, the diagnostic marker whose absence is the applying-without-understanding failure of Section 2.3), not as a flat enum of invariant names; the three action invariants are typed objects welded to their observable markers. Rendering either set as bare labels would collapse the structure into names, a precision deficit under the Precision-First Design Standard whose absent structure leaves no gap marker; the structural rendering is deliberate.
+Conformance is per-process across the five invariants, with no total, and the joint condition (all five satisfied is sensemaking) is the non-averaging floor: one invariant failing does not average away against the others. Being a generative standard, SMS names enabling conditions rather than floors that reject an artifact, so whether a process satisfies an invariant is largely judgment against the structural satisfaction test and routes to the checker, and the loop-closure and auditability obligations are tier-gated to the checker rather than to the schema. The capacity obligation defers to a conformant capacity framework (the Four Batteries Capacity Standard is one), an interlock the record carries as a named link. A sensemaking process is produced by any adopter, an agent with no protocol included, so the record makes no protocol assumption. Every artifact in dist/ is generated from this file.""" .
+
+sms:SensemakingRecord a owl:Class ;
+    rdfs:label "SensemakingRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:temporal_phases ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:sufficiency ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:entanglement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:relating ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:relating ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceDeclaration ;
+            owl:onProperty sms:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:disruption ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:temporal_phases ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:SensemakingArchitecture ;
+            owl:onProperty sms:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ActionInvariant ;
+            owl:onProperty sms:action_invariants ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:Relating ;
+            owl:onProperty sms:relating ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:OperationalScale ;
+            owl:onProperty sms:scales_addressed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:disruption ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:TemporalPhases ;
+            owl:onProperty sms:temporal_phases ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:entanglement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:action_invariants ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:Disruption ;
+            owl:onProperty sms:disruption ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:scales_addressed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:SufficiencyCriterion ;
+            owl:onProperty sms:sufficiency ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ActionEntanglement ;
+            owl:onProperty sms:entanglement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:sufficiency ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:architecture ] ;
+    skos:definition "One sensemaking process carried through its disruption, liminal, and resolution phases, with the five invariants realized on the face and the system context it was produced under." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:ActionEntanglement a owl:Class ;
+    rdfs:label "ActionEntanglement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:not_pre_planned ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:actions_changed_understanding ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:not_pre_planned ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:actions_changed_understanding ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:actions_changed_understanding ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:understanding_changed_actions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:not_pre_planned ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:understanding_changed_actions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:understanding_changed_actions ] ;
+    skos:definition "Section 3.3. The action-entangled invariant realized: action generates the data sensemaking needs, and sensemaking shapes the action taken. Both directions of the loop are required, since severing either (analysis paralysis one way, unreflective execution the other) breaks the invariant." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:ActionInvariant a owl:Class ;
+    rdfs:label "ActionInvariant" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sms:ActionInvariantName ;
+            owl:onProperty sms:action ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:observable_marker ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:action ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:action ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:observable_marker ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:observable_marker ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:assessment ] ;
+    skos:definition "Section 5. One of the three action invariants, individuated by its observable marker, not by a label. An action invariant with no observable marker is a name, so action and observable_marker are required." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:CapacityAssessment a owl:Class ;
+    rdfs:label "CapacityAssessment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:method ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:individual_states_assessed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:bilateral_obligation_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:relational_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:conformant_framework ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:conformant_framework ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:alignment_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:contribution_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:contribution_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:bilateral_obligation_present ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:relational_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:relational_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:contribution_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:individual_states_assessed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:conformant_framework ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:participant_consent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:alignment_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:alignment_conditions_assessed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:individual_states_assessed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:method ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:participant_consent ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:bilateral_obligation_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:participant_consent ] ;
+    skos:definition "Section 6. The capacity obligation the record declares, the interlock with a conformant capacity framework. SMS prescribes no framework; it requires that a conformant one assess the four capacity categories, carry the bilateral obligation, and operate under participant consent. So method, participant_consent, the bilateral obligation, and the four category assessments are required; the named framework is optional because the standard is method-neutral." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceAnswer ;
+            owl:onProperty sms:disruption_occasioned_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:particular_to_general_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:action_entangled_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:sufficiency_oriented_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceAnswer ;
+            owl:onProperty sms:temporally_structured_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:disruption_occasioned_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:sufficiency_oriented_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceAnswer ;
+            owl:onProperty sms:particular_to_general_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceAnswer ;
+            owl:onProperty sms:action_entangled_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:disruption_occasioned_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:temporally_structured_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:action_entangled_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:ConformanceAnswer ;
+            owl:onProperty sms:sufficiency_oriented_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:temporally_structured_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:particular_to_general_satisfied ] ;
+    skos:definition "Section 3. The five per-process invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, and the joint condition is the non-averaging conjunction of the five (a single violated invariant does not average away against the others), mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:Disruption a owl:Class ;
+    rdfs:label "Disruption" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:specifiable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:specifiable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:recorded_as_initiating ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:recorded_as_initiating ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:specifiable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:recorded_as_initiating ] ;
+    skos:definition "Section 3.1. The disruption-occasioned invariant realized: an event that cannot be accounted for by the current operative frame without revising it. A disruption with no specifiable initiating event is not disruption-occasioned, so description and specifiable are required." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:Relating a owl:Class ;
+    rdfs:label "Relating" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:personal_framing_avoided ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:personal_framing_avoided ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:personal_framing_avoided ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:frame_revisions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:cues ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:frame ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:frame ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:frame_revisions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:cues ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:frame ] ;
+    skos:definition "Section 3.2. The particular-to-general relating invariant realized, bidirectional between cues and frame. Operates at practitioner trace tier: what an independent observer verifies is whether the record documents traced cues, the frame they informed, and the revisions they produced. Cues and a frame are required; a frame with no traceable cues is assertion, cues with no frame are cataloging." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:SensemakingArchitecture a owl:Class ;
+    rdfs:label "SensemakingArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:independent_auditability ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:capacity_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:independent_auditability ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:loop_closure_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:independent_auditability ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:loop_closure_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:adoption_condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:AdoptionCondition ;
+            owl:onProperty sms:adoption_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:capacity_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:loop_closure_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:AdoptionTier ;
+            owl:onProperty sms:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:structural_assumptions_acknowledged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:adoption_condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:structural_assumptions_acknowledged ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sms:CapacityAssessment ;
+            owl:onProperty sms:capacity_assessment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:structural_assumptions_acknowledged ] ;
+    skos:definition "The system-level SMS context the record declares against. The adopted tier, the adoption condition, the acknowledged structural assumptions, the capacity assessment, and the higher-tier loop-closure and auditability blocks. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:SufficiencyCriterion a owl:Class ;
+    rdfs:label "SufficiencyCriterion" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:revision_conditions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:stopped_before_complete ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:next_action_tests_frame ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:revision_conditions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:frame_provisional ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:frame_provisional ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:next_action_tests_frame ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:frame_provisional ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:stopped_before_complete ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:revision_conditions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:stopped_before_complete ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:next_action_tests_frame ] ;
+    skos:definition "Section 3.4. The sufficiency-oriented invariant realized: a plausible account that enables a next action whose outcome generates information for revising it, satisficing rather than optimizing. The provisional frame, its named revision conditions, and a frame-testing next action are required; optimizing (seeking the correct answer first) and guessing (no revision conditions) both violate it." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:TemporalPhases a owl:Class ;
+    rdfs:label "TemporalPhases" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:disruption_phase ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:resolution_distinct_from_prior ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:resolution_phase ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:disruption_phase ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:independently_verifiable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:liminal_phase_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:liminal_phase_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:resolution_phase ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:independently_verifiable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:liminal_phase_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sms:independently_verifiable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:disruption_phase ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:resolution_distinct_from_prior ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:resolution_phase ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sms:liminal_phase ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sms:liminal_phase ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sms:liminal_phase ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sms:resolution_distinct_from_prior ] ;
+    skos:definition "Section 3.5. The temporally-structured invariant realized, the Adverse-Signal lifecycle-state analogue. The disruption, liminal, and resolution phases, with the liminal phase the diagnostic marker: its documented presence, together with a resolution frame distinct from any pre-existing frame, is what distinguishes sensemaking from applying a pre-existing frame (the applying-without-understanding failure of Section 2.3). All three phases and the two markers are required." ;
+    skos:inScheme <https://standards.example/sms> .
+
+<https://standards.example/sms/ActionInvariantName#direction> a owl:Class ;
+    rdfs:label "direction" ;
+    rdfs:subClassOf sms:ActionInvariantName .
+
+<https://standards.example/sms/ActionInvariantName#phase> a owl:Class ;
+    rdfs:label "phase" ;
+    rdfs:subClassOf sms:ActionInvariantName .
+
+<https://standards.example/sms/ActionInvariantName#residue> a owl:Class ;
+    rdfs:label "residue" ;
+    rdfs:subClassOf sms:ActionInvariantName .
+
+<https://standards.example/sms/AdoptionCondition#constitutional> a owl:Class ;
+    rdfs:label "constitutional" ;
+    rdfs:subClassOf sms:AdoptionCondition .
+
+<https://standards.example/sms/AdoptionCondition#remedial_born_without> a owl:Class ;
+    rdfs:label "remedial_born_without" ;
+    rdfs:subClassOf sms:AdoptionCondition .
+
+<https://standards.example/sms/AdoptionCondition#remedial_crossed_below> a owl:Class ;
+    rdfs:label "remedial_crossed_below" ;
+    rdfs:subClassOf sms:AdoptionCondition .
+
+<https://standards.example/sms/AdoptionTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf sms:AdoptionTier .
+
+<https://standards.example/sms/AdoptionTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf sms:AdoptionTier .
+
+<https://standards.example/sms/AdoptionTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf sms:AdoptionTier .
+
+<https://standards.example/sms/AdoptionTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf sms:AdoptionTier .
+
+<https://standards.example/sms/AdoptionTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf sms:AdoptionTier .
+
+<https://standards.example/sms/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf sms:ConformanceAnswer .
+
+<https://standards.example/sms/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf sms:ConformanceAnswer .
+
+<https://standards.example/sms/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf sms:ConformanceAnswer .
+
+<https://standards.example/sms/OperationalScale#inter_personal> a owl:Class ;
+    rdfs:label "inter_personal" ;
+    rdfs:subClassOf sms:OperationalScale .
+
+<https://standards.example/sms/OperationalScale#intra_personal> a owl:Class ;
+    rdfs:label "intra_personal" ;
+    rdfs:subClassOf sms:OperationalScale .
+
+<https://standards.example/sms/OperationalScale#witness_reception> a owl:Class ;
+    rdfs:label "witness_reception" ;
+    rdfs:subClassOf sms:OperationalScale .
+
+sms:action_invariants a owl:ObjectProperty ;
+    rdfs:label "action_invariants" ;
+    skos:definition "Section 5. The three action invariants (residue, direction, phase), each rendered as a typed object carrying its observable marker. An action invariant named without its observable marker is a label, not a structural property." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:cues a owl:DatatypeProperty ;
+    rdfs:label "cues" ;
+    skos:definition "The specific cues attended to during the process." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:frame_revisions a owl:DatatypeProperty ;
+    rdfs:label "frame_revisions" ;
+    skos:definition "How the frame was revised in response to cues that did not fit it." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:scales_addressed a owl:ObjectProperty ;
+    rdfs:label "scales_addressed" ;
+    skos:definition "Section 4. The operational scales at which this process operates." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:action a owl:ObjectProperty ;
+    rdfs:label "action" ;
+    skos:definition "Which of the three action invariants this is." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:action_entangled_satisfied a owl:ObjectProperty ;
+    rdfs:label "action_entangled_satisfied" ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:actions_changed_understanding a owl:DatatypeProperty ;
+    rdfs:label "actions_changed_understanding" ;
+    skos:definition "Section 3.3. Whether actions taken during the process changed what was understood." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:definition "Section 9. The adoption tier the record declares." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:adoption_condition a owl:ObjectProperty ;
+    rdfs:label "adoption_condition" ;
+    skos:definition "Section 9. Which adoption condition applies, since the founding-window finding gives constitutional, remedial-born-without, and remedial-crossed-below different intervention profiles and the assessment should name which applies." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:alignment_conditions_assessed a owl:DatatypeProperty ;
+    rdfs:label "alignment_conditions_assessed" ;
+    skos:definition "Section 6.1. Whether the alignment between participants and the purpose is assessed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:architecture a owl:ObjectProperty ;
+    rdfs:label "architecture" ;
+    skos:definition "The system-level SMS context this record declares against." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:assessment a owl:DatatypeProperty ;
+    rdfs:label "assessment" ;
+    skos:definition "What the record observed against the marker." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:bilateral_obligation_present a owl:DatatypeProperty ;
+    rdfs:label "bilateral_obligation_present" ;
+    skos:definition "Section 6.2. Whether the bilateral obligation holds (structural adjustment when depleted, accountability when charged)." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:capacity_assessment a owl:ObjectProperty ;
+    rdfs:label "capacity_assessment" ;
+    skos:definition "Section 6. The capacity obligation, required by the checker at SMS-Instrumented and above. Deferred to a conformant capacity framework; names the four capacity categories, the bilateral obligation, and participant consent without prescribing an instrument." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "Section 3. The five per-process invariant answers on the face; no total, and the joint condition is their non-averaging conjunction." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:conformant_framework a owl:DatatypeProperty ;
+    rdfs:label "conformant_framework" ;
+    skos:definition "The named capacity framework satisfying the obligation when one is used (the Four Batteries Capacity Standard is one)." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:contribution_conditions_assessed a owl:DatatypeProperty ;
+    rdfs:label "contribution_conditions_assessed" ;
+    skos:definition "Section 6.1. Whether the conditions of participants' recognized contributions are assessed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    skos:definition "What stopped making sense, the surprise, gap, or expectation violation that broke intelligibility." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:disruption a owl:ObjectProperty ;
+    rdfs:label "disruption" ;
+    skos:definition "Section 3.1. The initiating disruption, the break in intelligibility that occasioned the process." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:disruption_occasioned_satisfied a owl:ObjectProperty ;
+    rdfs:label "disruption_occasioned_satisfied" ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:disruption_phase a owl:DatatypeProperty ;
+    rdfs:label "disruption_phase" ;
+    skos:definition "The phase in which intelligibility broke down and existing frames were inadequate." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:entanglement a owl:ObjectProperty ;
+    rdfs:label "entanglement" ;
+    skos:definition "Section 3.3. The action-information entanglement, the loop between actions taken and what was understood." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:frame a owl:DatatypeProperty ;
+    rdfs:label "frame" ;
+    skos:definition "The general frame generated or revised from the cues." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:frame_provisional a owl:DatatypeProperty ;
+    rdfs:label "frame_provisional" ;
+    skos:definition "Section 3.4. Whether the frame is treated as provisional rather than definitive." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:independent_auditability a owl:DatatypeProperty ;
+    rdfs:label "independent_auditability" ;
+    skos:definition "Section 9.5. Whether the complete sensemaking record is verifiable by an independent auditor without operator cooperation (required by the checker at SMS-Auditable)." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:independently_verifiable a owl:DatatypeProperty ;
+    rdfs:label "independently_verifiable" ;
+    skos:definition "Section 3.5. Whether the satisfaction is verifiable by an independent observer without depending solely on participant self-report (required by the checker at SMS-Loop-Closed and above)." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:individual_states_assessed a owl:DatatypeProperty ;
+    rdfs:label "individual_states_assessed" ;
+    skos:definition "Section 6.1. Whether the inner states of individual participants are assessed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:liminal_phase a owl:DatatypeProperty ;
+    rdfs:label "liminal_phase" ;
+    skos:definition "The period of not-knowing, the prior frame suspended and no replacement yet formed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:liminal_phase_documented a owl:DatatypeProperty ;
+    rdfs:label "liminal_phase_documented" ;
+    skos:definition "Section 3.5, 2.3. Whether the liminal phase is documented; its absence with a resolution frame identical to a pre-existing frame is the applying-without-understanding failure mode." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:loop_closure_present a owl:DatatypeProperty ;
+    rdfs:label "loop_closure_present" ;
+    skos:definition "Section 9.4. Whether the closed coordination loop is in place, so a detected sensemaking failure produces a mandatory documented review and the absence of a review is structurally visible (required by the checker at SMS-Loop-Closed and above)." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:method a owl:DatatypeProperty ;
+    rdfs:label "method" ;
+    skos:definition "The agreed-upon method for making participants' capacity states legible to each other." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:next_action_tests_frame a owl:DatatypeProperty ;
+    rdfs:label "next_action_tests_frame" ;
+    skos:definition "Section 3.4. Whether the next action was designed to generate information that could disconfirm the frame." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:not_pre_planned a owl:DatatypeProperty ;
+    rdfs:label "not_pre_planned" ;
+    skos:definition "Section 3.3. Whether the action sequence emerged from the interaction rather than being pre-planned." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:observable_marker a owl:DatatypeProperty ;
+    rdfs:label "observable_marker" ;
+    skos:definition "Section 5. The marker in the coordination record by which the action invariant is assessed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:participant_consent a owl:DatatypeProperty ;
+    rdfs:label "participant_consent" ;
+    skos:definition "Section 6.1. Whether participants consented to the assessment method rather than it being imposed by management." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:particular_to_general_satisfied a owl:ObjectProperty ;
+    rdfs:label "particular_to_general_satisfied" ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:personal_framing_avoided a owl:DatatypeProperty ;
+    rdfs:label "personal_framing_avoided" ;
+    skos:definition "Section 3.2. Whether structural failure modes were routed to structural causation rather than misapplied to personal causation." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:recorded_as_initiating a owl:DatatypeProperty ;
+    rdfs:label "recorded_as_initiating" ;
+    skos:definition "Section 3.1. Whether the disruption is recorded as the initiating event rather than reconstructed after the fact." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:relating a owl:ObjectProperty ;
+    rdfs:label "relating" ;
+    skos:definition "Section 3.2. The particular-to-general relating between the specific cues and the general frame." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:relational_conditions_assessed a owl:DatatypeProperty ;
+    rdfs:label "relational_conditions_assessed" ;
+    skos:definition "Section 6.1. Whether the quality of working relationships is assessed." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:resolution_distinct_from_prior a owl:DatatypeProperty ;
+    rdfs:label "resolution_distinct_from_prior" ;
+    skos:definition "Section 3.5. Whether the resolution frame is not identical to any frame available before the disruption." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:resolution_phase a owl:DatatypeProperty ;
+    rdfs:label "resolution_phase" ;
+    skos:definition "The phase in which a new or revised frame emerged." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:revision_conditions a owl:DatatypeProperty ;
+    rdfs:label "revision_conditions" ;
+    skos:definition "Section 3.4. The evidence that would cause the frame to be revised, recorded explicitly." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:specifiable a owl:DatatypeProperty ;
+    rdfs:label "specifiable" ;
+    skos:definition "Section 3.1. Whether the specific disruption event can be identified and the process would not have run in its absence." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:stopped_before_complete a owl:DatatypeProperty ;
+    rdfs:label "stopped_before_complete" ;
+    skos:definition "Section 3.4. Whether the process terminated before all available information was incorporated, naming the unresolved questions not pursued before acting." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:structural_assumptions_acknowledged a owl:DatatypeProperty ;
+    rdfs:label "structural_assumptions_acknowledged" ;
+    skos:definition "Section 7.1, 9.6. Whether the three named structural assumptions (agent-priority, human-scope, separability) are acknowledged; constitutive, so required." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:sufficiency a owl:ObjectProperty ;
+    rdfs:label "sufficiency" ;
+    skos:definition "Section 3.4. The sufficiency criterion, the provisional frame with its revision conditions and the next action designed to test it." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:sufficiency_oriented_satisfied a owl:ObjectProperty ;
+    rdfs:label "sufficiency_oriented_satisfied" ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:temporal_phases a owl:ObjectProperty ;
+    rdfs:label "temporal_phases" ;
+    skos:definition "Section 3.5. The temporal phases traversed, including the liminal phase, the diagnostic marker distinguishing sensemaking from pattern-matching." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:temporally_structured_satisfied a owl:ObjectProperty ;
+    rdfs:label "temporally_structured_satisfied" ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:understanding_changed_actions a owl:DatatypeProperty ;
+    rdfs:label "understanding_changed_actions" ;
+    skos:definition "Section 3.3. Whether what was understood changed which actions were taken next." ;
+    skos:inScheme <https://standards.example/sms> .
+
+sms:ActionInvariantName a owl:Class ;
+    rdfs:label "ActionInvariantName" ;
+    owl:unionOf ( <https://standards.example/sms/ActionInvariantName#residue> <https://standards.example/sms/ActionInvariantName#direction> <https://standards.example/sms/ActionInvariantName#phase> ) ;
+    skos:definition "Section 5. The three action invariants." ;
+    skos:inScheme <https://standards.example/sms> ;
+    linkml:permissible_values <https://standards.example/sms/ActionInvariantName#direction>,
+        <https://standards.example/sms/ActionInvariantName#phase>,
+        <https://standards.example/sms/ActionInvariantName#residue> .
+
+sms:AdoptionCondition a owl:Class ;
+    rdfs:label "AdoptionCondition" ;
+    owl:unionOf ( <https://standards.example/sms/AdoptionCondition#constitutional> <https://standards.example/sms/AdoptionCondition#remedial_born_without> <https://standards.example/sms/AdoptionCondition#remedial_crossed_below> ) ;
+    skos:definition "Section 9. Which adoption condition the adopter is in." ;
+    skos:inScheme <https://standards.example/sms> ;
+    linkml:permissible_values <https://standards.example/sms/AdoptionCondition#constitutional>,
+        <https://standards.example/sms/AdoptionCondition#remedial_born_without>,
+        <https://standards.example/sms/AdoptionCondition#remedial_crossed_below> .
+
+sms:OperationalScale a owl:Class ;
+    rdfs:label "OperationalScale" ;
+    owl:unionOf ( <https://standards.example/sms/OperationalScale#intra_personal> <https://standards.example/sms/OperationalScale#inter_personal> <https://standards.example/sms/OperationalScale#witness_reception> ) ;
+    skos:definition "Section 4. The three scales of operation." ;
+    skos:inScheme <https://standards.example/sms> ;
+    linkml:permissible_values <https://standards.example/sms/OperationalScale#inter_personal>,
+        <https://standards.example/sms/OperationalScale#intra_personal>,
+        <https://standards.example/sms/OperationalScale#witness_reception> .
+
+sms:AdoptionTier a owl:Class ;
+    rdfs:label "AdoptionTier" ;
+    owl:unionOf ( <https://standards.example/sms/AdoptionTier#assessed> <https://standards.example/sms/AdoptionTier#operational> <https://standards.example/sms/AdoptionTier#instrumented> <https://standards.example/sms/AdoptionTier#loop_closed> <https://standards.example/sms/AdoptionTier#auditable> ) ;
+    skos:definition "Section 9. The five adoption tiers." ;
+    skos:inScheme <https://standards.example/sms> ;
+    linkml:permissible_values <https://standards.example/sms/AdoptionTier#assessed>,
+        <https://standards.example/sms/AdoptionTier#auditable>,
+        <https://standards.example/sms/AdoptionTier#instrumented>,
+        <https://standards.example/sms/AdoptionTier#loop_closed>,
+        <https://standards.example/sms/AdoptionTier#operational> .
+
+sms:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/sms/ConformanceAnswer#satisfied> <https://standards.example/sms/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/sms/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-invariant answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/sms> ;
+    linkml:permissible_values <https://standards.example/sms/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/sms/ConformanceAnswer#not_applicable>,
+        <https://standards.example/sms/ConformanceAnswer#satisfied> .
+
+

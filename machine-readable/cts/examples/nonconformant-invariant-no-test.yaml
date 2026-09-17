@@ -1,0 +1,17 @@
+# NON-conformant: an invariant carries no satisfaction_test, so it is a bare label rather than a
+# structural condition individuated by its test (the structural weld). Must fail.
+subject: "A small working group"
+constitutional_precondition_established: true
+invariants:
+  - id: legibility
+    name: Conflict Legibility
+    # satisfaction_test deliberately omitted: an invariant with no test is a label, not a condition
+    satisfaction_status: satisfied
+    epistemic_tier: tier_a
+adoption_tier: declared
+conformance:
+  conflict_legible: satisfied
+  graduated_architecture_present: not_applicable
+  proactive_disposition_protected: not_applicable
+  transformation_capacity_provisioned: not_applicable
+  engagement_recognized: not_applicable

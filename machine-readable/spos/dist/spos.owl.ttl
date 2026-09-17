@@ -1,0 +1,599 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix spos: <https://standards.example/spos/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/spos.owl.ttl> a owl:Ontology ;
+    rdfs:label "spos" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "SPOS structural power record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Structural Power Obligation Standard (standards-3_0-structural-power-obligation, v0.1.26; tier prefix SPDS). The standard individuates power by mechanism, so the three power dimensions, the seven external-override classes, and the four change classifications are rendered as typed objects, each carrying its constitutive structure (a dimension its power concern and detection surface, an override class its mechanism and detection instrument, a change classification its detection signature and response obligation), not as flat label enums. Rendering any of them as a taxonomy would collapse the mechanism structure into labels, a precision deficit under PFDS.
+The tree root is an SPOSPowerRecord: a system's assessment of power distribution across the three dimensions (current versus authorized profile and the gap), its override-class assessment, its detected concentration shifts with their change classifications, its detection architecture and tier, and its per-invariant conformance (Distribute, Authorize, Monitor). Every artifact in dist/ is generated from this file. A dimension with no detection surface cannot be instrumented, so detection_surface is required (mirroring the standard's own logic).
+The interpretive obligations are not schema-expressible and belong to the conformance checker: whether a dimension is actually concentrated, whether an override class is active, and distinguishing capture (intent) from drift (outcome). Tier-gating stays in the checker.""" .
+
+spos:SPOSPowerRecord a owl:Class ;
+    rdfs:label "SPOSPowerRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:authorized_profile_established ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:detected_shifts ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:SPOSArchitecture ;
+            owl:onProperty spos:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ConcentrationShift ;
+            owl:onProperty spos:detected_shifts ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ConformanceDeclaration ;
+            owl:onProperty spos:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:authorized_profile_established ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:DimensionAssessment ;
+            owl:onProperty spos:dimensions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:OverrideClassAssessment ;
+            owl:onProperty spos:override_assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:override_assessment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:dimensions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:authorized_profile_established ] ;
+    skos:definition "A system's power-distribution record across the three dimensions, its override assessment, its detected shifts, and its conformance." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:ChangeClassification a owl:Class ;
+    rdfs:label "ChangeClassification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:detection_signature ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:response_obligation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:response_obligation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:detection_signature ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:detection_signature ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:response_obligation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:id ] ;
+    skos:definition "Section 5.1. One change classification, individuated by its detection signature and its response obligation, not by a label." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:ConcentrationShift a owl:Class ;
+    rdfs:label "ConcentrationShift" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:review_completed ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:review_completed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:review_completed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ChangeClassification ;
+            owl:onProperty spos:classification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:dimensions_implicated ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:dimensions_implicated ] ;
+    skos:definition "Section 5. A detected concentration shift, classified before any response." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:monitor_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ConformanceAnswer ;
+            owl:onProperty spos:distribute_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ConformanceAnswer ;
+            owl:onProperty spos:authorize_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:authorize_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:monitor_satisfied ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:ConformanceAnswer ;
+            owl:onProperty spos:monitor_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:distribute_satisfied ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:distribute_satisfied ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:authorize_satisfied ] ;
+    skos:definition "Section 4. The three invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:DimensionAssessment a owl:Class ;
+    rdfs:label "DimensionAssessment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:gap ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:PowerDimension ;
+            owl:onProperty spos:dimension ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:current_concentration ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:gap ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:dimension ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:authorized_level ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:authorized_level ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:authorized_level ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:current_concentration ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:gap ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:dimension ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:current_concentration ] ;
+    skos:definition "Section 4.1. The current-versus-authorized assessment for one dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:OverrideClass a owl:Class ;
+    rdfs:label "OverrideClass" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:mechanism ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:detection_instrument ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:detection_instrument ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:detection_instrument ] ;
+    skos:definition "Section 4.5. One external-override class, a distinct structural mechanism through which an external actor can supersede internal outcomes, individuated by its mechanism and its detection instrument." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:OverrideClassAssessment a owl:Class ;
+    rdfs:label "OverrideClassAssessment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:exposure_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:active ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:exposure_disclosure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:active ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:addressability ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:not_active_rationale ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:override_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:exposure_disclosure ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:not_active_rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:not_active_rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:OverrideClass ;
+            owl:onProperty spos:override_class ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:addressability ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:active ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:override_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:addressability ] ;
+    skos:definition "Section 4.5. Whether an override class is active in the system's context, with addressability." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:PowerDimension a owl:Class ;
+    rdfs:label "PowerDimension" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:normative_benchmark ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:power_concern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:detection_surface ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:normative_benchmark ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:power_concern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:independent_by_design ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:power_concern ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:detection_surface ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty spos:normative_benchmark ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:independent_by_design ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:independent_by_design ] ;
+    skos:definition "Section 2.2, 3. One power dimension, a distinct relational-topological axis individuated by its power concern and its detection surface, not by a label. A dimension with no detection surface cannot be instrumented, so detection_surface is required." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:SPOSArchitecture a owl:Class ;
+    rdfs:label "SPOSArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:detection_disclosed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom spos:AdoptionTier ;
+            owl:onProperty spos:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:detection_disclosed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:detection_disclosed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty spos:monitor_all_dimensions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty spos:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty spos:monitor_all_dimensions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty spos:monitor_all_dimensions ] ;
+    skos:definition "The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    skos:inScheme <https://standards.example/spos> .
+
+<https://standards.example/spos/AdoptionTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf spos:AdoptionTier .
+
+<https://standards.example/spos/AdoptionTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf spos:AdoptionTier .
+
+<https://standards.example/spos/AdoptionTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf spos:AdoptionTier .
+
+<https://standards.example/spos/AdoptionTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf spos:AdoptionTier .
+
+<https://standards.example/spos/AdoptionTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf spos:AdoptionTier .
+
+<https://standards.example/spos/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf spos:ConformanceAnswer .
+
+<https://standards.example/spos/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf spos:ConformanceAnswer .
+
+<https://standards.example/spos/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf spos:ConformanceAnswer .
+
+spos:detected_shifts a owl:ObjectProperty ;
+    rdfs:label "detected_shifts" ;
+    skos:definition "Section 5. Concentration shifts detected and classified." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:detection_surface a owl:DatatypeProperty ;
+    rdfs:label "detection_surface" ;
+    skos:definition "Section 6. The primary, secondary, and tertiary signals that instrument the dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:dimensions a owl:ObjectProperty ;
+    rdfs:label "dimensions" ;
+    skos:definition "Section 3, 4.1. The per-dimension assessment (current versus authorized profile and the gap), across all three dimensions." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:dimensions_implicated a owl:DatatypeProperty ;
+    rdfs:label "dimensions_implicated" ;
+    skos:definition "Which of the three dimensions the shift implicates." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:override_assessment a owl:ObjectProperty ;
+    rdfs:label "override_assessment" ;
+    skos:definition "Section 4.5. The assessment of the seven external-override classes, active or not, with addressability." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:active a owl:DatatypeProperty ;
+    rdfs:label "active" ;
+    skos:definition "Whether the class is active; a not-active determination requires a named rationale." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:addressability a owl:DatatypeProperty ;
+    rdfs:label "addressability" ;
+    skos:definition "Whether the structural condition can still be redesigned before it becomes load-bearing, or can only be disclosed and monitored." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:architecture a owl:ObjectProperty ;
+    rdfs:label "architecture" ;
+    skos:definition "The system's detection architecture and adopted tier." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:authorize_satisfied a owl:ObjectProperty ;
+    rdfs:label "authorize_satisfied" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:authorized_level a owl:DatatypeProperty ;
+    rdfs:label "authorized_level" ;
+    skos:definition "The authorized distribution profile in this dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:authorized_profile_established a owl:DatatypeProperty ;
+    rdfs:label "authorized_profile_established" ;
+    skos:definition "Section 4.1. The authorized distribution profile exists; its absence is itself a finding." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:classification a owl:ObjectProperty ;
+    rdfs:label "classification" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "Section 4. The three invariant answers on the face; no total." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:current_concentration a owl:DatatypeProperty ;
+    rdfs:label "current_concentration" ;
+    skos:definition "The current distribution profile in this dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:detection_disclosed a owl:DatatypeProperty ;
+    rdfs:label "detection_disclosed" ;
+    skos:definition "Section 6.4. The detection surface is disclosed to participants; an undisclosed surface is a consent failure." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:detection_instrument a owl:DatatypeProperty ;
+    rdfs:label "detection_instrument" ;
+    skos:definition "The instrument that detects the class." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:detection_signature a owl:DatatypeProperty ;
+    rdfs:label "detection_signature" ;
+    skos:definition "The observable signature that distinguishes this classification." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:dimension a owl:ObjectProperty ;
+    rdfs:label "dimension" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:distribute_satisfied a owl:ObjectProperty ;
+    rdfs:label "distribute_satisfied" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:exposure_disclosure a owl:DatatypeProperty ;
+    rdfs:label "exposure_disclosure" ;
+    skos:definition "A structural exposure disclosure, required for an active class that is no longer addressable." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:gap a owl:DatatypeProperty ;
+    rdfs:label "gap" ;
+    skos:definition "The gap between current and authorized in this dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:independent_by_design a owl:DatatypeProperty ;
+    rdfs:label "independent_by_design" ;
+    skos:definition "Section 2.3. True, because the three dimensions vary independently and are assessed independently." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:mechanism a owl:DatatypeProperty ;
+    rdfs:label "mechanism" ;
+    skos:definition "The distinct structural mechanism of the override." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:monitor_all_dimensions a owl:DatatypeProperty ;
+    rdfs:label "monitor_all_dimensions" ;
+    skos:definition "Section 4.3. Continuous detection across all three dimensions." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:monitor_satisfied a owl:ObjectProperty ;
+    rdfs:label "monitor_satisfied" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:normative_benchmark a owl:DatatypeProperty ;
+    rdfs:label "normative_benchmark" ;
+    skos:definition "The normative reference the dimension is assessed against (for example Ostrom's third principle, subsidiarity, Lukes' three dimensions)." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:not_active_rationale a owl:DatatypeProperty ;
+    rdfs:label "not_active_rationale" ;
+    skos:definition "Required in prose when active is false, a named rationale rather than a default omission." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:override_class a owl:ObjectProperty ;
+    rdfs:label "override_class" ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:power_concern a owl:DatatypeProperty ;
+    rdfs:label "power_concern" ;
+    skos:definition "The distinct structural power concern of the dimension." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:response_obligation a owl:DatatypeProperty ;
+    rdfs:label "response_obligation" ;
+    skos:definition "The response the classification triggers." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:review_completed a owl:DatatypeProperty ;
+    rdfs:label "review_completed" ;
+    skos:definition "Whether the response obligation for the classification was completed." ;
+    skos:inScheme <https://standards.example/spos> .
+
+spos:AdoptionTier a owl:Class ;
+    rdfs:label "AdoptionTier" ;
+    owl:unionOf ( <https://standards.example/spos/AdoptionTier#assessed> <https://standards.example/spos/AdoptionTier#operational> <https://standards.example/spos/AdoptionTier#instrumented> <https://standards.example/spos/AdoptionTier#loop_closed> <https://standards.example/spos/AdoptionTier#auditable> ) ;
+    skos:definition "Section 7. The adoption tiers." ;
+    skos:inScheme <https://standards.example/spos> ;
+    linkml:permissible_values <https://standards.example/spos/AdoptionTier#assessed>,
+        <https://standards.example/spos/AdoptionTier#auditable>,
+        <https://standards.example/spos/AdoptionTier#instrumented>,
+        <https://standards.example/spos/AdoptionTier#loop_closed>,
+        <https://standards.example/spos/AdoptionTier#operational> .
+
+spos:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/spos/ConformanceAnswer#satisfied> <https://standards.example/spos/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/spos/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-invariant answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/spos> ;
+    linkml:permissible_values <https://standards.example/spos/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/spos/ConformanceAnswer#not_applicable>,
+        <https://standards.example/spos/ConformanceAnswer#satisfied> .
+
+spos:id a owl:DatatypeProperty .
+
+spos:name a owl:DatatypeProperty .
+
+

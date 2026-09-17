@@ -1,0 +1,199 @@
+id: https://standards.example/ros
+name: ros
+title: ROS regenerative obligation record
+description: >-
+  The one canonical source for the machine-readable layer of the Regenerative Obligation
+  Standard (standards-3_0-regenerative-obligation, v0.1.8). ROS individuates by structural
+  mechanism, so the three-part validity condition and the four categorical disqualifiers are
+  rendered as typed objects, each carrying its constitutive structure (a condition its test and
+  register, a disqualifier its mechanism and why it is categorical rather than a failure of
+  degree), not as flat label enums. Rendering either as a taxonomy would collapse the mechanism
+  structure into labels, a precision deficit under PFDS. A disqualifier with no mechanism is not
+  a disqualifier, so mechanism and why_categorical are required.
+
+  The tree root is a RegenerativeObligationRecord: a system's stance declaration, its extraction
+  visibility, the three validity conditions and four disqualifiers it screens returns against,
+  its return assessments, its registered harm-bearing affiliations, its tier (the three named ROS
+  tiers, not the five-tier pattern), and its per-invariant conformance. Every artifact in dist/
+  is generated from this file.
+
+  The interpretive obligations are not schema-expressible and belong to the conformance checker:
+  whether a return actually satisfies a condition, whether an instrument trips a disqualifier,
+  and adequacy, which the standard assigns to registered harm-bearing parties (Ostrom DP3), not
+  to a universal threshold. Tier-gating stays in the checker.
+license: CC-BY-4.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  ros: https://standards.example/ros/
+default_prefix: ros
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+
+  RegenerativeObligationRecord:
+    tree_root: true
+    description: A system's stance, extraction visibility, the validity conditions and disqualifiers it screens against, its returns, its registered affiliations, and its conformance.
+    attributes:
+      stance:
+        description: Section 4. The declared stance, a precondition of claiming any tier.
+        range: StanceDeclaration
+        required: true
+      extraction_visible:
+        description: Section 2.2. Extraction is nameable, attributable, and recorded; invisibility presumes the standard unmet.
+        range: boolean
+        required: true
+      validity_conditions:
+        description: Section 3. The three-part validity condition rendered structurally (conjunctive).
+        range: ValidityCondition
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      disqualifiers:
+        description: Section 3.2. The categorical disqualifiers the system screens returns against, each a structural wrong-architecture mechanism.
+        range: CategoricalDisqualifier
+        multivalued: true
+        inlined_as_list: true
+        required: true
+      returns:
+        description: The return assessments, each screened against the conditions and disqualifiers.
+        range: ReturnAssessment
+        multivalued: true
+        inlined_as_list: true
+      harm_bearing_affiliations:
+        description: Section 5. The affirmatively registered harm-bearing affiliations.
+        range: HarmBearingAffiliation
+        multivalued: true
+        inlined_as_list: true
+      adopted_tier:
+        range: ROSTier
+        required: true
+      conformance:
+        description: Section 2.2. The four invariant answers on the face; no total.
+        range: ConformanceDeclaration
+        required: true
+
+  ValidityCondition:
+    description: >-
+      Section 3. One of the three-part validity conditions, individuated by its test and the
+      register it operates in. A condition with no test cannot be verified, so test is required.
+    attributes:
+      id:
+        description: The condition handle (non_fungibility, proximity, embeddedness).
+        required: true
+      name:
+        required: true
+      test:
+        description: The verifiable test that distinguishes a return that satisfies the condition.
+        required: true
+      register:
+        description: The structural register in which the condition operates (for example the register of the harm).
+
+  CategoricalDisqualifier:
+    description: >-
+      Section 3.2. One categorical disqualifier, a distinct wrong-architecture mechanism that no
+      degree of better measurement fixes. A disqualifier with no mechanism is not a disqualifier,
+      so mechanism and why_categorical are required.
+    attributes:
+      id:
+        description: The disqualifier handle (additionality, geographical, temporal_deferral, sroi).
+        required: true
+      name:
+        required: true
+      mechanism:
+        description: The structural mechanism by which the architecture fails the proximity condition.
+        required: true
+      why_categorical:
+        description: Why the failure is categorical (structural, not a failure of degree that better measurement fixes).
+        required: true
+
+  ReturnAssessment:
+    description: Section 3. A return assessed against the conditions and screened against the disqualifiers.
+    attributes:
+      description:
+        required: true
+      conditions_satisfied:
+        description: Which validity conditions the return satisfies (all three are required for validity).
+        multivalued: true
+        required: true
+      clear_of_disqualifiers:
+        description: Section 3.2. True when the return trips none of the categorical disqualifiers.
+        range: boolean
+        required: true
+      delivered_to_registered_party:
+        description: Section 5. Whether return delivery to a registered harm-bearing party is attested.
+        range: boolean
+
+  StanceDeclaration:
+    description: Section 4. The declared stance and its minimum required contents.
+    attributes:
+      stance:
+        range: StanceKind
+        required: true
+      scope:
+        description: The domains, roles, and contribution types the declaration covers.
+        required: true
+      challengers:
+        description: The parties with standing to challenge the stance (defaulting to registered harm-bearing parties).
+        multivalued: true
+        required: true
+      review_cycle_months:
+        description: The review cycle, a default maximum of twelve months.
+        range: integer
+        required: true
+
+  HarmBearingAffiliation:
+    description: Section 5. An affirmatively registered harm-bearing affiliation.
+    attributes:
+      domain_of_action:
+        required: true
+      extraction_class:
+        description: The class of extraction the standing applies to.
+        required: true
+      satisfying_return_form:
+        description: The form of return that would satisfy the obligation, consulted with the registering party.
+      access_rights:
+        description: The coordination access rights the standing confers (at minimum, to challenge the stance and to verify return).
+        multivalued: true
+
+  ConformanceDeclaration:
+    description: >-
+      Section 2.2. The four invariant answers on the face. There is deliberately no overall or
+      total field: conformance is per-invariant, mirroring the suite's refusal to collapse a
+      profile into a single number.
+    attributes:
+      extraction_visible:
+        range: ConformanceAnswer
+        required: true
+      three_conditions_met:
+        range: ConformanceAnswer
+        required: true
+      stance_declared:
+        range: ConformanceAnswer
+        required: true
+      no_retroactive_reclassification:
+        range: ConformanceAnswer
+        required: true
+
+enums:
+
+  StanceKind:
+    description: Section 4. The two stances.
+    permissible_values:
+      non_extractive:
+      more_regenerative_than_extractive:
+
+  ROSTier:
+    description: Section 7. The three named ROS tiers.
+    permissible_values:
+      extraction_visibility:
+      return_architecture:
+      full_conformance:
+
+  ConformanceAnswer:
+    description: Per-invariant answer; silence is not one of the values.
+    permissible_values:
+      satisfied:
+      declared_absent_with_justification:
+      not_applicable:

@@ -1,0 +1,56 @@
+# NON-conformant: a cost-bearing party is named but consent to the cost distribution is
+# absent (SCLS 2.1, the native nested-required conditional). Must fail validation.
+# Otherwise identical to the conformant example.
+action:
+  specification: "Increase the cross-organizational confirmation fee from 0.10 to 0.30 units per confirmation, effective next period, affecting organizations that use more than five confirmations per period."
+  category_level: false
+affected_constituency:
+  identified_before_action: true
+  identification_basis:
+    - "system evidence: organizations above five confirmations per period"
+wheel:
+  who_acts: "The fee committee"
+  who_benefits: "The protocol treasury, not the fee-paying organizations"
+  both_legible_to_both_parties: true
+cost_bearing_party:
+  identity: "High-volume confirming organizations"
+  # consent_to_cost_distribution deliberately omitted
+negotiated_limits:
+  - limit: "The fee is capped at 0.30 units for this period."
+withdrawal:
+  mechanism: "An organization may exit the fee schedule by opting out of cross-organizational confirmations."
+authorization:
+  authorizing_set:
+    - "The identified high-volume confirming organizations"
+  response_status: authorized
+  system_obligations:
+    legibility: true
+    time: true
+    support: true
+    exit_or_objection_cost_not_punitive: true
+verification:
+  who_acted: "The fee committee"
+  who_benefited: "The protocol treasury"
+  who_was_affected: "High-volume confirming organizations"
+  who_bears_cost: "High-volume confirming organizations"
+  agreed_limits: "A 0.30 unit cap for the period"
+  durable: true
+  tamper_evident: true
+domains_touched:
+  - coordination
+architecture:
+  domains_applicable:
+    - coordination
+  adopted_tier: operational
+  durable_constituency_definition:
+    accessible_without_authority_gating: true
+    independent_observer_determinable: true
+  external_override_disclosure:
+    jurisdictions:
+      - "US securities law"
+    gap_treatment: "Fees denominated in non-transferable protocol units."
+conformance:
+  identify_satisfied: satisfied
+  authorize_satisfied: satisfied
+  verify_satisfied: satisfied
+  cost_bearer_identified: satisfied

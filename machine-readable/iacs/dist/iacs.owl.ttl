@@ -1,0 +1,450 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix iacs: <https://standards.example/iacs/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/iacs.owl.ttl> a owl:Ontology ;
+    rdfs:label "iacs" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "IACS information asymmetry classification" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Information Asymmetry Classification Standard (standards-3_0-information-asymmetry, v0.1.28). IACS classifies by mechanism, not by a label list, so the model renders the classes as typed AsymmetryMechanism objects, each carrying its causal process, its detection surface, its orthogonality, its status, its Cynefin domain, and its structural remediation direction. Rendering these distinct structural mechanisms as a flat taxonomy of class names would collapse the mechanism structure into labels, a precision deficit under PFDS whose absent structure leaves no gap marker; the structural rendering is deliberate for that reason.
+The tree root is an IACSConformanceRecord, a system's declaration of which mechanisms it instruments (the code system, rendered as structured objects), the classifications it has produced against them, its detection architecture and tier, and its per-obligation conformance. Every artifact in dist/ is generated from this file.
+The interpretive obligations are not schema-expressible and belong to the conformance checker: whether a coordination record actually exhibits a mechanism (the detection surfaces are computable signals that indicate where to look, not proof), whether a class is orthogonal and validly individuated, and whether taxonomy stewardship resists capture. Tier-gating stays in the checker. IACS is diagnostic: each mechanism carries a remediation direction as a pointer, and the remediation architecture is deferred to companion specs.""" .
+
+iacs:IACSConformanceRecord a owl:Class ;
+    rdfs:label "IACSConformanceRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:architecture ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:architecture ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:Classification ;
+            owl:onProperty iacs:classifications ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:ConformanceDeclaration ;
+            owl:onProperty iacs:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:classifications ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:AsymmetryMechanism ;
+            owl:onProperty iacs:applicable_mechanisms ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:IACSArchitecture ;
+            owl:onProperty iacs:architecture ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:applicable_mechanisms ] ;
+    skos:definition "A system's declaration of the mechanisms it instruments, its classifications, its detection architecture, and its conformance." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:AsymmetryMechanism a owl:Class ;
+    rdfs:label "AsymmetryMechanism" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:detection_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:cynefin_domain ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:MechanismStatus ;
+            owl:onProperty iacs:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:orthogonal_at_mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:sub_pattern ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:CynefinDomain ;
+            owl:onProperty iacs:cynefin_domain ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:cynefin_domain ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:orthogonal_at_mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:detection_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:sub_pattern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:orthogonal_at_mechanism ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:remediation_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:remediation_direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:remediation_direction ] ;
+    skos:definition "Section 2, 3, 5. One distinct information-asymmetry mechanism, individuated by its causal process and its detection surface, not by a label. A mechanism with no detection surface cannot be instrumented (Section 2 validity criterion 3), so detection_surface is required." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:Classification a owl:Class ;
+    rdfs:label "Classification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:detection_signals_observed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:detection_signals_observed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:cynefin_domain ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:mechanism ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:cynefin_domain ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:CynefinDomain ;
+            owl:onProperty iacs:cynefin_domain ] ;
+    skos:definition "Section 6. One classification of a coordination record against a mechanism." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom iacs:ConformanceAnswer ;
+            owl:onProperty iacs:classification_process_documented ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:detection_instrumented ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:applicability_mapped ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:ConformanceAnswer ;
+            owl:onProperty iacs:detection_instrumented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:classification_process_documented ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:ConformanceAnswer ;
+            owl:onProperty iacs:applicability_mapped ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:applicability_mapped ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:detection_instrumented ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:classification_process_documented ] ;
+    skos:definition "The per-obligation conformance answers on the face. There is deliberately no overall or total field: conformance is per-obligation, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:IACSArchitecture a owl:Class ;
+    rdfs:label "IACSArchitecture" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:detection_architecture_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:detection_architecture_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty iacs:applicability_inventory ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:cynefin_documented ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:detection_architecture_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom iacs:AdoptionTier ;
+            owl:onProperty iacs:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:classification_process_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:cynefin_documented ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:applicability_inventory ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:audience_baseline_declared ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:audience_baseline_declared ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty iacs:classification_process_documented ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:cynefin_documented ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:audience_baseline_declared ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:adopted_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty iacs:applicability_inventory ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty iacs:classification_process_documented ] ;
+    skos:definition "The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+<https://standards.example/iacs/AdoptionTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf iacs:AdoptionTier .
+
+<https://standards.example/iacs/AdoptionTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf iacs:AdoptionTier .
+
+<https://standards.example/iacs/AdoptionTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf iacs:AdoptionTier .
+
+<https://standards.example/iacs/AdoptionTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf iacs:AdoptionTier .
+
+<https://standards.example/iacs/AdoptionTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf iacs:AdoptionTier .
+
+<https://standards.example/iacs/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf iacs:ConformanceAnswer .
+
+<https://standards.example/iacs/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf iacs:ConformanceAnswer .
+
+<https://standards.example/iacs/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf iacs:ConformanceAnswer .
+
+<https://standards.example/iacs/CynefinDomain#chaotic> a owl:Class ;
+    rdfs:label "chaotic" ;
+    rdfs:subClassOf iacs:CynefinDomain .
+
+<https://standards.example/iacs/CynefinDomain#clear> a owl:Class ;
+    rdfs:label "clear" ;
+    rdfs:subClassOf iacs:CynefinDomain .
+
+<https://standards.example/iacs/CynefinDomain#complex> a owl:Class ;
+    rdfs:label "complex" ;
+    rdfs:subClassOf iacs:CynefinDomain .
+
+<https://standards.example/iacs/CynefinDomain#complicated> a owl:Class ;
+    rdfs:label "complicated" ;
+    rdfs:subClassOf iacs:CynefinDomain .
+
+<https://standards.example/iacs/MechanismStatus#extension_specified> a owl:Class ;
+    rdfs:label "extension_specified" ;
+    rdfs:subClassOf iacs:MechanismStatus .
+
+<https://standards.example/iacs/MechanismStatus#extension_stub_scoped_out> a owl:Class ;
+    rdfs:label "extension_stub_scoped_out" ;
+    rdfs:subClassOf iacs:MechanismStatus .
+
+<https://standards.example/iacs/MechanismStatus#primary> a owl:Class ;
+    rdfs:label "primary" ;
+    rdfs:subClassOf iacs:MechanismStatus .
+
+iacs:applicable_mechanisms a owl:ObjectProperty ;
+    rdfs:label "applicable_mechanisms" ;
+    skos:definition "Section 6. The mechanisms the system identifies as applicable, rendered as structured objects (the code system, not a label list). Each carries its causal process, detection surface, orthogonality, status, Cynefin domain, and remediation direction." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:classifications a owl:ObjectProperty ;
+    rdfs:label "classifications" ;
+    skos:definition "Section 6. The classifications the system has produced, each referencing a mechanism and the signals observed." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:detection_signals_observed a owl:DatatypeProperty ;
+    rdfs:label "detection_signals_observed" ;
+    skos:definition "The specific detection-surface signals observed in the record." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:detection_surface a owl:DatatypeProperty ;
+    rdfs:label "detection_surface" ;
+    skos:definition "Section 2 criterion 3. The observable signals in the coordination record that indicate the mechanism is active." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:sub_pattern a owl:DatatypeProperty ;
+    rdfs:label "sub_pattern" ;
+    skos:definition "A named sub-pattern of this mechanism (for example, Distributed Monoculture, Coordination Record Asymmetry, Consensus Manufacturing)." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:adopted_tier a owl:ObjectProperty ;
+    rdfs:label "adopted_tier" ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:applicability_inventory a owl:DatatypeProperty ;
+    rdfs:label "applicability_inventory" ;
+    skos:definition "Section 6 Assessed. A class applicability inventory naming applicable, partial, and not-applicable mechanisms with a present, assumed, or absent detection state." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:applicability_mapped a owl:ObjectProperty ;
+    rdfs:label "applicability_mapped" ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:architecture a owl:ObjectProperty ;
+    rdfs:label "architecture" ;
+    skos:definition "The system's detection architecture and adopted tier." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:audience_baseline_declared a owl:DatatypeProperty ;
+    rdfs:label "audience_baseline_declared" ;
+    skos:definition "Section 6 Instrumented. The audience linguistic, epistemic, and ontological baseline, required when Descriptive Capacity asymmetry is applicable in a document-production context." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "Per-obligation conformance answers on the face; no total." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:cynefin_documented a owl:DatatypeProperty ;
+    rdfs:label "cynefin_documented" ;
+    skos:definition "Section 6 Instrumented. A documented Cynefin domain classification per mechanism with the matching action mode." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:detection_architecture_present a owl:DatatypeProperty ;
+    rdfs:label "detection_architecture_present" ;
+    skos:definition "Section 6 Instrumented. A real-time detection architecture instrumenting the surfaces, disclosed to participants." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:detection_instrumented a owl:ObjectProperty ;
+    rdfs:label "detection_instrumented" ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:id a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    skos:definition "The mechanism handle (for example, positional, interpretive, synthetic_coordination)." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:orthogonal_at_mechanism a owl:DatatypeProperty ;
+    rdfs:label "orthogonal_at_mechanism" ;
+    skos:definition "Section 2 criterion 4. True when the mechanism is individuated at the level of causal process, so its presence does not entail another's." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:remediation_direction a owl:DatatypeProperty ;
+    rdfs:label "remediation_direction" ;
+    skos:definition "Section 5 Scope. The structural remediation direction the mechanism implies; a pointer, since IACS defers the remediation architecture." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:status a owl:ObjectProperty ;
+    rdfs:label "status" ;
+    skos:definition "Section 5. Whether the mechanism is primary, a fully specified extension, or a scoped-out stub (not usable in a conforming detection architecture)." ;
+    skos:inScheme <https://standards.example/iacs> .
+
+iacs:MechanismStatus a owl:Class ;
+    rdfs:label "MechanismStatus" ;
+    owl:unionOf ( <https://standards.example/iacs/MechanismStatus#primary> <https://standards.example/iacs/MechanismStatus#extension_specified> <https://standards.example/iacs/MechanismStatus#extension_stub_scoped_out> ) ;
+    skos:definition "Section 5. The specification status of a mechanism." ;
+    skos:inScheme <https://standards.example/iacs> ;
+    linkml:permissible_values <https://standards.example/iacs/MechanismStatus#extension_specified>,
+        <https://standards.example/iacs/MechanismStatus#extension_stub_scoped_out>,
+        <https://standards.example/iacs/MechanismStatus#primary> .
+
+iacs:AdoptionTier a owl:Class ;
+    rdfs:label "AdoptionTier" ;
+    owl:unionOf ( <https://standards.example/iacs/AdoptionTier#assessed> <https://standards.example/iacs/AdoptionTier#operational> <https://standards.example/iacs/AdoptionTier#instrumented> <https://standards.example/iacs/AdoptionTier#loop_closed> <https://standards.example/iacs/AdoptionTier#auditable> ) ;
+    skos:definition "Section 6. The adoption tiers." ;
+    skos:inScheme <https://standards.example/iacs> ;
+    linkml:permissible_values <https://standards.example/iacs/AdoptionTier#assessed>,
+        <https://standards.example/iacs/AdoptionTier#auditable>,
+        <https://standards.example/iacs/AdoptionTier#instrumented>,
+        <https://standards.example/iacs/AdoptionTier#loop_closed>,
+        <https://standards.example/iacs/AdoptionTier#operational> .
+
+iacs:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/iacs/ConformanceAnswer#satisfied> <https://standards.example/iacs/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/iacs/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-obligation answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/iacs> ;
+    linkml:permissible_values <https://standards.example/iacs/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/iacs/ConformanceAnswer#not_applicable>,
+        <https://standards.example/iacs/ConformanceAnswer#satisfied> .
+
+iacs:CynefinDomain a owl:Class ;
+    rdfs:label "CynefinDomain" ;
+    owl:unionOf ( <https://standards.example/iacs/CynefinDomain#clear> <https://standards.example/iacs/CynefinDomain#complicated> <https://standards.example/iacs/CynefinDomain#complex> <https://standards.example/iacs/CynefinDomain#chaotic> ) ;
+    skos:definition "Section 4.1. The Cynefin domains and their detection action modes." ;
+    skos:inScheme <https://standards.example/iacs> ;
+    linkml:permissible_values <https://standards.example/iacs/CynefinDomain#chaotic>,
+        <https://standards.example/iacs/CynefinDomain#clear>,
+        <https://standards.example/iacs/CynefinDomain#complex>,
+        <https://standards.example/iacs/CynefinDomain#complicated> .
+
+iacs:classification_process_documented a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+iacs:cynefin_domain a owl:ObjectProperty .
+
+iacs:mechanism a owl:DatatypeProperty .
+
+

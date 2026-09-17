@@ -1,0 +1,338 @@
+# ASEP register distillation
+# One row per normative requirement of the Adverse-Signal Engagement Principle Core
+# Standard (standards-3_0-adverse-signal-engagement, v0.7.13). The corpus's register
+# distillation: a typed enumerable table extracted from prose, each row carrying its
+# assertion, a kind code, a portability flag, the shape/judgment/mixed checkable flag that
+# partitions the gateable core from the advisory periphery, the lowest adoption tier at
+# which it binds, and a cross_standard_ref where the entry reads another standard's data.
+#
+# ASEP is process-and-detection by nature: the Notice/Name/Navigate lifecycle and the
+# time-governed Signal Escalation state machine are largely shape (a required step present
+# in the record, a window defined and met), while severity classification and genuine
+# transformation are judgment. The reliability of any ASEP audit is bounded by the Four
+# Batteries Relational Battery condition (2.3), a cross-standard dependency, not a gate.
+standard: ASEP
+standard_version: 0.7.13
+source: standards-3_0-adverse-signal-engagement-0_7_13.md
+entries:
+
+  # Invariants (Section 2.2) - these define ASEP
+  - id: ASEP-INV-1
+    section: "2.2"
+    obligation: invariant
+    kind: MUST
+    portability: universal
+    checkable: shape            # a disposition record exists for every signal; a non-adverse judgment is itself recorded
+    tier: All
+    assertion: "No silent erasure: a bona fide adverse signal cannot be silently suppressed, deleted, or ignored; if it is judged non-adverse, that judgment is itself recorded."
+  - id: ASEP-INV-2
+    section: "2.2"
+    obligation: invariant
+    kind: MUST
+    portability: universal
+    checkable: shape            # criteria carry a version and a pre-dispute timestamp; open cases are not re-versioned
+    tier: All
+    assertion: "Ex-ante criteria: the criteria for what counts as an adverse signal are defined before specific disputes, versioned, and not retroactively changed for open cases."
+  - id: ASEP-INV-3
+    section: "2.2"
+    obligation: invariant
+    kind: MUST
+    portability: universal
+    checkable: shape            # each signal has a minimal-engagement record and a terminal disposition
+    tier: All
+    assertion: "Finite path to decision: every adverse signal has at least minimal engagement (log, classify, acknowledge) and a finite path to act, monitor, or formally close, with rationale."
+
+  # Detection reliability dependency (Section 2.3)
+  - id: ASEP-DEP-1
+    section: "2.3"
+    obligation: reliability-dependency
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of the reliability-limitation disclosure is shape; the reliability bound itself is judgment
+    tier: Assessed
+    cross_standard_ref: "Four Batteries Capacity Standard: the Relational Battery condition; a depleted Relational Battery produces a systematic false negative in the detection surface"
+    assertion: "Where the Relational Battery is not jointly instrumented, the system discloses that its ASEP audit results carry a systematic false-negative reliability limitation until joint adoption is in place."
+
+  # Notice (Section 3.1)
+  - id: ASEP-NOT-1
+    section: "3.1.1"
+    obligation: notice
+    kind: MUST
+    portability: universal
+    checkable: mixed            # presence of at least one channel is shape; treating messy or low-power complaints as legitimate is judgment
+    tier: Assessed
+    assertion: "At least one channel exists through which adverse signals can be surfaced by humans and machines across internal, external, technical, and independent-observer sources; emotionally expressed or unskilled complaints are legitimate sources, not disqualifying noise."
+  - id: ASEP-NOT-2
+    section: "3.1.2"
+    obligation: notice
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the implausible-absence monitors are computable (shape); the fourth class needs Four Batteries data to disambiguate (judgment)
+    tier: Operational
+    cross_standard_ref: "Four Batteries Capacity Standard: Relational battery state, required to disambiguate signal-absence-under-low-trust from healthy absence"
+    assertion: "Implausible absences are treated as adverse signals: no failures where failure is normal, only positive records, abrupt silence from active participants, and sustained absence coinciding with low Relational battery state."
+  - id: ASEP-NOT-3
+    section: "3.1.3"
+    obligation: notice
+    kind: MUST
+    portability: universal
+    checkable: judgment         # proportionality to risk and consistency with consent/privacy norms is a reader's assessment
+    tier: Operational
+    assertion: "Observation and logging are proportionate to the risks addressed and consistent with consent, privacy, and data-sovereignty norms (including CARE and OCAP where applicable)."
+
+  # Name (Section 3.2)
+  - id: ASEP-NAM-1
+    section: "3.2.1"
+    obligation: name
+    kind: MUST
+    portability: universal
+    checkable: shape            # the required log fields are present, durable, and tamper-evident where feasible
+    tier: Operational
+    assertion: "Adverse signals are recorded in durable, tamper-evident logs; each entry carries an observable description (observation separated from evaluation), when and where it occurred, who or what was affected, and who reported it and in what role."
+  - id: ASEP-NAM-2
+    section: "3.2.2"
+    obligation: name
+    kind: MUST
+    portability: universal
+    checkable: mixed            # recording power context and logging context-to-downgrade reasoning is shape; salience and the repeated-dismissal pattern read are judgment
+    tier: Operational
+    assertion: "Where salient, the log captures relative power or dependency, relevant history, and structural incentives; when context is invoked to downgrade or dismiss a signal, that reasoning is recorded, and repeated use of context to explain away similar signals is itself a pattern to detect."
+  - id: ASEP-NAM-3
+    section: "3.2.2"
+    obligation: name
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the framework being documented, ex-ante, versioned, with a max unclassified dwell is shape; coverage adequacy is judgment
+    tier: Operational
+    assertion: "A classification framework of adverse-signal categories and severity levels is documented, defined ex-ante and versioned, and subject to periodic coverage review; 'unclassified' is a temporary state with a maximum dwell time, and persistent low-severity labels for recurring high-aggregate-impact signals trigger a framework review."
+  - id: ASEP-NAM-4
+    section: "3.2.2"
+    obligation: name
+    kind: MUST
+    portability: universal
+    checkable: judgment         # whether input from cost-bearing constituencies was meaningful is not shape-checkable from the record
+    tier: Instrumented
+    assertion: "The criteria for what counts as an adverse signal and for severity levels are developed and updated with meaningful input from the constituencies who bear the risks, not solely by operators or insiders."
+
+  # Navigate (Section 3.3)
+  - id: ASEP-NAV-1
+    section: "3.3.1"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: shape            # per-severity windows are defined and the record shows action or explicit closure within them; a lapsed bound is itself logged
+    tier: Operational
+    assertion: "For each severity level, a maximum time-to-assessment and a maximum time-to-first-decision are defined with a bounded action set (mitigate, escalate, initiate engagement, monitor, close with rationale); letting a bound lapse without action or explicit closure is itself a logged adverse signal."
+  - id: ASEP-NAV-2
+    section: "3.3.1a"
+    obligation: navigate
+    kind: MUST
+    portability: conditional
+    condition: "the signal is conflict-class (contested accounts, a formal challenge, or harm attribution naming a counterparty)"
+    checkable: mixed            # the three conflict-class conditions and the documented exchange are observable (shape); genuine transformation capacity is out of ASEP's scope (judgment)
+    tier: Operational
+    cross_standard_ref: "Conflict Transformation Standard: the structural conditions under which the engagement constitutes genuine transformation capacity"
+    assertion: "For a conflict-class signal, an engagement pathway with the contested parties is opened and a documented exchange takes place before Navigate terminates the signal by escalation or closure."
+  - id: ASEP-NAV-3
+    section: "3.3.2"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: mixed            # graduation by severity and local-first resolution with escalation paths is partly shape; proportionality is judgment
+    tier: Operational
+    assertion: "Responses are graduated and proportionate to severity and pattern, resolved at the most local competent level, with clear escalation paths when local handling fails or a conflict of interest exists."
+  - id: ASEP-NAV-4
+    section: "3.3.3"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: shape            # aggregation of similar signals and mandatory reclassification at a threshold are computable from the record
+    tier: Operational
+    assertion: "Repeated similar signals are aggregated and reclassified upward at defined pattern thresholds; a repeated class may not be treated indefinitely as isolated low-severity incidents (three times is a pattern)."
+  - id: ASEP-NAV-5
+    section: "3.3.3"
+    obligation: navigate
+    kind: MUST
+    portability: conditional
+    condition: "a pattern threshold triggers mandatory reclassification"
+    checkable: shape            # the assessment and one of the three named findings is present before individual attribution is accepted
+    tier: Instrumented
+    assertion: "A structural root cause assessment is completed before individual attribution is accepted as final, producing one of three findings (no structural condition, structural condition identified, or insufficient information); a no-structural-condition determination is documented as a finding, not left implicit."
+  - id: ASEP-NAV-6
+    section: "3.3.4"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: mixed            # non-gateability by a single actor is partly shape; the subsidiarity and concentration reads are owned by SPOS
+    tier: Instrumented
+    cross_standard_ref: "Structural Power Obligation Standard Section 4.4: nested and polycentric handling, subsidiarity, and concentration detection"
+    assertion: "Navigate remains operable across nested coordination levels and is not gateable by a single actor."
+  - id: ASEP-NAV-7
+    section: "3.3.5"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: shape            # an adversarial or abuse judgment is logged with a documented basis; a class is not erased wholesale under 'abuse'
+    tier: Operational
+    assertion: "De-duplication, rate-limiting, and abuse routing are permitted, but a judgment that a report is adversarial or abusive is logged with a documented basis, and categories of adverse signals are not erased wholesale under an 'abuse' justification."
+  - id: ASEP-NAV-8
+    section: "3.3.6"
+    obligation: signal-escalation
+    kind: MUST
+    portability: universal
+    checkable: shape            # the four time-governed stages are present as a state machine keyed on elapsed time, not human initiative
+    tier: Instrumented
+    assertion: "A time-governed Signal Escalation path is defined: an acknowledgment window, an auto-escalation threshold that publishes the matured signal without a human decision, an obligation trigger that generates an obligation artifact entering the coordination lifecycle, and a terminal visibility state recorded as a constitutional-level coordination failure."
+  - id: ASEP-NAV-9
+    section: "3.3.6"
+    obligation: signal-escalation
+    kind: MUST
+    portability: universal
+    checkable: shape            # each window is pre-specified, uniform across structurally-equivalent signals, and non-retroactive
+    tier: Instrumented
+    assertion: "Every escalation window is publicly specified before it begins running, uniform across structurally equivalent signals (same severity and complexity domain), and governed by the parameters in effect at signal generation (not retroactively adjustable)."
+  - id: ASEP-NAV-10
+    section: "3.3.6"
+    obligation: signal-escalation
+    kind: MUST
+    portability: universal
+    checkable: mixed            # domain classification is logged and the Chaotic bypass is a determinable behavior (shape); the domain call is a coordination judgment
+    tier: Instrumented
+    cross_standard_ref: "Structural Consent Legibility Standard Section 6.4: the general principle of Cynefin action-mode calibration"
+    assertion: "Incoming signals are classified by complexity domain and escalation tempo matches the domain's action mode; a Chaotic-domain signal bypasses the acknowledgment window and enters at auto-escalation, and the domain classification is itself logged."
+  - id: ASEP-NAV-11
+    section: "3.3.7"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: judgment         # matching the Navigate process shape to the Cynefin action mode is a coordination judgment, not a record shape
+    tier: Instrumented
+    assertion: "The Navigate process shape matches the action mode of the signal's complexity domain, with the learning-loop depth that follows from it (single-loop for Clear, double-or-triple for Complex)."
+  - id: ASEP-NAV-12
+    section: "3.3.8"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: mixed            # documenting the early-engagement incentive and treating sustained delay as a signal is shape; incentive adequacy is judgment
+    tier: Instrumented
+    assertion: "The incentive structure is not neutral between early and late engagement: the system documents how it rewards early-stage engagement and treats sustained delay in engaging acknowledged signals as itself an adverse signal about coordination health."
+  - id: ASEP-NAV-13
+    section: "3.3.9"
+    obligation: navigate
+    kind: MUST
+    portability: universal
+    checkable: mixed            # naming external override as a signal class and carrying a recognition assessment is shape; the impact read is judgment
+    tier: Instrumented
+    cross_standard_ref: "Structural Power Obligation Standard Section 4.5: the seven external-override classes and their tier provisions"
+    assertion: "External override of the system's internal adverse-signal handling is a named signal class subject to Navigate; recognition of the system's internal coordination capacity by relevant external authorities is a detection prerequisite, disclosed where absent (absence of challenge is not recognition)."
+  - id: ASEP-NAV-14
+    section: "3.3.10"
+    obligation: navigate
+    kind: MUST
+    portability: conditional
+    condition: "an evaluation chain carries a Condition 1 risk-reduction statement"
+    checkable: mixed            # the aggregate-inconsistency signal is computable; the chain-level root cause and framework-gap read are judgment
+    tier: Instrumented
+    cross_standard_ref: "CRAFT Condition 1 (risk-reduction statement) and Condition 6 (feedback protocol) for cross-layer propagation of a specification-framework gap"
+    assertion: "Adverse-signal detection extends to aggregate patterns: an aggregate output inconsistent with the chain's Condition 1 risk-reduction statement is an adverse signal at the aggregate level that individual component compliance does not close, and it is a double-loop trigger propagated to the specification layer."
+
+  # Operational guarantees and ethical posture (Section 4)
+  - id: ASEP-OG-1
+    section: "4.1"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: mixed            # an anti-retaliation commitment and immediate NNN intake for retaliation allegations is shape; whether an action was retaliatory is judgment
+    tier: Operational
+    assertion: "Good-faith signal sources are protected from retaliation, and a retaliation allegation is itself an adverse signal that enters the Notice/Name/Navigate flow immediately."
+  - id: ASEP-OG-2
+    section: "4.2"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: shape            # the right to log is not gated by status; status may affect prioritization only
+    tier: Operational
+    assertion: "Any actor, regardless of status, may generate a log entry for an adverse signal if minimal criteria (specificity, relevance) are met; status may influence prioritization of review, not the right to log."
+  - id: ASEP-OG-3
+    section: "4.3"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: shape            # at least one logging path is independent of the evaluated actors or tamper-evident; evaluated actors are not sole custodians
+    tier: Instrumented
+    assertion: "At least one logging path is independent of the actors being evaluated or tamper-evident, and actors whose behavior is logged are not the sole custodians of those logs."
+  - id: ASEP-OG-4
+    section: "4.4"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: mixed            # meta-ASEP failures entering NNN is a shape obligation; recognizing a chronic pattern is judgment
+    tier: Instrumented
+    assertion: "Failures of ASEP implementation itself (chronic missed timelines, systematic retaliation, over-collection, repeated context-silencing) are adverse signals about coordination health and enter the same Notice/Name/Navigate flow."
+  - id: ASEP-OG-5
+    section: "4.5"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: mixed            # recording initiator and beneficiary for significant responses is shape; the systematic-divergence read is judgment
+    tier: Instrumented
+    cross_standard_ref: "Structural Consent Legibility Standard: the Wheel of Consent two-axis read (who acts, who benefits)"
+    assertion: "For significant adverse-signal responses, the record captures who initiated the response and who it is primarily intended to benefit; systematic divergence (responses initiated by those at risk but designed to benefit operators) is itself an adverse signal."
+  - id: ASEP-OG-6
+    section: "4.6"
+    obligation: operational-guarantee
+    kind: MUST
+    portability: universal
+    checkable: judgment         # commons-aligned involvement, named obligation directions, and polycentric operation are assessed, not shape-checkable
+    tier: Instrumented
+    assertion: "Monitoring and response involve affected constituencies in defining criteria, carry named obligation directions rather than being solely centralized, provide low-cost timely conflict paths, and operate polycentrically."
+
+  # Adoption tiers (Section 5)
+  - id: ASEP-TIER-SEL
+    section: "5.0"
+    obligation: tier-selection
+    kind: MUST
+    portability: universal
+    checkable: shape            # tier decisions are logged with rationale at defined intervals and threshold crossings
+    tier: Assessed
+    assertion: "The ASEP tier is reviewed at defined intervals and at scale, dependency, or criticality threshold crossings; tier decisions are logged with rationale, and repeated decisions to remain lower despite accumulating impact evidence enter the Notice/Name/Navigate flow."
+  - id: ASEP-TIER-1
+    section: "5.1"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Assessed
+    assertion: "Assessed: at least one channel to surface serious adverse signals, a durable way to record them, and no obvious retaliation against those who raise concerns."
+  - id: ASEP-TIER-2
+    section: "5.2"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite; resolves to the Notice/Name/Navigate constituent entries
+    tier: Operational
+    assertion: "Operational: the full Notice/Name/Navigate loop with a classification framework and severity levels, time-boxing, pattern escalation, and some metrics and periodic retrospectives."
+  - id: ASEP-TIER-3
+    section: "5.3"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Instrumented
+    assertion: "Instrumented: independent or tamper-evident logging, an explicit anti-retaliation policy and tracking, multi-constituency criteria setting and coverage reviews, explicit polycentric and nested handling, initiator-beneficiary tracking, and regular reporting on ASEP metrics."
+  - id: ASEP-TIER-4
+    section: "5.4"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the Stage-3-to-decision path and automatic Stage-4 publication are verifiable from the append-only record
+    tier: Loop-Closed
+    assertion: "Loop-Closed: every Stage 3 obligation trigger produces a documented decision within the defined window, the absence of a decision produces automatic Stage 4 publication without any actor's initiation, and the record is append-only."
+  - id: ASEP-TIER-5
+    section: "5.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the full escalation record is independently verifiable for completeness, stage integrity, and response completeness
+    tier: Auditable
+    assertion: "Auditable: the full Signal Escalation record is independently verifiable without operator cooperation for completeness (the generated-versus-recorded gap is the suppression surface), stage integrity, and response completeness, with the audit documented and disclosed."

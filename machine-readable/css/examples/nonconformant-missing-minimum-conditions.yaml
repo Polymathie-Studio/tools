@@ -1,0 +1,29 @@
+# NON-conformant: a crossed Radius carries no minimum_conditions. The minimum conditions
+# are the floor and the structural weld: a crossed threshold silent on its floor is rejected,
+# because a floor breach cannot be inferred from an absent enumeration. Must fail.
+subject: "A 12-member working group"
+effective_radius:
+  function_breaks:
+    - function: state_legibility
+      radius: radius_5
+      broken: true
+  aggregate_factors:
+    - name: member_count
+      value: "12 members"
+  nominal_effective_radius: radius_5
+  robust_effective_radius: radius_5
+crossed_thresholds:
+  - radius:
+      radius: radius_5
+      function_break: "full bilateral state awareness no longer holds"
+      attack_surface: "state opacity"
+    # minimum_conditions deliberately omitted: the floor weld requires them enumerated
+    maximum_conditions:
+      - condition: "no single member holds unilateral veto without renewed group consent"
+        status: absent
+adoption_level: assessed
+conformance:
+  effective_radius_assessed: satisfied
+  minimum_conditions_present: declared_absent_with_justification
+  maximum_conditions_absent: satisfied
+  sequential_build_respected: satisfied

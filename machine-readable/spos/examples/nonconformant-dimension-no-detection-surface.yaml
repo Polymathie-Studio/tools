@@ -1,0 +1,35 @@
+# NON-conformant: a power dimension carries no detection surface, so it cannot be
+# instrumented (the structural nested-required weld, parallel to the mechanism validity
+# logic). Must fail validation.
+authorized_profile_established: true
+dimensions:
+  - dimension:
+      id: authority
+      name: Locus of Authority
+      power_concern: "Concentration of binding decision-making capacity."
+      detection_surface:
+        - "Nakamoto Coefficient trend"
+      independent_by_design: true
+    current_concentration: "Nakamoto Coefficient 14"
+  - dimension:
+      id: coordination
+      name: Degree of Coordination and Integration
+      power_concern: "Concentration of interpretive capacity."
+      # detection_surface deliberately omitted: a dimension with no detection surface
+      # cannot be instrumented
+      independent_by_design: true
+    current_concentration: "Framework decisions concentrated in a small group"
+override_assessment:
+  - override_class:
+      id: platform
+      name: Class 4 Platform
+      mechanism: "Dependency on infrastructure the system does not control."
+      detection_instrument: "Inventory of uncontrolled infrastructure with an alternatives assessment."
+    active: false
+    not_active_rationale: "All load-bearing infrastructure is self-hosted or has viable alternatives."
+architecture:
+  adopted_tier: operational
+conformance:
+  distribute_satisfied: satisfied
+  authorize_satisfied: satisfied
+  monitor_satisfied: not_applicable

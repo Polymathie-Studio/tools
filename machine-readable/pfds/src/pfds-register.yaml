@@ -1,0 +1,305 @@
+# PFDS register distillation
+# One row per normative entry of the Precision-First Design Standard
+# (standards-3_0-precision-first, v2.4.3), the suite meta-standard. PFDS is a special case: it
+# specifies what precision requires across every standard, so its register is the precision-first
+# invariant, the twelve corollaries (each a distinct precision condition with two failure directions,
+# a deficit and an imposition), Method-Structure Congruence, the independent-observer test that is
+# the operational falsifiability criterion, the five-pattern precision-failure taxonomy, the
+# review checklist, the three adoption depths, and the five obligation-loop tiers.
+#
+# The twelve corollaries and the five failure patterns are mechanism-individuated sets and are
+# rendered structurally (each condition with its two directions and corrective; each pattern with
+# its structural signature and response), not as flat label lists; a taxonomy rendering would be
+# the very precision deficit PFDS names. The corollary conditions are designed to be
+# independent-observer-determinable (shape); the invariant and congruence are the meta-conditions.
+# The conformant artifact is a precision review producing a deficit map keyed to the taxonomy.
+standard: PFDS
+standard_version: 2.5.0
+source: standards-3_0-precision-first-2_4_3.md
+entries:
+
+  # The precision-first invariant and its companions (Sections 2, 3)
+  - id: PFDS-INVARIANT
+    section: "2"
+    obligation: invariant
+    kind: MUST
+    portability: universal
+    checkable: judgment         # the two-directional meta-condition; per-element checkability is via the corollaries and the independent-observer test
+    tier: All
+    assertion: "Precision fails in two directions. A precision deficit (an element replaces a typed construct with a vague term, reduces a detection instrument's resolution, obscures a boundary between states, or substitutes normative language for operational definitions) leaves violations undetectable and exploitation vectors open. A precision imposition (an element specified so completely that compliance can be demonstrated while the coordination purpose remains unserved) is the mirror failure. Precision and non-harming are one commitment (nothing obscures, nothing imposes); the requirement is met when violations are detectable and compliance demonstrates the purpose is served."
+  - id: PFDS-CONGRUENCE
+    section: "3"
+    obligation: invariant
+    kind: MUST
+    portability: universal
+    checkable: judgment         # a method-structure mismatch is self-concealing; only a change of method surfaces it, not internal review
+    tier: All
+    assertion: "Method-Structure Congruence: the epistemic method applied at any stage must match the structural character of what is being known. A congruence deficit (a weaker method on a problem needing a stronger one) is complete within its own terms while structurally blind to content a congruent method would have generated, and the absence is self-concealing. A congruence imposition (a more demanding method than the phenomenon warrants) produces false precision. Met when the method is the weakest sufficient to generate the content the stage requires."
+  - id: PFDS-INDEPENDENT-OBSERVER
+    section: "2"
+    obligation: definition
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment         # the operational test itself; applying it to a given determination is where shape is decided
+    tier: All
+    assertion: "The independent-observer test is the operational criterion for falsifiability: an independent observer has no direct interest in the outcome, access limited to the definition and observable evidence (no author's intent or privileged context), and structural distinctness from the decision-making body. If a determination requires anything beyond definition plus evidence, the standard has a precision deficit at that point."
+  - id: PFDS-TRUSTED-INTERMEDIARY
+    section: "2"
+    obligation: definition
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "A trusted interpretive intermediary satisfies three conditions simultaneously (recognized authority to supply definitions at dispute time, independence from the parties, and enforceability); where none exists, a vague standard is not imprecise but a permanently open gap, which is why the precision-first invariant follows from the structural condition rather than a design philosophy."
+
+  # The twelve corollaries (Section 2), each a precision condition with two failure directions
+  - id: PFDS-COR-1
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # operational-definedness is determinable by an independent observer
+    tier: All
+    assertion: "Corollary 1, Operational definition: a term is operationally defined iff its presence or absence can be determined by an independent observer using only the definition and observable evidence. Deficit: a term requiring a privileged interpreter. Imposition: a definition so narrow it excludes genuine cases that fail the form but not the purpose. Corrective exemplar: the Wheel of Consent decomposing consent into a two-axis structure."
+  - id: PFDS-COR-2
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 2, Taxonomy completeness: a taxonomy is complete iff it specifies what falls outside all its categories. Deficit: a taxonomy with no procedure for edge cases has hidden a gap. Imposition: more categories than the phenomenon has distinguishable states forces cases into boxes that do not fit. Corrective exemplar: Ostrom's eight independently checkable principles."
+  - id: PFDS-COR-3
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 3, Detection instrument precision: an instrument is precise iff it can distinguish its target state from the most likely false-positive states and can state its false-negative boundary. Deficit: an instrument that cannot say what it would not detect. Imposition: narrowing the target to eliminate false positives until the instrument misses what it was built to catch. Corrective exemplar: ASEP's explicit adverse-signal boundary."
+  - id: PFDS-COR-4
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 4, Coordination process precision: a process is precise iff the conditions for initiating, continuing, and concluding it are operationally defined. Deficit: discretion at critical junctures substitutes judgment for structure. Imposition: a process so elaborate the parties who need it cannot get through it. Corrective exemplar: Ostrom's monitored enforcement and graduated sanctions."
+  - id: PFDS-COR-5
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 5, Detection completeness (inaction visibility): a detection system is complete iff the failure to respond to a detection output is itself detectable without the cooperation of the party that failed to respond. Deficit: a system that can observe a failure but not its own inaction has an undocumented false-negative class. Imposition: a time-governed escalation that over-fires on ordinary timing variation becomes background noise. Corrective: elapsed time converts into escalating visibility, the base case that prevents infinite regress."
+  - id: PFDS-COR-6
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 6, Defense in depth: a specification is precise about its failure modes iff no critical property depends on a single defensive mechanism whose failure would leave it undefended. Deficit: a critical property with one guardian has an undocumented failure mode (the guardian's own). Imposition: overlapping mechanisms pile up into defense through inaccessibility. Corrective: a layered architecture where each tier has different trust assumptions, so compromising one is detectable by the others."
+  - id: PFDS-COR-7
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 7, External falsifiability: a specification is externally falsifiable iff no structural mechanism prevents an independent observer's challenge from reaching the precision-deficit record. Deficit: internal verifiability, which is self-consistency, not falsifiability; the hardest deficits are the specifiers' own blind spots. Imposition: a challenge pathway with so many steps no independent actor can complete one. Absence of challenge where there is no pathway is not evidence of soundness."
+  - id: PFDS-COR-8
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 8, Descriptive completeness: a specification is descriptively complete iff it declares the classes of description it draws from (operative) and names at least one where its vocabulary ends (boundary), from the six registered description classes. Deficit: the absence of an entire descriptive class produces no internal signal and is undetectable from inside the same vocabulary. Imposition: a typological declaration claiming operative coverage of classes the vocabulary cannot support. Corrective: the typological declaration, auditable by an independent observer."
+  - id: PFDS-COR-9
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 9, Interpretive precision: a detection system is interpretively precise iff it requires a contextual baseline statement before assessment when identical outputs would indicate structurally distinct conditions needing different responses; this extends to the adoption layer (a mechanism adopted from another structural context needs a baseline statement before deployment). Deficit: correct readings producing incorrect prescriptions against an unspecified reference. Imposition: a baseline that takes longer than the detection, or that no real case can satisfy."
+  - id: PFDS-COR-10
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 10, Claim-object grounding: an evaluation claim is operationally grounded only if its object is identified as a criterion (directly observable) or a construct (abstract, requiring proxy specification), and a construct declares its indicator direction, which selects the validation regime: reflective (a nomological network is required), causal-formative (validated by the indicator-construct relation, the standing dissent named), or composite-aggregate (a stipulated combination to which validity does not apply). Deficit: a reflective construct claim with no nomological network. Imposition: demanding relationships not yet established; a declared-partial network is not a deficit, an undeclared one is."
+
+  - id: PFDS-COR-11
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 11, Structural solution over taxonomy: a classification is structurally precise iff every category whose membership an independent observer cannot determine from the label and stated definition alone is rendered as a typed structure carrying the criteria that individuate it, so membership is determinable from structure and evidence. Deficit: a set individuated by concealed criteria presented as a flat label list produces no internal signal (no gap marker) and forces a non-matching case into the nearest category. Imposition: forcing typed structure onto a set whose categories a label already determines, a closed set with a reliable negative test, adds apparatus without precision. Corrective exemplar: Ostrom's design principles replacing the holistic label with independently checkable structural conditions."
+  - id: PFDS-COR-12
+    section: "2"
+    obligation: corollary
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Corollary 12, Stated procedure for a specification's own evolution: a specification is evolutionarily precise iff it states a revision procedure an independent observer can determine exists, naming its trigger, who holds standing to initiate one, and how a change is evaluated against the precision criterion. Grounded in a coordination domain generating its own change, so some way to evolve the specification is invariant, not optional. Deficit: no stated procedure leaves maintenance implicit and drift accumulates undetectably until a wholesale rewrite is forced. Imposition: a procedure so rigid it forecloses proportional change and forces disruptive replacement. Corrective exemplar: the Section 6.3 change criterion and the Section 6.5 obligation loop tiers."
+
+  # The precision-failure taxonomy (Section 7), each pattern rendered structurally
+  - id: PFDS-FP-NORMATIVE-SUBSTITUTION
+    section: "7.1"
+    obligation: failure-pattern
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Normative substitution: a typed construct is replaced with a normative term. Structural signature: the new term cannot be violated in a falsifiable way. Response: decompose the normative term into independently evaluable conditions and specify each operationally."
+  - id: PFDS-FP-CATEGORY-COLLAPSE
+    section: "7.2"
+    obligation: failure-pattern
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Category collapse: two previously distinct categories are merged. Structural signature: cases handled differently under the prior taxonomy are now handled identically though they are not identical. Response: restate the distinction, specify the assignment criterion, and reclassify the merged cases."
+  - id: PFDS-FP-DISCRETION-ACCUMULATION
+    section: "7.3"
+    obligation: failure-pattern
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Discretion point accumulation: a process accumulates unspecified discretion points. Structural signature: language like 'as appropriate' or 'at the committee's discretion' without criteria. Response: specify the criteria, or name a bounded discretion zone (its criteria genuinely un-pre-specifiable, a named response obligation on the actor, and an operationally defined zone perimeter)."
+  - id: PFDS-FP-DETECTION-DEGRADATION
+    section: "7.4"
+    obligation: failure-pattern
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Detection instrument degradation: an instrument is modified so its false-negative rate increases without acknowledging the change to measurement capability. Structural signature: the modified instrument would not detect events the prior one would have, framed as a refinement. Response: require any instrument change to specify its false-negative boundary before and after."
+  - id: PFDS-FP-INHERITANCE-WITHOUT-SPEC
+    section: "7.5"
+    obligation: failure-pattern
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Inheritance without specification: a system claims to inherit or comply with a standard without specifying which provisions apply, how they map, and how compliance is determined. Structural signature: the inheritance claim is not falsifiable. Response: require a provision-by-provision mapping an independent observer can determine (applies, maps to a local element, and what observable condition constitutes compliance) without the author's intent."
+
+  - id: PFDS-FP-EXTENSION
+    section: "7"
+    obligation: taxonomy-extension
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the failure-pattern set is open; a deficit fitting no pattern is recorded as unclassified
+    tier: Operational
+    assertion: "The failure-pattern set is open: a deficit that fits no current pattern is recorded as unclassified and evaluated against the extension criteria (structural-signature specification, boundary articulation against adjacent patterns, and response specification), not forced into an ill-fitting pattern. Changes to the set are among the highest-consequence structural changes an adopting system makes, because they define what the standard can and cannot detect."
+
+  # The review checklist and derived-element obligations (Section 6.2, 6.3)
+  - id: PFDS-CHECKLIST-1
+    section: "6.2"
+    obligation: checklist
+    kind: MUST
+    portability: universal
+    checkable: shape            # each applicable question has a yes answer or the deficit is recorded
+    tier: Instrumented
+    assertion: "The precision review checklist is applied to every normative element before publication (required at Tier 3 and above): operational definition without a privileged interpreter, an independent-observer violation procedure, an edge-case procedure per taxonomy, a stated false-negative boundary per detection instrument, operationally defined process initiation-continuation-conclusion, a typed decomposition for each value-judgment term, and the two non-harming questions below."
+  - id: PFDS-NONHARM-1
+    section: "6.2"
+    obligation: checklist
+    kind: MUST
+    portability: universal
+    checkable: shape            # the cost-bearing parties are named within the element itself
+    tier: Instrumented
+    assertion: "Each derived precision requirement states the non-harming dimension within the element itself, naming the specific parties who would bear the cost of each failure direction; a requirement from which the harmed parties cannot be identified without consulting the invariant was derived from the precision dimension only, not the unified principle."
+  - id: PFDS-CONSEQUENCE-1
+    section: "6.2"
+    obligation: checklist
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the consequence level is declared (shape); calibrating the evidence bar to it is judgment
+    tier: Instrumented
+    assertion: "For each claim made on an evaluation, the consequence level is declared and the evidence bar is calibrated to the harm potential of acting on a false version of the claim (higher-consequence claims require more stringent evidence, greater validator independence, and more adversarial testing); a fixed precision bar with a constant harm dimension has not applied the unified principle."
+  - id: PFDS-UPDATE-1
+    section: "6.3"
+    obligation: update-filter
+    kind: MUST
+    portability: universal
+    checkable: mixed            # the direction of the precision change is assessable; the maturity judgment has an edge
+    tier: Operational
+    assertion: "Each proposed coordination change is evaluated by whether it increases or decreases the precision with which the governed dynamics can be observed, classified, and acted upon; a change increasing precision is a structural improvement, one decreasing it a structural regression, calibrated to the maturity of the process being specified (as precise as the maturity assessment warrants, not more than it can support)."
+
+  # Adoption depths (Section 6.1), a distinct axis from the obligation-loop tiers
+  - id: PFDS-DEPTH-1
+    section: "6.1"
+    obligation: adoption-depth
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Depth Level 1, Auditing: an existing artifact is reviewed for precision deficits; the output is a precision deficit map recording each deficit, its location, and its pattern type per Section 7. Complete when the checklist has been applied to every normative element."
+  - id: PFDS-DEPTH-2
+    section: "6.1"
+    obligation: adoption-depth
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Depth Level 2, Remediation: identified deficits are resolved with operational definitions, typed taxonomies, and specified discretionary conditions. Complete when every deficit in the map has a documented resolution or a documented acceptance with rationale and a revisit timeline."
+  - id: PFDS-DEPTH-3
+    section: "6.1"
+    obligation: adoption-depth
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Depth Level 3, Design-time adoption: precision is a prerequisite for publication; no element is complete until an independent observer could determine from the document and evidence alone whether the condition is satisfied. Operating correctly when nothing publishes without satisfying the checklist and that requirement does not depend on the author's good judgment."
+
+  # Obligation-loop tiers (Section 6.5)
+  - id: PFDS-TIER-1
+    section: "6.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Assessed
+    assertion: "Assessed: the artifacts are mapped against the standard, the checklist applied, and a precision deficit map exists; no process changes and no conformance claim."
+  - id: PFDS-TIER-2
+    section: "6.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Operational
+    assertion: "Operational: defined processes identify and track deficits, recorded durably with document, location, deficit type, and date, maintained as new documents publish."
+  - id: PFDS-TIER-3
+    section: "6.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite; corresponds to Level 3 adoption depth
+    tier: Instrumented
+    assertion: "Instrumented: precision-first at design-time depth, the deficit record updated continuously, current precision state reportable without a dedicated review cycle."
+  - id: PFDS-TIER-4
+    section: "6.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the deficit-to-decision path and automatic overdue visibility are verifiable from the append-only record
+    tier: Loop-Closed
+    assertion: "Loop-Closed: every detected deficit receives a documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit) within a defined window; an overdue deficit is automatically visible without any actor's initiation and is itself a normative-substitution deficit that begins its own cycle; the deficit and decision records are append-only."
+  - id: PFDS-TIER-5
+    section: "6.5"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # completeness and response-completeness are independently verifiable
+    tier: Auditable
+    assertion: "Auditable: the full deficit, decision, and remediation record is independently verifiable without operator cooperation for review completeness (all in-scope documents reviewed, all identified deficits recorded) and response completeness (every deficit received a decision within its window or its overdue status began its own cycle), with the audit documented and disclosed."

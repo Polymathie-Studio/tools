@@ -1,0 +1,21 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "The fee-change coordination rule, section 4 of the protocol charter",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/pfds/conformance/v2.5.0",
+  "predicate": {
+    "verifier": "pfds-conformance",
+    "obligations": {
+      "violations_detectable": "satisfied",
+      "compliance_serves_purpose": "satisfied",
+      "method_structure_congruent": "satisfied",
+      "deficits_mapped": "satisfied"
+    }
+  }
+}

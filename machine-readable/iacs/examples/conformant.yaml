@@ -1,0 +1,57 @@
+# An IACS-conformant detection-architecture record at the Instrumented tier.
+# The mechanisms are structured objects (mechanism, detection surface, orthogonality,
+# remediation direction), not a taxonomy of labels. Validates against dist/iacs.schema.json.
+applicable_mechanisms:
+  - id: positional
+    name: Positional asymmetry
+    mechanism: "Structural position within the coordination system confers information advantage invisible to or inaccessible by other participants."
+    detection_surface:
+      - "proposal timing concentration"
+      - "agenda control asymmetry"
+      - "role-information mismatch"
+      - "multi-position aggregation"
+    orthogonal_at_mechanism: true
+    status: primary
+    cynefin_domain: complicated
+    remediation_direction: "role-information disclosure requirements"
+  - id: interpretive
+    name: Interpretive asymmetry
+    mechanism: "Control of the framework through which information is classified, defined, or evaluated, shaping outcomes without appearing to."
+    detection_surface:
+      - "framework concentration"
+      - "systematic exclusion"
+      - "interpretive-bandwidth stratification"
+    orthogonal_at_mechanism: true
+    status: primary
+    cynefin_domain: complex
+    remediation_direction: "framework stewardship and taxonomic independence"
+    sub_pattern:
+      - "Distributed Monoculture"
+  - id: derivation_opacity
+    name: Derivation Opacity asymmetry
+    mechanism: "A genuine output whose derivation cannot be audited by the participants relying on it; the primary instance is AI participants."
+    detection_surface:
+      - "derivation-audit gap"
+      - "authority or precision without an auditable basis"
+      - "reproducibility failure"
+    orthogonal_at_mechanism: true
+    status: extension_specified
+    cynefin_domain: complex
+    remediation_direction: "disclosure and provenance scaffolds, with exclusion as a last resort"
+classifications:
+  - mechanism: interpretive
+    detection_signals_observed:
+      - "framework-level decisions concentrated in a small group with no documented dissent"
+      - "systematic exclusion of a category that serves the deciding group"
+    cynefin_domain: complex
+architecture:
+  adopted_tier: instrumented
+  applicability_inventory: true
+  classification_process_documented: true
+  detection_architecture_present: true
+  cynefin_documented: true
+  audience_baseline_declared: true
+conformance:
+  applicability_mapped: satisfied
+  classification_process_documented: satisfied
+  detection_instrumented: satisfied

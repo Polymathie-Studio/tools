@@ -1,0 +1,393 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sms: <https://standards.example/sms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sms:SensemakingRecord a sh:NodeShape ;
+    rdfs:comment "One sensemaking process carried through its disruption, liminal, and resolution phases, with the five invariants realized on the face and the system context it was produced under." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class sms:TemporalPhases ;
+            sh:description "Section 3.5. The temporal phases traversed, including the liminal phase, the diagnostic marker distinguishing sensemaking from pattern-matching." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path sms:temporal_phases ],
+        [ sh:class sms:ConformanceDeclaration ;
+            sh:description "Section 3. The five per-process invariant answers on the face; no total, and the joint condition is their non-averaging conjunction." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path sms:conformance ],
+        [ sh:class sms:ActionEntanglement ;
+            sh:description "Section 3.3. The action-information entanglement, the loop between actions taken and what was understood." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path sms:entanglement ],
+        [ sh:description "Section 4. The operational scales at which this process operates." ;
+            sh:in ( "intra_personal" "inter_personal" "witness_reception" ) ;
+            sh:order 6 ;
+            sh:path sms:scales_addressed ],
+        [ sh:class sms:Disruption ;
+            sh:description "Section 3.1. The initiating disruption, the break in intelligibility that occasioned the process." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path sms:disruption ],
+        [ sh:class sms:Relating ;
+            sh:description "Section 3.2. The particular-to-general relating between the specific cues and the general frame." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path sms:relating ],
+        [ sh:class sms:SensemakingArchitecture ;
+            sh:description "The system-level SMS context this record declares against." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path sms:architecture ],
+        [ sh:class sms:SufficiencyCriterion ;
+            sh:description "Section 3.4. The sufficiency criterion, the provisional frame with its revision conditions and the next action designed to test it." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path sms:sufficiency ],
+        [ sh:class sms:ActionInvariant ;
+            sh:description "Section 5. The three action invariants (residue, direction, phase), each rendered as a typed object carrying its observable marker. An action invariant named without its observable marker is a label, not a structural property." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path sms:action_invariants ] ;
+    sh:targetClass sms:SensemakingRecord .
+
+sms:ActionEntanglement a sh:NodeShape ;
+    rdfs:comment "Section 3.3. The action-entangled invariant realized: action generates the data sensemaking needs, and sensemaking shapes the action taken. Both directions of the loop are required, since severing either (analysis paralysis one way, unreflective execution the other) breaks the invariant." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.3. Whether actions taken during the process changed what was understood." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:actions_changed_understanding ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.3. Whether the action sequence emerged from the interaction rather than being pre-planned." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:not_pre_planned ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.3. Whether what was understood changed which actions were taken next." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:understanding_changed_actions ] ;
+    sh:targetClass sms:ActionEntanglement .
+
+sms:ActionInvariant a sh:NodeShape ;
+    rdfs:comment "Section 5. One of the three action invariants, individuated by its observable marker, not by a label. An action invariant with no observable marker is a name, so action and observable_marker are required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Which of the three action invariants this is." ;
+            sh:in ( "residue" "direction" "phase" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path sms:action ],
+        [ sh:datatype xsd:string ;
+            sh:description "What the record observed against the marker." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:assessment ],
+        [ sh:datatype xsd:string ;
+            sh:description "Section 5. The marker in the coordination record by which the action invariant is assessed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:observable_marker ] ;
+    sh:targetClass sms:ActionInvariant .
+
+sms:CapacityAssessment a sh:NodeShape ;
+    rdfs:comment "Section 6. The capacity obligation the record declares, the interlock with a conformant capacity framework. SMS prescribes no framework; it requires that a conformant one assess the four capacity categories, carry the bilateral obligation, and operate under participant consent. So method, participant_consent, the bilateral obligation, and the four category assessments are required; the named framework is optional because the standard is method-neutral." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.1. Whether the conditions of participants' recognized contributions are assessed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path sms:contribution_conditions_assessed ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.1. Whether the alignment between participants and the purpose is assessed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path sms:alignment_conditions_assessed ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.2. Whether the bilateral obligation holds (structural adjustment when depleted, accountability when charged)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path sms:bilateral_obligation_present ],
+        [ sh:datatype xsd:string ;
+            sh:description "The named capacity framework satisfying the obligation when one is used (the Four Batteries Capacity Standard is one)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path sms:conformant_framework ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.1. Whether participants consented to the assessment method rather than it being imposed by management." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path sms:participant_consent ],
+        [ sh:datatype xsd:string ;
+            sh:description "The agreed-upon method for making participants' capacity states legible to each other." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:method ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.1. Whether the inner states of individual participants are assessed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:individual_states_assessed ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 6.1. Whether the quality of working relationships is assessed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:relational_conditions_assessed ] ;
+    sh:targetClass sms:CapacityAssessment .
+
+sms:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "Section 3. The five per-process invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, and the joint condition is the non-averaging conjunction of the five (a single violated invariant does not average away against the others), mirroring the suite's refusal to collapse a profile into a single number." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path sms:disruption_occasioned_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path sms:temporally_structured_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path sms:particular_to_general_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path sms:sufficiency_oriented_satisfied ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path sms:action_entangled_satisfied ] ;
+    sh:targetClass sms:ConformanceDeclaration .
+
+sms:Disruption a sh:NodeShape ;
+    rdfs:comment "Section 3.1. The disruption-occasioned invariant realized: an event that cannot be accounted for by the current operative frame without revising it. A disruption with no specifiable initiating event is not disruption-occasioned, so description and specifiable are required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.1. Whether the disruption is recorded as the initiating event rather than reconstructed after the fact." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:recorded_as_initiating ],
+        [ sh:datatype xsd:string ;
+            sh:description "What stopped making sense, the surprise, gap, or expectation violation that broke intelligibility." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:description ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.1. Whether the specific disruption event can be identified and the process would not have run in its absence." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:specifiable ] ;
+    sh:targetClass sms:Disruption .
+
+sms:Relating a sh:NodeShape ;
+    rdfs:comment "Section 3.2. The particular-to-general relating invariant realized, bidirectional between cues and frame. Operates at practitioner trace tier: what an independent observer verifies is whether the record documents traced cues, the frame they informed, and the revisions they produced. Cues and a frame are required; a frame with no traceable cues is assertion, cues with no frame are cataloging." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The specific cues attended to during the process." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:cues ],
+        [ sh:datatype xsd:string ;
+            sh:description "How the frame was revised in response to cues that did not fit it." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:frame_revisions ],
+        [ sh:datatype xsd:string ;
+            sh:description "The general frame generated or revised from the cues." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:frame ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.2. Whether structural failure modes were routed to structural causation rather than misapplied to personal causation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path sms:personal_framing_avoided ] ;
+    sh:targetClass sms:Relating .
+
+sms:SensemakingArchitecture a sh:NodeShape ;
+    rdfs:comment "The system-level SMS context the record declares against. The adopted tier, the adoption condition, the acknowledged structural assumptions, the capacity assessment, and the higher-tier loop-closure and auditability blocks. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class sms:CapacityAssessment ;
+            sh:description "Section 6. The capacity obligation, required by the checker at SMS-Instrumented and above. Deferred to a conformant capacity framework; names the four capacity categories, the bilateral obligation, and participant consent without prescribing an instrument." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path sms:capacity_assessment ],
+        [ sh:description "Section 9. The adoption tier the record declares." ;
+            sh:in ( "assessed" "operational" "instrumented" "loop_closed" "auditable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path sms:adopted_tier ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 9.4. Whether the closed coordination loop is in place, so a detected sensemaking failure produces a mandatory documented review and the absence of a review is structurally visible (required by the checker at SMS-Loop-Closed and above)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path sms:loop_closure_present ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 9.5. Whether the complete sensemaking record is verifiable by an independent auditor without operator cooperation (required by the checker at SMS-Auditable)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path sms:independent_auditability ],
+        [ sh:description "Section 9. Which adoption condition applies, since the founding-window finding gives constitutional, remedial-born-without, and remedial-crossed-below different intervention profiles and the assessment should name which applies." ;
+            sh:in ( "constitutional" "remedial_born_without" "remedial_crossed_below" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path sms:adoption_condition ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 7.1, 9.6. Whether the three named structural assumptions (agent-priority, human-scope, separability) are acknowledged; constitutive, so required." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:structural_assumptions_acknowledged ] ;
+    sh:targetClass sms:SensemakingArchitecture .
+
+sms:SufficiencyCriterion a sh:NodeShape ;
+    rdfs:comment "Section 3.4. The sufficiency-oriented invariant realized: a plausible account that enables a next action whose outcome generates information for revising it, satisficing rather than optimizing. The provisional frame, its named revision conditions, and a frame-testing next action are required; optimizing (seeking the correct answer first) and guessing (no revision conditions) both violate it." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.4. Whether the frame is treated as provisional rather than definitive." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:frame_provisional ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.4. Whether the process terminated before all available information was incorporated, naming the unresolved questions not pursued before acting." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:stopped_before_complete ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.4. Whether the next action was designed to generate information that could disconfirm the frame." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path sms:next_action_tests_frame ],
+        [ sh:datatype xsd:string ;
+            sh:description "Section 3.4. The evidence that would cause the frame to be revised, recorded explicitly." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:revision_conditions ] ;
+    sh:targetClass sms:SufficiencyCriterion .
+
+sms:TemporalPhases a sh:NodeShape ;
+    rdfs:comment "Section 3.5. The temporally-structured invariant realized, the Adverse-Signal lifecycle-state analogue. The disruption, liminal, and resolution phases, with the liminal phase the diagnostic marker: its documented presence, together with a resolution frame distinct from any pre-existing frame, is what distinguishes sensemaking from applying a pre-existing frame (the applying-without-understanding failure of Section 2.3). All three phases and the two markers are required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.5. Whether the satisfaction is verifiable by an independent observer without depending solely on participant self-report (required by the checker at SMS-Loop-Closed and above)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path sms:independently_verifiable ],
+        [ sh:datatype xsd:string ;
+            sh:description "The phase in which intelligibility broke down and existing frames were inadequate." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sms:disruption_phase ],
+        [ sh:datatype xsd:string ;
+            sh:description "The period of not-knowing, the prior frame suspended and no replacement yet formed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sms:liminal_phase ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.5. Whether the resolution frame is not identical to any frame available before the disruption." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path sms:resolution_distinct_from_prior ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.5, 2.3. Whether the liminal phase is documented; its absence with a resolution frame identical to a pre-existing frame is the applying-without-understanding failure mode." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sms:liminal_phase_documented ],
+        [ sh:datatype xsd:string ;
+            sh:description "The phase in which a new or revised frame emerged." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path sms:resolution_phase ] ;
+    sh:targetClass sms:TemporalPhases .
+
+

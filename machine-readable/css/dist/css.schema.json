@@ -1,0 +1,396 @@
+{
+  "$defs": {
+    "AdoptionLevel": {
+      "description": "Section 12. The five adoption levels.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionLevel",
+      "type": "string"
+    },
+    "AffectedPartyReach": {
+      "additionalProperties": false,
+      "description": "Section 10 (provisional). The affected-party reach-axis assessment, orthogonal to the Radii. Whether the unit is above its reach ceiling, and if so whether the proxy or guardian channel is present.",
+      "properties": {
+        "above_reach_ceiling": {
+          "description": "Section 10.2. Whether the affected population exceeds what the unit can identify and reach through channels it maintains, so its knowledge is impressionistic (the ceiling crossed).",
+          "type": "boolean"
+        },
+        "constituency_not_unilaterally_controlled": {
+          "description": "Section 10.5. Whether the affected-party constituency is one the unit does not unilaterally define to its convenience.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "proxy_or_guardian_channel": {
+          "description": "Section 10.4. Above the ceiling, whether a structurally authorized proxy or guardian channel is operative (not disclosure-only). A minimum condition when above the ceiling.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "above_reach_ceiling"
+      ],
+      "title": "AffectedPartyReach",
+      "type": "object"
+    },
+    "AggregateFactor": {
+      "additionalProperties": false,
+      "description": "Section 2. One named factor contributing to the effective-Radius aggregate, with its assessed value.",
+      "properties": {
+        "name": {
+          "description": "The factor name (member_count, interaction_quality, shared_context_depth, medium_mix, or a substrate-specific factor).",
+          "type": "string"
+        },
+        "value": {
+          "description": "The assessed value or level of the factor, as the assessor records it.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "AggregateFactor",
+      "type": "object"
+    },
+    "ConditionState": {
+      "description": "The status of a minimum or maximum condition; silence is not one of the values.",
+      "enum": [
+        "present",
+        "absent",
+        "not_applicable"
+      ],
+      "title": "ConditionState",
+      "type": "string"
+    },
+    "ConditionStatus": {
+      "additionalProperties": false,
+      "description": "One minimum or maximum condition and its status, so a condition is never asserted without an installed-or-absent determination.",
+      "properties": {
+        "condition": {
+          "description": "The condition, stated operationally.",
+          "type": "string"
+        },
+        "detection_signal": {
+          "description": "A computable signal that indicates where to look for the condition's presence or absence; it locates the check, it does not by itself prove installation.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/ConditionState",
+          "description": "The condition's status against the unit."
+        }
+      },
+      "required": [
+        "condition",
+        "status"
+      ],
+      "title": "ConditionStatus",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-condition answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "The scaling conformance answers on the face. There is deliberately no overall or total field: conformance is per-condition across crossed thresholds, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "effective_radius_assessed": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "maximum_conditions_absent": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "minimum_conditions_present": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "sequential_build_respected": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "effective_radius_assessed",
+        "minimum_conditions_present",
+        "maximum_conditions_absent",
+        "sequential_build_respected"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "CoordinationRadius": {
+      "additionalProperties": false,
+      "description": "One Dunbar-scale threshold rendered as a typed structure. Individuated by the coordination function that breaks at it and the attack surface that opens, not by its number alone. The number, the function break, and the attack surface are required; a Radius reduced to its number has dropped the structure that individuates it.",
+      "properties": {
+        "attack_surface": {
+          "description": "The exploitation vector that opens when this threshold is crossed without its minimum conditions.",
+          "type": "string"
+        },
+        "function_break": {
+          "description": "The coordination function that breaks at this threshold.",
+          "type": "string"
+        },
+        "provisional": {
+          "description": "Whether this Radius is provisional in the standard (true for Radius 500 and Radius 1500).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "radius": {
+          "$ref": "#/$defs/RadiusValue",
+          "description": "The Radius value."
+        }
+      },
+      "required": [
+        "radius",
+        "function_break",
+        "attack_surface"
+      ],
+      "title": "CoordinationRadius",
+      "type": "object"
+    },
+    "CoordinationScalingRecord": {
+      "additionalProperties": false,
+      "description": "A coordination unit's assessment against the scaling standard, from its effective-Radius determination through per-Radius conformance to its adoption level.",
+      "properties": {
+        "adoption_level": {
+          "$ref": "#/$defs/AdoptionLevel",
+          "description": "Section 12. The adoption level the record supports."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "The scaling conformance answers on the face; no total."
+        },
+        "crossed_thresholds": {
+          "description": "Sections 4 to 9. One entry per crossed Radius, carrying the Radius and the status of its minimum, maximum, and interface conditions. A crossed Radius is present here iff its function break is recorded in the effective-Radius assessment; a record that names a crossed threshold without enumerating its conditions is rejected.",
+          "items": {
+            "$ref": "#/$defs/RadiusConformance"
+          },
+          "type": "array"
+        },
+        "effective_radius": {
+          "$ref": "#/$defs/EffectiveRadiusAssessment",
+          "description": "Section 11. The unit's effective-Radius assessment, determined by which coordination functions have broken."
+        },
+        "reach": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AffectedPartyReach"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Section 10 (provisional). The affected-party reach-axis assessment, if the unit has made one."
+        },
+        "subject": {
+          "description": "The coordination unit under assessment (a project, organization, protocol, working group, or agent unit).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "effective_radius",
+        "crossed_thresholds",
+        "adoption_level",
+        "conformance"
+      ],
+      "title": "CoordinationScalingRecord",
+      "type": "object"
+    },
+    "EffectiveRadiusAssessment": {
+      "additionalProperties": false,
+      "description": "Section 11. The determination of the unit's effective Radius by the functional breaks, the primary instrument in all contexts, with the numeric Radius derived from them. Carries the aggregate factors as an open set and the nominal-versus-robust distinction.",
+      "properties": {
+        "aggregate_factors": {
+          "description": "Section 2. The factors the effective Radius aggregates, as an open named set (at minimum member count, interaction frequency and quality, shared context depth, and communication medium mix); a consumer on a different scale substrate supplies its own factors here.",
+          "items": {
+            "$ref": "#/$defs/AggregateFactor"
+          },
+          "type": "array"
+        },
+        "contextual_baseline": {
+          "description": "Section 11 (Precision-First Design Standard Corollary 9). A statement of the unit's structural context where it diverges from the research-derived anchor contexts, since the threshold numbers are approximations and the functional questions are primary.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "function_breaks": {
+          "description": "Section 11. One entry per assessed coordination function, recording whether it has broken. The set of broken functions determines which thresholds are crossed; this is the operative instrument, not the numeric threshold.",
+          "items": {
+            "$ref": "#/$defs/FunctionBreak"
+          },
+          "type": "array"
+        },
+        "nominal_effective_radius": {
+          "$ref": "#/$defs/RadiusValue",
+          "description": "Section 2. The effective Radius with full membership present, derived from the function breaks."
+        },
+        "robust_effective_radius": {
+          "$ref": "#/$defs/RadiusValue",
+          "description": "Section 2. The highest Radius whose minimum conditions would still hold under worst-case single departure of the highest-coordination-weight individual. A gap below the nominal is a fragility finding."
+        }
+      },
+      "required": [
+        "function_breaks",
+        "aggregate_factors",
+        "nominal_effective_radius",
+        "robust_effective_radius"
+      ],
+      "title": "EffectiveRadiusAssessment",
+      "type": "object"
+    },
+    "FunctionBreak": {
+      "additionalProperties": false,
+      "description": "Section 11. One coordination function and whether it has broken at the unit's scale. The function names the observable break; its status carries the assessment. A break with no status is not an assessment, so function and broken are required.",
+      "properties": {
+        "approach_noted": {
+          "description": "Section 11. Whether the function is stressed or unreliable while not yet broken, which is threshold approach, not a conformance finding, but a trigger for the next founding window.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "broken": {
+          "description": "Whether the function has broken (the threshold is crossed) or still holds.",
+          "type": "boolean"
+        },
+        "function": {
+          "description": "The coordination function assessed (for example state_legibility at Radius 5, sympathy_network at Radius 15, capacity_inventory at Radius 50, reputation_norm_response at Radius 150, single_narrative at Radius 500).",
+          "type": "string"
+        },
+        "radius": {
+          "$ref": "#/$defs/RadiusValue",
+          "description": "The Radius whose crossing this function's break indicates."
+        }
+      },
+      "required": [
+        "function",
+        "radius",
+        "broken"
+      ],
+      "title": "FunctionBreak",
+      "type": "object"
+    },
+    "RadiusConformance": {
+      "additionalProperties": false,
+      "description": "Sections 4 to 9. The conformance status of one crossed Radius: the Radius rendered as its typed threshold structure, with its minimum conditions enumerated by status and its maximum conditions checked. A crossed Radius carries its conditions or it is not a conformance claim, so radius, minimum_conditions, and maximum_conditions are required.",
+      "properties": {
+        "interface_conditions_documented": {
+          "description": "Section (Radius).5. Whether the Radius's interface conditions are documented and externally legible.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "maximum_conditions": {
+          "description": "The Radius's maximum conditions, each with whether it is absent (the capture vector closed) or present (a conformance failure).",
+          "items": {
+            "$ref": "#/$defs/ConditionStatus"
+          },
+          "type": "array"
+        },
+        "minimum_conditions": {
+          "description": "The Radius's minimum conditions, each with its installed status. These are the floor at this threshold, the compressive bound on generative scaling: a hard lower bound that must be present, so a single absent minimum condition is a conformance breach that does not aggregate away against conditions met elsewhere (the floor-aware, non-averaging discipline). This is also the structural weld: a crossed Radius cannot claim conformance while silent on its minimum conditions.",
+          "items": {
+            "$ref": "#/$defs/ConditionStatus"
+          },
+          "type": "array"
+        },
+        "radius": {
+          "$ref": "#/$defs/CoordinationRadius",
+          "description": "The crossed Radius, as its typed threshold structure."
+        }
+      },
+      "required": [
+        "radius",
+        "minimum_conditions",
+        "maximum_conditions"
+      ],
+      "title": "RadiusConformance",
+      "type": "object"
+    },
+    "RadiusValue": {
+      "description": "Section 2. The six defined Radii, by approximate relational threshold.",
+      "enum": [
+        "radius_5",
+        "radius_15",
+        "radius_50",
+        "radius_150",
+        "radius_500",
+        "radius_1500"
+      ],
+      "title": "RadiusValue",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/css.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A coordination unit's assessment against the scaling standard, from its effective-Radius determination through per-Radius conformance to its adoption level.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "adoption_level": {
+      "$ref": "#/$defs/AdoptionLevel",
+      "description": "Section 12. The adoption level the record supports."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "The scaling conformance answers on the face; no total."
+    },
+    "crossed_thresholds": {
+      "description": "Sections 4 to 9. One entry per crossed Radius, carrying the Radius and the status of its minimum, maximum, and interface conditions. A crossed Radius is present here iff its function break is recorded in the effective-Radius assessment; a record that names a crossed threshold without enumerating its conditions is rejected.",
+      "items": {
+        "$ref": "#/$defs/RadiusConformance"
+      },
+      "type": "array"
+    },
+    "effective_radius": {
+      "$ref": "#/$defs/EffectiveRadiusAssessment",
+      "description": "Section 11. The unit's effective-Radius assessment, determined by which coordination functions have broken."
+    },
+    "reach": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AffectedPartyReach"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Section 10 (provisional). The affected-party reach-axis assessment, if the unit has made one."
+    },
+    "subject": {
+      "description": "The coordination unit under assessment (a project, organization, protocol, working group, or agent unit).",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject",
+    "effective_radius",
+    "crossed_thresholds",
+    "adoption_level",
+    "conformance"
+  ],
+  "title": "css",
+  "type": "object",
+  "version": null
+}

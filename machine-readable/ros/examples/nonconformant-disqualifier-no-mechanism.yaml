@@ -1,0 +1,24 @@
+# NON-conformant: a categorical disqualifier carries no mechanism, so it is a label rather
+# than a structural mechanism (the structural nested-required weld). Must fail validation.
+stance:
+  stance: non_extractive
+  scope: "All contributor roles in the domain."
+  challengers:
+    - "Registered harm-bearing contributors"
+  review_cycle_months: 12
+extraction_visible: true
+validity_conditions:
+  - id: proximity
+    name: Proximity
+    test: "Does the return trace to the parties who bore the harm?"
+disqualifiers:
+  - id: sroi
+    name: The SROI aggregation trap
+    # mechanism and why_categorical deliberately omitted: a disqualifier reduced to a label
+    # is not a structural mechanism
+adopted_tier: full_conformance
+conformance:
+  extraction_visible: satisfied
+  three_conditions_met: satisfied
+  stance_declared: satisfied
+  no_retroactive_reclassification: satisfied

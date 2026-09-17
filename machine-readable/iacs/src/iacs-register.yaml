@@ -1,0 +1,294 @@
+# IACS register distillation
+# One row per normative entry of the Information Asymmetry Classification Standard
+# (standards-3_0-information-asymmetry, v0.1.28). IACS classifies by MECHANISM, not by a
+# label list: Section 2 individuates each class by a distinct causal process, a documented
+# precedent, a distinct detection surface, and orthogonality at the level of mechanism. So
+# the register renders the classes as distinct structural mechanisms, each a DECLARATION
+# carrying its mechanism, detection surface, orthogonality, and remediation direction, and
+# the model encodes them as typed mechanism objects rather than a flat enum. Rendering this
+# structural content as a flat taxonomy of class names would collapse the mechanism structure
+# into labels, which is a precision deficit under PFDS (the absent structure leaves no gap
+# marker); the structural rendering is deliberate for that reason.
+#
+# The register's other entries are the obligations: the validity criteria that individuate a
+# mechanism, the extension framework, the classification and detection requirements, taxonomy
+# stewardship, and the tiers. Classifying whether a given coordination record exhibits a
+# mechanism is judgment; the detection surfaces are computable signals (shape) that indicate
+# where to look but do not by themselves prove the pattern. IACS is diagnostic: it names each
+# mechanism's structural remediation direction but defers the remediation architecture to
+# companion specs (Scope and Limitations).
+standard: IACS
+standard_version: 0.1.28
+source: standards-3_0-information-asymmetry-0_1_26.md
+entries:
+
+  # The six primary mechanisms (Section 3), rendered structurally, not as a taxonomy
+  - id: IACS-CLASS-POSITIONAL
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # a defined member of the taxonomy; classifying a record against it is judgment
+    tier: All
+    assertion: "Positional asymmetry (Class 1, primary): structural position confers information advantage invisible to others. Detection surface: proposal timing concentration, agenda control asymmetry, role-information mismatch, multi-position aggregation. Complicated domain (sense-analyze-respond)."
+  - id: IACS-CLASS-TEMPORAL
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Temporal asymmetry (Class 2, primary): timing consequential actions to windows of reduced visibility or participation. Detection surface: timing concentration in low-participation windows, timing-interest correlation, participation-capacity asymmetry. Complicated domain (sense-analyze-respond with time-series)."
+  - id: IACS-CLASS-INTERPRETIVE
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Interpretive asymmetry (Class 3, primary): control of the framework through which information is classified or evaluated. Detection surface: framework concentration, systematic exclusion, interpretive-bandwidth stratification. Named sub-pattern: Distributed Monoculture (correlated genuine judgments with a shared blind spot). Complex domain (probe-sense-respond); double-loop minimum."
+  - id: IACS-CLASS-RELATIONAL
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Relational asymmetry (Class 4, primary): access mediated by relationship networks not visible or proportionally available to all. Detection surface: pre-decisional convergence, network-density stratification, outcome-deliberation gap. Complex domain (probe-sense-respond)."
+  - id: IACS-CLASS-OMISSION
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Omission asymmetry (Class 5, primary): control of what enters the record, systematically excluding material information. Detection surface: category absence, resolution gap, scope-boundary concentration. Named sub-pattern: Coordination Record Asymmetry (the record captures ratification, not pre-decision coordination). Complex-to-Complicated-to-Clear domain circuit."
+  - id: IACS-CLASS-COMPLEXITY
+    section: "3"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Complexity asymmetry (Class 6, primary): genuine technical complexity deployed as a coordination instrument, navigable only by specialists. Detection surface: participation-comprehension stratification, specialist concentration, simplification resistance. Complicated domain (sense-analyze-respond), with the caveat that the attack degrades the evaluator's capacity."
+
+  # The four extension mechanisms (Section 5)
+  - id: IACS-CLASS-A-SYNTHETIC
+    section: "5"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Synthetic-Coordination asymmetry (Extension Class A, fully specified): advantage from the indistinguishability of synthetic coordination artifacts from genuine ones; cured by authentication and provenance, not disclosure. Detection surface: provenance/authentication gap, independence-chain break, reconciliation failure. Named sub-pattern: Consensus Manufacturing. Carries a detectability limit (requires a provenance instrument, not record-reading alone)."
+  - id: IACS-CLASS-B-CRYPTOGRAPHIC
+    section: "5"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the status is a defined fact: scoped-out, not usable in a conforming detection architecture
+    tier: All
+    assertion: "Cryptographic asymmetry (Extension Class B, scoped-out stub): named in v0.1 without a mechanism ever written; scoped out because a cryptographic-capability difference is the means, and the coordination-information asymmetry it produces is already one of the specified classes. Retained as a historical entry; MUST NOT be used as a named class in a conforming detection architecture."
+  - id: IACS-CLASS-C-DESCRIPTIVE
+    section: "5"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Descriptive Capacity asymmetry (Extension Class C, fully specified): a perception gap prior to interpretation, where a party's framework does not generate the categories to perceive the phenomenon at all. Detection surface: systematic undercounting, mutual legibility failure, framework-congruence concentration. Complex domain (probe-sense-respond)."
+  - id: IACS-CLASS-D-DERIVATION
+    section: "5"
+    obligation: mechanism
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: All
+    assertion: "Derivation Opacity asymmetry (Extension Class D, fully specified): a genuine output whose derivation cannot be audited (the primary instance is AI participants). Detection surface: derivation-audit gap (defining), authority or precision without an auditable basis, reproducibility failure. Carries the same detectability limit as Class A; remediation is graduated (disclosure and provenance first, exclusion last). Complex domain (probe-sense-respond)."
+
+  # The structure that makes these mechanisms, not a taxonomy (Sections 2, 4, 5)
+  - id: IACS-ORTHO-1
+    section: "2, 4"
+    obligation: structure
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment         # orthogonality at mechanism level is an analytic property, not a record shape
+    tier: All
+    assertion: "The mechanisms are orthogonal at the level of mechanism: the presence of one does not logically entail another, and each requires its own detection logic rather than being derivable from another. Co-occurrence is expected and does not imply non-independence; the recurrent compounds (positional-relational, interpretive-omission, complexity-omission) are named interaction structure, and a compound spanning Cynefin domains defaults to the more complex action mode."
+  - id: IACS-REMED-1
+    section: "5"
+    obligation: structure
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment         # the remediation direction is a structural pointer, not a checkable obligation here
+    tier: All
+    assertion: "Each mechanism implies a distinct structural remediation direction (positional to role-information disclosure, temporal to participation-timing protection, interpretive to framework stewardship, relational to pre-decisional documentation, omission to record-scope stewardship, complexity to translation infrastructure); IACS is diagnostic and defers the remediation architecture to companion specs, so the direction is a pointer, not an obligation this standard specifies."
+
+  # Validity criteria for a class (Section 2)
+  - id: IACS-VALID-1
+    section: "2"
+    obligation: validity-criterion
+    kind: MUST
+    portability: conditional
+    condition: "a class is proposed or extended"
+    checkable: judgment         # distinctness of mechanism is an analytic assessment
+    tier: All
+    assertion: "A valid asymmetry class describes a distinct mechanism that cannot be reduced to another class without losing analytically important information."
+  - id: IACS-VALID-2
+    section: "2"
+    obligation: validity-criterion
+    kind: MUST
+    portability: conditional
+    condition: "a class is proposed or extended"
+    checkable: mixed            # the existence of cited precedent is shape; its adequacy is judgment
+    tier: All
+    assertion: "A valid asymmetry class has documented precedent in regulatory or legal contexts predating decentralized coordination."
+  - id: IACS-VALID-3
+    section: "2"
+    obligation: validity-criterion
+    kind: MUST
+    portability: conditional
+    condition: "a class is proposed or extended"
+    checkable: mixed            # the presence of a specified detection surface is shape; its observability is judgment
+    tier: All
+    assertion: "A valid asymmetry class has a distinct detection surface, an observable signature in the coordination record; a class that produces no distinctive signal cannot be instrumented."
+  - id: IACS-VALID-4
+    section: "2"
+    obligation: validity-criterion
+    kind: MUST
+    portability: conditional
+    condition: "a class is proposed or extended"
+    checkable: judgment         # orthogonality at the level of mechanism is an analytic judgment
+    tier: All
+    assertion: "A valid asymmetry class is orthogonal at the level of mechanism to existing classes: knowing one is active does not, by itself, tell whether another is active (co-occurrence is expected but does not imply non-independence)."
+
+  # Extension framework and stub handling (Section 2, Section 5)
+  - id: IACS-EXT-1
+    section: "2"
+    obligation: extension
+    kind: MUST
+    portability: conditional
+    condition: "an extension class is added"
+    checkable: mixed            # the four demonstrations present is shape; their sufficiency is judgment; changes are recorded and versioned (shape)
+    tier: All
+    assertion: "A candidate extension class demonstrates a distinct mechanism meeting all four validity criteria, documented evidence of the mechanism in real contexts, a proposed detection surface specific enough to instrument, and why it is not captured by existing classes; changes to the taxonomy are recorded, versioned, and subject to the scrutiny of a high-consequence coordination act (taxonomy capture is the highest-order failure mode)."
+  - id: IACS-STUB-1
+    section: "5"
+    obligation: extension
+    kind: MUST_NOT
+    portability: universal
+    checkable: shape            # a scoped-out stub class does not appear as a named class in the detection architecture
+    tier: Instrumented
+    assertion: "A scoped-out stub class (Extension Class B) is not used as a named class in a conforming detection architecture."
+
+  # Taxonomy stewardship (Section 2, Section 3 meta-level)
+  - id: IACS-STEWARD-1
+    section: "2"
+    obligation: stewardship
+    kind: MUST
+    portability: universal
+    checkable: mixed            # recorded, versioned changes are shape; capture-resistance of the stewardship is judgment
+    tier: Instrumented
+    assertion: "Taxonomy stewardship (who determines what the framework can see) is itself subject to the most stringent structural scrutiny, because capture of the interpretive framework is the highest-order failure mode; changes to the detection surface are recorded, versioned, and scrutinized."
+
+  # Classification, detection, and signal obligations (Section 6, preamble)
+  - id: IACS-APPLIC-1
+    section: "6"
+    obligation: classification
+    kind: MUST
+    portability: universal
+    checkable: shape            # the inventory names each class as applicable/partial/not-applicable with a present/assumed/absent detection state
+    tier: Assessed
+    assertion: "A class applicability inventory names which of the classes are applicable, partially applicable, or not applicable to the system's operations, with rationale, and where detection is currently present, assumed, or absent."
+  - id: IACS-CLASSIFY-1
+    section: "6"
+    obligation: classification
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a documented process using the class definitions is shape; whether a classification is correct is judgment
+    tier: Operational
+    assertion: "For each applicable class, a documented classification process uses the class definitions, mechanism descriptions, and boundary criteria in the standard."
+  - id: IACS-LOG-1
+    section: "6"
+    obligation: classification
+    kind: MUST
+    portability: universal
+    checkable: shape            # each observation carries a class designation and a detection-surface reference, durably
+    tier: Operational
+    assertion: "Asymmetry observations are recorded in durable form, logged with a class designation and a detection surface reference."
+  - id: IACS-SIGNAL-1
+    section: "7"
+    obligation: classification
+    kind: MUST
+    portability: universal
+    checkable: mixed            # routing to adverse-signal processing is shape; the processing is ASEP's
+    tier: Operational
+    cross_standard_ref: "ASEP: this taxonomy is the Name-phase content; information asymmetry signals are adverse signals subject to the system's adverse-signal processing"
+    assertion: "Information asymmetry signals are treated as adverse signals subject to the system's adverse-signal processing (the taxonomy is ASEP's Name-phase content)."
+  - id: IACS-DETECT-1
+    section: "6"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: mixed            # a detection architecture covering the applicable classes' surfaces, real-time, disclosed, is largely shape; signal interpretation is judgment
+    tier: Instrumented
+    assertion: "A detection architecture instruments the detection surfaces specified for each applicable class against a continuous coordination record, real-time or near-real-time rather than retrospective, and is disclosed to the participant population."
+  - id: IACS-CYNEFIN-1
+    section: "6"
+    obligation: detection
+    kind: MUST
+    portability: universal
+    checkable: shape            # a Cynefin domain classification per class with the matching action mode is present
+    tier: Instrumented
+    assertion: "The detection architecture documents the Cynefin domain classification for each class and applies the matching action mode (probe-sense-respond for Complex-domain classes, sense-analyze-respond for Complicated-domain classes)."
+  - id: IACS-CLASSC-1
+    section: "6"
+    obligation: detection
+    kind: MUST
+    portability: conditional
+    condition: "Extension Class C is applicable and the system produces documents directed at a participant population"
+    checkable: shape            # a declared audience linguistic/epistemic/ontological baseline is present or absent
+    tier: Instrumented
+    assertion: "When Descriptive Capacity asymmetry is applicable in a document-production context, the detection architecture declares the audience's linguistic, epistemic, and ontological baseline against which production is calibrated; a Class C detection architecture without a declared baseline has a precision deficit in the instrument itself."
+
+  # Adoption tiers (Section 6)
+  - id: IACS-TIER-1
+    section: "6"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Assessed
+    assertion: "Assessed: the system is mapped against the taxonomy with a class applicability inventory; no process changes and no conformance claim."
+  - id: IACS-TIER-2
+    section: "6"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Operational
+    assertion: "Operational: a documented classification process per applicable class, integrated into the coordination workflow, with observations recorded durably."
+  - id: IACS-TIER-3
+    section: "6"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed            # composite
+    tier: Instrumented
+    assertion: "Instrumented: a real-time detection architecture instrumenting the surfaces per applicable class, with documented Cynefin domain classification and action mode, disclosed to participants, plus the Class C audience baseline where applicable."
+  - id: IACS-TIER-4
+    section: "6"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the detection-to-review path and automatic disclosure are verifiable from the append-only record
+    tier: Loop-Closed
+    assertion: "Loop-Closed: every detection output reaching the response threshold produces a documented review within a defined window, the absence of a review produces automatic disclosure to all coordination actors without any actor's initiation, and the review record is append-only."
+  - id: IACS-TIER-5
+    section: "6"
+    obligation: tier-gate
+    kind: DECLARATION
+    portability: universal
+    checkable: shape            # the full record is independently verifiable for completeness, classification integrity, and response completeness
+    tier: Auditable
+    assertion: "Auditable: the full detection-and-response record is independently verifiable without operator cooperation for completeness (a verifiable count or hash of outputs per class), classification integrity (consistent with the taxonomy and the Cynefin mapping), and response completeness, with the audit documented and disclosed."

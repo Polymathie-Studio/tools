@@ -1,0 +1,42 @@
+# NON-conformant: a capacity assessment is present but carries no participant_consent, so it is
+# imposed measurement rather than the consented capacity obligation Section 6.1 requires (the capacity
+# weld: capacity assessment participants have not consented to produces the same detection blind spot
+# as no assessment at all). Must fail.
+disruption:
+  description: "A team's output quality dropped with no visible cause."
+  specifiable: true
+relating:
+  cues:
+    - "Quality declined while process metrics stayed green."
+  frame: "A capacity depletion invisible to the process metrics."
+entanglement:
+  actions_changed_understanding: true
+  understanding_changed_actions: true
+sufficiency:
+  frame_provisional: true
+  revision_conditions: "Revised if a capacity check comes back full."
+  stopped_before_complete: true
+  next_action_tests_frame: true
+temporal_phases:
+  disruption_phase: "The quality drop broke the all-is-well frame."
+  liminal_phase: "A period holding that the process metrics were not telling the story."
+  liminal_phase_documented: true
+  resolution_phase: "A frame naming depletion as the cause, pending a capacity check."
+  resolution_distinct_from_prior: true
+architecture:
+  adopted_tier: instrumented
+  structural_assumptions_acknowledged: true
+  capacity_assessment:
+    method: "A management-run capacity dashboard."
+    individual_states_assessed: true
+    relational_conditions_assessed: true
+    contribution_conditions_assessed: true
+    alignment_conditions_assessed: true
+    bilateral_obligation_present: false
+    # participant_consent deliberately omitted: without consent it is a compliance artifact, not the capacity obligation
+conformance:
+  disruption_occasioned_satisfied: satisfied
+  particular_to_general_satisfied: satisfied
+  action_entangled_satisfied: satisfied
+  sufficiency_oriented_satisfied: satisfied
+  temporally_structured_satisfied: satisfied

@@ -1,0 +1,27 @@
+# NON-conformant: a corollary carries no failure directions, so it is a label rather than a
+# precision condition with two directions (the structural nested-required weld). Must fail.
+subject: "The fee-change coordination rule, section 4 of the protocol charter"
+adoption_depth: auditing
+obligation_tier: assessed
+congruence_checked: true
+corollaries:
+  - id: operational_definition
+    name: Operational definition
+    condition: "A term is operationally defined iff an independent observer can determine it from definition and evidence."
+    deficit_direction: "A term requiring a privileged interpreter."
+    imposition_direction: "A definition so narrow it excludes genuine cases."
+  - id: taxonomy_completeness
+    name: Taxonomy completeness
+    condition: "A taxonomy is complete iff it specifies what falls outside all its categories."
+    # deficit_direction and imposition_direction deliberately omitted: a corollary reduced to
+    # a condition without its two failure directions is not a corollary
+failure_patterns:
+  - id: normative_substitution
+    name: Normative substitution
+    structural_signature: "The new term cannot be violated in a falsifiable way."
+    response: "Decompose into independently evaluable conditions."
+conformance:
+  violations_detectable: satisfied
+  compliance_serves_purpose: satisfied
+  method_structure_congruent: satisfied
+  deficits_mapped: satisfied

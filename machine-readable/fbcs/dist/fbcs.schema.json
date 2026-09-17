@@ -1,0 +1,294 @@
+{
+  "$defs": {
+    "Battery": {
+      "additionalProperties": false,
+      "description": "Section 2. One of the four batteries, individuated as a distinct resource condition carrying its own charge state and developmental state, not a label. A battery with no charge state is a name, so battery and charge_state are required; developmental state is optional because developmental-state conformance is transparency-based, not threshold-based.",
+      "properties": {
+        "battery": {
+          "$ref": "#/$defs/BatteryName",
+          "description": "Which of the four batteries this is."
+        },
+        "charge_state": {
+          "$ref": "#/$defs/ChargeState",
+          "description": "Section 2. The cyclical axis, the battery's currently accessible state."
+        },
+        "developmental_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DevelopmentalState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Section 2. The permanent axis, when the organization tracks it, across depth, breadth, and durability."
+        }
+      },
+      "required": [
+        "battery",
+        "charge_state"
+      ],
+      "title": "Battery",
+      "type": "object"
+    },
+    "BatteryName": {
+      "description": "Section 2. The four batteries.",
+      "enum": [
+        "personal",
+        "relational",
+        "contribution",
+        "mission"
+      ],
+      "title": "BatteryName",
+      "type": "string"
+    },
+    "ChargeState": {
+      "description": "Section 2. The charge state of a battery; silence is not one of the values.",
+      "enum": [
+        "full",
+        "partial",
+        "depleted"
+      ],
+      "title": "ChargeState",
+      "type": "string"
+    },
+    "CheckingPractice": {
+      "additionalProperties": false,
+      "description": "Section 7.2. The four conditions that make a battery check genuine rather than theater. Conformance is defined by the quality of the checking practice, not the level it reveals.",
+      "properties": {
+        "adverse_result_integrity": {
+          "description": "A low or declining result is demonstrably received and responded to.",
+          "type": "boolean"
+        },
+        "regularity": {
+          "description": "The check happens on a defined cadence, not only when prompted by crisis.",
+          "type": "boolean"
+        },
+        "specificity": {
+          "description": "The check produces a result specific enough to be wrong.",
+          "type": "boolean"
+        },
+        "structural_embeddedness": {
+          "description": "The check is embedded in coordination activity rather than appended as a separate periodic review.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "regularity",
+        "structural_embeddedness",
+        "adverse_result_integrity",
+        "specificity"
+      ],
+      "title": "CheckingPractice",
+      "type": "object"
+    },
+    "ConditionState": {
+      "description": "The status of a scope-and-delegation condition; silence is not one of the values.",
+      "enum": [
+        "present",
+        "absent",
+        "not_applicable"
+      ],
+      "title": "ConditionState",
+      "type": "string"
+    },
+    "ConditionStatus": {
+      "additionalProperties": false,
+      "description": "Section 8.2. One scope-and-delegation condition and its status, so a condition is never asserted without a present-or-absent determination.",
+      "properties": {
+        "condition": {
+          "description": "The scope-and-delegation condition, stated operationally.",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ConditionState"
+        }
+      },
+      "required": [
+        "condition",
+        "status"
+      ],
+      "title": "ConditionStatus",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-condition answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "The conformance answers on the face. There is deliberately no overall or total field: conformance is per-battery at the charge layer plus the checking practice and the scope conditions, mirroring the suite's refusal to collapse a profile into a single number. The developmental-state axis is transparency-based and is not a conformance threshold.",
+      "properties": {
+        "checking_practice_genuine": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "contribution_battery_charged": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "mission_battery_charged": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "personal_battery_charged": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "relational_battery_charged": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "scope_conditions_present": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "personal_battery_charged",
+        "relational_battery_charged",
+        "contribution_battery_charged",
+        "mission_battery_charged",
+        "checking_practice_genuine",
+        "scope_conditions_present"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "DevelopmentalState": {
+      "additionalProperties": false,
+      "description": "Section 2. The developmental state of a battery across its three mutually constituting dimensions. Transformed by integration events, not restored by recovery; declared and tracked rather than required at a level.",
+      "properties": {
+        "breadth": {
+          "description": "The inclusivity of the frame, how many distinct perspectives it can hold simultaneously without collapsing to a dominant one.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "depth": {
+          "description": "Precision of interpretive capacity, built through transclusion events that move a prior position from ceiling to floor.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "durability": {
+          "description": "The persistence of developmental state under conditions that would reverse or suppress it.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "DevelopmentalState",
+      "type": "object"
+    },
+    "FourBatteriesRecord": {
+      "additionalProperties": false,
+      "description": "An organization's declaration of its four-battery capacity and its scope-and-delegation conformance.",
+      "properties": {
+        "batteries": {
+          "description": "Section 2. The four batteries, each rendered as a typed object carrying its charge state and, when tracked, its developmental state. They are constitutive of a capacity declaration; a record naming no batteries could claim capacity while assessing nothing.",
+          "items": {
+            "$ref": "#/$defs/Battery"
+          },
+          "type": "array"
+        },
+        "checking_practice": {
+          "$ref": "#/$defs/CheckingPractice",
+          "description": "Section 7.2. Whether the organization's battery-checking practice meets the four conditions that distinguish a genuine check from theater."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "The conformance answers on the face; no total."
+        },
+        "scope_adoption_tier": {
+          "$ref": "#/$defs/ScopeAdoptionTier",
+          "description": "Section 8.6. The scope-and-delegation adoption tier the record supports."
+        },
+        "scope_conditions": {
+          "description": "Section 8.2. The four scope-and-delegation conditions, each with its status.",
+          "items": {
+            "$ref": "#/$defs/ConditionStatus"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "subject": {
+          "description": "The coordination unit or organization whose capacity is declared.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "batteries",
+        "checking_practice",
+        "conformance"
+      ],
+      "title": "FourBatteriesRecord",
+      "type": "object"
+    },
+    "ScopeAdoptionTier": {
+      "description": "Section 8.6. The three scope-and-delegation adoption tiers.",
+      "enum": [
+        "scope_visibility",
+        "structural_review",
+        "full_conformance"
+      ],
+      "title": "ScopeAdoptionTier",
+      "type": "string"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/fbcs.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "An organization's declaration of its four-battery capacity and its scope-and-delegation conformance.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "batteries": {
+      "description": "Section 2. The four batteries, each rendered as a typed object carrying its charge state and, when tracked, its developmental state. They are constitutive of a capacity declaration; a record naming no batteries could claim capacity while assessing nothing.",
+      "items": {
+        "$ref": "#/$defs/Battery"
+      },
+      "type": "array"
+    },
+    "checking_practice": {
+      "$ref": "#/$defs/CheckingPractice",
+      "description": "Section 7.2. Whether the organization's battery-checking practice meets the four conditions that distinguish a genuine check from theater."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "The conformance answers on the face; no total."
+    },
+    "scope_adoption_tier": {
+      "$ref": "#/$defs/ScopeAdoptionTier",
+      "description": "Section 8.6. The scope-and-delegation adoption tier the record supports."
+    },
+    "scope_conditions": {
+      "description": "Section 8.2. The four scope-and-delegation conditions, each with its status.",
+      "items": {
+        "$ref": "#/$defs/ConditionStatus"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "subject": {
+      "description": "The coordination unit or organization whose capacity is declared.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject",
+    "batteries",
+    "checking_practice",
+    "conformance"
+  ],
+  "title": "fbcs",
+  "type": "object",
+  "version": null
+}

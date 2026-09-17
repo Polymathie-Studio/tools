@@ -1,0 +1,21 @@
+# NON-conformant: omits the required per-invariant conformance block. Must fail validation.
+authorized_profile_established: true
+dimensions:
+  - dimension:
+      id: authority
+      name: Locus of Authority
+      power_concern: "Concentration of binding decision-making capacity."
+      detection_surface:
+        - "Nakamoto Coefficient trend"
+      independent_by_design: true
+    current_concentration: "Nakamoto Coefficient 14"
+override_assessment:
+  - override_class:
+      id: financial
+      name: Class 1 Financial
+      mechanism: "Material resource dependency lets a resource holder impose conditions."
+      detection_instrument: "Token distribution and resource dependency mapping."
+    active: false
+    not_active_rationale: "No single resource holder controls a required channel."
+architecture:
+  adopted_tier: operational

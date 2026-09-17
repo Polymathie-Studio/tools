@@ -1,0 +1,133 @@
+{
+  "$comment": "Hand-maintained CSIS metadata registry: the id, family grouping, canonical name, and description that the published standard documents do NOT carry in machine-readable form. This is the single hand-maintained source. Both csis-manifest.json and the MCP standards.ts are generated from it plus the authoritative version read from each standard's header Version line (or frontmatter, per versionSource). Standards are stable-stem (terminology conventions Section 4): the filename number is a frozen series stem, so the fileStem glob still locates the file while the internal Version stays authoritative, and a version bump does not rename the file. Candidates are NOT listed here; they are read from their own frontmatter in standards/standards-candidates/ (any .md with a version, excluding candidate-companion, skills, and READMEs). Descriptions for the ten standards are verbatim from the MCP standards.ts so the generated standards.ts matches the live one.",
+  "manifestVersion": "0.1.0",
+  "family": {
+    "name": "Coordination Structural Integrity Suite",
+    "publisher": "coordination-structural-integrity-suite",
+    "author": "Regis Lloyd Chapman",
+    "license": "CC-BY-4.0",
+    "site": "https://integritysuite.org",
+    "homepage": "https://github.com/coordination-structural-integrity-suite",
+    "canonicalSourceRepo": "https://github.com/coordination-structural-integrity-suite/suite",
+    "metaStandard": "pfds",
+    "description": "A suite of domain-general coordination standards in two Tensegrity families: seven compressive standards as structural floors and three generative standards, with the Precision-First Design Standard as the meta-standard. Specifications CC BY 4.0, co-released with CROSS (CC0)."
+  },
+  "standards": [
+    {
+      "id": "pfds",
+      "name": "Precision-First Design Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-precision-first-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "The suite meta-standard. Specifies what precision requires across every standard. Precision-First Design is the discipline of keeping instruments precise enough that violations are detectable and compliance meaningful, before deployment, not after a failure has made those questions urgent. Defines two foundational principles: the precision-first invariant (precision deficit and precision imposition as two failure directions of one commitment) and Method-Structure Congruence (the epistemic method used must match the structural character of what is being known; congruence deficits are self-concealing because the absent content leaves no gap marker). Nine corollaries, the precision review checklist, and obligation loop tier requirements."
+    },
+    {
+      "id": "asep",
+      "name": "Adverse-Signal Engagement Principle Core Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-adverse-signal-engagement-",
+      "slug": "adverse-signal",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "Specifies how coordination systems engage with signals that contradict their current model. Defines what counts as an adverse signal, the three-phase processing loop, and the requirement that adverse signals not be processed as noise or threat but as structural information."
+    },
+    {
+      "id": "css",
+      "name": "Coordination Scaling Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-coordination-scaling-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "versionSource": "frontmatter",
+      "description": "Specifies how rigor scales with coordination context. Provides the calibration framework that determines what evidence pressure is appropriate for what scale of public impact claim."
+    },
+    {
+      "id": "iacs",
+      "name": "Information Asymmetry Classification Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-information-asymmetry-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "Classifies the six information asymmetry classes (positional, temporal, interpretive, relational, complexity, omission) and specifies what each requires structurally."
+    },
+    {
+      "id": "ros",
+      "name": "Regenerative Obligation Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-regenerative-obligation-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "Specifies that extraction from contributors must be matched by regenerative return that is non-fungible, proximate, and embedded in the relationship that generated it. Obligation flows in lineage and ecological directions."
+    },
+    {
+      "id": "scls",
+      "name": "Structural Consent Legibility Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-structural-consent-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "Specifies the conditions under which consent in a coordination system is structurally legible: consent is specified to particular acts and parties, standing is distributed to all parties who bear costs, and the consent act itself is verifiable rather than assumed."
+    },
+    {
+      "id": "spos",
+      "name": "Structural Power Obligation Standard",
+      "kind": "standard",
+      "group": "compressive",
+      "fileStem": "standards-3_0-structural-power-obligation-",
+      "canonicalSourcePrefix": "tensegrity-suite/compressive/standards/",
+      "description": "Specifies that power in a coordination system must be matched by obligation directions running in multiple directions toward all cost-bearing parties. Power concentration is precisely defined as power without obligation."
+    },
+    {
+      "id": "cts",
+      "name": "Conflict Transformation Standard",
+      "kind": "standard",
+      "group": "generative",
+      "fileStem": "standards-3_0-conflict-transformation-",
+      "canonicalSourcePrefix": "tensegrity-suite/generative/standards/",
+      "description": "Specifies that conflicts in a coordination system must be engageable at less than their full intensity before they reach termination thresholds. Requires graduated engagement architecture and the structural capacity to hold conflict as information rather than process it as a binary."
+    },
+    {
+      "id": "fbcs",
+      "name": "Four Batteries Capacity Standard",
+      "kind": "standard",
+      "group": "generative",
+      "fileStem": "standards-3_0-four-batteries-capacity-",
+      "slug": "four-batteries",
+      "canonicalSourcePrefix": "tensegrity-suite/generative/standards/",
+      "description": "Specifies the four capacity dimensions that sustain coordination work: Mission battery, Contribution battery, Relational battery, and a fourth. Requires that depletion in any dimension be reportable as a structural condition rather than left as a private experience."
+    },
+    {
+      "id": "sms",
+      "name": "Sensemaking Standard",
+      "kind": "standard",
+      "group": "generative",
+      "fileStem": "standards-3_0-sensemaking-",
+      "canonicalSourcePrefix": "tensegrity-suite/generative/standards/",
+      "description": "Specifies the structural conditions for sensemaking in a coordination system: disruption-occasioned, action-entangled, sufficiency-oriented, and particular-to-general. Requires that disruption events open as questions the system needs to answer rather than be processed as resolved."
+    },
+    {
+      "id": "ctps",
+      "name": "Conflict Transformation Preconditions Specification",
+      "kind": "specification",
+      "group": "supporting",
+      "fileStem": "conflict-transformation-preconditions-specification-",
+      "slug": "conflict-transformation-preconditions",
+      "canonicalSourcePrefix": "standards/",
+      "versionSource": "frontmatter",
+      "description": "A supporting specification (release candidate) for the preconditions the Conflict Transformation Standard assumes."
+    },
+    {
+      "id": "flfvs",
+      "name": "Frame Language Foundational Vocabulary Specification",
+      "kind": "specification",
+      "group": "supporting",
+      "fileStem": "frame-language-foundational-vocabulary-specification-",
+      "slug": "frame-language",
+      "canonicalSourcePrefix": "standards/",
+      "versionSource": "frontmatter",
+      "license": "CC-BY-4.0",
+      "description": "Stable foundational vocabulary specification. Adjacent to the suite, not a structural floor."
+    }
+  ]
+}

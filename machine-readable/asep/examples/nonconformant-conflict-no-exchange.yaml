@@ -1,0 +1,42 @@
+# NON-conformant: a conflict-class signal opens an engagement pathway but records no
+# documented exchange (ASEP 3.3.1a, the native nested-required conditional). Must fail.
+observation:
+  description: "A participant deposited a signal naming another participant as responsible for a coordination-record alteration."
+  when: "2026-09-15"
+  where: "Coordination ledger"
+  who_affected: "The named counterparty and the coordination record"
+source:
+  reporter: "A coordination participant"
+  role: "internal participant"
+classification:
+  category: "conflict-class harm attribution"
+  severity: medium
+  framework_version: "1.4.0"
+navigate:
+  time_to_assessment: "12 hours from report"
+  time_to_first_decision: "3 days from report"
+  action: escalate
+  rationale: "Escalated to external adjudication."
+  conflict_engagement:
+    pathway_opened: true
+    # documented_exchange deliberately omitted: Navigate terminated by escalation
+    # without the required documented exchange
+escalation:
+  stage: acknowledged
+  acknowledgment_window: "48 hours for medium severity"
+  window_pre_specified: true
+disposition:
+  kind: act
+  rationale: "Escalated to external adjudication."
+architecture:
+  adopted_tier: operational
+  classification_framework:
+    version: "1.4.0"
+    ex_ante: true
+  logging:
+    durable: true
+    tamper_evident: true
+conformance:
+  no_silent_erasure: satisfied
+  ex_ante_criteria: satisfied
+  finite_path_to_decision: satisfied

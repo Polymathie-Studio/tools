@@ -1,0 +1,15 @@
+# NON-conformant: omits the required per-obligation conformance block. Must fail validation.
+applicable_mechanisms:
+  - id: positional
+    name: Positional asymmetry
+    mechanism: "Structural position confers information advantage invisible to others."
+    detection_surface:
+      - "proposal timing concentration"
+      - "agenda control asymmetry"
+    orthogonal_at_mechanism: true
+    status: primary
+    cynefin_domain: complicated
+architecture:
+  adopted_tier: operational
+  applicability_inventory: true
+  classification_process_documented: true

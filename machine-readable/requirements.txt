@@ -1,0 +1,13 @@
+# Python (a venv): the LinkML generators and the adapters for the CSIS per-standard
+# machine-readable sets. Mirrors the STRUCK machine-readable toolchain.
+#
+# The venv must live at a space-free path (pip console-script shebangs break on the
+# spaces in the vault path). This session created it at ~/.venvs/csis-machine-readable:
+#   python3 -m venv ~/.venvs/csis-machine-readable
+#   ~/.venvs/csis-machine-readable/bin/pip install -r requirements.txt
+# Run the generator with that venv's bin on PATH.
+linkml>=1.7
+jsonref>=1.1
+pyyaml>=6
+jsonschema>=4.18   # standard 2020-12 validator, used by the per-standard tests/validate.py
+# (no npm dependency: the Zod converter is inlined in the generator)

@@ -1,0 +1,380 @@
+# CSS register distillation
+# One row per normative entry of the Coordination Scaling Standard
+# (standards-3_0-coordination-scaling, v0.1.5). CSS assesses a coordination unit by SCALE:
+# each of six Dunbar-scale Radii is individuated by the coordination function that breaks at
+# its threshold, the attack surface that opens there, and the minimum and maximum conditions
+# specific to it. So the register renders the Radii as distinct structural thresholds, each a
+# DECLARATION carrying its threshold justification, its attack surface, and its minimum,
+# maximum, and interface conditions, and the model encodes them as typed Radius objects rather
+# than a flat enum of radius numbers. Rendering this structural content as a bare list of
+# numbers would collapse the threshold structure into labels, a precision deficit under PFDS
+# whose absent structure leaves no gap marker; the structural rendering is deliberate.
+#
+# The register carries every provision, not only the gateable ones (PFDS Section 12 metrology,
+# the 2026-09-16 decision): the foundational constructs, the design constraints, the six Radii
+# with their per-Radius conditions, the affected-party reach axis, the effective-Radius
+# assessment, the adoption levels, and the precondition-compressive role. Whether a unit has
+# installed a given minimum condition or closed a maximum condition is judgment; several
+# conditions carry computable detection signals (shape) that indicate where to look but do not
+# by themselves prove installation. Radius 500, Radius 1500, and the affected-party reach axis
+# are PROVISIONAL in the standard and are flagged as such here.
+#
+# Consumers: the DFH reads a coordination unit's footprint against the shape-flagged conditions
+# (CSS-Auditable is the harness's own instrument); an external adopter's AI consumes the full
+# register including the judgment provisions. This register is the substrate, not the checker.
+standard: CSS
+standard_version: 0.1.5
+source: standards-3_0-coordination-scaling-0_1_5.md
+entries:
+
+  # --- Purpose and framing (Preamble, Section 1) ---
+  - id: CSS-PURPOSE
+    section: "1"
+    obligation: scope
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Scale is generative: it is a primary component of coordination and AI danger and, in the same motion, the source of coordination capacity and value. The standard applies the compressive floor-and-ceiling to it rather than suppressing it. Conformance does not guarantee coordination health; it guarantees that the structural conditions required for coordination to be possible at the unit's current scale are present (the minimum-condition floor) and that the conditions enabling scale-specific capture are absent (the maximum-condition ceiling). The floor enables scale to be realized safely, it does not minimize scale: a large, well-founded unit is fully conformant. Scale-blindness (a specification of structural conditions that does not account for scale) is itself a precision deficit."
+
+  # --- Foundational constructs (Section 2) ---
+  - id: CSS-CONSTRUCT-RADIUS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Radius: a Dunbar-scale coordination segment defined by the relational threshold at which specific coordination conditions change. Six Radii are defined (5, 15, 50, 150, 500, 1500), numbered by approximate relational threshold. Radii are nested; smaller Radii are contained within larger ones, and all minimum conditions for all crossed thresholds apply simultaneously."
+  - id: CSS-CONSTRUCT-EFFECTIVE-RADIUS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Effective Radius: the Radius at which a unit is actually operating, determined by an aggregate of at minimum the number of members, the frequency and quality of their interaction, the depth of shared context, and the communication medium mix. It is not headcount alone. The standard's minimum conditions apply to the effective Radius, not the nominal headcount."
+  - id: CSS-CONSTRUCT-NOMINAL-EFFECTIVE-RADIUS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Nominal Effective Radius: the Effective Radius a unit presents with its full membership present. The standard output of a Section 11 assessment under normal operating conditions."
+  - id: CSS-CONSTRUCT-ROBUST-EFFECTIVE-RADIUS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Robust Effective Radius: the highest Radius at which minimum conditions would still hold if the highest-coordination-weight individual left. If any minimum condition for a crossed threshold would fail on a single departure, the robust Effective Radius is below the nominal. The gap between nominal and robust measures structural fragility due to coordination-weight concentration; contribution topology is the instrument where available."
+  - id: CSS-CONSTRUCT-MINIMUM-CONDITIONS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Minimum Conditions: the structural conditions that must be in place at a given Radius for coordination at that Radius to be possible. Radius-specific. A unit that has crossed a threshold without its minimum conditions installed is operating in the broken state they prevent. All minimum conditions for all crossed thresholds must be present simultaneously."
+  - id: CSS-CONSTRUCT-MAXIMUM-CONDITIONS
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Maximum Conditions: the structural specification whose absence is the precondition for capture at a given Radius. Maximum conditions do not prevent growth or gravitas; they prevent growth and gravitas from becoming structurally unchecked. Absent maximum conditions at any crossed threshold is a conformance failure."
+  - id: CSS-CONSTRUCT-THRESHOLD-CROSSING
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Threshold crossing: the transition across a Radius boundary, occurring when a unit's effective Radius moves from below a threshold to above it. A crossing without the appropriate minimum conditions installed opens the attack surface at that threshold immediately. Thresholds are crossed as aggregate conditions, not headcount events."
+  - id: CSS-CONSTRUCT-FOUNDING-WINDOW
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Founding window: the period before a threshold crossing during which the minimum conditions for the next Radius can be installed most effectively. It closes at the crossing. Installing minimum conditions after the crossing is opposed by the coordination conditions their absence produces; installing during the crisis their absence creates produces poorly designed specifications."
+  - id: CSS-CONSTRUCT-BORN-BELOW
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Born-below condition: a unit can begin its existence below the effective Radius its purpose requires, through insufficient shared context depth or interaction quality rather than headcount. It experiences the absence not as loss but as the normal condition of its existence, which is the most structurally dangerous configuration because there is no prior state to restore. Minimum conditions must be built from inside the broken state."
+  - id: CSS-CONSTRUCT-AFFECTED-PARTY-REACH
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Affected-Party Reach (provisional axis): the scale relationship between a unit and the parties its coordination affects but who are not members. Orthogonal to the Radii, which measure the unit's relationship to its own members. A unit at any internal Radius can affect any number of external parties. Assessed by the functional reach question in Section 10, not by a population count."
+  - id: CSS-CONSTRUCT-REACH-CEILING
+    section: "2"
+    obligation: construct
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Reach Ceiling (provisional): the functional threshold on the affected-party axis above which the affected population exceeds what the unit can identify and reach through channels it maintains, so its knowledge of who is affected becomes impressionistic. Graduated and context-dependent, not a single universal number. Above it, the affected-party proxy or guardian channel is a minimum condition."
+
+  # --- Design constraints (Section 3) ---
+  - id: CSS-CONSTRAINT-AGGREGATE-NOT-HEADCOUNT
+    section: "3"
+    obligation: constraint
+    kind: MUST
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "A unit must assess its effective Radius (the aggregate of member count, interaction frequency and quality, shared context depth, and communication medium mix) before determining which minimum conditions apply. Conditions apply to the effective Radius; headcount is one input, not the sole determinant."
+  - id: CSS-CONSTRAINT-RADIUS-SPECIFIC
+    section: "3"
+    obligation: constraint
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Minimum conditions are Radius-specific: each threshold breaks a different coordination function and requires different minimum conditions. The minimum conditions for one Radius do not substitute for those at another."
+  - id: CSS-CONSTRAINT-ALL-SIMULTANEOUS
+    section: "3"
+    obligation: constraint
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "All minimum conditions for all crossed thresholds apply simultaneously. Conformance with the highest crossed Radius's conditions alone, without the lower crossed Radii's conditions, is not conformance."
+  - id: CSS-CONSTRAINT-SEQUENTIAL-BUILD
+    section: "3"
+    obligation: constraint
+    kind: MUST
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "The sequential build requirement: the minimum conditions for the next Radius must be installed before crossing, and a lower Radius's minimum conditions are a structural precondition for the next Radius's minimum conditions to function. A unit cannot install a higher Radius's conditions before the lower ones; sequence violations produce compound structural debt."
+  - id: CSS-CONSTRAINT-CONDITIONS-CLOSE-ATTACK-SURFACE
+    section: "3"
+    obligation: constraint
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Each threshold's minimum conditions simultaneously close the attack surface the threshold creates. Specifying minimum conditions for coordination and specifying the defense against the threshold attack surface are the same act."
+  - id: CSS-CONSTRAINT-BOUNDARY-MODEL
+    section: "3"
+    obligation: constraint
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "The boundary model: the Radius thresholds are qualitatively different relationship types with different cognitive and social demands, not points on a single continuum. Discrete thresholds emerge naturally from continuous resource-constraint optimization (Tamarit, Sanchez, Cuesta 2022); the layer breaks are real structural features."
+  - id: CSS-CONSTRAINT-RADIUS-CAN-DECREASE
+    section: "3"
+    obligation: constraint
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Effective Radius can decrease: adding members into thin shared context or low-interaction conditions reduces it, and losing high-coordination-weight individuals can drop the robust Effective Radius below a crossed threshold (a de-crossing event). Minimum conditions for a de-crossed threshold remain valuable and should be maintained as a structural reserve; the unit is no longer in conformance failure there."
+  - id: CSS-CONSTRAINT-ASSESS-CONSERVATIVELY
+    section: "3"
+    obligation: constraint
+    kind: MUST
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "When assessment factors conflict (headcount suggests a higher Radius but interaction quality a lower one), assess at the higher threshold. The higher threshold's minimum conditions are a structural floor protecting against the coordination break that factor inconsistency produces."
+  - id: CSS-CONSTRAINT-UPPER-RADII-PROVISIONAL
+    section: "3"
+    obligation: constraint
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Radius 500 and Radius 1500 specifications are provisional and name functional requirements only; they require validation through cohort experience before normative status and do not specify implementation. Designing for current AI or institutional forms at upper Radii would embed constraints that do not survive the conditions those Radii produce."
+
+  # --- The six Radii, rendered as typed structural thresholds (Sections 4-9) ---
+  - id: CSS-RADIUS-5
+    section: "4"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Radius 5. Threshold: above five members, full bilateral awareness that informal coordination assumes becomes cognitively unavailable; state opacity becomes structurally possible. Attack surface: state opacity (a manufactured identity or misrepresented state cannot be informally verified). Minimum conditions: full mutual state legibility maintained explicitly through a structural mechanism, not assumed informally, without requiring surveillance. Maximum conditions: no single member holds veto power over all others without explicit renewed group consent (absent: dyadic dominance). Detection signals: one member consistently initiates and concludes contested decisions; one member's absence stops coordination; resource access routes exclusively through one member without authorization. Interface: a confirmed mutual-state-legibility mechanism, absence of unilateral veto, a named coordination purpose legible to adjacent Radii."
+  - id: CSS-RADIUS-15
+    section: "5"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Radius 15. Threshold: above fifteen members, sympathy-group coherence (mobilizing care and resources for a member in distress) fragments; not everyone knows everyone's situation well enough to mobilize informally. Attack surface: social isolation and trust exploitation (isolating a target while maintaining the appearance of normalcy). Minimum conditions: an explicit mutual-support architecture with a named mechanism for members to signal distress and a named mechanism for the group to respond. Maximum conditions: no member can be structurally isolated from the support network (absent: coercive control through isolation). Detection signals: a member's group participation decreases while one relationship intensifies; distress signals go unacknowledged by the group but received by a single other; a member reports only one other can help them. Interface: an explicit mutual-support architecture, an isolation-prevention mechanism, Radius 5 state legibility maintained at scale."
+  - id: CSS-RADIUS-50
+    section: "6"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Radius 50. Threshold: above fifty members, the informal capacity inventory (who can do what, what functions depend on whom) becomes unreliable; formal role clarity becomes structurally necessary. Attack surface: gravitas claims without verification, and invisible single points of failure. Minimum conditions: explicit role and capacity legibility (current, accessible without permission, specific about function not title), and named redundancy or succession for every load-bearing function. Maximum conditions: no single member or small cluster holds multiple load-bearing roles without structural acknowledgment and explicit group consent (absent: concentrated dependency creating coercive leverage). Detection signals: a member holds primary responsibility for more than two load-bearing functions with no named redundancy; the answer to 'what if this person is unavailable tomorrow?' is 'we don't know' across multiple domains; a member's implied withdrawal changes a group decision. Interface: an explicit role and capacity record, named redundancy for all load-bearing functions, Radius 15 mutual-support architecture at scale."
+  - id: CSS-RADIUS-150
+    section: "7"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "Radius 150 (the primary Dunbar threshold and anchor Radius). Threshold: above one hundred fifty members, informal reputation-based norm response fails; formal structures for norm maintenance become necessary, and the founding window for shared language and foundational commitments becomes critical. Attack surface: norm violation without informal consequences, and the founding window closing without minimum conditions installed. Minimum conditions (four, constitutively interdependent, partial installation is not conformance): shared language and foundational commitments architecturally transmitted; individual capacity structurally sustained (resourced, not assumed to run on goodwill); infrastructure integrity with named redundancy; coordination operability without requiring universal voluntary conformance. Maximum conditions: no single actor or faction holds veto over coordination mechanisms, and no single actor holds the founding context as exclusive knowledge (absent: founder capture). Detection signals: founding members hold coordination history or external relationships current members cannot access; key contacts route exclusively through founding members without redundancy; founding-period decisions cannot be contested without founder cooperation; mechanisms systematically advantage actors present at founding. Interface: all four minimum conditions confirmed, a formal norm-response mechanism operational, founding context architecturally transmitted, all lower-Radius interface conditions at scale."
+  - id: CSS-RADIUS-500
+    section: "8"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Provisional
+    assertion: "Radius 500 (PROVISIONAL). Threshold: above five hundred members, a single shared narrative fragments into competing interpretive communities. Attack surface: narrative capture and disinformation (a single adversarial narrative need only become one of several and exploit the factional structure), and ontological-surface degradation (units using the same words mean different things). Minimum conditions (provisional): an ontological surface (formal specification of the shared language enabling cross-unit coordination, machine-readable where feasible); plural narrative architecture (named processes for surfacing and mediating narrative conflicts; protection against any single narrative claiming to represent the whole); detection architecture structural rather than social (monitoring at scale without human monitoring of every signal). Maximum conditions (provisional): no single narrative claims exclusive gravitas to represent founding context or purpose; no single faction captures the ontological surface. Interface: an ontological-surface specification accessible to adjacent units, plural narrative architecture operational, structural detection, Radius 150 interface conditions at scale."
+  - id: CSS-RADIUS-1500
+    section: "9"
+    obligation: radius
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Provisional
+    assertion: "Radius 1500 (PROVISIONAL). Threshold: above fifteen hundred members, coordination load exceeds what any structure without significant administrative apparatus can carry; bureaucratic coordination becomes structurally required. Attack surface: administrative capture (whoever controls the administrative apparatus, the record, resource routing, or decision authorization controls the coordination system). Minimum conditions (provisional): administrative apparatus designed for functional independence from external coercion, with no single administrative actor or cluster holding exclusive control over record, allocation, or authorization; an amendment mechanism letting foundational commitments update without freezing at founding-moment understanding; conditions-of-possibility guardianship for parties who cannot participate through standard mechanisms, including future members. Maximum conditions (provisional): no administrative apparatus holds exclusive jurisdiction over the record; no single actor uses administrative control to concentrate founding-context knowledge as exclusive power; the constitutional layer remains accessible to all members. Interface: administrative independence confirmed, amendment mechanism operational and accessible, conditions-of-possibility guardianship functioning, Radius 500 interface conditions at scale."
+
+  # --- The affected-party reach axis (Section 10, PROVISIONAL, a second scale axis) ---
+  - id: CSS-REACH-AXIS
+    section: "10"
+    obligation: axis
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: Provisional
+    assertion: "The affected-party reach axis (provisional) is a second scale relationship, orthogonal to the six Radii: the unit's relationship to the parties its coordination affects but who are not members. Internal scale and affected-party reach vary independently. The axis applies the same break-at-scale logic externally, with no single universal numeric ceiling (Dahl and Tufte); the ceiling is a functional question, not a number."
+  - id: CSS-REACH-CEILING-QUESTION
+    section: "10"
+    obligation: axis
+    kind: MUST
+    portability: universal
+    checkable: judgment
+    tier: Provisional
+    assertion: "A unit determines its position on the axis by the functional question: can it identify the parties its coordination affects and reach them through channels it maintains (directly or through a structurally authorized proxy or guardian), or does the affected population exceed that so its knowledge is impressionistic? Impression of knowing past the ceiling is the born-below condition of this axis and is the structural fingerprint of the crossing, not evidence against it."
+  - id: CSS-REACH-ATTACK-SURFACE
+    section: "10"
+    obligation: axis
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: Provisional
+    assertion: "Above the reach ceiling, the attack surface is impressionistic affected-party knowledge: the unit can assert it serves its affected parties while the informal mechanism that would carry those parties' signals back has no reach, so harm occurs without the signal reaching the unit (the external parallel of Radius 5 state opacity)."
+  - id: CSS-REACH-MINIMUM-CONDITION
+    section: "10"
+    obligation: axis
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: Provisional
+    assertion: "Above the reach ceiling, the unit must operate a structurally authorized proxy or guardian channel for its affected parties as a minimum condition (Structural Power Obligation Standard Section 4.1), not satisfiable by disclosure alone and not substitutable by impressionistic knowledge. The honest scope is legibility, not knowledge: the channel makes the affected-party relationship legible and answerable, it does not restore knowing across the ceiling. Below the ceiling, direct identification and reach suffices."
+  - id: CSS-REACH-MAXIMUM-CONDITION
+    section: "10"
+    obligation: axis
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: Provisional
+    assertion: "No single actor controls who counts as an affected party, or how affected-party interests are represented, without the channel's authorization (absent: a unit defines its own affected-party constituency to its convenience). The proxy or guardian authorization is itself subject to the Structural Power Obligation Standard Authorize invariant."
+  - id: CSS-REACH-INTERFACE
+    section: "10"
+    obligation: axis
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: Provisional
+    assertion: "A unit past the reach ceiling presents at its boundary: a structurally authorized affected-party proxy or guardian channel, operative and not disclosure-only; a named affected-party constituency the unit does not unilaterally control; and an explicit statement that the channel provides legibility of the affected-party relationship, not knowledge of affected parties' full interests."
+
+  # --- Effective Radius assessment (Section 11) ---
+  - id: CSS-ASSESS-CONTEXTUAL-BASELINE
+    section: "11"
+    obligation: assessment
+    kind: MUST
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "Contextual baseline (PFDS Corollary 9): the threshold numbers are research-derived approximations from primarily Western, industrialized, digital-native contexts. Units with significantly different structural contexts treat the numbers as approximate anchors; the functional assessment questions are the primary instrument in all contexts. A unit should state its baseline where its context diverges."
+  - id: CSS-ASSESS-QUESTIONS
+    section: "11"
+    obligation: assessment
+    kind: MUST
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "A unit determines its effective Radius by the functional questions, each naming the coordination function that breaks when a threshold is crossed: can all members hold all others' current states in working memory (else Radius 5 crossed); does the sympathy network function through direct personal knowledge of all members (else Radius 15 crossed); is informal knowledge of who can do what commonly held and updated (else Radius 50 crossed); does informal reputation-based norm response reach its consequences (else Radius 150 crossed); can a single shared narrative be maintained across the full membership (else Radius 500 crossed, provisional). It then assesses which minimum conditions are present and absent for each crossed threshold; all absent are conformance gaps."
+  - id: CSS-ASSESS-ROBUST-AND-APPROACH
+    section: "11"
+    obligation: assessment
+    kind: SHOULD
+    portability: universal
+    checkable: mixed
+    tier: All
+    assertion: "After the nominal assessment, the unit should assess its robust Effective Radius (which minimum conditions would fail under worst-case single departure of a high-coordination-weight individual); a nominal-to-robust gap is a maximum-conditions concern regardless of the formal maximum-conditions criteria. The questions detect crossing, not approach: a 'yes' answer while the function feels stressed is detecting approach, which is not a conformance finding but is a trigger condition for the next threshold's founding window."
+
+  # --- Adoption architecture (Section 12) ---
+  - id: CSS-ADOPT-ASSESSED
+    section: "12"
+    obligation: adoption-level
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Assessed
+    assertion: "CSS-Assessed: the unit has identified its effective Radius, named which thresholds it has crossed, and documented which minimum conditions for crossed thresholds are present and which absent. The gap map is complete. It does not require conditions to be installed, only honest identification of the current state."
+  - id: CSS-ADOPT-OPERATIONAL
+    section: "12"
+    obligation: adoption-level
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Operational
+    assertion: "CSS-Operational: minimum conditions for the current effective Radius and all lower crossed thresholds are structurally present, and maximum conditions for all crossed thresholds are absent (capture vectors closed). A condition is structural rather than policy-stated when its presence or absence is determinable by an independent observer from definition and observable evidence, without the cooperation of the unit or its members."
+  - id: CSS-ADOPT-INSTRUMENTED
+    section: "12"
+    obligation: adoption-level
+    kind: DECLARATION
+    portability: universal
+    checkable: mixed
+    tier: Instrumented
+    assertion: "CSS-Instrumented: the unit has a structural mechanism for detecting when it is approaching the next threshold (named trigger conditions that prompt a new Section 11 assessment) and a founding window protocol naming who is responsible for each minimum condition installation and the timeline. The founding window opens when the first named trigger fires."
+  - id: CSS-ADOPT-LOOP-CLOSED
+    section: "12"
+    obligation: adoption-level
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: Loop-Closed
+    assertion: "CSS-Loop-Closed: the unit has crossed at least one threshold with minimum conditions installed in advance, executed a founding window protocol, and validated that minimum conditions were effectively installed after the crossing, correcting the specification from practice where it proved incomplete. Requires evidence of at least one executed and validated crossing."
+  - id: CSS-ADOPT-AUDITABLE
+    section: "12"
+    obligation: adoption-level
+    kind: DECLARATION
+    portability: universal
+    checkable: shape
+    tier: Auditable
+    assertion: "CSS-Auditable: an independent observer with no prior relationship to the unit can assess its effective Radius, identify all crossed thresholds, verify that minimum conditions for all crossed thresholds are structurally present and maximum conditions absent, and produce a finding without access to information the unit controls. All interface conditions for all crossed thresholds are documented and externally legible. This is the level the DFH footprint reads for an agent unit."
+
+  # --- Precondition-compressive role (Section 13) ---
+  - id: CSS-PRECONDITION-COMPRESSIVE
+    section: "13"
+    obligation: relation
+    kind: DECLARATION
+    portability: universal
+    checkable: judgment
+    tier: All
+    assertion: "The Coordination Scaling Standard is precondition compressive: it specifies the structural substrate within which the other standards' conditions become possible at each scale. A unit operating below the minimum conditions for its current Radius cannot reliably meet the conditions of the other compressive standards, because the coordination functions those standards protect have already broken at the threshold. Scale-blindness (a specification of structural conditions that does not account for scale) is itself a precision deficit."

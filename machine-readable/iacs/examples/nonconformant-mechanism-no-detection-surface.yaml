@@ -1,0 +1,25 @@
+# NON-conformant: an applicable mechanism carries no detection surface (IACS Section 2
+# validity criterion 3, a mechanism with no distinctive signal cannot be instrumented; the
+# structural nested-required weld). Must fail validation.
+applicable_mechanisms:
+  - id: positional
+    name: Positional asymmetry
+    mechanism: "Structural position confers information advantage invisible to others."
+    detection_surface:
+      - "proposal timing concentration"
+    orthogonal_at_mechanism: true
+    status: primary
+  - id: relational
+    name: Relational asymmetry
+    mechanism: "Access mediated by relationship networks not visible or proportionally available to all."
+    # detection_surface deliberately omitted: a mechanism with no detection surface
+    # cannot be instrumented and is not a valid class
+    orthogonal_at_mechanism: true
+    status: primary
+architecture:
+  adopted_tier: operational
+  applicability_inventory: true
+conformance:
+  applicability_mapped: satisfied
+  classification_process_documented: satisfied
+  detection_instrumented: not_applicable

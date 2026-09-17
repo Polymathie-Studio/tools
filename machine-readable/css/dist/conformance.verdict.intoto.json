@@ -1,0 +1,21 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "The Riverside housing cooperative, a 60-member coordination unit at radius_50, operational",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/css/conformance/v0.1.5",
+  "predicate": {
+    "verifier": "css-conformance",
+    "obligations": {
+      "effective_radius_assessed": "satisfied",
+      "minimum_conditions_present": "satisfied",
+      "maximum_conditions_absent": "satisfied",
+      "sequential_build_respected": "satisfied"
+    }
+  }
+}
