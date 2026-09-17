@@ -21,7 +21,7 @@ export const PrecisionReview = z.object({
   "deficits": z.array(z.object({
   "decision": z.string().describe("Section 6.5. The documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit); required at Loop-Closed.").optional(),
   "location": z.string().describe("The document and location of the deficit."),
-  "pattern": z.string().describe("The failure-pattern handle the deficit is keyed to.")
+  "pattern": z.string().describe("The failure-pattern handle the deficit is keyed to. The set is open: a deficit that fits no current pattern is recorded as \"unclassified\" and evaluated against the extension criteria, not forced into an ill-fitting pattern (the Corollary-2 overflow, realized structurally here rather than asserted).")
 }).strict()).describe("Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern.").optional(),
   "failure_patterns": z.array(z.object({
   "id": z.string().describe("The pattern handle (for example normative_substitution, category_collapse)."),

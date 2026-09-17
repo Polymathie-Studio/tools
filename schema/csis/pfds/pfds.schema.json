@@ -144,7 +144,7 @@
           "type": "string"
         },
         "pattern": {
-          "description": "The failure-pattern handle the deficit is keyed to.",
+          "description": "The failure-pattern handle the deficit is keyed to. The set is open: a deficit that fits no current pattern is recorded as \"unclassified\" and evaluated against the extension criteria, not forced into an ill-fitting pattern (the Corollary-2 overflow, realized structurally here rather than asserted).",
           "type": "string"
         }
       },
