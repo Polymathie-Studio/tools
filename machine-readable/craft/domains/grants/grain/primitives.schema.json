@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/grain/primitives.schema.json",
+  "title": "GRAIN primitives manifest",
+  "description": "The machine-readable manifest of GRAIN grant primitives, generated from grain-notation.md by scripts/generate-primitives.mjs. Do not hand-edit; validate the generated primitives.json against this schema.",
+  "type": "object",
+  "required": [
+    "notation",
+    "version",
+    "date",
+    "total",
+    "layerCounts",
+    "primitives"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "notation": {
+      "const": "GRAIN"
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "license": {
+      "type": "string"
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "layerCounts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "primitives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/primitive"
+      }
+    }
+  },
+  "$defs": {
+    "primitive": {
+      "type": "object",
+      "required": [
+        "name",
+        "id",
+        "layer",
+        "status",
+        "definition",
+        "relationships",
+        "applications",
+        "citations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "identity",
+            "obligation",
+            "evidence",
+            "specification",
+            "causal-architecture",
+            "portfolio"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "full",
+            "held-weak"
+          ]
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relationships": {
+          "type": "string"
+        },
+        "applications": {
+          "type": "string"
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "notation": "GRAIN",
+  "title": "Grant Representation And Interchange Notation",
+  "version": "0.3.3",
+  "date": "2026-08-25",
+  "license": "CC0",
+  "total": 2,
+  "layerCounts": { "identity": 1, "obligation": 1 },
+  "primitives": [
+    {
+      "name": "Entity Boundary",
+      "id": "Entity_Boundary",
+      "layer": "identity",
+      "status": "full",
+      "definition": "A deliberately broken entry: the id is not kebab-case.",
+      "relationships": "",
+      "applications": "",
+      "citations": []
+    },
+    {
+      "name": "",
+      "id": "gate-type",
+      "layer": "not-a-real-layer",
+      "status": "provisional",
+      "definition": "",
+      "relationships": "",
+      "applications": "",
+      "citations": [42]
+    }
+  ]
+}

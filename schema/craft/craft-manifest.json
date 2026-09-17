@@ -131,11 +131,18 @@
       "id": "grain",
       "name": "GRAIN",
       "kind": "standard",
-      "version": "unpublished",
-      "status": "planned",
+      "version": "0.3.3",
+      "status": "published",
       "group": "primitives",
-      "canonicalSource": "https://github.com/CrossWalkri (in preparation)",
-      "description": "The abstraction and primitives layer for the family. In preparation; not cloned locally, so no version is derived."
+      "canonicalSource": "GRAIN/GRAIN-notation-0_1_0.md",
+      "license": "CC0-1.0",
+      "description": "Grant Representation And Interchange Notation: 138 grant primitives across six layers, the vocabulary a grant is represented in and assessed against for compatibility. An enabling layer, optionally adopted, not a dependency or a blocker of anything.",
+      "machineReadable": {
+        "kind": "code-system",
+        "catalog": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/grain/primitives.json",
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/grain/primitives.schema.json",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/grain/"
+      }
     }
   ]
 }

@@ -94,6 +94,39 @@ def build_machine_readable(std_id, mr_path):
     }
 
 
+def build_code_system_member(entry):
+    """A code-system member: a controlled vocabulary published as data plus its schema, vendored
+    into the one source (GRAIN's primitives catalog is the first). Version is read from the vendored
+    source in the one source, not a CrossWalkri prose repo; the machineReadable block points at the
+    catalog and its schema, a different shape from the register-and-model members."""
+    mr_path = entry.get("mrPath", entry["id"])
+    vfile = MR_DIR / entry["mrVersionFile"]
+    version = frontmatter_version(vfile.read_text(encoding="utf-8")) if vfile.exists() else None
+    if not version:
+        warn(f"NO VERSION for {entry['id']}: could not read version from {entry.get('mrVersionFile')}")
+        version = "unknown"
+    member = {
+        "id": entry["id"],
+        "name": entry["name"],
+        "kind": entry.get("kind", "standard"),
+        "version": version,
+        "status": "published",
+        "group": entry.get("role", "standard"),
+        "canonicalSource": f"{entry['repo']}/{entry['file']}",
+        "license": entry.get("license"),
+        "description": entry.get("description", ""),
+    }
+    if (MR_DIR / mr_path / "dist" / "primitives.json").exists():
+        base = f"{SID_BASE}/{mr_path}"
+        member["machineReadable"] = {
+            "kind": "code-system",
+            "catalog": f"{base}/primitives.json",
+            "schema": f"{base}/primitives.schema.json",
+            "set": f"{base}/",
+        }
+    return member
+
+
 def build_member(entry):
     if entry.get("status") == "planned":
         return {
@@ -106,6 +139,9 @@ def build_member(entry):
             "canonicalSource": "https://github.com/CrossWalkri (in preparation)",
             "description": entry.get("description", ""),
         }
+
+    if entry.get("mrKind") == "code-system":
+        return build_code_system_member(entry)
 
     path = CODE_ROOT / entry["repo"] / entry["file"]
     if not path.exists():

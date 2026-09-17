@@ -85,9 +85,14 @@
       "name": "GRAIN",
       "kind": "standard",
       "role": "primitives",
-      "status": "planned",
-      "description": "The abstraction and primitives layer for the family. In preparation; not cloned locally, so no version is derived.",
-      "mrPath": "domains/grants/grain"
+      "repo": "GRAIN",
+      "file": "GRAIN-notation-0_1_0.md",
+      "license": "CC0-1.0",
+      "status": "published",
+      "mrPath": "domains/grants/grain",
+      "mrKind": "code-system",
+      "mrVersionFile": "domains/grants/grain/grain-notation.md",
+      "description": "Grant Representation And Interchange Notation: 138 grant primitives across six layers, the vocabulary a grant is represented in and assessed against for compatibility. An enabling layer, optionally adopted, not a dependency or a blocker of anything."
     }
   ]
 }
