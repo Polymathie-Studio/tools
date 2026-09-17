@@ -1,0 +1,70 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "css-conformance",
+          "version": "0.1.5",
+          "rules": [
+            {
+              "id": "effective_radius_assessed",
+              "shortDescription": {
+                "text": "CSS (11): effective Radius assessed by the functional breaks, the primary instrument"
+              }
+            },
+            {
+              "id": "minimum_conditions_present",
+              "shortDescription": {
+                "text": "CSS (3): all minimum conditions for all crossed thresholds present, the non-averaging floor"
+              }
+            },
+            {
+              "id": "maximum_conditions_absent",
+              "shortDescription": {
+                "text": "CSS (2): maximum conditions absent at all crossed thresholds, capture vectors closed"
+              }
+            },
+            {
+              "id": "sequential_build_respected",
+              "shortDescription": {
+                "text": "CSS (3): the sequential build requirement respected, no compound structural debt"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "effective_radius_assessed",
+          "level": "none",
+          "message": {
+            "text": "CSS (11): effective Radius assessed by the functional breaks, the primary instrument: satisfied"
+          }
+        },
+        {
+          "ruleId": "minimum_conditions_present",
+          "level": "none",
+          "message": {
+            "text": "CSS (3): all minimum conditions for all crossed thresholds present, the non-averaging floor: satisfied"
+          }
+        },
+        {
+          "ruleId": "maximum_conditions_absent",
+          "level": "none",
+          "message": {
+            "text": "CSS (2): maximum conditions absent at all crossed thresholds, capture vectors closed: satisfied"
+          }
+        },
+        {
+          "ruleId": "sequential_build_respected",
+          "level": "none",
+          "message": {
+            "text": "CSS (3): the sequential build requirement respected, no compound structural debt: satisfied"
+          }
+        }
+      ]
+    }
+  ]
+}

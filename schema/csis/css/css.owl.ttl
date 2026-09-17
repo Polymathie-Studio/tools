@@ -1,0 +1,630 @@
+@prefix css: <https://standards.example/css/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/css.owl.ttl> a owl:Ontology ;
+    rdfs:label "css" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "CSS coordination scaling record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Coordination Scaling Standard (standards-3_0-coordination-scaling, v0.1.5), the seventh compressive standard and the precondition-compressive substrate of the suite. CSS assesses a coordination unit by scale across six nested Dunbar-scale Radii, each individuated by the coordination function that breaks at its threshold, so the model renders the Radii as typed CoordinationRadius objects carrying their threshold justification, attack surface, and minimum, maximum, and interface conditions, not a bare enum of radius numbers. Rendering that structural content as a flat list of numbers would collapse the threshold structure into labels, a precision deficit under the Precision-First Design Standard whose absent structure leaves no gap marker.
+Two modeling choices make the record faithful to the standard and usable across scale substrates without importing thresholds the standard has not measured. The effective Radius is determined by which coordination functions have broken (the functional-break assessment, which Section 11 names the primary instrument in all contexts) with the numeric Radius derived from that, so a unit on any substrate assesses itself against the same functional breaks. And the effective-Radius aggregate is an open named-factor set (Section 2 defines it as "at minimum" member count, interaction quality, shared context depth, and medium mix), so a consumer on a different substrate supplies its own factors into the same structure.
+The tree root is a CoordinationScalingRecord. Whether a given minimum condition is installed or a maximum condition closed is judgment routed to the checker; several conditions carry computable detection signals that indicate where to look. Radius 500, Radius 1500, and the affected-party reach axis are provisional in the standard and are marked provisional here. Every artifact in dist/ is generated from this file.""" .
+
+css:CoordinationScalingRecord a owl:Class ;
+    rdfs:label "CoordinationScalingRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:AdoptionLevel ;
+            owl:onProperty css:adoption_level ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:crossed_thresholds ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:EffectiveRadiusAssessment ;
+            owl:onProperty css:effective_radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:effective_radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:conformance ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:effective_radius ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConformanceDeclaration ;
+            owl:onProperty css:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:RadiusConformance ;
+            owl:onProperty css:crossed_thresholds ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:reach ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:AffectedPartyReach ;
+            owl:onProperty css:reach ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:reach ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:adoption_level ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:subject ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:adoption_level ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:subject ] ;
+    skos:definition "A coordination unit's assessment against the scaling standard, from its effective-Radius determination through per-Radius conformance to its adoption level." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:AffectedPartyReach a owl:Class ;
+    rdfs:label "AffectedPartyReach" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:above_reach_ceiling ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:constituency_not_unilaterally_controlled ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:above_reach_ceiling ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:constituency_not_unilaterally_controlled ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:constituency_not_unilaterally_controlled ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:above_reach_ceiling ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:proxy_or_guardian_channel ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:proxy_or_guardian_channel ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:proxy_or_guardian_channel ] ;
+    skos:definition "Section 10 (provisional). The affected-party reach-axis assessment, orthogonal to the Radii. Whether the unit is above its reach ceiling, and if so whether the proxy or guardian channel is present." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:AggregateFactor a owl:Class ;
+    rdfs:label "AggregateFactor" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:value ] ;
+    skos:definition "Section 2. One named factor contributing to the effective-Radius aggregate, with its assessed value." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom css:ConformanceAnswer ;
+            owl:onProperty css:maximum_conditions_absent ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:maximum_conditions_absent ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:minimum_conditions_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConformanceAnswer ;
+            owl:onProperty css:sequential_build_respected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:sequential_build_respected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:minimum_conditions_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:effective_radius_assessed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConformanceAnswer ;
+            owl:onProperty css:minimum_conditions_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:sequential_build_respected ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:maximum_conditions_absent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:effective_radius_assessed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConformanceAnswer ;
+            owl:onProperty css:effective_radius_assessed ] ;
+    skos:definition "The scaling conformance answers on the face. There is deliberately no overall or total field: conformance is per-condition across crossed thresholds, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:CoordinationRadius a owl:Class ;
+    rdfs:label "CoordinationRadius" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:function_break ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:attack_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:function_break ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:function_break ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:attack_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:provisional ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:attack_surface ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:provisional ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:RadiusValue ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:provisional ] ;
+    skos:definition "One Dunbar-scale threshold rendered as a typed structure. Individuated by the coordination function that breaks at it and the attack surface that opens, not by its number alone. The number, the function break, and the attack surface are required; a Radius reduced to its number has dropped the structure that individuates it." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:EffectiveRadiusAssessment a owl:Class ;
+    rdfs:label "EffectiveRadiusAssessment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:nominal_effective_radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:contextual_baseline ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:function_breaks ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:robust_effective_radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:nominal_effective_radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:robust_effective_radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:contextual_baseline ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:AggregateFactor ;
+            owl:onProperty css:aggregate_factors ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:RadiusValue ;
+            owl:onProperty css:robust_effective_radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:aggregate_factors ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:contextual_baseline ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:RadiusValue ;
+            owl:onProperty css:nominal_effective_radius ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:FunctionBreak ;
+            owl:onProperty css:function_breaks ] ;
+    skos:definition "Section 11. The determination of the unit's effective Radius by the functional breaks, the primary instrument in all contexts, with the numeric Radius derived from them. Carries the aggregate factors as an open set and the nominal-versus-robust distinction." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:FunctionBreak a owl:Class ;
+    rdfs:label "FunctionBreak" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:broken ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:function ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:broken ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:RadiusValue ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:approach_noted ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:broken ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:approach_noted ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:function ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:function ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:approach_noted ] ;
+    skos:definition "Section 11. One coordination function and whether it has broken at the unit's scale. The function names the observable break; its status carries the assessment. A break with no status is not an assessment, so function and broken are required." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:RadiusConformance a owl:Class ;
+    rdfs:label "RadiusConformance" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:maximum_conditions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConditionStatus ;
+            owl:onProperty css:minimum_conditions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:interface_conditions_documented ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty css:interface_conditions_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConditionStatus ;
+            owl:onProperty css:maximum_conditions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:CoordinationRadius ;
+            owl:onProperty css:radius ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:interface_conditions_documented ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:minimum_conditions ] ;
+    skos:definition "Sections 4 to 9. The conformance status of one crossed Radius: the Radius rendered as its typed threshold structure, with its minimum conditions enumerated by status and its maximum conditions checked. A crossed Radius carries its conditions or it is not a conformance claim, so radius, minimum_conditions, and maximum_conditions are required." ;
+    skos:inScheme <https://standards.example/css> .
+
+<https://standards.example/css/AdoptionLevel#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf css:AdoptionLevel .
+
+<https://standards.example/css/AdoptionLevel#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf css:AdoptionLevel .
+
+<https://standards.example/css/AdoptionLevel#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf css:AdoptionLevel .
+
+<https://standards.example/css/AdoptionLevel#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf css:AdoptionLevel .
+
+<https://standards.example/css/AdoptionLevel#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf css:AdoptionLevel .
+
+<https://standards.example/css/ConditionState#absent> a owl:Class ;
+    rdfs:label "absent" ;
+    rdfs:subClassOf css:ConditionState .
+
+<https://standards.example/css/ConditionState#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf css:ConditionState .
+
+<https://standards.example/css/ConditionState#present> a owl:Class ;
+    rdfs:label "present" ;
+    rdfs:subClassOf css:ConditionState .
+
+css:ConditionStatus a owl:Class ;
+    rdfs:label "ConditionStatus" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom css:ConditionState ;
+            owl:onProperty css:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty css:detection_signal ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:detection_signal ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty css:detection_signal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty css:status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty css:condition ] ;
+    skos:definition "One minimum or maximum condition and its status, so a condition is never asserted without an installed-or-absent determination." ;
+    skos:inScheme <https://standards.example/css> .
+
+<https://standards.example/css/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf css:ConformanceAnswer .
+
+<https://standards.example/css/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf css:ConformanceAnswer .
+
+<https://standards.example/css/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf css:ConformanceAnswer .
+
+<https://standards.example/css/RadiusValue#radius_15> a owl:Class ;
+    rdfs:label "radius_15" ;
+    rdfs:subClassOf css:RadiusValue .
+
+<https://standards.example/css/RadiusValue#radius_150> a owl:Class ;
+    rdfs:label "radius_150" ;
+    rdfs:subClassOf css:RadiusValue .
+
+<https://standards.example/css/RadiusValue#radius_1500> a owl:Class ;
+    rdfs:label "radius_1500" ;
+    rdfs:subClassOf css:RadiusValue .
+
+<https://standards.example/css/RadiusValue#radius_5> a owl:Class ;
+    rdfs:label "radius_5" ;
+    rdfs:subClassOf css:RadiusValue .
+
+<https://standards.example/css/RadiusValue#radius_50> a owl:Class ;
+    rdfs:label "radius_50" ;
+    rdfs:subClassOf css:RadiusValue .
+
+<https://standards.example/css/RadiusValue#radius_500> a owl:Class ;
+    rdfs:label "radius_500" ;
+    rdfs:subClassOf css:RadiusValue .
+
+css:aggregate_factors a owl:ObjectProperty ;
+    rdfs:label "aggregate_factors" ;
+    skos:definition "Section 2. The factors the effective Radius aggregates, as an open named set (at minimum member count, interaction frequency and quality, shared context depth, and communication medium mix); a consumer on a different scale substrate supplies its own factors here." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:crossed_thresholds a owl:ObjectProperty ;
+    rdfs:label "crossed_thresholds" ;
+    skos:definition "Sections 4 to 9. One entry per crossed Radius, carrying the Radius and the status of its minimum, maximum, and interface conditions. A crossed Radius is present here iff its function break is recorded in the effective-Radius assessment; a record that names a crossed threshold without enumerating its conditions is rejected." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:function_breaks a owl:ObjectProperty ;
+    rdfs:label "function_breaks" ;
+    skos:definition "Section 11. One entry per assessed coordination function, recording whether it has broken. The set of broken functions determines which thresholds are crossed; this is the operative instrument, not the numeric threshold." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:maximum_conditions a owl:ObjectProperty ;
+    rdfs:label "maximum_conditions" ;
+    skos:definition "The Radius's maximum conditions, each with whether it is absent (the capture vector closed) or present (a conformance failure)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:minimum_conditions a owl:ObjectProperty ;
+    rdfs:label "minimum_conditions" ;
+    skos:definition "The Radius's minimum conditions, each with its installed status. These are the floor at this threshold, the compressive bound on generative scaling: a hard lower bound that must be present, so a single absent minimum condition is a conformance breach that does not aggregate away against conditions met elsewhere (the floor-aware, non-averaging discipline). This is also the structural weld: a crossed Radius cannot claim conformance while silent on its minimum conditions." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:above_reach_ceiling a owl:DatatypeProperty ;
+    rdfs:label "above_reach_ceiling" ;
+    skos:definition "Section 10.2. Whether the affected population exceeds what the unit can identify and reach through channels it maintains, so its knowledge is impressionistic (the ceiling crossed)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:adoption_level a owl:ObjectProperty ;
+    rdfs:label "adoption_level" ;
+    skos:definition "Section 12. The adoption level the record supports." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:approach_noted a owl:DatatypeProperty ;
+    rdfs:label "approach_noted" ;
+    skos:definition "Section 11. Whether the function is stressed or unreliable while not yet broken, which is threshold approach, not a conformance finding, but a trigger for the next founding window." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:attack_surface a owl:DatatypeProperty ;
+    rdfs:label "attack_surface" ;
+    skos:definition "The exploitation vector that opens when this threshold is crossed without its minimum conditions." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:broken a owl:DatatypeProperty ;
+    rdfs:label "broken" ;
+    skos:definition "Whether the function has broken (the threshold is crossed) or still holds." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:condition a owl:DatatypeProperty ;
+    rdfs:label "condition" ;
+    skos:definition "The condition, stated operationally." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "The scaling conformance answers on the face; no total." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:constituency_not_unilaterally_controlled a owl:DatatypeProperty ;
+    rdfs:label "constituency_not_unilaterally_controlled" ;
+    skos:definition "Section 10.5. Whether the affected-party constituency is one the unit does not unilaterally define to its convenience." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:contextual_baseline a owl:DatatypeProperty ;
+    rdfs:label "contextual_baseline" ;
+    skos:definition "Section 11 (Precision-First Design Standard Corollary 9). A statement of the unit's structural context where it diverges from the research-derived anchor contexts, since the threshold numbers are approximations and the functional questions are primary." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:detection_signal a owl:DatatypeProperty ;
+    rdfs:label "detection_signal" ;
+    skos:definition "A computable signal that indicates where to look for the condition's presence or absence; it locates the check, it does not by itself prove installation." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:effective_radius a owl:ObjectProperty ;
+    rdfs:label "effective_radius" ;
+    skos:definition "Section 11. The unit's effective-Radius assessment, determined by which coordination functions have broken." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:effective_radius_assessed a owl:ObjectProperty ;
+    rdfs:label "effective_radius_assessed" ;
+    skos:inScheme <https://standards.example/css> .
+
+css:function a owl:DatatypeProperty ;
+    rdfs:label "function" ;
+    skos:definition "The coordination function assessed (for example state_legibility at Radius 5, sympathy_network at Radius 15, capacity_inventory at Radius 50, reputation_norm_response at Radius 150, single_narrative at Radius 500)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:function_break a owl:DatatypeProperty ;
+    rdfs:label "function_break" ;
+    skos:definition "The coordination function that breaks at this threshold." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:interface_conditions_documented a owl:DatatypeProperty ;
+    rdfs:label "interface_conditions_documented" ;
+    skos:definition "Section (Radius).5. Whether the Radius's interface conditions are documented and externally legible." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:maximum_conditions_absent a owl:ObjectProperty ;
+    rdfs:label "maximum_conditions_absent" ;
+    skos:inScheme <https://standards.example/css> .
+
+css:minimum_conditions_present a owl:ObjectProperty ;
+    rdfs:label "minimum_conditions_present" ;
+    skos:inScheme <https://standards.example/css> .
+
+css:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    skos:definition "The factor name (member_count, interaction_quality, shared_context_depth, medium_mix, or a substrate-specific factor)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:nominal_effective_radius a owl:ObjectProperty ;
+    rdfs:label "nominal_effective_radius" ;
+    skos:definition "Section 2. The effective Radius with full membership present, derived from the function breaks." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:provisional a owl:DatatypeProperty ;
+    rdfs:label "provisional" ;
+    skos:definition "Whether this Radius is provisional in the standard (true for Radius 500 and Radius 1500)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:proxy_or_guardian_channel a owl:DatatypeProperty ;
+    rdfs:label "proxy_or_guardian_channel" ;
+    skos:definition "Section 10.4. Above the ceiling, whether a structurally authorized proxy or guardian channel is operative (not disclosure-only). A minimum condition when above the ceiling." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:reach a owl:ObjectProperty ;
+    rdfs:label "reach" ;
+    skos:definition "Section 10 (provisional). The affected-party reach-axis assessment, if the unit has made one." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:robust_effective_radius a owl:ObjectProperty ;
+    rdfs:label "robust_effective_radius" ;
+    skos:definition "Section 2. The highest Radius whose minimum conditions would still hold under worst-case single departure of the highest-coordination-weight individual. A gap below the nominal is a fragility finding." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:sequential_build_respected a owl:ObjectProperty ;
+    rdfs:label "sequential_build_respected" ;
+    skos:inScheme <https://standards.example/css> .
+
+css:status a owl:ObjectProperty ;
+    rdfs:label "status" ;
+    skos:definition "The condition's status against the unit." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:subject a owl:DatatypeProperty ;
+    rdfs:label "subject" ;
+    skos:definition "The coordination unit under assessment (a project, organization, protocol, working group, or agent unit)." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:value a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    skos:definition "The assessed value or level of the factor, as the assessor records it." ;
+    skos:inScheme <https://standards.example/css> .
+
+css:ConditionState a owl:Class ;
+    rdfs:label "ConditionState" ;
+    owl:unionOf ( <https://standards.example/css/ConditionState#present> <https://standards.example/css/ConditionState#absent> <https://standards.example/css/ConditionState#not_applicable> ) ;
+    skos:definition "The status of a minimum or maximum condition; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/css> ;
+    linkml:permissible_values <https://standards.example/css/ConditionState#absent>,
+        <https://standards.example/css/ConditionState#not_applicable>,
+        <https://standards.example/css/ConditionState#present> .
+
+css:AdoptionLevel a owl:Class ;
+    rdfs:label "AdoptionLevel" ;
+    owl:unionOf ( <https://standards.example/css/AdoptionLevel#assessed> <https://standards.example/css/AdoptionLevel#operational> <https://standards.example/css/AdoptionLevel#instrumented> <https://standards.example/css/AdoptionLevel#loop_closed> <https://standards.example/css/AdoptionLevel#auditable> ) ;
+    skos:definition "Section 12. The five adoption levels." ;
+    skos:inScheme <https://standards.example/css> ;
+    linkml:permissible_values <https://standards.example/css/AdoptionLevel#assessed>,
+        <https://standards.example/css/AdoptionLevel#auditable>,
+        <https://standards.example/css/AdoptionLevel#instrumented>,
+        <https://standards.example/css/AdoptionLevel#loop_closed>,
+        <https://standards.example/css/AdoptionLevel#operational> .
+
+css:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/css/ConformanceAnswer#satisfied> <https://standards.example/css/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/css/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-condition answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/css> ;
+    linkml:permissible_values <https://standards.example/css/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/css/ConformanceAnswer#not_applicable>,
+        <https://standards.example/css/ConformanceAnswer#satisfied> .
+
+css:radius a owl:ObjectProperty .
+
+css:RadiusValue a owl:Class ;
+    rdfs:label "RadiusValue" ;
+    owl:unionOf ( <https://standards.example/css/RadiusValue#radius_5> <https://standards.example/css/RadiusValue#radius_15> <https://standards.example/css/RadiusValue#radius_50> <https://standards.example/css/RadiusValue#radius_150> <https://standards.example/css/RadiusValue#radius_500> <https://standards.example/css/RadiusValue#radius_1500> ) ;
+    skos:definition "Section 2. The six defined Radii, by approximate relational threshold." ;
+    skos:inScheme <https://standards.example/css> ;
+    linkml:permissible_values <https://standards.example/css/RadiusValue#radius_15>,
+        <https://standards.example/css/RadiusValue#radius_150>,
+        <https://standards.example/css/RadiusValue#radius_1500>,
+        <https://standards.example/css/RadiusValue#radius_5>,
+        <https://standards.example/css/RadiusValue#radius_50>,
+        <https://standards.example/css/RadiusValue#radius_500> .
+
+
