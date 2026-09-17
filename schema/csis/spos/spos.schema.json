@@ -1,0 +1,386 @@
+{
+  "$defs": {
+    "AdoptionTier": {
+      "description": "Section 7. The adoption tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "ChangeClassification": {
+      "additionalProperties": false,
+      "description": "Section 5.1. One change classification, individuated by its detection signature and its response obligation, not by a label.",
+      "properties": {
+        "detection_signature": {
+          "description": "The observable signature that distinguishes this classification.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The classification handle (drift, coherent_evolution, strategic_pivot, capture).",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "response_obligation": {
+          "description": "The response the classification triggers.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "detection_signature",
+        "response_obligation"
+      ],
+      "title": "ChangeClassification",
+      "type": "object"
+    },
+    "ConcentrationShift": {
+      "additionalProperties": false,
+      "description": "Section 5. A detected concentration shift, classified before any response.",
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/ChangeClassification"
+        },
+        "dimensions_implicated": {
+          "description": "Which of the three dimensions the shift implicates.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "review_completed": {
+          "description": "Whether the response obligation for the classification was completed.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "classification",
+        "dimensions_implicated"
+      ],
+      "title": "ConcentrationShift",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-invariant answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "Section 4. The three invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "authorize_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "distribute_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "monitor_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "distribute_satisfied",
+        "authorize_satisfied",
+        "monitor_satisfied"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "DimensionAssessment": {
+      "additionalProperties": false,
+      "description": "Section 4.1. The current-versus-authorized assessment for one dimension.",
+      "properties": {
+        "authorized_level": {
+          "description": "The authorized distribution profile in this dimension.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "current_concentration": {
+          "description": "The current distribution profile in this dimension.",
+          "type": "string"
+        },
+        "dimension": {
+          "$ref": "#/$defs/PowerDimension"
+        },
+        "gap": {
+          "description": "The gap between current and authorized in this dimension.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "dimension",
+        "current_concentration"
+      ],
+      "title": "DimensionAssessment",
+      "type": "object"
+    },
+    "OverrideClass": {
+      "additionalProperties": false,
+      "description": "Section 4.5. One external-override class, a distinct structural mechanism through which an external actor can supersede internal outcomes, individuated by its mechanism and its detection instrument.",
+      "properties": {
+        "detection_instrument": {
+          "description": "The instrument that detects the class.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The class handle (financial, military, regulatory, platform, epistemic, normative, relational).",
+          "type": "string"
+        },
+        "mechanism": {
+          "description": "The distinct structural mechanism of the override.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "mechanism",
+        "detection_instrument"
+      ],
+      "title": "OverrideClass",
+      "type": "object"
+    },
+    "OverrideClassAssessment": {
+      "additionalProperties": false,
+      "description": "Section 4.5. Whether an override class is active in the system's context, with addressability.",
+      "properties": {
+        "active": {
+          "description": "Whether the class is active; a not-active determination requires a named rationale.",
+          "type": "boolean"
+        },
+        "addressability": {
+          "description": "Whether the structural condition can still be redesigned before it becomes load-bearing, or can only be disclosed and monitored.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exposure_disclosure": {
+          "description": "A structural exposure disclosure, required for an active class that is no longer addressable.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "not_active_rationale": {
+          "description": "Required in prose when active is false, a named rationale rather than a default omission.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "override_class": {
+          "$ref": "#/$defs/OverrideClass"
+        }
+      },
+      "required": [
+        "override_class",
+        "active"
+      ],
+      "title": "OverrideClassAssessment",
+      "type": "object"
+    },
+    "PowerDimension": {
+      "additionalProperties": false,
+      "description": "Section 2.2, 3. One power dimension, a distinct relational-topological axis individuated by its power concern and its detection surface, not by a label. A dimension with no detection surface cannot be instrumented, so detection_surface is required.",
+      "properties": {
+        "detection_surface": {
+          "description": "Section 6. The primary, secondary, and tertiary signals that instrument the dimension.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "description": "The dimension handle (authority, coordination, specialization).",
+          "type": "string"
+        },
+        "independent_by_design": {
+          "description": "Section 2.3. True, because the three dimensions vary independently and are assessed independently.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "normative_benchmark": {
+          "description": "The normative reference the dimension is assessed against (for example Ostrom's third principle, subsidiarity, Lukes' three dimensions).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "power_concern": {
+          "description": "The distinct structural power concern of the dimension.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "power_concern",
+        "detection_surface"
+      ],
+      "title": "PowerDimension",
+      "type": "object"
+    },
+    "SPOSArchitecture": {
+      "additionalProperties": false,
+      "description": "The system-level detection architecture and tier. Higher-tier fields are optional in the schema; the checker requires them at the tiers the register specifies.",
+      "properties": {
+        "adopted_tier": {
+          "$ref": "#/$defs/AdoptionTier"
+        },
+        "detection_disclosed": {
+          "description": "Section 6.4. The detection surface is disclosed to participants; an undisclosed surface is a consent failure.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "monitor_all_dimensions": {
+          "description": "Section 4.3. Continuous detection across all three dimensions.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "adopted_tier"
+      ],
+      "title": "SPOSArchitecture",
+      "type": "object"
+    },
+    "SPOSPowerRecord": {
+      "additionalProperties": false,
+      "description": "A system's power-distribution record across the three dimensions, its override assessment, its detected shifts, and its conformance.",
+      "properties": {
+        "architecture": {
+          "$ref": "#/$defs/SPOSArchitecture",
+          "description": "The system's detection architecture and adopted tier."
+        },
+        "authorized_profile_established": {
+          "description": "Section 4.1. The authorized distribution profile exists; its absence is itself a finding.",
+          "type": "boolean"
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "Section 4. The three invariant answers on the face; no total."
+        },
+        "detected_shifts": {
+          "description": "Section 5. Concentration shifts detected and classified.",
+          "items": {
+            "$ref": "#/$defs/ConcentrationShift"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "dimensions": {
+          "description": "Section 3, 4.1. The per-dimension assessment (current versus authorized profile and the gap), across all three dimensions.",
+          "items": {
+            "$ref": "#/$defs/DimensionAssessment"
+          },
+          "type": "array"
+        },
+        "override_assessment": {
+          "description": "Section 4.5. The assessment of the seven external-override classes, active or not, with addressability.",
+          "items": {
+            "$ref": "#/$defs/OverrideClassAssessment"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "authorized_profile_established",
+        "dimensions",
+        "override_assessment",
+        "architecture",
+        "conformance"
+      ],
+      "title": "SPOSPowerRecord",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/spos/spos.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A system's power-distribution record across the three dimensions, its override assessment, its detected shifts, and its conformance.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "architecture": {
+      "$ref": "#/$defs/SPOSArchitecture",
+      "description": "The system's detection architecture and adopted tier."
+    },
+    "authorized_profile_established": {
+      "description": "Section 4.1. The authorized distribution profile exists; its absence is itself a finding.",
+      "type": "boolean"
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "Section 4. The three invariant answers on the face; no total."
+    },
+    "detected_shifts": {
+      "description": "Section 5. Concentration shifts detected and classified.",
+      "items": {
+        "$ref": "#/$defs/ConcentrationShift"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "dimensions": {
+      "description": "Section 3, 4.1. The per-dimension assessment (current versus authorized profile and the gap), across all three dimensions.",
+      "items": {
+        "$ref": "#/$defs/DimensionAssessment"
+      },
+      "type": "array"
+    },
+    "override_assessment": {
+      "description": "Section 4.5. The assessment of the seven external-override classes, active or not, with addressability.",
+      "items": {
+        "$ref": "#/$defs/OverrideClassAssessment"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "authorized_profile_established",
+    "dimensions",
+    "override_assessment",
+    "architecture",
+    "conformance"
+  ],
+  "title": "spos",
+  "type": "object",
+  "version": null
+}

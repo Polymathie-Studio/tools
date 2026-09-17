@@ -1,0 +1,20 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "SPOS power record, instrumented tier, 3 dimensions",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/spos/conformance/v0.1.26",
+  "predicate": {
+    "verifier": "spos-conformance",
+    "obligations": {
+      "distribute_satisfied": "satisfied",
+      "authorize_satisfied": "satisfied",
+      "monitor_satisfied": "satisfied"
+    }
+  }
+}
