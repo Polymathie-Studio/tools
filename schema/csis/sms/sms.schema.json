@@ -1,0 +1,512 @@
+{
+  "$defs": {
+    "ActionEntanglement": {
+      "additionalProperties": false,
+      "description": "Section 3.3. The action-entangled invariant realized: action generates the data sensemaking needs, and sensemaking shapes the action taken. Both directions of the loop are required, since severing either (analysis paralysis one way, unreflective execution the other) breaks the invariant.",
+      "properties": {
+        "actions_changed_understanding": {
+          "description": "Section 3.3. Whether actions taken during the process changed what was understood.",
+          "type": "boolean"
+        },
+        "not_pre_planned": {
+          "description": "Section 3.3. Whether the action sequence emerged from the interaction rather than being pre-planned.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "understanding_changed_actions": {
+          "description": "Section 3.3. Whether what was understood changed which actions were taken next.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actions_changed_understanding",
+        "understanding_changed_actions"
+      ],
+      "title": "ActionEntanglement",
+      "type": "object"
+    },
+    "ActionInvariant": {
+      "additionalProperties": false,
+      "description": "Section 5. One of the three action invariants, individuated by its observable marker, not by a label. An action invariant with no observable marker is a name, so action and observable_marker are required.",
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ActionInvariantName",
+          "description": "Which of the three action invariants this is."
+        },
+        "assessment": {
+          "description": "What the record observed against the marker.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observable_marker": {
+          "description": "Section 5. The marker in the coordination record by which the action invariant is assessed.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action",
+        "observable_marker"
+      ],
+      "title": "ActionInvariant",
+      "type": "object"
+    },
+    "ActionInvariantName": {
+      "description": "Section 5. The three action invariants.",
+      "enum": [
+        "residue",
+        "direction",
+        "phase"
+      ],
+      "title": "ActionInvariantName",
+      "type": "string"
+    },
+    "AdoptionCondition": {
+      "description": "Section 9. Which adoption condition the adopter is in.",
+      "enum": [
+        "constitutional",
+        "remedial_born_without",
+        "remedial_crossed_below"
+      ],
+      "title": "AdoptionCondition",
+      "type": "string"
+    },
+    "AdoptionTier": {
+      "description": "Section 9. The five adoption tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "AdoptionTier",
+      "type": "string"
+    },
+    "CapacityAssessment": {
+      "additionalProperties": false,
+      "description": "Section 6. The capacity obligation the record declares, the interlock with a conformant capacity framework. SMS prescribes no framework; it requires that a conformant one assess the four capacity categories, carry the bilateral obligation, and operate under participant consent. So method, participant_consent, the bilateral obligation, and the four category assessments are required; the named framework is optional because the standard is method-neutral.",
+      "properties": {
+        "alignment_conditions_assessed": {
+          "description": "Section 6.1. Whether the alignment between participants and the purpose is assessed.",
+          "type": "boolean"
+        },
+        "bilateral_obligation_present": {
+          "description": "Section 6.2. Whether the bilateral obligation holds (structural adjustment when depleted, accountability when charged).",
+          "type": "boolean"
+        },
+        "conformant_framework": {
+          "description": "The named capacity framework satisfying the obligation when one is used (the Four Batteries Capacity Standard is one).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contribution_conditions_assessed": {
+          "description": "Section 6.1. Whether the conditions of participants' recognized contributions are assessed.",
+          "type": "boolean"
+        },
+        "individual_states_assessed": {
+          "description": "Section 6.1. Whether the inner states of individual participants are assessed.",
+          "type": "boolean"
+        },
+        "method": {
+          "description": "The agreed-upon method for making participants' capacity states legible to each other.",
+          "type": "string"
+        },
+        "participant_consent": {
+          "description": "Section 6.1. Whether participants consented to the assessment method rather than it being imposed by management.",
+          "type": "boolean"
+        },
+        "relational_conditions_assessed": {
+          "description": "Section 6.1. Whether the quality of working relationships is assessed.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "method",
+        "individual_states_assessed",
+        "relational_conditions_assessed",
+        "contribution_conditions_assessed",
+        "alignment_conditions_assessed",
+        "bilateral_obligation_present",
+        "participant_consent"
+      ],
+      "title": "CapacityAssessment",
+      "type": "object"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-invariant answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "Section 3. The five per-process invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, and the joint condition is the non-averaging conjunction of the five (a single violated invariant does not average away against the others), mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "action_entangled_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "disruption_occasioned_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "particular_to_general_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "sufficiency_oriented_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "temporally_structured_satisfied": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "disruption_occasioned_satisfied",
+        "particular_to_general_satisfied",
+        "action_entangled_satisfied",
+        "sufficiency_oriented_satisfied",
+        "temporally_structured_satisfied"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "Disruption": {
+      "additionalProperties": false,
+      "description": "Section 3.1. The disruption-occasioned invariant realized: an event that cannot be accounted for by the current operative frame without revising it. A disruption with no specifiable initiating event is not disruption-occasioned, so description and specifiable are required.",
+      "properties": {
+        "description": {
+          "description": "What stopped making sense, the surprise, gap, or expectation violation that broke intelligibility.",
+          "type": "string"
+        },
+        "recorded_as_initiating": {
+          "description": "Section 3.1. Whether the disruption is recorded as the initiating event rather than reconstructed after the fact.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "specifiable": {
+          "description": "Section 3.1. Whether the specific disruption event can be identified and the process would not have run in its absence.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "description",
+        "specifiable"
+      ],
+      "title": "Disruption",
+      "type": "object"
+    },
+    "OperationalScale": {
+      "description": "Section 4. The three scales of operation.",
+      "enum": [
+        "intra_personal",
+        "inter_personal",
+        "witness_reception"
+      ],
+      "title": "OperationalScale",
+      "type": "string"
+    },
+    "Relating": {
+      "additionalProperties": false,
+      "description": "Section 3.2. The particular-to-general relating invariant realized, bidirectional between cues and frame. Operates at practitioner trace tier: what an independent observer verifies is whether the record documents traced cues, the frame they informed, and the revisions they produced. Cues and a frame are required; a frame with no traceable cues is assertion, cues with no frame are cataloging.",
+      "properties": {
+        "cues": {
+          "description": "The specific cues attended to during the process.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "frame": {
+          "description": "The general frame generated or revised from the cues.",
+          "type": "string"
+        },
+        "frame_revisions": {
+          "description": "How the frame was revised in response to cues that did not fit it.",
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "personal_framing_avoided": {
+          "description": "Section 3.2. Whether structural failure modes were routed to structural causation rather than misapplied to personal causation.",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "cues",
+        "frame"
+      ],
+      "title": "Relating",
+      "type": "object"
+    },
+    "SensemakingArchitecture": {
+      "additionalProperties": false,
+      "description": "The system-level SMS context the record declares against. The adopted tier, the adoption condition, the acknowledged structural assumptions, the capacity assessment, and the higher-tier loop-closure and auditability blocks. The higher-tier blocks are optional in the schema; the checker requires them at the tiers the register specifies.",
+      "properties": {
+        "adopted_tier": {
+          "$ref": "#/$defs/AdoptionTier",
+          "description": "Section 9. The adoption tier the record declares."
+        },
+        "adoption_condition": {
+          "$ref": "#/$defs/AdoptionCondition",
+          "description": "Section 9. Which adoption condition applies, since the founding-window finding gives constitutional, remedial-born-without, and remedial-crossed-below different intervention profiles and the assessment should name which applies."
+        },
+        "capacity_assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapacityAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Section 6. The capacity obligation, required by the checker at SMS-Instrumented and above. Deferred to a conformant capacity framework; names the four capacity categories, the bilateral obligation, and participant consent without prescribing an instrument."
+        },
+        "independent_auditability": {
+          "description": "Section 9.5. Whether the complete sensemaking record is verifiable by an independent auditor without operator cooperation (required by the checker at SMS-Auditable).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "loop_closure_present": {
+          "description": "Section 9.4. Whether the closed coordination loop is in place, so a detected sensemaking failure produces a mandatory documented review and the absence of a review is structurally visible (required by the checker at SMS-Loop-Closed and above).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "structural_assumptions_acknowledged": {
+          "description": "Section 7.1, 9.6. Whether the three named structural assumptions (agent-priority, human-scope, separability) are acknowledged; constitutive, so required.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "adopted_tier",
+        "structural_assumptions_acknowledged"
+      ],
+      "title": "SensemakingArchitecture",
+      "type": "object"
+    },
+    "SensemakingRecord": {
+      "additionalProperties": false,
+      "description": "One sensemaking process carried through its disruption, liminal, and resolution phases, with the five invariants realized on the face and the system context it was produced under.",
+      "properties": {
+        "action_invariants": {
+          "description": "Section 5. The three action invariants (residue, direction, phase), each rendered as a typed object carrying its observable marker. An action invariant named without its observable marker is a label, not a structural property.",
+          "items": {
+            "$ref": "#/$defs/ActionInvariant"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "architecture": {
+          "$ref": "#/$defs/SensemakingArchitecture",
+          "description": "The system-level SMS context this record declares against."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "Section 3. The five per-process invariant answers on the face; no total, and the joint condition is their non-averaging conjunction."
+        },
+        "disruption": {
+          "$ref": "#/$defs/Disruption",
+          "description": "Section 3.1. The initiating disruption, the break in intelligibility that occasioned the process."
+        },
+        "entanglement": {
+          "$ref": "#/$defs/ActionEntanglement",
+          "description": "Section 3.3. The action-information entanglement, the loop between actions taken and what was understood."
+        },
+        "relating": {
+          "$ref": "#/$defs/Relating",
+          "description": "Section 3.2. The particular-to-general relating between the specific cues and the general frame."
+        },
+        "scales_addressed": {
+          "description": "Section 4. The operational scales at which this process operates.",
+          "items": {
+            "$ref": "#/$defs/OperationalScale"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "sufficiency": {
+          "$ref": "#/$defs/SufficiencyCriterion",
+          "description": "Section 3.4. The sufficiency criterion, the provisional frame with its revision conditions and the next action designed to test it."
+        },
+        "temporal_phases": {
+          "$ref": "#/$defs/TemporalPhases",
+          "description": "Section 3.5. The temporal phases traversed, including the liminal phase, the diagnostic marker distinguishing sensemaking from pattern-matching."
+        }
+      },
+      "required": [
+        "disruption",
+        "relating",
+        "entanglement",
+        "sufficiency",
+        "temporal_phases",
+        "architecture",
+        "conformance"
+      ],
+      "title": "SensemakingRecord",
+      "type": "object"
+    },
+    "SufficiencyCriterion": {
+      "additionalProperties": false,
+      "description": "Section 3.4. The sufficiency-oriented invariant realized: a plausible account that enables a next action whose outcome generates information for revising it, satisficing rather than optimizing. The provisional frame, its named revision conditions, and a frame-testing next action are required; optimizing (seeking the correct answer first) and guessing (no revision conditions) both violate it.",
+      "properties": {
+        "frame_provisional": {
+          "description": "Section 3.4. Whether the frame is treated as provisional rather than definitive.",
+          "type": "boolean"
+        },
+        "next_action_tests_frame": {
+          "description": "Section 3.4. Whether the next action was designed to generate information that could disconfirm the frame.",
+          "type": "boolean"
+        },
+        "revision_conditions": {
+          "description": "Section 3.4. The evidence that would cause the frame to be revised, recorded explicitly.",
+          "type": "string"
+        },
+        "stopped_before_complete": {
+          "description": "Section 3.4. Whether the process terminated before all available information was incorporated, naming the unresolved questions not pursued before acting.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "frame_provisional",
+        "revision_conditions",
+        "stopped_before_complete",
+        "next_action_tests_frame"
+      ],
+      "title": "SufficiencyCriterion",
+      "type": "object"
+    },
+    "TemporalPhases": {
+      "additionalProperties": false,
+      "description": "Section 3.5. The temporally-structured invariant realized, the Adverse-Signal lifecycle-state analogue. The disruption, liminal, and resolution phases, with the liminal phase the diagnostic marker: its documented presence, together with a resolution frame distinct from any pre-existing frame, is what distinguishes sensemaking from applying a pre-existing frame (the applying-without-understanding failure of Section 2.3). All three phases and the two markers are required.",
+      "properties": {
+        "disruption_phase": {
+          "description": "The phase in which intelligibility broke down and existing frames were inadequate.",
+          "type": "string"
+        },
+        "independently_verifiable": {
+          "description": "Section 3.5. Whether the satisfaction is verifiable by an independent observer without depending solely on participant self-report (required by the checker at SMS-Loop-Closed and above).",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "liminal_phase": {
+          "description": "The period of not-knowing, the prior frame suspended and no replacement yet formed.",
+          "type": "string"
+        },
+        "liminal_phase_documented": {
+          "description": "Section 3.5, 2.3. Whether the liminal phase is documented; its absence with a resolution frame identical to a pre-existing frame is the applying-without-understanding failure mode.",
+          "type": "boolean"
+        },
+        "resolution_distinct_from_prior": {
+          "description": "Section 3.5. Whether the resolution frame is not identical to any frame available before the disruption.",
+          "type": "boolean"
+        },
+        "resolution_phase": {
+          "description": "The phase in which a new or revised frame emerged.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "disruption_phase",
+        "liminal_phase",
+        "liminal_phase_documented",
+        "resolution_phase",
+        "resolution_distinct_from_prior"
+      ],
+      "title": "TemporalPhases",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/sms.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One sensemaking process carried through its disruption, liminal, and resolution phases, with the five invariants realized on the face and the system context it was produced under.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "action_invariants": {
+      "description": "Section 5. The three action invariants (residue, direction, phase), each rendered as a typed object carrying its observable marker. An action invariant named without its observable marker is a label, not a structural property.",
+      "items": {
+        "$ref": "#/$defs/ActionInvariant"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "architecture": {
+      "$ref": "#/$defs/SensemakingArchitecture",
+      "description": "The system-level SMS context this record declares against."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "Section 3. The five per-process invariant answers on the face; no total, and the joint condition is their non-averaging conjunction."
+    },
+    "disruption": {
+      "$ref": "#/$defs/Disruption",
+      "description": "Section 3.1. The initiating disruption, the break in intelligibility that occasioned the process."
+    },
+    "entanglement": {
+      "$ref": "#/$defs/ActionEntanglement",
+      "description": "Section 3.3. The action-information entanglement, the loop between actions taken and what was understood."
+    },
+    "relating": {
+      "$ref": "#/$defs/Relating",
+      "description": "Section 3.2. The particular-to-general relating between the specific cues and the general frame."
+    },
+    "scales_addressed": {
+      "description": "Section 4. The operational scales at which this process operates.",
+      "items": {
+        "$ref": "#/$defs/OperationalScale"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "sufficiency": {
+      "$ref": "#/$defs/SufficiencyCriterion",
+      "description": "Section 3.4. The sufficiency criterion, the provisional frame with its revision conditions and the next action designed to test it."
+    },
+    "temporal_phases": {
+      "$ref": "#/$defs/TemporalPhases",
+      "description": "Section 3.5. The temporal phases traversed, including the liminal phase, the diagnostic marker distinguishing sensemaking from pattern-matching."
+    }
+  },
+  "required": [
+    "disruption",
+    "relating",
+    "entanglement",
+    "sufficiency",
+    "temporal_phases",
+    "architecture",
+    "conformance"
+  ],
+  "title": "sms",
+  "type": "object",
+  "version": null
+}

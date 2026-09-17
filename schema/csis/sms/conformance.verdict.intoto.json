@@ -1,0 +1,22 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "A coordination decision was implemented three incompatible ways, so the shared frame the parties believed they held stopped accounting for what was happening. (instrumented tier)",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/conformance/v1.1.23",
+  "predicate": {
+    "verifier": "sms-conformance",
+    "obligations": {
+      "disruption_occasioned_satisfied": "satisfied",
+      "particular_to_general_satisfied": "satisfied",
+      "action_entangled_satisfied": "satisfied",
+      "sufficiency_oriented_satisfied": "satisfied",
+      "temporally_structured_satisfied": "satisfied"
+    }
+  }
+}

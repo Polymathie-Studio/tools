@@ -1,0 +1,129 @@
+# metamodel_version: 1.11.0
+enum ActionInvariantName
+  {
+    residue
+    direction
+    phase
+  }
+
+enum AdoptionCondition
+  {
+    constitutional
+    remedial_born_without
+    remedial_crossed_below
+  }
+
+enum AdoptionTier
+  {
+    assessed
+    operational
+    instrumented
+    loop_closed
+    auditable
+  }
+
+enum ConformanceAnswer
+  {
+    satisfied
+    declared_absent_with_justification
+    not_applicable
+  }
+
+enum OperationalScale
+  {
+    intra_personal
+    inter_personal
+    witness_reception
+  }
+
+type ActionEntanglement
+  {
+    actionsChangedUnderstanding: Boolean!
+    understandingChangedActions: Boolean!
+    notPrePlanned: Boolean
+  }
+
+type ActionInvariant
+  {
+    action: ActionInvariantName!
+    observableMarker: String!
+    assessment: String
+  }
+
+type CapacityAssessment
+  {
+    method: String!
+    individualStatesAssessed: Boolean!
+    relationalConditionsAssessed: Boolean!
+    contributionConditionsAssessed: Boolean!
+    alignmentConditionsAssessed: Boolean!
+    bilateralObligationPresent: Boolean!
+    participantConsent: Boolean!
+    conformantFramework: String
+  }
+
+type ConformanceDeclaration
+  {
+    disruptionOccasionedSatisfied: ConformanceAnswer!
+    particularToGeneralSatisfied: ConformanceAnswer!
+    actionEntangledSatisfied: ConformanceAnswer!
+    sufficiencyOrientedSatisfied: ConformanceAnswer!
+    temporallyStructuredSatisfied: ConformanceAnswer!
+  }
+
+type Disruption
+  {
+    description: String!
+    specifiable: Boolean!
+    recordedAsInitiating: Boolean
+  }
+
+type Relating
+  {
+    cues: [String]!
+    frame: String!
+    frameRevisions: [String]
+    personalFramingAvoided: Boolean
+  }
+
+type SensemakingArchitecture
+  {
+    adoptedTier: AdoptionTier!
+    structuralAssumptionsAcknowledged: Boolean!
+    adoptionCondition: AdoptionCondition
+    capacityAssessment: CapacityAssessment
+    loopClosurePresent: Boolean
+    independentAuditability: Boolean
+  }
+
+type SensemakingRecord
+  {
+    disruption: Disruption!
+    relating: Relating!
+    entanglement: ActionEntanglement!
+    sufficiency: SufficiencyCriterion!
+    temporalPhases: TemporalPhases!
+    actionInvariants: [ActionInvariant]
+    scalesAddressed: [OperationalScale]
+    architecture: SensemakingArchitecture!
+    conformance: ConformanceDeclaration!
+  }
+
+type SufficiencyCriterion
+  {
+    frameProvisional: Boolean!
+    revisionConditions: String!
+    stoppedBeforeComplete: Boolean!
+    nextActionTestsFrame: Boolean!
+  }
+
+type TemporalPhases
+  {
+    disruptionPhase: String!
+    liminalPhase: String!
+    liminalPhaseDocumented: Boolean!
+    resolutionPhase: String!
+    resolutionDistinctFromPrior: Boolean!
+    independentlyVerifiable: Boolean
+  }
+
