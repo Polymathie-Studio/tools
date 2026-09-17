@@ -17,7 +17,7 @@ export const PrecisionReview = z.object({
   "id": z.string().describe("The corollary handle (for example operational_definition, taxonomy_completeness)."),
   "imposition_direction": z.string().describe("What over-specification produces."),
   "name": z.string()
-}).strict()).describe("Section 2. The ten corollaries, each a structured precision condition with its two failure directions. These are the standard's fixed reference set, identical across reviews, so a review MAY carry them for self-containment but is not required to restate them; requiring them would be the imposition the corollaries themselves forbid.").optional(),
+}).strict()).describe("Section 2. The ten corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against."),
   "deficits": z.array(z.object({
   "decision": z.string().describe("Section 6.5. The documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit); required at Loop-Closed.").optional(),
   "location": z.string().describe("The document and location of the deficit."),
@@ -28,7 +28,7 @@ export const PrecisionReview = z.object({
   "name": z.string(),
   "response": z.string().describe("The response the pattern enables."),
   "structural_signature": z.string().describe("The observable signature that identifies the pattern.")
-}).strict()).describe("Section 7. The precision-failure patterns, each a structured signature-and-response; the standard's fixed reference set, carried optionally for the same reason as the corollaries.").optional(),
+}).strict()).describe("Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response; constitutive of the review, not optional."),
   "obligation_tier": z.enum(["assessed", "operational", "instrumented", "loop_closed", "auditable"]).describe("Section 6.5. The five obligation-loop tiers."),
   "subject": z.string().describe("The governed artifact under review.")
 }).strict();
