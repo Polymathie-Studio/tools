@@ -172,11 +172,14 @@
           "type": "boolean"
         },
         "corollaries": {
-          "description": "Section 2. The ten corollaries the review assesses against, each a structured precision condition with its two failure directions.",
+          "description": "Section 2. The ten corollaries, each a structured precision condition with its two failure directions. These are the standard's fixed reference set, identical across reviews, so a review MAY carry them for self-containment but is not required to restate them; requiring them would be the imposition the corollaries themselves forbid.",
           "items": {
             "$ref": "#/$defs/Corollary"
           },
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "deficits": {
           "description": "Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern.",
@@ -189,11 +192,14 @@
           ]
         },
         "failure_patterns": {
-          "description": "Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response.",
+          "description": "Section 7. The precision-failure patterns, each a structured signature-and-response; the standard's fixed reference set, carried optionally for the same reason as the corollaries.",
           "items": {
             "$ref": "#/$defs/FailurePattern"
           },
-          "type": "array"
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "obligation_tier": {
           "$ref": "#/$defs/ObligationTier"
@@ -207,8 +213,6 @@
         "subject",
         "adoption_depth",
         "obligation_tier",
-        "corollaries",
-        "failure_patterns",
         "congruence_checked",
         "conformance"
       ],
@@ -235,11 +239,14 @@
       "type": "boolean"
     },
     "corollaries": {
-      "description": "Section 2. The ten corollaries the review assesses against, each a structured precision condition with its two failure directions.",
+      "description": "Section 2. The ten corollaries, each a structured precision condition with its two failure directions. These are the standard's fixed reference set, identical across reviews, so a review MAY carry them for self-containment but is not required to restate them; requiring them would be the imposition the corollaries themselves forbid.",
       "items": {
         "$ref": "#/$defs/Corollary"
       },
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "deficits": {
       "description": "Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern.",
@@ -252,11 +259,14 @@
       ]
     },
     "failure_patterns": {
-      "description": "Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response.",
+      "description": "Section 7. The precision-failure patterns, each a structured signature-and-response; the standard's fixed reference set, carried optionally for the same reason as the corollaries.",
       "items": {
         "$ref": "#/$defs/FailurePattern"
       },
-      "type": "array"
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "obligation_tier": {
       "$ref": "#/$defs/ObligationTier"
@@ -270,8 +280,6 @@
     "subject",
     "adoption_depth",
     "obligation_tier",
-    "corollaries",
-    "failure_patterns",
     "congruence_checked",
     "conformance"
   ],

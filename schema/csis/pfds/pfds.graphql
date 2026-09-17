@@ -60,8 +60,8 @@ type PrecisionReview
     subject: String!
     adoptionDepth: AdoptionDepth!
     obligationTier: ObligationTier!
-    corollaries: [Corollary]!
-    failurePatterns: [FailurePattern]!
+    corollaries: [Corollary]
+    failurePatterns: [FailurePattern]
     deficits: [PrecisionDeficit]
     congruenceChecked: Boolean!
     conformance: ConformanceDeclaration!
