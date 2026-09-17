@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/standards-family-manifest.schema.json",
+  "$comment": "The shared cross-family base schema. Hosting settled 2026-09-16: all four families' schemas are hosted under the Polymathie parent brand at Polymathie-Studio/tools/schema as GitHub raw URLs; each family's source registers, models, and generators stay in that family's own tools repo, and the generated schema is published across into this one host. Creating the Polymathie-Studio/tools repo and publishing this file there is the pending smaller reorganization; the $id is fixed now so families can reference it. A larger reorganization under a top-level Polymathie org is deferred by Durgadas, so this host is interim and the URLs migrate later. Generalized from the DS4AI Polymathie manifest schema (~/code/missing/manifest.schema.json) by lifting the family-agnostic core out and pushing domain-specific structure into the open 'domain' extension.",
+  "title": "Standards family manifest (cross-family base)",
+  "description": "The family-agnostic base descriptor for a standards family, shared across the Coordination Structural Integrity Suite, the CRAFT family, and the Polymathie DS4AI suite. A family's manifest validates against this base; family-specific structure lives in the open 'domain' extension so the core stays shared and each domain stays precise. The machine-readable layer is derived from canonical source by a generator, never hand-maintained.",
+  "type": "object",
+  "required": ["name", "version", "license", "members"],
+  "additionalProperties": true,
+  "properties": {
+    "name": { "type": "string", "description": "The family or suite name." },
+    "suite": { "type": "string", "description": "The AI-facing or product suite name, if distinct from the family or publisher (e.g. 'DS4AI, the Design Suite for AI')." },
+    "publisher": { "type": "string", "description": "The organization, studio, or author that publishes the family." },
+    "author": { "type": "string" },
+    "version": { "type": "string", "description": "The manifest's own version (moves as the family releases)." },
+    "license": { "type": "string" },
+    "description": { "type": "string" },
+    "homepage": { "type": "string", "format": "uri" },
+    "site": { "type": "string", "format": "uri" },
+    "canonicalSourceRepo": { "type": "string", "format": "uri", "description": "The repository holding the canonical source documents the machine layer is derived from." },
+    "generatedBy": { "type": "string", "description": "The generator that emits this manifest from canonical source. Present because the layer is derived, never hand-maintained; running it is a publish gate." },
+    "surfaces": {
+      "type": "object",
+      "description": "The distribution surfaces the family anticipates, each with a status and notes. Optional and shared.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "members": {
+      "type": "array",
+      "description": "The standards or instruments the family publishes.",
+      "items": { "$ref": "#/$defs/member" }
+    },
+    "conformance": {
+      "type": "object",
+      "description": "Where the family's structured conformance report is emitted and the schema it validates against.",
+      "properties": {
+        "report": { "type": ["string", "null"], "description": "Path to the emitted structured conformance report." },
+        "schema": { "type": ["string", "null"], "description": "Path to the machine-readable schema of the family's checks." },
+        "baseline": { "type": "array", "items": { "type": "string" }, "description": "The family's conformance baseline conditions." }
+      },
+      "additionalProperties": true
+    },
+    "agentInstruction": { "type": ["string", "null"], "description": "Pointer to the family's AGENTS.md (the skill layer between prose and machine-readable)." },
+    "domain": {
+      "type": "object",
+      "description": "The per-family domain extension: the structure specific to this family (e.g. DS4AI invisible-correctness axes, CSIS compressive/generative families and corollaries, CRAFT conditions). Shape is family-specific and deliberately not constrained by the base.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "member": {
+      "type": "object",
+      "required": ["id", "name", "version", "status", "canonicalSource"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "description": "Short identifier, stable across versions." },
+        "name": { "type": "string", "description": "Canonical name." },
+        "kind": { "type": "string", "description": "The member's kind, e.g. standard, specification, instrument, primitive, standard-candidate." },
+        "version": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["published", "candidate", "in-progress", "planned", "deprecated"],
+          "description": "Publication status. 'candidate' carries the not-promoted, not-a-conformance-gate meaning so a consumer never mistakes a candidate for a settled standard."
+        },
+        "group": { "type": "string", "description": "Optional within-family grouping, e.g. compressive, generative, or an axis name." },
+        "canonicalSource": { "type": "string", "description": "Path or URL to the canonical source document. The machine layer points at this rather than reproducing prose (substrate discipline)." },
+        "machineReadable": {
+          "type": "object",
+          "description": "Pointers to this member's own machine-readable files (structured export, schema, runnable conformance entry point). Extensible.",
+          "additionalProperties": true
+        },
+        "packaging": {
+          "type": "object",
+          "description": "Per-surface distribution slots. Extensible and heterogeneous; slot shape is not constrained.",
+          "additionalProperties": true
+        },
+        "conformance": { "type": "object", "additionalProperties": true },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

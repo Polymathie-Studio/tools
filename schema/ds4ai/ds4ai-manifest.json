@@ -1,0 +1,700 @@
+{
+  "$schema": "./standards-family-manifest.schema.json",
+  "$comment": "GENERATED-ALIGNED from the DS4AI reference manifest (ds4ai/standards/missing/manifest.json) to the shared standards-family-manifest shape. The DS4AI-specific structure (axes, surfaces, primitives, conformance model) is preserved under `domain`. Members are the nine standards at Polymathie-Studio/ds4ai/standards/<name>. Statuses are honest to the source: seven published, hasp partial (hasp-guard in progress), tuned candidate.",
+  "name": "DS4AI",
+  "publisher": "Polymathie-Studio",
+  "author": "Regis Lloyd Chapman",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "description": "DS4AI, the Design Suite for AI, from Polymathie-Studio: a family of small, dependency-free primitives for building websites, dashboards, and tools, each closing one invisible-correctness gap that fast, AI-assisted building drops. Native-first, accessible by default, no tracking.",
+  "homepage": "https://github.com/Polymathie-Studio",
+  "site": "https://polymathie.xyz",
+  "canonicalSourceRepo": "https://github.com/Polymathie-Studio/ds4ai",
+  "conformance": {
+    "report": null,
+    "schema": null,
+    "baseline": [
+      "DS4AI conformance runs through the MISSING auditor (conformance.js) checking a surface against the axes, not through per-instrument schemas."
+    ]
+  },
+  "domain": {
+    "suite": "DS4AI, the Design Suite for AI",
+    "studio": "Polymathie-Studio",
+    "surfaces": {
+      "npm": {
+        "status": "planned",
+        "note": "Primary JS registry. Packages named per primitive below; not yet published."
+      },
+      "jsr": {
+        "status": "planned",
+        "proposedScope": "@polymathie",
+        "note": "Deno-run ES/TS source, no build, mirroring the @proof-of-coord standards servers on JSR. Scope to confirm."
+      },
+      "cdn": {
+        "status": "auto",
+        "hosts": [
+          "esm.sh",
+          "unpkg",
+          "jsdelivr"
+        ],
+        "note": "Available for each package once it is on npm; no separate publish."
+      },
+      "claudeMarketplace": {
+        "status": "planned",
+        "note": "A Polymathie plugin (the agent-instruction plus the conformance checks) via a .claude-plugin marketplace, the way p4ai/pt4ai ships."
+      },
+      "mcp": {
+        "status": "future",
+        "note": "A cumulative MCP server for the whole suite, once every primitive is done. Out of scope for this pass."
+      },
+      "designTokens": {
+        "status": "review",
+        "note": "TEMPER tokens; W3C DTCG alignment to be decided so they can travel to Figma, Style Dictionary, and Tokens Studio."
+      },
+      "agentConfig": {
+        "status": "partial",
+        "shipped": [
+          "AGENTS.md (in Polymathie-Studio/missing)"
+        ],
+        "variants": [
+          "CLAUDE.md",
+          "cursor rules",
+          "windsurf rules"
+        ],
+        "note": "AGENTS.md ships in the MISSING repo and doubles as the other agent configs; distinct variant files are a later packaging step."
+      },
+      "frameworkBindings": {
+        "status": "partial",
+        "shipped": [
+          "react"
+        ],
+        "planned": [
+          "vue",
+          "svelte",
+          "solid"
+        ],
+        "note": "Every primitive ships a framework-agnostic core plus a React binding today."
+      },
+      "discovery": {
+        "status": "partial",
+        "orgProfile": "Polymathie-Studio (polymathie-org-profile)",
+        "site": "https://polymathie.xyz"
+      }
+    },
+    "axes": [
+      {
+        "axis": "perceivable",
+        "posture": "Perceivable by any reader",
+        "instrument": "TEMPER"
+      },
+      {
+        "axis": "operable",
+        "posture": "Operable by any input or assistive technology",
+        "instrument": "GRASP"
+      },
+      {
+        "axis": "off-happy-path",
+        "posture": "The interface behaves honestly off the happy path",
+        "instrument": "LUCID (principle) + GRACE (components)"
+      },
+      {
+        "axis": "hardened",
+        "posture": "The client-surface security posture the browser can enforce: security headers, subresource integrity and safe references, and no secrets reaching the client",
+        "instrument": "HASP: hasp-key (keys) + hasp-guard (headers, policy, integrity)"
+      },
+      {
+        "axis": "findability",
+        "posture": "The page represents itself correctly to machines, shares, and agents",
+        "instrument": "BEACON"
+      },
+      {
+        "axis": "delivery",
+        "posture": "It loads fast and stable",
+        "instrument": "FLEET (primitizable slice)"
+      }
+    ],
+    "primitives": [
+      {
+        "id": "TEMPER",
+        "backronym": "Tuned, Equal-Mode Palettes for Every Reader",
+        "axis": "perceivable",
+        "posture": "Perceivable by any reader",
+        "shape": "tokens+css",
+        "status": "published",
+        "repo": "https://github.com/Polymathie-Studio/temper",
+        "themedByTemper": null,
+        "api": [
+          "contrast",
+          "derive",
+          "deriveByKey",
+          "hexToOklch",
+          "deltaEOk",
+          "simulatedContrast",
+          "simulatedLuminance",
+          "brandToFamily",
+          "brandFidelity",
+          "resolveSystem",
+          "CONFIG"
+        ],
+        "audit": "contrast() (partial: contrast checking only)",
+        "conformance": {
+          "runnable": "contrast",
+          "checklist": "compatibility-baseline"
+        },
+        "packaging": {
+          "npm": {
+            "status": "planned",
+            "name": "temper-color",
+            "note": "Consumed as CSS and tokens today (no package.json). The planned npm name is temper-color, not temper, because temper is already taken on npm (a template compiler)."
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/temper"
+          },
+          "cdn": {
+            "status": "n/a-until-packaged"
+          },
+          "designTokens": {
+            "file": "tokens.json",
+            "css": "theme.css",
+            "solver": "derive.js",
+            "format": "custom",
+            "dtcgAligned": "unknown, to verify"
+          },
+          "frameworkBindings": []
+        }
+      },
+      {
+        "id": "LUCID",
+        "backronym": "Layered Understanding, Calibrated In Disclosure",
+        "axis": "off-happy-path",
+        "posture": "Reader-sovereign progressive disclosure; the disclosure spine of the family",
+        "shape": "core+react+standard",
+        "status": "published",
+        "repo": "https://github.com/Polymathie-Studio/lucid",
+        "themedByTemper": true,
+        "api": [
+          "configure",
+          "registerConcepts",
+          "getConcept"
+        ],
+        "audit": null,
+        "conformance": {
+          "runnable": null,
+          "checklist": "compatibility-baseline",
+          "shipsSchema": "schema.json",
+          "shipsStandard": "LUCID - the standard.md (dual-licensed, LICENSE-SPEC)"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "lucid-reader",
+            "packageVersion": "0.3.0",
+            "standardVersion": "0.7.0",
+            "exports": {
+              ".": "./lucid.js",
+              "./lucid.css": "./lucid.css",
+              "./schema.json": "./schema.json",
+              "./react": "./react/index.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/lucid"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "frameworkBindings": [
+            "react"
+          ]
+        }
+      },
+      {
+        "id": "hasp-key",
+        "standard": "HASP",
+        "backronym": "Hold Any-provider Secrets Privately",
+        "axis": "hardened",
+        "posture": "The keys instrument of HASP: the user's key held in the browser and never on a server, one instantiation of the hardening posture",
+        "shape": "core+react (TypeScript)",
+        "status": "published",
+        "repo": "https://github.com/Polymathie-Studio/hasp",
+        "themedByTemper": true,
+        "api": [
+          "setKey",
+          "getKey",
+          "getActiveProvider",
+          "clearKey",
+          "hasKey",
+          "detectProvider",
+          "getProvider",
+          "PROVIDERS",
+          "useHaspKey",
+          "KeyModal"
+        ],
+        "audit": null,
+        "conformance": {
+          "runnable": null,
+          "checklist": "compatibility-baseline"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "hasp-key",
+            "packageVersion": "0.1.0",
+            "build": "TypeScript to dist",
+            "exports": {
+              ".": "./dist/index.js",
+              "./react": "./dist/react.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/hasp"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "frameworkBindings": [
+            "react"
+          ]
+        }
+      },
+      {
+        "id": "hasp-guard",
+        "standard": "HASP",
+        "axis": "hardened",
+        "posture": "The headers, policy, and integrity instrument of HASP: the security response headers and safe-markup helpers a surface declares, generated as server and build configuration and audited by hardened.js",
+        "shape": "core (zero-dependency JS)",
+        "status": "in-progress",
+        "repo": "https://github.com/Polymathie-Studio/hasp",
+        "note": "Lives in the hasp repo (hasp-guard.js) alongside its auditor hardened.js and the hasp-key instrument; the HASP repo is the home of all HASP code. A run of hardened.js over its output clears Tiers 1 and 2.",
+        "themedByTemper": false,
+        "api": [
+          "csp",
+          "securityHeaders",
+          "headerConfig",
+          "safeLinkRel",
+          "integrityAttr",
+          "sriHash"
+        ],
+        "audit": "hardened.js audit({ headers, html, url })",
+        "conformance": {
+          "runnable": "hardened.js",
+          "checklist": "compatibility-baseline"
+        },
+        "packaging": {
+          "npm": {
+            "status": "planned",
+            "name": "hasp-guard"
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/hasp-guard"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          }
+        }
+      },
+      {
+        "id": "GRACE",
+        "backronym": "Graceful Rendering At every Condition, Explicit",
+        "axis": "off-happy-path",
+        "posture": "The reusable state components that render LUCID's off-happy-path principle",
+        "shape": "core+react+css",
+        "status": "published",
+        "repo": "https://github.com/Polymathie-Studio/grace",
+        "themedByTemper": true,
+        "api": [
+          "GraceState (skeleton, empty, error, not-found)"
+        ],
+        "audit": null,
+        "conformance": {
+          "runnable": null,
+          "checklist": "compatibility-baseline"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "grace-states",
+            "packageVersion": "0.1.0",
+            "exports": {
+              ".": "./grace.js",
+              "./grace.css": "./grace.css",
+              "./react": "./react/index.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/grace"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "frameworkBindings": [
+            "react"
+          ]
+        }
+      },
+      {
+        "id": "GRASP",
+        "backronym": "Generally Reachable And Semantically Precise",
+        "axis": "operable",
+        "posture": "Operable by any input or assistive technology",
+        "shape": "core+react+css",
+        "status": "published",
+        "coverage": "Tiers 1 to 3 (the WAI-ARIA common working set)",
+        "repo": "https://github.com/Polymathie-Studio/grasp",
+        "themedByTemper": true,
+        "api": [
+          "Button",
+          "Field",
+          "Modal",
+          "Menu",
+          "Checkbox",
+          "Radio",
+          "Switch",
+          "Select",
+          "Tabs",
+          "Tooltip",
+          "Accordion",
+          "Combobox",
+          "Slider",
+          "Spinbutton",
+          "Progress",
+          "Meter",
+          "Breadcrumb",
+          "ToggleGroup",
+          "Toolbar",
+          "Toast",
+          "Popover"
+        ],
+        "audit": null,
+        "conformance": {
+          "runnable": null,
+          "checklist": "compatibility-baseline",
+          "frame": "WAI-ARIA Authoring Practices"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "grasp-ui",
+            "packageVersion": "0.1.0",
+            "exports": {
+              ".": "./grasp.js",
+              "./grasp.css": "./grasp.css",
+              "./react": "./react/index.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/grasp"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "shadcnRegistry": {
+            "status": "candidate",
+            "note": "Copy-paste component distribution is a natural fit for GRASP and GRACE."
+          },
+          "frameworkBindings": [
+            "react"
+          ]
+        }
+      },
+      {
+        "id": "BEACON",
+        "backronym": "Broadcasts Every Author Claim Openly to Networks",
+        "axis": "findability",
+        "posture": "The page represents itself correctly to machines, shares, and agents",
+        "shape": "generator+audit",
+        "status": "published",
+        "coverage": "Tiers 1 to 3 (the findability set)",
+        "repo": "https://github.com/Polymathie-Studio/beacon",
+        "themedByTemper": false,
+        "api": [
+          "head",
+          "htmlAttrs",
+          "jsonLd",
+          "jsonLdInner",
+          "organization",
+          "website",
+          "article",
+          "product",
+          "breadcrumb",
+          "sitemap",
+          "robots",
+          "icons",
+          "manifest",
+          "audit",
+          "llmstxt"
+        ],
+        "audit": "audit(html)",
+        "conformance": {
+          "runnable": "audit",
+          "checklist": "compatibility-baseline",
+          "frame": "Open Graph, schema.org, Sitemaps, RFC 9309, Google Search Central"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "beacon-ui",
+            "packageVersion": "0.1.0",
+            "exports": {
+              ".": "./beacon.js",
+              "./react": "./react/index.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/beacon"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "frameworkBindings": [
+            "react"
+          ],
+          "coreTypes": {
+            "status": "release-gate",
+            "note": "Core is untyped (function API); a full beacon.d.ts is the release-gate decision."
+          }
+        }
+      },
+      {
+        "id": "FLEET",
+        "backronym": "Fast Loads, Every Element Timed",
+        "axis": "delivery",
+        "posture": "It loads fast and stable (primitizable slice; transforms and enforcement out of reach)",
+        "shape": "generator+audit",
+        "status": "published",
+        "coverage": "Tiers 1 to 3 (the primitizable delivery set)",
+        "repo": "https://github.com/Polymathie-Studio/fleet",
+        "themedByTemper": false,
+        "api": [
+          "img",
+          "picture",
+          "srcset",
+          "hints",
+          "preconnect",
+          "dnsPrefetch",
+          "preload",
+          "modulePreload",
+          "fontPreload",
+          "fontFace",
+          "cacheHeaders",
+          "audit",
+          "speculationRules"
+        ],
+        "audit": "audit(html)",
+        "conformance": {
+          "runnable": "audit",
+          "checklist": "compatibility-baseline",
+          "frame": "Core Web Vitals (LCP, CLS, INP)"
+        },
+        "packaging": {
+          "npm": {
+            "status": "named",
+            "name": "fleet-ui",
+            "packageVersion": "0.1.0",
+            "exports": {
+              ".": "./fleet.js",
+              "./react": "./react/index.js"
+            }
+          },
+          "jsr": {
+            "status": "planned",
+            "proposedName": "@polymathie/fleet"
+          },
+          "cdn": {
+            "status": "auto-once-npm"
+          },
+          "frameworkBindings": [
+            "react"
+          ],
+          "coreTypes": {
+            "status": "release-gate",
+            "note": "Core is untyped (function API); a full fleet.d.ts is the release-gate decision."
+          }
+        }
+      }
+    ],
+    "conformanceModel": {
+      "$comment": "How a surface conforms and how well the claim is backed. Two questions held apart: breadth (are all six axes closed) and evidence (how the claim was checked). Prose in section 4 of 'MISSING - the standard.md'.",
+      "breadthDesignation": {
+        "name": "MISSING Conformant",
+        "earnedWhen": "The surface discharges all six axes.",
+        "note": "A property of the surface, not of any one tool. Carried at whatever evidence level below."
+      },
+      "reach": {
+        "$comment": "Reach sets the embodiment of each axis's check, not a separate grade: machine where a check runs against the served HTML, a defined human procedure where it cannot. Both report onto the internal evidence ladder.",
+        "reachableFromServedHtml": [
+          "findable",
+          "fast-and-stable",
+          "operable (semantic controls, labeled inputs)",
+          "hardened (markup-integrity and secrets altitude; the header altitude needs the response, declared not-checked when headers are absent)"
+        ],
+        "needsResolvedColors": [
+          "perceivable (contrast verified against the palette with TEMPER contrast(), not from a snapshot)"
+        ],
+        "needsSurfaceDriven": [
+          "off-the-happy-path (loading, empty, error, not-found confirmed by driving the surface into each state)"
+        ]
+      },
+      "internalEvidenceLadder": {
+        "status": "live",
+        "$comment": "Grades how a conformance claim is backed. Cumulative and nested; describes how the owner checked, never whether the result is good or safe. Ceiling is internal (self-audited, never independent). Words are bare when general to any axis, HASP-prefixed when scoped to the hardening claim (e.g. HASP-audited).",
+        "rungs": [
+          {
+            "id": "self-reported",
+            "meaning": "A bare claim; the owner says the surface closes the axis."
+          },
+          {
+            "id": "re-provable",
+            "meaning": "The claim exposed to a defined, repeatable check anyone could re-apply: the runnable auditor for a machine-reachable axis, the stated procedure for one that is not."
+          },
+          {
+            "id": "audited",
+            "meaning": "That check actually applied to the surface, and passed. Run-and-re-runnable where the check is a tool, not a snapshot that goes stale."
+          }
+        ],
+        "nestingForced": true,
+        "ciNote": "A conformance.js run in CI earns audited on the machine-reachable axes and leaves the rest at self-reported until their procedures are applied. MISSING Conformant at the audited level is reached when every axis's defined check has been applied and passed, machine and human procedure together."
+      },
+      "reservedExternalLadder": {
+        "status": "reserved",
+        "$comment": "Held until an independent assessment ecosystem exists; shipping it now would name reviewers who are not in the room. Grades the independence of an assessment, not whether the thing is safe. HASP-prefixed when scoped to the hardening claim.",
+        "rungs": [
+          {
+            "id": "SRA",
+            "name": "Self-Reported Assessment"
+          },
+          {
+            "id": "DRA",
+            "name": "Documented Review Assessment"
+          },
+          {
+            "id": "IAR",
+            "name": "Independent Assessment Review"
+          }
+        ]
+      },
+      "rules": [
+        "Never call a surface secure. Describe the territory as client-surface security; grade the measures as hardening and the claim by evidence now or provenance later.",
+        "Describe, do not rank: the rungs say how a claim was checked, never that the outcome is good, safe, or correct.",
+        "An axis passes when its findings contain no error; an axis marked partial or not-checked is declared, never counted as clean."
+      ]
+    },
+    "conformanceBaseline": [
+      "Zero-dependency core",
+      "No consumer build",
+      "Framework bindings optional (peer dependency)",
+      "SSR-safe",
+      "Portable output",
+      "Theme via TEMPER tokens with fallbacks",
+      "Nothing calls home",
+      "Accessible by default",
+      "Licensing and family hygiene (Apache-2.0, NOTICE, README family section, CHANGELOG)"
+    ],
+    "notClosedByPrimitive": [
+      "Observability (error tracking, uptime, performance monitoring): ops-shaped, not a client component.",
+      "Backend security and scale (row-level security, connection pooling, token refresh, secrets server-side): out of a frontend family's reach.",
+      "Responsive layout: a design-specific discipline, stated as a requirement with no primitive.",
+      "Legal content (privacy policy, cookie consent): jurisdiction-specific; tracking is ruled out family-wide.",
+      "Delivery transforms and enforcement (image compression, JavaScript bundling, setting cache headers or CDN behavior): build-tool and server work; FLEET emits the markup and config that point at the built assets and audits the result, but cannot encode a pixel, bundle a module, or set a header."
+    ]
+  },
+  "members": [
+    {
+      "id": "missing",
+      "name": "MISSING",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "umbrella",
+      "canonicalSource": "standards/missing/MISSING - the standard.md",
+      "description": "The umbrella standard and conformance auditor: what a finished front end must cover, and an auditor that checks a surface against it."
+    },
+    {
+      "id": "temper",
+      "name": "TEMPER",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "perceivable",
+      "canonicalSource": "standards/temper/README.md",
+      "description": "Color solved to contrast floors; perceivable by any reader."
+    },
+    {
+      "id": "grasp",
+      "name": "GRASP",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "operable",
+      "canonicalSource": "standards/grasp/README.md",
+      "description": "Keyboard and screen-reader controls; operable by any input or assistive technology."
+    },
+    {
+      "id": "lucid",
+      "name": "LUCID",
+      "kind": "standard",
+      "version": "0.7.0",
+      "status": "published",
+      "group": "understandable",
+      "canonicalSource": "standards/lucid/LUCID - the standard.md",
+      "description": "Layered disclosure; complexity placed, not hidden."
+    },
+    {
+      "id": "grace",
+      "name": "GRACE",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "resilient",
+      "canonicalSource": "standards/grace/README.md",
+      "description": "Loading, empty, and error states; the interface behaves honestly off the happy path."
+    },
+    {
+      "id": "hasp",
+      "name": "HASP",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "hardened",
+      "canonicalSource": "standards/hasp/README.md",
+      "description": "The client-surface security posture the browser can enforce: hasp-key (the user's key stays in their browser, published) plus hasp-guard (headers, policy, integrity; in progress)."
+    },
+    {
+      "id": "beacon",
+      "name": "BEACON",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "findable",
+      "canonicalSource": "standards/beacon/README.md",
+      "description": "Metadata a crawler and a share can read; the page represents itself correctly to machines."
+    },
+    {
+      "id": "fleet",
+      "name": "FLEET",
+      "kind": "standard",
+      "version": "0.1.0",
+      "status": "published",
+      "group": "fast-and-stable",
+      "canonicalSource": "standards/fleet/README.md",
+      "description": "Delivery tuned to the Core Web Vitals; emits the markup and config and audits the result."
+    },
+    {
+      "id": "tuned",
+      "name": "TUNED",
+      "kind": "standard",
+      "version": "unpublished",
+      "status": "candidate",
+      "group": "words",
+      "canonicalSource": "standards/tuned/README.md",
+      "description": "The words instrument: written to the utterance, not the established default. Flagship, not yet complete."
+    }
+  ]
+}
