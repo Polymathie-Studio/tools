@@ -121,7 +121,7 @@
         "posture": "Perceivable by any reader",
         "shape": "tokens+css",
         "status": "published",
-        "repo": "https://github.com/Polymathie-Studio/temper",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/temper",
         "themedByTemper": null,
         "api": [
           "contrast",
@@ -171,7 +171,7 @@
         "posture": "Reader-sovereign progressive disclosure; the disclosure spine of the family",
         "shape": "core+react+standard",
         "status": "published",
-        "repo": "https://github.com/Polymathie-Studio/lucid",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/lucid",
         "themedByTemper": true,
         "api": [
           "configure",
@@ -218,7 +218,7 @@
         "posture": "The keys instrument of HASP: the user's key held in the browser and never on a server, one instantiation of the hardening posture",
         "shape": "core+react (TypeScript)",
         "status": "published",
-        "repo": "https://github.com/Polymathie-Studio/hasp",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/hasp",
         "themedByTemper": true,
         "api": [
           "setKey",
@@ -267,7 +267,7 @@
         "posture": "The headers, policy, and integrity instrument of HASP: the security response headers and safe-markup helpers a surface declares, generated as server and build configuration and audited by hardened.js",
         "shape": "core (zero-dependency JS)",
         "status": "in-progress",
-        "repo": "https://github.com/Polymathie-Studio/hasp",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/hasp",
         "note": "Lives in the hasp repo (hasp-guard.js) alongside its auditor hardened.js and the hasp-key instrument; the HASP repo is the home of all HASP code. A run of hardened.js over its output clears Tiers 1 and 2.",
         "themedByTemper": false,
         "api": [
@@ -304,7 +304,7 @@
         "posture": "The reusable state components that render LUCID's off-happy-path principle",
         "shape": "core+react+css",
         "status": "published",
-        "repo": "https://github.com/Polymathie-Studio/grace",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/grace",
         "themedByTemper": true,
         "api": [
           "GraceState (skeleton, empty, error, not-found)"
@@ -345,7 +345,7 @@
         "shape": "core+react+css",
         "status": "published",
         "coverage": "Tiers 1 to 3 (the WAI-ARIA common working set)",
-        "repo": "https://github.com/Polymathie-Studio/grasp",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/grasp",
         "themedByTemper": true,
         "api": [
           "Button",
@@ -411,7 +411,7 @@
         "shape": "generator+audit",
         "status": "published",
         "coverage": "Tiers 1 to 3 (the findability set)",
-        "repo": "https://github.com/Polymathie-Studio/beacon",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/beacon",
         "themedByTemper": false,
         "api": [
           "head",
@@ -470,7 +470,7 @@
         "shape": "generator+audit",
         "status": "published",
         "coverage": "Tiers 1 to 3 (the primitizable delivery set)",
-        "repo": "https://github.com/Polymathie-Studio/fleet",
+        "repo": "https://github.com/Polymathie-Studio/ds4ai/tree/main/standards/fleet",
         "themedByTemper": false,
         "api": [
           "img",
