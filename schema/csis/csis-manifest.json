@@ -229,6 +229,14 @@
       "group": "generative",
       "canonicalSource": "tensegrity-suite/generative/standards/standards-3_0-conflict-transformation-0_2_10.md",
       "description": "Specifies that conflicts in a coordination system must be engageable at less than their full intensity before they reach termination thresholds. Requires graduated engagement architecture and the structural capacity to hold conflict as information rather than process it as a binary.",
+      "machineReadable": {
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/cts.schema.json",
+        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/cts.zod.ts",
+        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/cts.jsonld",
+        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/conformance.verdict.intoto.json",
+        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/conformance.sarif",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/cts/"
+      },
       "companions": {
         "skill": "standards/claude-skills/claude-skill-conflict-transformation-0_1_1.md",
         "prompts": "standards/prompts/conflict-transformation/"
