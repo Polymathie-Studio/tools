@@ -1,0 +1,70 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "pfds-conformance",
+          "version": "2.4.3",
+          "rules": [
+            {
+              "id": "violations_detectable",
+              "shortDescription": {
+                "text": "PFDS invariant (2): violations are detectable"
+              }
+            },
+            {
+              "id": "compliance_serves_purpose",
+              "shortDescription": {
+                "text": "PFDS invariant (2): compliance demonstrates the coordination purpose is served"
+              }
+            },
+            {
+              "id": "method_structure_congruent",
+              "shortDescription": {
+                "text": "PFDS Method-Structure Congruence (3): the method matched the structural character"
+              }
+            },
+            {
+              "id": "deficits_mapped",
+              "shortDescription": {
+                "text": "PFDS (6.1): deficits recorded in the precision deficit map"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "violations_detectable",
+          "level": "none",
+          "message": {
+            "text": "PFDS invariant (2): violations are detectable: satisfied"
+          }
+        },
+        {
+          "ruleId": "compliance_serves_purpose",
+          "level": "none",
+          "message": {
+            "text": "PFDS invariant (2): compliance demonstrates the coordination purpose is served: satisfied"
+          }
+        },
+        {
+          "ruleId": "method_structure_congruent",
+          "level": "none",
+          "message": {
+            "text": "PFDS Method-Structure Congruence (3): the method matched the structural character: satisfied"
+          }
+        },
+        {
+          "ruleId": "deficits_mapped",
+          "level": "none",
+          "message": {
+            "text": "PFDS (6.1): deficits recorded in the precision deficit map: satisfied"
+          }
+        }
+      ]
+    }
+  ]
+}

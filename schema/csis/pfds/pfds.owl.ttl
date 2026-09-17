@@ -1,0 +1,436 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pfds: <https://standards.example/pfds/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/pfds.owl.ttl> a owl:Ontology ;
+    rdfs:label "pfds" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "PFDS precision review" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Precision-First Design Standard (standards-3_0-precision-first, v2.4.3), the suite meta-standard. PFDS specifies what precision requires across every standard, so the ten corollaries and the five precision-failure patterns are rendered as typed objects, each carrying its structure (a corollary its condition and its two failure directions and corrective, a pattern its structural signature and response), not as flat label enums. Rendering either as a taxonomy would collapse the structure into labels, the precision deficit PFDS itself names. A corollary reduced to a name is not a corollary, so its condition and both directions are required.
+The tree root is a PrecisionReview: an artifact reviewed against the precision-first invariant, the ten corollaries, Method-Structure Congruence, and the failure taxonomy, producing a deficit map keyed to the patterns, with the review's adoption depth, obligation-loop tier, and per-invariant conformance. Every artifact in dist/ is generated from this file.
+The invariant, congruence, and the corollary conditions are meta-conditions whose per-element verdict runs through the independent-observer test; whether a given element satisfies a corollary is the reviewer's determination, and tier-gating stays in the checker.""" .
+
+pfds:PrecisionReview a owl:Class ;
+    rdfs:label "PrecisionReview" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:subject ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:adoption_depth ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:AdoptionDepth ;
+            owl:onProperty pfds:adoption_depth ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:adoption_depth ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:subject ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:obligation_tier ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty pfds:congruence_checked ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty pfds:deficits ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:Corollary ;
+            owl:onProperty pfds:corollaries ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:corollaries ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ObligationTier ;
+            owl:onProperty pfds:obligation_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:PrecisionDeficit ;
+            owl:onProperty pfds:deficits ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:congruence_checked ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:subject ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:obligation_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:FailurePattern ;
+            owl:onProperty pfds:failure_patterns ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:congruence_checked ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:failure_patterns ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceDeclaration ;
+            owl:onProperty pfds:conformance ] ;
+    skos:definition "A review of a governed artifact against the invariant, the ten corollaries, congruence, and the failure taxonomy, producing a deficit map." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:violations_detectable ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:compliance_serves_purpose ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:method_structure_congruent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:deficits_mapped ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:compliance_serves_purpose ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:violations_detectable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:deficits_mapped ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:method_structure_congruent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:method_structure_congruent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:compliance_serves_purpose ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:violations_detectable ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:deficits_mapped ] ;
+    skos:definition "The invariant answers on the face. There is deliberately no overall or total field: conformance is per-condition, mirroring the suite's refusal to collapse a profile into a single number." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:Corollary a owl:Class ;
+    rdfs:label "Corollary" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:corrective ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:corrective ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:deficit_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:imposition_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:deficit_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:deficit_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:imposition_direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:condition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty pfds:corrective ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:imposition_direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:name ] ;
+    skos:definition "Section 2. One precision corollary, individuated by its condition and its two failure directions (a deficit and an imposition), not by a label. A corollary with no directions is not a corollary, so condition, deficit_direction, and imposition_direction are required." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:FailurePattern a owl:Class ;
+    rdfs:label "FailurePattern" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:response ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:response ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:response ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:structural_signature ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:structural_signature ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:structural_signature ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:name ] ;
+    skos:definition "Section 7. One precision-failure pattern, individuated by its structural signature and its response. A pattern with no signature is a label, so signature and response are required." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:PrecisionDeficit a owl:Class ;
+    rdfs:label "PrecisionDeficit" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:pattern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:pattern ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:pattern ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:decision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:decision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:location ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty pfds:decision ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:location ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:location ] ;
+    skos:definition "Section 6.1. One entry in the precision deficit map." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+<https://standards.example/pfds/AdoptionDepth#auditing> a owl:Class ;
+    rdfs:label "auditing" ;
+    rdfs:subClassOf pfds:AdoptionDepth .
+
+<https://standards.example/pfds/AdoptionDepth#design_time> a owl:Class ;
+    rdfs:label "design_time" ;
+    rdfs:subClassOf pfds:AdoptionDepth .
+
+<https://standards.example/pfds/AdoptionDepth#remediation> a owl:Class ;
+    rdfs:label "remediation" ;
+    rdfs:subClassOf pfds:AdoptionDepth .
+
+<https://standards.example/pfds/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf pfds:ConformanceAnswer .
+
+<https://standards.example/pfds/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf pfds:ConformanceAnswer .
+
+<https://standards.example/pfds/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf pfds:ConformanceAnswer .
+
+<https://standards.example/pfds/ObligationTier#assessed> a owl:Class ;
+    rdfs:label "assessed" ;
+    rdfs:subClassOf pfds:ObligationTier .
+
+<https://standards.example/pfds/ObligationTier#auditable> a owl:Class ;
+    rdfs:label "auditable" ;
+    rdfs:subClassOf pfds:ObligationTier .
+
+<https://standards.example/pfds/ObligationTier#instrumented> a owl:Class ;
+    rdfs:label "instrumented" ;
+    rdfs:subClassOf pfds:ObligationTier .
+
+<https://standards.example/pfds/ObligationTier#loop_closed> a owl:Class ;
+    rdfs:label "loop_closed" ;
+    rdfs:subClassOf pfds:ObligationTier .
+
+<https://standards.example/pfds/ObligationTier#operational> a owl:Class ;
+    rdfs:label "operational" ;
+    rdfs:subClassOf pfds:ObligationTier .
+
+pfds:corollaries a owl:ObjectProperty ;
+    rdfs:label "corollaries" ;
+    skos:definition "Section 2. The ten corollaries the review assesses against, each a structured precision condition with its two failure directions." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:deficits a owl:ObjectProperty ;
+    rdfs:label "deficits" ;
+    skos:definition "Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:failure_patterns a owl:ObjectProperty ;
+    rdfs:label "failure_patterns" ;
+    skos:definition "Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:adoption_depth a owl:ObjectProperty ;
+    rdfs:label "adoption_depth" ;
+    skos:definition "Section 6.1. The depth of the review (auditing, remediation, design-time)." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:compliance_serves_purpose a owl:ObjectProperty ;
+    rdfs:label "compliance_serves_purpose" ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:condition a owl:DatatypeProperty ;
+    rdfs:label "condition" ;
+    skos:definition "The iff condition the corollary specifies." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "The invariant answers on the face; no total." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:congruence_checked a owl:DatatypeProperty ;
+    rdfs:label "congruence_checked" ;
+    skos:definition "Section 3. Method-Structure Congruence was assessed for the artifact's production." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:corrective a owl:DatatypeProperty ;
+    rdfs:label "corrective" ;
+    skos:definition "The corrective exemplar the standard cites." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:decision a owl:DatatypeProperty ;
+    rdfs:label "decision" ;
+    skos:definition "Section 6.5. The documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit); required at Loop-Closed." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:deficit_direction a owl:DatatypeProperty ;
+    rdfs:label "deficit_direction" ;
+    skos:definition "What under-specification fails to prevent." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:deficits_mapped a owl:ObjectProperty ;
+    rdfs:label "deficits_mapped" ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:imposition_direction a owl:DatatypeProperty ;
+    rdfs:label "imposition_direction" ;
+    skos:definition "What over-specification produces." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:location a owl:DatatypeProperty ;
+    rdfs:label "location" ;
+    skos:definition "The document and location of the deficit." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:method_structure_congruent a owl:ObjectProperty ;
+    rdfs:label "method_structure_congruent" ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:obligation_tier a owl:ObjectProperty ;
+    rdfs:label "obligation_tier" ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:pattern a owl:DatatypeProperty ;
+    rdfs:label "pattern" ;
+    skos:definition "The failure-pattern handle the deficit is keyed to." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:response a owl:DatatypeProperty ;
+    rdfs:label "response" ;
+    skos:definition "The response the pattern enables." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:structural_signature a owl:DatatypeProperty ;
+    rdfs:label "structural_signature" ;
+    skos:definition "The observable signature that identifies the pattern." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:subject a owl:DatatypeProperty ;
+    rdfs:label "subject" ;
+    skos:definition "The governed artifact under review." ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:violations_detectable a owl:ObjectProperty ;
+    rdfs:label "violations_detectable" ;
+    skos:inScheme <https://standards.example/pfds> .
+
+pfds:AdoptionDepth a owl:Class ;
+    rdfs:label "AdoptionDepth" ;
+    owl:unionOf ( <https://standards.example/pfds/AdoptionDepth#auditing> <https://standards.example/pfds/AdoptionDepth#remediation> <https://standards.example/pfds/AdoptionDepth#design_time> ) ;
+    skos:definition "Section 6.1. The three adoption depths." ;
+    skos:inScheme <https://standards.example/pfds> ;
+    linkml:permissible_values <https://standards.example/pfds/AdoptionDepth#auditing>,
+        <https://standards.example/pfds/AdoptionDepth#design_time>,
+        <https://standards.example/pfds/AdoptionDepth#remediation> .
+
+pfds:ObligationTier a owl:Class ;
+    rdfs:label "ObligationTier" ;
+    owl:unionOf ( <https://standards.example/pfds/ObligationTier#assessed> <https://standards.example/pfds/ObligationTier#operational> <https://standards.example/pfds/ObligationTier#instrumented> <https://standards.example/pfds/ObligationTier#loop_closed> <https://standards.example/pfds/ObligationTier#auditable> ) ;
+    skos:definition "Section 6.5. The five obligation-loop tiers." ;
+    skos:inScheme <https://standards.example/pfds> ;
+    linkml:permissible_values <https://standards.example/pfds/ObligationTier#assessed>,
+        <https://standards.example/pfds/ObligationTier#auditable>,
+        <https://standards.example/pfds/ObligationTier#instrumented>,
+        <https://standards.example/pfds/ObligationTier#loop_closed>,
+        <https://standards.example/pfds/ObligationTier#operational> .
+
+pfds:id a owl:DatatypeProperty .
+
+pfds:name a owl:DatatypeProperty .
+
+pfds:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/pfds/ConformanceAnswer#satisfied> <https://standards.example/pfds/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/pfds/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-condition answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/pfds> ;
+    linkml:permissible_values <https://standards.example/pfds/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/pfds/ConformanceAnswer#not_applicable>,
+        <https://standards.example/pfds/ConformanceAnswer#satisfied> .
+
+

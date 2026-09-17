@@ -1,0 +1,281 @@
+{
+  "$defs": {
+    "AdoptionDepth": {
+      "description": "Section 6.1. The three adoption depths.",
+      "enum": [
+        "auditing",
+        "remediation",
+        "design_time"
+      ],
+      "title": "AdoptionDepth",
+      "type": "string"
+    },
+    "ConformanceAnswer": {
+      "description": "Per-condition answer; silence is not one of the values.",
+      "enum": [
+        "satisfied",
+        "declared_absent_with_justification",
+        "not_applicable"
+      ],
+      "title": "ConformanceAnswer",
+      "type": "string"
+    },
+    "ConformanceDeclaration": {
+      "additionalProperties": false,
+      "description": "The invariant answers on the face. There is deliberately no overall or total field: conformance is per-condition, mirroring the suite's refusal to collapse a profile into a single number.",
+      "properties": {
+        "compliance_serves_purpose": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "deficits_mapped": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "method_structure_congruent": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        },
+        "violations_detectable": {
+          "$ref": "#/$defs/ConformanceAnswer"
+        }
+      },
+      "required": [
+        "violations_detectable",
+        "compliance_serves_purpose",
+        "method_structure_congruent",
+        "deficits_mapped"
+      ],
+      "title": "ConformanceDeclaration",
+      "type": "object"
+    },
+    "Corollary": {
+      "additionalProperties": false,
+      "description": "Section 2. One precision corollary, individuated by its condition and its two failure directions (a deficit and an imposition), not by a label. A corollary with no directions is not a corollary, so condition, deficit_direction, and imposition_direction are required.",
+      "properties": {
+        "condition": {
+          "description": "The iff condition the corollary specifies.",
+          "type": "string"
+        },
+        "corrective": {
+          "description": "The corrective exemplar the standard cites.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deficit_direction": {
+          "description": "What under-specification fails to prevent.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The corollary handle (for example operational_definition, taxonomy_completeness).",
+          "type": "string"
+        },
+        "imposition_direction": {
+          "description": "What over-specification produces.",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "condition",
+        "deficit_direction",
+        "imposition_direction"
+      ],
+      "title": "Corollary",
+      "type": "object"
+    },
+    "FailurePattern": {
+      "additionalProperties": false,
+      "description": "Section 7. One precision-failure pattern, individuated by its structural signature and its response. A pattern with no signature is a label, so signature and response are required.",
+      "properties": {
+        "id": {
+          "description": "The pattern handle (for example normative_substitution, category_collapse).",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "response": {
+          "description": "The response the pattern enables.",
+          "type": "string"
+        },
+        "structural_signature": {
+          "description": "The observable signature that identifies the pattern.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "structural_signature",
+        "response"
+      ],
+      "title": "FailurePattern",
+      "type": "object"
+    },
+    "ObligationTier": {
+      "description": "Section 6.5. The five obligation-loop tiers.",
+      "enum": [
+        "assessed",
+        "operational",
+        "instrumented",
+        "loop_closed",
+        "auditable"
+      ],
+      "title": "ObligationTier",
+      "type": "string"
+    },
+    "PrecisionDeficit": {
+      "additionalProperties": false,
+      "description": "Section 6.1. One entry in the precision deficit map.",
+      "properties": {
+        "decision": {
+          "description": "Section 6.5. The documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit); required at Loop-Closed.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "description": "The document and location of the deficit.",
+          "type": "string"
+        },
+        "pattern": {
+          "description": "The failure-pattern handle the deficit is keyed to.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "location",
+        "pattern"
+      ],
+      "title": "PrecisionDeficit",
+      "type": "object"
+    },
+    "PrecisionReview": {
+      "additionalProperties": false,
+      "description": "A review of a governed artifact against the invariant, the ten corollaries, congruence, and the failure taxonomy, producing a deficit map.",
+      "properties": {
+        "adoption_depth": {
+          "$ref": "#/$defs/AdoptionDepth",
+          "description": "Section 6.1. The depth of the review (auditing, remediation, design-time)."
+        },
+        "conformance": {
+          "$ref": "#/$defs/ConformanceDeclaration",
+          "description": "The invariant answers on the face; no total."
+        },
+        "congruence_checked": {
+          "description": "Section 3. Method-Structure Congruence was assessed for the artifact's production.",
+          "type": "boolean"
+        },
+        "corollaries": {
+          "description": "Section 2. The ten corollaries the review assesses against, each a structured precision condition with its two failure directions.",
+          "items": {
+            "$ref": "#/$defs/Corollary"
+          },
+          "type": "array"
+        },
+        "deficits": {
+          "description": "Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern.",
+          "items": {
+            "$ref": "#/$defs/PrecisionDeficit"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "failure_patterns": {
+          "description": "Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response.",
+          "items": {
+            "$ref": "#/$defs/FailurePattern"
+          },
+          "type": "array"
+        },
+        "obligation_tier": {
+          "$ref": "#/$defs/ObligationTier"
+        },
+        "subject": {
+          "description": "The governed artifact under review.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject",
+        "adoption_depth",
+        "obligation_tier",
+        "corollaries",
+        "failure_patterns",
+        "congruence_checked",
+        "conformance"
+      ],
+      "title": "PrecisionReview",
+      "type": "object"
+    }
+  },
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/pfds/pfds.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A review of a governed artifact against the invariant, the ten corollaries, congruence, and the failure taxonomy, producing a deficit map.",
+  "metamodel_version": "1.11.0",
+  "properties": {
+    "adoption_depth": {
+      "$ref": "#/$defs/AdoptionDepth",
+      "description": "Section 6.1. The depth of the review (auditing, remediation, design-time)."
+    },
+    "conformance": {
+      "$ref": "#/$defs/ConformanceDeclaration",
+      "description": "The invariant answers on the face; no total."
+    },
+    "congruence_checked": {
+      "description": "Section 3. Method-Structure Congruence was assessed for the artifact's production.",
+      "type": "boolean"
+    },
+    "corollaries": {
+      "description": "Section 2. The ten corollaries the review assesses against, each a structured precision condition with its two failure directions.",
+      "items": {
+        "$ref": "#/$defs/Corollary"
+      },
+      "type": "array"
+    },
+    "deficits": {
+      "description": "Section 6.1. The precision deficit map, each deficit located and keyed to a failure pattern.",
+      "items": {
+        "$ref": "#/$defs/PrecisionDeficit"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "failure_patterns": {
+      "description": "Section 7. The precision-failure patterns the review keys deficits to, each a structured signature-and-response.",
+      "items": {
+        "$ref": "#/$defs/FailurePattern"
+      },
+      "type": "array"
+    },
+    "obligation_tier": {
+      "$ref": "#/$defs/ObligationTier"
+    },
+    "subject": {
+      "description": "The governed artifact under review.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subject",
+    "adoption_depth",
+    "obligation_tier",
+    "corollaries",
+    "failure_patterns",
+    "congruence_checked",
+    "conformance"
+  ],
+  "title": "pfds",
+  "type": "object",
+  "version": null
+}
