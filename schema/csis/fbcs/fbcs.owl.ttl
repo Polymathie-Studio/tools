@@ -1,0 +1,480 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix fbcs: <https://standards.example/fbcs/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://standards.example/fbcs.owl.ttl> a owl:Ontology ;
+    rdfs:label "fbcs" ;
+    dcterms:license "CC-BY-4.0" ;
+    dcterms:title "FBCS four batteries capacity record" ;
+    skos:definition """The one canonical source for the machine-readable layer of the Four Batteries Capacity Standard (standards-3_0-four-batteries-capacity, v0.3.7), the second Tensegrity Generative Standard. FBCS specifies enabling soil conditions through four batteries (Personal, Relational, Contribution, Mission), each on two independent axes, charge and developmental state, so the model renders the four as typed Battery objects rather than a flat enum of battery names. Rendering them as bare labels would collapse the structure into names, a precision deficit under the Precision-First Design Standard whose absent structure leaves no gap marker; the structural rendering is deliberate.
+The tree root is a FourBatteriesRecord, an organization's declaration of its battery capacity and its scope-and-delegation conformance: the four batteries each with a charge state and, when the organization tracks it, a developmental state of depth, breadth, and durability; the checking practice against the four Section 7.2 conditions; the four Section 8.2 scope-and-delegation conditions; the scope adoption tier; and per-tier conformance. Being a generative and interpretive standard, most of FBCS (the depletion and generative archetypes, the altitude-mapped hypotheses, the traversal modes) is descriptive vocabulary that routes to the checker and to human judgment, not schema-expressible conformance; developmental-state conformance is transparency-based rather than threshold-based, so the developmental state is declared and tracked, not required at a level. The assessable skeleton is the four charge states, the checking practice, and the scope conditions. Every artifact in dist/ is generated from this file.""" .
+
+fbcs:FourBatteriesRecord a owl:Class ;
+    rdfs:label "FourBatteriesRecord" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:scope_adoption_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:batteries ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:checking_practice ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceDeclaration ;
+            owl:onProperty fbcs:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConditionStatus ;
+            owl:onProperty fbcs:scope_conditions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:checking_practice ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:scope_adoption_tier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:conformance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:CheckingPractice ;
+            owl:onProperty fbcs:checking_practice ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:conformance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty fbcs:subject ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:Battery ;
+            owl:onProperty fbcs:batteries ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:scope_conditions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ScopeAdoptionTier ;
+            owl:onProperty fbcs:scope_adoption_tier ] ;
+    skos:definition "An organization's declaration of its four-battery capacity and its scope-and-delegation conformance." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:Battery a owl:Class ;
+    rdfs:label "Battery" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:battery ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:developmental_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:DevelopmentalState ;
+            owl:onProperty fbcs:developmental_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ChargeState ;
+            owl:onProperty fbcs:charge_state ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:charge_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:BatteryName ;
+            owl:onProperty fbcs:battery ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:battery ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:developmental_state ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:charge_state ] ;
+    skos:definition "Section 2. One of the four batteries, individuated as a distinct resource condition carrying its own charge state and developmental state, not a label. A battery with no charge state is a name, so battery and charge_state are required; developmental state is optional because developmental-state conformance is transparency-based, not threshold-based." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:CheckingPractice a owl:Class ;
+    rdfs:label "CheckingPractice" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:specificity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty fbcs:adverse_result_integrity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:adverse_result_integrity ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty fbcs:specificity ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:adverse_result_integrity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:structural_embeddedness ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:regularity ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:regularity ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:structural_embeddedness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty fbcs:structural_embeddedness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty fbcs:regularity ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:specificity ] ;
+    skos:definition "Section 7.2. The four conditions that make a battery check genuine rather than theater. Conformance is defined by the quality of the checking practice, not the level it reveals." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:ConditionStatus a owl:Class ;
+    rdfs:label "ConditionStatus" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty fbcs:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:condition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConditionState ;
+            owl:onProperty fbcs:status ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:status ] ;
+    skos:definition "Section 8.2. One scope-and-delegation condition and its status, so a condition is never asserted without a present-or-absent determination." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:ConformanceDeclaration a owl:Class ;
+    rdfs:label "ConformanceDeclaration" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:personal_battery_charged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:scope_conditions_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:checking_practice_genuine ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:checking_practice_genuine ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:mission_battery_charged ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:contribution_battery_charged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:contribution_battery_charged ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:mission_battery_charged ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:contribution_battery_charged ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:scope_conditions_present ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:relational_battery_charged ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:scope_conditions_present ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty fbcs:relational_battery_charged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:relational_battery_charged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:personal_battery_charged ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:checking_practice_genuine ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:mission_battery_charged ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom fbcs:ConformanceAnswer ;
+            owl:onProperty fbcs:personal_battery_charged ] ;
+    skos:definition "The conformance answers on the face. There is deliberately no overall or total field: conformance is per-battery at the charge layer plus the checking practice and the scope conditions, mirroring the suite's refusal to collapse a profile into a single number. The developmental-state axis is transparency-based and is not a conformance threshold." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:DevelopmentalState a owl:Class ;
+    rdfs:label "DevelopmentalState" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty fbcs:depth ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty fbcs:durability ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:depth ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:durability ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:breadth ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty fbcs:breadth ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty fbcs:durability ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:breadth ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty fbcs:depth ] ;
+    skos:definition "Section 2. The developmental state of a battery across its three mutually constituting dimensions. Transformed by integration events, not restored by recovery; declared and tracked rather than required at a level." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+<https://standards.example/fbcs/BatteryName#contribution> a owl:Class ;
+    rdfs:label "contribution" ;
+    rdfs:subClassOf fbcs:BatteryName .
+
+<https://standards.example/fbcs/BatteryName#mission> a owl:Class ;
+    rdfs:label "mission" ;
+    rdfs:subClassOf fbcs:BatteryName .
+
+<https://standards.example/fbcs/BatteryName#personal> a owl:Class ;
+    rdfs:label "personal" ;
+    rdfs:subClassOf fbcs:BatteryName .
+
+<https://standards.example/fbcs/BatteryName#relational> a owl:Class ;
+    rdfs:label "relational" ;
+    rdfs:subClassOf fbcs:BatteryName .
+
+<https://standards.example/fbcs/ChargeState#depleted> a owl:Class ;
+    rdfs:label "depleted" ;
+    rdfs:subClassOf fbcs:ChargeState .
+
+<https://standards.example/fbcs/ChargeState#full> a owl:Class ;
+    rdfs:label "full" ;
+    rdfs:subClassOf fbcs:ChargeState .
+
+<https://standards.example/fbcs/ChargeState#partial> a owl:Class ;
+    rdfs:label "partial" ;
+    rdfs:subClassOf fbcs:ChargeState .
+
+<https://standards.example/fbcs/ConditionState#absent> a owl:Class ;
+    rdfs:label "absent" ;
+    rdfs:subClassOf fbcs:ConditionState .
+
+<https://standards.example/fbcs/ConditionState#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf fbcs:ConditionState .
+
+<https://standards.example/fbcs/ConditionState#present> a owl:Class ;
+    rdfs:label "present" ;
+    rdfs:subClassOf fbcs:ConditionState .
+
+<https://standards.example/fbcs/ConformanceAnswer#declared_absent_with_justification> a owl:Class ;
+    rdfs:label "declared_absent_with_justification" ;
+    rdfs:subClassOf fbcs:ConformanceAnswer .
+
+<https://standards.example/fbcs/ConformanceAnswer#not_applicable> a owl:Class ;
+    rdfs:label "not_applicable" ;
+    rdfs:subClassOf fbcs:ConformanceAnswer .
+
+<https://standards.example/fbcs/ConformanceAnswer#satisfied> a owl:Class ;
+    rdfs:label "satisfied" ;
+    rdfs:subClassOf fbcs:ConformanceAnswer .
+
+<https://standards.example/fbcs/ScopeAdoptionTier#full_conformance> a owl:Class ;
+    rdfs:label "full_conformance" ;
+    rdfs:subClassOf fbcs:ScopeAdoptionTier .
+
+<https://standards.example/fbcs/ScopeAdoptionTier#scope_visibility> a owl:Class ;
+    rdfs:label "scope_visibility" ;
+    rdfs:subClassOf fbcs:ScopeAdoptionTier .
+
+<https://standards.example/fbcs/ScopeAdoptionTier#structural_review> a owl:Class ;
+    rdfs:label "structural_review" ;
+    rdfs:subClassOf fbcs:ScopeAdoptionTier .
+
+fbcs:batteries a owl:ObjectProperty ;
+    rdfs:label "batteries" ;
+    skos:definition "Section 2. The four batteries, each rendered as a typed object carrying its charge state and, when tracked, its developmental state. They are constitutive of a capacity declaration; a record naming no batteries could claim capacity while assessing nothing." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:scope_conditions a owl:ObjectProperty ;
+    rdfs:label "scope_conditions" ;
+    skos:definition "Section 8.2. The four scope-and-delegation conditions, each with its status." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:adverse_result_integrity a owl:DatatypeProperty ;
+    rdfs:label "adverse_result_integrity" ;
+    skos:definition "A low or declining result is demonstrably received and responded to." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:battery a owl:ObjectProperty ;
+    rdfs:label "battery" ;
+    skos:definition "Which of the four batteries this is." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:breadth a owl:DatatypeProperty ;
+    rdfs:label "breadth" ;
+    skos:definition "The inclusivity of the frame, how many distinct perspectives it can hold simultaneously without collapsing to a dominant one." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:charge_state a owl:ObjectProperty ;
+    rdfs:label "charge_state" ;
+    skos:definition "Section 2. The cyclical axis, the battery's currently accessible state." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:checking_practice a owl:ObjectProperty ;
+    rdfs:label "checking_practice" ;
+    skos:definition "Section 7.2. Whether the organization's battery-checking practice meets the four conditions that distinguish a genuine check from theater." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:checking_practice_genuine a owl:ObjectProperty ;
+    rdfs:label "checking_practice_genuine" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:condition a owl:DatatypeProperty ;
+    rdfs:label "condition" ;
+    skos:definition "The scope-and-delegation condition, stated operationally." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:conformance a owl:ObjectProperty ;
+    rdfs:label "conformance" ;
+    skos:definition "The conformance answers on the face; no total." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:contribution_battery_charged a owl:ObjectProperty ;
+    rdfs:label "contribution_battery_charged" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:depth a owl:DatatypeProperty ;
+    rdfs:label "depth" ;
+    skos:definition "Precision of interpretive capacity, built through transclusion events that move a prior position from ceiling to floor." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:developmental_state a owl:ObjectProperty ;
+    rdfs:label "developmental_state" ;
+    skos:definition "Section 2. The permanent axis, when the organization tracks it, across depth, breadth, and durability." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:durability a owl:DatatypeProperty ;
+    rdfs:label "durability" ;
+    skos:definition "The persistence of developmental state under conditions that would reverse or suppress it." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:mission_battery_charged a owl:ObjectProperty ;
+    rdfs:label "mission_battery_charged" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:personal_battery_charged a owl:ObjectProperty ;
+    rdfs:label "personal_battery_charged" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:regularity a owl:DatatypeProperty ;
+    rdfs:label "regularity" ;
+    skos:definition "The check happens on a defined cadence, not only when prompted by crisis." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:relational_battery_charged a owl:ObjectProperty ;
+    rdfs:label "relational_battery_charged" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:scope_adoption_tier a owl:ObjectProperty ;
+    rdfs:label "scope_adoption_tier" ;
+    skos:definition "Section 8.6. The scope-and-delegation adoption tier the record supports." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:scope_conditions_present a owl:ObjectProperty ;
+    rdfs:label "scope_conditions_present" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:specificity a owl:DatatypeProperty ;
+    rdfs:label "specificity" ;
+    skos:definition "The check produces a result specific enough to be wrong." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:status a owl:ObjectProperty ;
+    rdfs:label "status" ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:structural_embeddedness a owl:DatatypeProperty ;
+    rdfs:label "structural_embeddedness" ;
+    skos:definition "The check is embedded in coordination activity rather than appended as a separate periodic review." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:subject a owl:DatatypeProperty ;
+    rdfs:label "subject" ;
+    skos:definition "The coordination unit or organization whose capacity is declared." ;
+    skos:inScheme <https://standards.example/fbcs> .
+
+fbcs:ChargeState a owl:Class ;
+    rdfs:label "ChargeState" ;
+    owl:unionOf ( <https://standards.example/fbcs/ChargeState#full> <https://standards.example/fbcs/ChargeState#partial> <https://standards.example/fbcs/ChargeState#depleted> ) ;
+    skos:definition "Section 2. The charge state of a battery; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/fbcs> ;
+    linkml:permissible_values <https://standards.example/fbcs/ChargeState#depleted>,
+        <https://standards.example/fbcs/ChargeState#full>,
+        <https://standards.example/fbcs/ChargeState#partial> .
+
+fbcs:ConditionState a owl:Class ;
+    rdfs:label "ConditionState" ;
+    owl:unionOf ( <https://standards.example/fbcs/ConditionState#present> <https://standards.example/fbcs/ConditionState#absent> <https://standards.example/fbcs/ConditionState#not_applicable> ) ;
+    skos:definition "The status of a scope-and-delegation condition; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/fbcs> ;
+    linkml:permissible_values <https://standards.example/fbcs/ConditionState#absent>,
+        <https://standards.example/fbcs/ConditionState#not_applicable>,
+        <https://standards.example/fbcs/ConditionState#present> .
+
+fbcs:ScopeAdoptionTier a owl:Class ;
+    rdfs:label "ScopeAdoptionTier" ;
+    owl:unionOf ( <https://standards.example/fbcs/ScopeAdoptionTier#scope_visibility> <https://standards.example/fbcs/ScopeAdoptionTier#structural_review> <https://standards.example/fbcs/ScopeAdoptionTier#full_conformance> ) ;
+    skos:definition "Section 8.6. The three scope-and-delegation adoption tiers." ;
+    skos:inScheme <https://standards.example/fbcs> ;
+    linkml:permissible_values <https://standards.example/fbcs/ScopeAdoptionTier#full_conformance>,
+        <https://standards.example/fbcs/ScopeAdoptionTier#scope_visibility>,
+        <https://standards.example/fbcs/ScopeAdoptionTier#structural_review> .
+
+fbcs:BatteryName a owl:Class ;
+    rdfs:label "BatteryName" ;
+    owl:unionOf ( <https://standards.example/fbcs/BatteryName#personal> <https://standards.example/fbcs/BatteryName#relational> <https://standards.example/fbcs/BatteryName#contribution> <https://standards.example/fbcs/BatteryName#mission> ) ;
+    skos:definition "Section 2. The four batteries." ;
+    skos:inScheme <https://standards.example/fbcs> ;
+    linkml:permissible_values <https://standards.example/fbcs/BatteryName#contribution>,
+        <https://standards.example/fbcs/BatteryName#mission>,
+        <https://standards.example/fbcs/BatteryName#personal>,
+        <https://standards.example/fbcs/BatteryName#relational> .
+
+fbcs:ConformanceAnswer a owl:Class ;
+    rdfs:label "ConformanceAnswer" ;
+    owl:unionOf ( <https://standards.example/fbcs/ConformanceAnswer#satisfied> <https://standards.example/fbcs/ConformanceAnswer#declared_absent_with_justification> <https://standards.example/fbcs/ConformanceAnswer#not_applicable> ) ;
+    skos:definition "Per-condition answer; silence is not one of the values." ;
+    skos:inScheme <https://standards.example/fbcs> ;
+    linkml:permissible_values <https://standards.example/fbcs/ConformanceAnswer#declared_absent_with_justification>,
+        <https://standards.example/fbcs/ConformanceAnswer#not_applicable>,
+        <https://standards.example/fbcs/ConformanceAnswer#satisfied> .
+
+

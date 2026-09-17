@@ -1,0 +1,23 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "The Aurora contributor commons, a Radius-150 organization tracking battery health quarterly, 4 batteries, structural_review",
+      "digest": {
+        "sha256": "<sha256 of the consent record>"
+      }
+    }
+  ],
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/fbcs/conformance/v0.3.7",
+  "predicate": {
+    "verifier": "fbcs-conformance",
+    "obligations": {
+      "personal_battery_charged": "satisfied",
+      "relational_battery_charged": "satisfied",
+      "contribution_battery_charged": "declared_absent_with_justification",
+      "mission_battery_charged": "satisfied",
+      "checking_practice_genuine": "satisfied",
+      "scope_conditions_present": "satisfied"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "fbcs-conformance",
+          "version": "0.3.7",
+          "rules": [
+            {
+              "id": "personal_battery_charged",
+              "shortDescription": {
+                "text": "FBCS (2, 7): Personal battery charge above the threshold on the defined instrument"
+              }
+            },
+            {
+              "id": "relational_battery_charged",
+              "shortDescription": {
+                "text": "FBCS (2, 7): Relational battery charge above the threshold on the defined instrument"
+              }
+            },
+            {
+              "id": "contribution_battery_charged",
+              "shortDescription": {
+                "text": "FBCS (2, 7): Contribution battery charge above the threshold on the defined instrument"
+              }
+            },
+            {
+              "id": "mission_battery_charged",
+              "shortDescription": {
+                "text": "FBCS (2, 7): Mission battery charge above the threshold on the defined instrument"
+              }
+            },
+            {
+              "id": "checking_practice_genuine",
+              "shortDescription": {
+                "text": "FBCS (7.2): the checking practice meets regularity, structural embeddedness, adverse-result integrity, and specificity"
+              }
+            },
+            {
+              "id": "scope_conditions_present",
+              "shortDescription": {
+                "text": "FBCS (8.2): the four scope-and-delegation conditions are present"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "personal_battery_charged",
+          "level": "none",
+          "message": {
+            "text": "FBCS (2, 7): Personal battery charge above the threshold on the defined instrument: satisfied"
+          }
+        },
+        {
+          "ruleId": "relational_battery_charged",
+          "level": "none",
+          "message": {
+            "text": "FBCS (2, 7): Relational battery charge above the threshold on the defined instrument: satisfied"
+          }
+        },
+        {
+          "ruleId": "contribution_battery_charged",
+          "level": "note",
+          "message": {
+            "text": "FBCS (2, 7): Contribution battery charge above the threshold on the defined instrument: declared_absent_with_justification"
+          }
+        },
+        {
+          "ruleId": "mission_battery_charged",
+          "level": "none",
+          "message": {
+            "text": "FBCS (2, 7): Mission battery charge above the threshold on the defined instrument: satisfied"
+          }
+        },
+        {
+          "ruleId": "checking_practice_genuine",
+          "level": "none",
+          "message": {
+            "text": "FBCS (7.2): the checking practice meets regularity, structural embeddedness, adverse-result integrity, and specificity: satisfied"
+          }
+        },
+        {
+          "ruleId": "scope_conditions_present",
+          "level": "none",
+          "message": {
+            "text": "FBCS (8.2): the four scope-and-delegation conditions are present: satisfied"
+          }
+        }
+      ]
+    }
+  ]
+}
