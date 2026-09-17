@@ -273,10 +273,25 @@
       "group": "generative",
       "canonicalSource": "tensegrity-suite/generative/standards/standards-3_0-sensemaking-1_1_23.md",
       "description": "Specifies the structural conditions for sensemaking in a coordination system: disruption-occasioned, action-entangled, sufficiency-oriented, and particular-to-general. Requires that disruption events open as questions the system needs to answer rather than be processed as resolved.",
+      "machineReadable": {
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/sms.schema.json",
+        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/sms.zod.ts",
+        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/sms.jsonld",
+        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/conformance.verdict.intoto.json",
+        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/conformance.sarif",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/sms/"
+      },
       "companions": {
         "skill": "standards/claude-skills/claude-skill-sensemaking-0_1_1.md",
         "prompts": "standards/prompts/sensemaking/"
-      }
+      },
+      "relatedStandards": [
+        "Four Batteries Capacity Standard: the conformant capacity framework whose Personal, Relational, Contribution, and Mission batteries map to the four capacity categories",
+        "ASEP: a signal remains subject to Signal Escalation timing regardless of whether the sensemaking process that would classify it has completed",
+        "SPOS: sensemaking-failure classification authority is a coordination-dimension power concentration subject to the Authorize invariant",
+        "IACS: sensemaking capacity asymmetry is invisible to the six-class taxonomy; Four Batteries Connection 6 (battery-state differentials) supplies the measurement surface",
+        "IACS: personal-framing misapplication (3.2) is the predictable output of Class 3 Interpretive Asymmetry, warranting both a sensemaking and an asymmetry investigation"
+      ]
     },
     {
       "id": "ctps",
