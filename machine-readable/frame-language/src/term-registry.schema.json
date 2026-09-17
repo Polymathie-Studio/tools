@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/frame-language/term-registry.schema.json",
+  "title": "Frame Language term registry",
+  "description": "The canonical machine-readable Frame 1 vocabulary registry of Dimensional Frame Language: each entry names a Frame 1 term (one that imports a structural assumption independently of intent) and the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. A controlled vocabulary published as a code-system; the skill, the MCP server, and the analyzer derive their watchlists from this one source.",
+  "type": "object",
+  "required": ["version", "date", "terms"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "date": { "type": "string" },
+    "description": { "type": "string" },
+    "terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/term" }
+    }
+  },
+  "$defs": {
+    "term": {
+      "type": "object",
+      "required": ["term", "frame", "imports", "frame_2_replacement", "strengthened_form", "procedure", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "term": {
+          "type": "string",
+          "description": "The Frame 1 term this entry is about."
+        },
+        "frame": {
+          "type": "integer",
+          "enum": [1, 2, 3],
+          "description": "The frame the term speaks from. Registry entries are Frame 1 terms."
+        },
+        "imports": {
+          "type": "string",
+          "description": "The structural assumption the term imports independently of the author's intent."
+        },
+        "frame_2_replacement": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "One or more Frame 2 terms that name the structural condition the Frame 1 term was suppressing. May be empty where no replacement has been settled."
+        },
+        "strengthened_form": {
+          "type": "string",
+          "description": "The replacement rendered with the suppressed mechanism added back, so the correct replacement is not weaker than the term it replaces."
+        },
+        "procedure": {
+          "type": "string",
+          "description": "The named procedure for handling the term (for example plain-english, technical-corpus, relational-inversion)."
+        },
+        "forecloses": {
+          "type": ["string", "null"],
+          "description": "The structural requirement the Frame 1 term forecloses by hiding it."
+        },
+        "slippage_note": {
+          "type": ["string", "null"],
+          "description": "Why a plausible reform reading of the term does not change its structural direction."
+        },
+        "primitive_anchors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "The corpus primitives the replacement anchors to, where any exist."
+        },
+        "common_phrasings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["frame_1", "frame_2"],
+            "additionalProperties": false,
+            "properties": {
+              "frame_1": { "type": "string" },
+              "frame_2": { "type": "string" }
+            }
+          },
+          "description": "Recurring Frame 1 phrasings paired with their Frame 2 renderings."
+        },
+        "admissibility_note": {
+          "type": ["string", "null"],
+          "description": "A note on when the term is admissible despite being Frame 1 (for example when a document is analyzing a Frame 1 structure and names it as such)."
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["grammar", "mcp", "analyzer"]
+          },
+          "description": "The prior encodings this entry was reconciled from: the Frame Language Grammar, the MCP server watchlist, the analyzer term registry."
+        }
+      }
+    }
+  }
+}

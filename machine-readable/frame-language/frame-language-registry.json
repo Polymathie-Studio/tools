@@ -1,0 +1,28 @@
+{
+  "family": {
+    "name": "Frame Language",
+    "publisher": "Polymathie-Studio",
+    "author": "Regis Lloyd Chapman",
+    "license": "CC0-1.0",
+    "description": "Frame Language is the structural read at the base of the coordination corpus. It detects, in actual vocabulary and construction, which stance (Frame 1, Frame 2, Frame 3) a term speaks from, so the gap between a stated intent and the structure a term actually specifies is legible and machine-checkable. Its machine-readable layer is a code-system: the canonical Frame 1 vocabulary registry, the one source the skill, the MCP server, and the analyzer derive their watchlists from rather than re-encode. The normative documents (Dimensional Frame Language, the Frame Language Grammar, the Foundational Vocabulary Specification) are the family's standards; they are added as members once their public canonical locations are confirmed.",
+    "homepage": "https://github.com/Polymathie-Studio",
+    "site": "https://polymathie.xyz",
+    "canonicalSourceRepo": null,
+    "note": "The family name and its structural (not evaluative) positioning in the catalog is a naming decision reserved to the author; 'Frame Language' is used here as the established name pending that call."
+  },
+  "manifestVersion": "0.1.0",
+  "members": [
+    {
+      "id": "frame-language-term-registry",
+      "name": "Frame Language term registry",
+      "kind": "code-system",
+      "role": "vocabulary",
+      "mrKind": "code-system",
+      "catalogFile": "src/term-registry.json",
+      "schemaFile": "src/term-registry.schema.json",
+      "license": "CC0-1.0",
+      "status": "published",
+      "description": "The canonical machine-readable Frame 1 vocabulary registry: Frame 1 terms, each mapped to the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. Reconciled from the three prior encodings (the Frame Language Grammar, the MCP server watchlist, the analyzer term registry). Published as data plus its schema so the surfaces derive from one source."
+    }
+  ]
+}
