@@ -1,0 +1,244 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ros: <https://standards.example/ros/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ros:RegenerativeObligationRecord a sh:NodeShape ;
+    rdfs:comment "A system's stance, extraction visibility, the validity conditions and disqualifiers it screens against, its returns, its registered affiliations, and its conformance." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class ros:CategoricalDisqualifier ;
+            sh:description "Section 3.2. The categorical disqualifiers the system screens returns against, each a structural wrong-architecture mechanism." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path ros:disqualifiers ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 2.2. Extraction is nameable, attributable, and recorded; invisibility presumes the standard unmet." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:extraction_visible ],
+        [ sh:class ros:StanceDeclaration ;
+            sh:description "Section 4. The declared stance, a precondition of claiming any tier." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path ros:stance ],
+        [ sh:class ros:HarmBearingAffiliation ;
+            sh:description "Section 5. The affirmatively registered harm-bearing affiliations." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path ros:harm_bearing_affiliations ],
+        [ sh:class ros:ConformanceDeclaration ;
+            sh:description "Section 2.2. The four invariant answers on the face; no total." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path ros:conformance ],
+        [ sh:in ( "extraction_visibility" "return_architecture" "full_conformance" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 6 ;
+            sh:path ros:adopted_tier ],
+        [ sh:class ros:ValidityCondition ;
+            sh:description "Section 3. The three-part validity condition rendered structurally (conjunctive)." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path ros:validity_conditions ],
+        [ sh:class ros:ReturnAssessment ;
+            sh:description "The return assessments, each screened against the conditions and disqualifiers." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path ros:returns ] ;
+    sh:targetClass ros:RegenerativeObligationRecord .
+
+ros:CategoricalDisqualifier a sh:NodeShape ;
+    rdfs:comment "Section 3.2. One categorical disqualifier, a distinct wrong-architecture mechanism that no degree of better measurement fixes. A disqualifier with no mechanism is not a disqualifier, so mechanism and why_categorical are required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The structural mechanism by which the architecture fails the proximity condition." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ros:mechanism ],
+        [ sh:datatype xsd:string ;
+            sh:description "Why the failure is categorical (structural, not a failure of degree that better measurement fixes)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ros:why_categorical ],
+        [ sh:datatype xsd:string ;
+            sh:description "The disqualifier handle (additionality, geographical, temporal_deferral, sroi)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ros:id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:name ] ;
+    sh:targetClass ros:CategoricalDisqualifier .
+
+ros:ConformanceDeclaration a sh:NodeShape ;
+    rdfs:comment "Section 2.2. The four invariant answers on the face. There is deliberately no overall or total field: conformance is per-invariant, mirroring the suite's refusal to collapse a profile into a single number." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path ros:stance_declared ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path ros:three_conditions_met ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path ros:no_retroactive_reclassification ],
+        [ sh:in ( "satisfied" "declared_absent_with_justification" "not_applicable" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ros:extraction_visible ] ;
+    sh:targetClass ros:ConformanceDeclaration .
+
+ros:HarmBearingAffiliation a sh:NodeShape ;
+    rdfs:comment "Section 5. An affirmatively registered harm-bearing affiliation." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The form of return that would satisfy the obligation, consulted with the registering party." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ros:satisfying_return_form ],
+        [ sh:datatype xsd:string ;
+            sh:description "The class of extraction the standing applies to." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:extraction_class ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ros:domain_of_action ],
+        [ sh:datatype xsd:string ;
+            sh:description "The coordination access rights the standing confers (at minimum, to challenge the stance and to verify return)." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ros:access_rights ] ;
+    sh:targetClass ros:HarmBearingAffiliation .
+
+ros:ReturnAssessment a sh:NodeShape ;
+    rdfs:comment "Section 3. A return assessed against the conditions and screened against the disqualifiers." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Which validity conditions the return satisfies (all three are required for validity)." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:conditions_satisfied ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ros:description ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 3.2. True when the return trips none of the categorical disqualifiers." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ros:clear_of_disqualifiers ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Section 5. Whether return delivery to a registered harm-bearing party is attested." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ros:delivered_to_registered_party ] ;
+    sh:targetClass ros:ReturnAssessment .
+
+ros:StanceDeclaration a sh:NodeShape ;
+    rdfs:comment "Section 4. The declared stance and its minimum required contents." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "The review cycle, a default maximum of twelve months." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ros:review_cycle_months ],
+        [ sh:datatype xsd:string ;
+            sh:description "The parties with standing to challenge the stance (defaulting to registered harm-bearing parties)." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ros:challengers ],
+        [ sh:datatype xsd:string ;
+            sh:description "The domains, roles, and contribution types the declaration covers." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:scope ],
+        [ sh:in ( "non_extractive" "more_regenerative_than_extractive" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path ros:stance ] ;
+    sh:targetClass ros:StanceDeclaration .
+
+ros:ValidityCondition a sh:NodeShape ;
+    rdfs:comment "Section 3. One of the three-part validity conditions, individuated by its test and the register it operates in. A condition with no test cannot be verified, so test is required." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The structural register in which the condition operates (for example the register of the harm)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path ros:register ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path ros:name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The condition handle (non_fungibility, proximity, embeddedness)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path ros:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "The verifiable test that distinguishes a return that satisfies the condition." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path ros:test ] ;
+    sh:targetClass ros:ValidityCondition .
+
+
