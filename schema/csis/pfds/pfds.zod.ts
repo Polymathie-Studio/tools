@@ -17,7 +17,7 @@ export const PrecisionReview = z.object({
   "id": z.string().describe("The corollary handle (for example operational_definition, taxonomy_completeness)."),
   "imposition_direction": z.string().describe("What over-specification produces."),
   "name": z.string()
-}).strict()).describe("Section 2. The ten corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against."),
+}).strict()).describe("Section 2. The twelve corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against."),
   "deficits": z.array(z.object({
   "decision": z.string().describe("Section 6.5. The documented decision (remediation, acceptance with rationale, deferral, or not-a-deficit); required at Loop-Closed.").optional(),
   "location": z.string().describe("The document and location of the deficit."),

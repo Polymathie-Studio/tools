@@ -157,7 +157,7 @@
     },
     "PrecisionReview": {
       "additionalProperties": false,
-      "description": "A review of a governed artifact against the invariant, the ten corollaries, congruence, and the failure taxonomy, producing a deficit map.",
+      "description": "A review of a governed artifact against the invariant, the twelve corollaries, congruence, and the failure taxonomy, producing a deficit map.",
       "properties": {
         "adoption_depth": {
           "$ref": "#/$defs/AdoptionDepth",
@@ -172,7 +172,7 @@
           "type": "boolean"
         },
         "corollaries": {
-          "description": "Section 2. The ten corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against.",
+          "description": "Section 2. The twelve corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against.",
           "items": {
             "$ref": "#/$defs/Corollary"
           },
@@ -219,7 +219,7 @@
   "$id": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/pfds/pfds.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "description": "A review of a governed artifact against the invariant, the ten corollaries, congruence, and the failure taxonomy, producing a deficit map.",
+  "description": "A review of a governed artifact against the invariant, the twelve corollaries, congruence, and the failure taxonomy, producing a deficit map.",
   "metamodel_version": "1.11.0",
   "properties": {
     "adoption_depth": {
@@ -235,7 +235,7 @@
       "type": "boolean"
     },
     "corollaries": {
-      "description": "Section 2. The ten corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against.",
+      "description": "Section 2. The twelve corollaries, each a structured precision condition with its two failure directions. They are constitutive of a precision review, not optional reference: a review that carries no corollaries could claim conformance while never assessing against the precision conditions, so the review carries the full precision structure it assessed against.",
       "items": {
         "$ref": "#/$defs/Corollary"
       },
