@@ -98,12 +98,12 @@
       "license": "CC0-1.0",
       "description": "Common reporting and outcome standards schema for grant rounds.",
       "machineReadable": {
-        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/cross.schema.json",
-        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/cross.zod.ts",
-        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/cross.jsonld",
-        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/conformance.verdict.intoto.json",
-        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/conformance.sarif",
-        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/"
+        "schema": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/cross.schema.json",
+        "zod": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/cross.zod.ts",
+        "jsonldContext": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/cross.jsonld",
+        "conformanceVerdict": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/conformance.verdict.intoto.json",
+        "conformanceSarif": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/conformance.sarif",
+        "set": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/"
       },
       "note": "CROSS is a document cluster (schema, guidance, rubric, templates, worked-examples, canonical-round-configuration-schema, grant-configurator, dashboards, runbooks). The canonical standard document among these is undetermined; this entry provisionally points at the common-reporting-outcome-standards schema. Durgadas's call."
     },

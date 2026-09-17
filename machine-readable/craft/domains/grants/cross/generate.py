@@ -24,7 +24,7 @@ SRC = ROOT / "src" / "cross.linkml.yaml"
 DIST = ROOT / "dist"
 EX = ROOT / "examples"
 DRAFT = "https://json-schema.org/draft/2020-12/schema"
-SID = "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/cross/cross.schema.json"
+SID = "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/craft/domains/grants/cross/cross.schema.json"
 
 # The indicator field groups (CROSS Part V), for the SARIF rule set.
 FIELD_GROUPS = {

@@ -75,14 +75,15 @@ def filename_version(name):
     return ".".join(m.groups()) if m else None
 
 
-def build_machine_readable(std_id):
+def build_machine_readable(std_id, mr_path):
     """Pointers to a standard's generated set on the one source, present only when the set has
-    been generated (machine-readable/craft/<id>/dist/<id>.schema.json exists). The URLs are the
-    Polymathie fetch host, matching the schema's own $id."""
-    dist = MR_DIR / std_id / "dist" / f"{std_id}.schema.json"
+    been generated (machine-readable/craft/<mr_path>/dist/<id>.schema.json exists). mr_path is the
+    member's path within the family (default its id; domain applications nest under
+    domains/<domain>/<id>). The URLs are the Polymathie fetch host, matching the schema's own $id."""
+    dist = MR_DIR / mr_path / "dist" / f"{std_id}.schema.json"
     if not dist.exists():
         return None
-    base = f"{SID_BASE}/{std_id}"
+    base = f"{SID_BASE}/{mr_path}"
     return {
         "schema": f"{base}/{std_id}.schema.json",
         "zod": f"{base}/{std_id}.zod.ts",
@@ -139,7 +140,7 @@ def build_member(entry):
         "license": entry.get("license"),
         "description": entry.get("description", ""),
     }
-    mr = build_machine_readable(entry["id"])
+    mr = build_machine_readable(entry["id"], entry.get("mrPath", entry["id"]))
     if mr:
         member["machineReadable"] = mr
     if "cluster" in entry:

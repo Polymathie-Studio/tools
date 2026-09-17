@@ -39,20 +39,17 @@ def main(argv):
     if not (TOOLS_REPO / ".git").exists():
         sys.exit(f"tools repo clone not found at {TOOLS_REPO}; set POLYMATHIE_TOOLS to its path")
 
-    ids = argv[1:]
-    if not ids:
-        ids = sorted(d.name for d in MR_DIR.iterdir()
-                     if d.is_dir() and (d / "dist").is_dir())
-
-    findings, checked = [], 0
-    for std in ids:
-        dist = MR_DIR / std / "dist"
-        if not dist.is_dir():
-            findings.append(f"NO DIST      {std}: no local dist (run generate.py {std})")
-            continue
+    # Find every generated set (a dist/ directory) at any depth, so domain applications nested
+    # under domains/<domain>/<id>/ are checked alongside the flat core standards. The published
+    # path mirrors the source path relative to the family root (mrPath).
+    dist_dirs = sorted(d for d in MR_DIR.rglob("dist") if d.is_dir())
+    findings, checked, sets = [], 0, 0
+    for dist in dist_dirs:
+        rel = dist.parent.relative_to(MR_DIR)  # "cross" or "domains/grants/cross"
+        sets += 1
         for f in sorted(dist.iterdir()):
             if f.is_file():
-                check_pair(f, published_root / std / f.name, f"{std}/{f.name}", findings)
+                check_pair(f, published_root / rel / f.name, f"{rel}/{f.name}", findings)
                 checked += 1
 
     # the family manifest, the discovery entry point
@@ -65,7 +62,7 @@ def main(argv):
         for line in findings:
             print("  " + line)
         return 1
-    print(f"drift check: clean, {checked} published file(s) match local for {len(ids)} standard(s) plus the manifest")
+    print(f"drift check: clean, {checked} published file(s) match local for {sets} standard(s) plus the manifest")
     return 0
 
 

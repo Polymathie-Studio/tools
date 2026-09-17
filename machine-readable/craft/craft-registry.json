@@ -63,7 +63,8 @@
       "license": "CC0-1.0",
       "status": "published",
       "cluster": "CROSS is a document cluster (schema, guidance, rubric, templates, worked-examples, canonical-round-configuration-schema, grant-configurator, dashboards, runbooks). The canonical standard document among these is undetermined; this entry provisionally points at the common-reporting-outcome-standards schema. Durgadas's call.",
-      "description": "Common reporting and outcome standards schema for grant rounds."
+      "description": "Common reporting and outcome standards schema for grant rounds.",
+      "mrPath": "domains/grants/cross"
     },
     {
       "id": "walkri",
@@ -85,7 +86,8 @@
       "kind": "standard",
       "role": "primitives",
       "status": "planned",
-      "description": "The abstraction and primitives layer for the family. In preparation; not cloned locally, so no version is derived."
+      "description": "The abstraction and primitives layer for the family. In preparation; not cloned locally, so no version is derived.",
+      "mrPath": "domains/grants/grain"
     }
   ]
 }

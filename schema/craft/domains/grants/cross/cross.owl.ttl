@@ -17,39 +17,39 @@ cross:ExecutionVerification a owl:Class ;
     rdfs:label "ExecutionVerification" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:verification_artifact ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:invariant_specification ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:verification_artifact ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:failure_surface ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:failure_surface ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:verification_artifact ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:failure_surface ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:verification_method ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:verification_method ],
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:verification_artifact ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:invariant_specification ],
+            owl:onProperty cross:verification_artifact ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:verification_artifact ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:invariant_specification ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:invariant_specification ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cross:invariant_specification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:failure_surface ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:verification_method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:verification_method ] ;
     skos:definition "CROSS Part V. The execution and verification path for a contract-centric obligation: the invariants the contract must satisfy, how they are assessed, the artifact that constitutes completion evidence, and at least one failure the instrument would detect." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
@@ -57,40 +57,40 @@ cross:ExecutionVerification a owl:Class ;
 cross:OperationalDefinition a owl:Class ;
     rdfs:label "OperationalDefinition" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:unit_of_analysis ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:unit_of_analysis ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:unit_of_analysis ],
+            owl:onProperty cross:exclusion_criteria ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:edge_case_determination ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cross:inclusion_criteria ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:inclusion_criteria ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:inclusion_criteria ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cross:edge_case_determination ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 1 ;
             owl:onProperty cross:exclusion_criteria ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:exclusion_criteria ],
+            owl:onProperty cross:inclusion_criteria ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:inclusion_criteria ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:exclusion_criteria ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:unit_of_analysis ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cross:edge_case_determination ] ;
     skos:definition "CROSS Part V, meeting WALKRI Part III Criterion 2. What counts and what does not count as one unit of the claimed result. This is the field-level composition point with WALKRI: CROSS frames the chain and WALKRI ensures the instrument is sound." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
@@ -99,40 +99,40 @@ cross:SustainabilityPlan a owl:Class ;
     rdfs:label "SustainabilityPlan" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:cost_coverage ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cross:handoff ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:end_state ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:end_state ],
+            owl:onProperty cross:continuation ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cross:continuation ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:end_state ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cross:handoff ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:continuation ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:continuation ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cross:end_state ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:handoff ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:cost_coverage ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cross:cost_coverage ] ;
+            owl:onProperty cross:cost_coverage ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:handoff ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:cost_coverage ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:end_state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:continuation ] ;
     skos:definition "CROSS Part V. A documented position on continuation beyond the grant period, activated by funder configuration. Not a guarantee; a position the funder may use in subsequent continuation-gate assessments." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
 
@@ -149,40 +149,40 @@ cross:SustainabilityPlan a owl:Class ;
 cross:DataSource a owl:Class ;
     rdfs:label "DataSource" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:source ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
             owl:onProperty cross:independent_corroboration ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:collection_method ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:collection_method ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:independently_accessible ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:collection_method ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:boolean ;
             owl:onProperty cross:independently_accessible ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:independent_corroboration ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:independently_accessible ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cross:independent_corroboration ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:source ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cross:independently_accessible ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:collection_method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:independent_corroboration ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cross:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cross:source ] ;
     skos:definition "CROSS Part V. The named source and collection method. The source must be accessible to an independent reviewer; an applicant-controlled source without named independent corroboration does not satisfy the data-quality standard." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
@@ -190,110 +190,110 @@ cross:DataSource a owl:Class ;
 cross:IndicatorSpecification a owl:Class ;
     rdfs:label "IndicatorSpecification" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:obligation_mode ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cross:rationale ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cross:DataSource ;
-            owl:onProperty cross:data_source ],
+            owl:minCardinality 1 ;
+            owl:onProperty cross:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:indicator_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:sustainability_plan ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:measurement_form ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:indicator_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:StateSpecification ;
+            owl:onProperty cross:target ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:indicator_name ],
+            owl:onProperty cross:data_cost_estimation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:OperationalDefinition ;
+            owl:onProperty cross:operational_definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:construction_methodology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:data_cost_estimation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:StateSpecification ;
+            owl:onProperty cross:baseline ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:baseline ],
         [ a owl:Restriction ;
             owl:allValuesFrom cross:MeasurementFormClassification ;
             owl:onProperty cross:measurement_form ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:operational_definition ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cross:StateSpecification ;
-            owl:onProperty cross:target ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:target ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:baseline ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:construction_methodology ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:construction_methodology ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty cross:data_source ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:target ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:rationale ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:sustainability_plan ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cross:baseline ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 1 ;
             owl:onProperty cross:measurement_form ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:data_source ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:rationale ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:data_cost_estimation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cross:sustainability_plan ],
         [ a owl:Restriction ;
             owl:allValuesFrom cross:ObligationMode ;
             owl:onProperty cross:obligation_mode ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:obligation_mode ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cross:disaggregation ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cross:indicator_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cross:data_cost_estimation ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:operational_definition ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:indicator_name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cross:StateSpecification ;
-            owl:onProperty cross:baseline ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:disaggregation ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cross:OperationalDefinition ;
-            owl:onProperty cross:operational_definition ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cross:disaggregation ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:construction_methodology ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cross:obligation_mode ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:measurement_form ],
+            owl:onProperty cross:data_source ],
         [ a owl:Restriction ;
             owl:allValuesFrom cross:SustainabilityPlan ;
             owl:onProperty cross:sustainability_plan ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:disaggregation ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:data_cost_estimation ],
+            owl:onProperty cross:sustainability_plan ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cross:indicator_name ] ;
+            owl:onProperty cross:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cross:DataSource ;
+            owl:onProperty cross:data_source ] ;
     skos:definition "CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of it. The applicant specifies what their intervention produces; CROSS specifies the fields the indicator must contain and the quality standards those fields must satisfy. This is the unit CROSS indicator conformance is assessed against." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
 
@@ -320,59 +320,59 @@ cross:IndicatorSpecification a owl:Class ;
 cross:MeasurementFormClassification a owl:Class ;
     rdfs:label "MeasurementFormClassification" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:form ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:plain_language_form ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cross:MeasurementForm ;
-            owl:onProperty cross:form ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cross:ExecutionVerification ;
             owl:onProperty cross:execution_verification ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cross:aggregation_type ],
+            owl:allValuesFrom cross:SourceType ;
+            owl:onProperty cross:source_type ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:plain_language_form ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:maxCardinality 1 ;
             owl:onProperty cross:source_type ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cross:MeasurementForm ;
+            owl:onProperty cross:form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:plain_language_form ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:aggregation_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:form ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:contract_centric ],
+            owl:onProperty cross:plain_language_form ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:boolean ;
             owl:onProperty cross:contract_centric ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cross:source_type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:contract_centric ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cross:form ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cross:AggregationType ;
+            owl:maxCardinality 1 ;
             owl:onProperty cross:aggregation_type ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cross:aggregation_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cross:SourceType ;
             owl:onProperty cross:source_type ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cross:execution_verification ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:plain_language_form ],
+            owl:allValuesFrom cross:AggregationType ;
+            owl:onProperty cross:aggregation_type ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cross:ExecutionVerification ;
-            owl:onProperty cross:execution_verification ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cross:contract_centric ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cross:execution_verification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cross:contract_centric ] ;
     skos:definition "CROSS Part V. The measurement form in plain language, classified on three axes for data-quality assessment, with the execution-and-verification instruments named where the obligation object is a contract's behavior rather than a discrete artifact or count." ;
     skos:inScheme <https://standards.crosswalkri.org/cross> .
 
@@ -412,8 +412,8 @@ cross:StateSpecification a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty cross:documented_state ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cross:documented_state ],
+            owl:minCardinality 0 ;
+            owl:onProperty cross:data_source ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cross:data_source ],
@@ -421,8 +421,8 @@ cross:StateSpecification a owl:Class ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:data_source ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cross:data_source ],
+            owl:minCardinality 1 ;
+            owl:onProperty cross:documented_state ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cross:documented_state ] ;
@@ -639,6 +639,20 @@ cross:data_source a owl:DatatypeProperty,
         owl:ObjectProperty .
 
 [] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:baseline ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:obligation_mode ;
+                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty cross:baseline ;
+            owl:someValuesFrom owl:Thing ] ;
+    owl:intersectionOf ( [ a owl:Restriction ;
+                owl:onProperty cross:obligation_mode ;
+                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
+
+[] rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty cross:independent_corroboration ;
             owl:someValuesFrom xsd:string ] ;
     owl:intersectionOf ( [ a owl:Restriction ;
@@ -648,13 +662,6 @@ cross:data_source a owl:DatatypeProperty,
                         owl:withRestrictions ( [ xsd:pattern "false" ] ) ] ] cross:DataSource ) .
 
 [] rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty cross:baseline ;
-            owl:someValuesFrom owl:Thing ] ;
-    owl:intersectionOf ( [ a owl:Restriction ;
-                owl:onProperty cross:obligation_mode ;
-                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
-
-[] rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty cross:execution_verification ;
             owl:someValuesFrom owl:Thing ] ;
     owl:intersectionOf ( [ a owl:Restriction ;
@@ -662,12 +669,5 @@ cross:data_source a owl:DatatypeProperty,
                 owl:someValuesFrom [ a rdfs:Datatype ;
                         owl:onDatatype xsd:string ;
                         owl:withRestrictions ( [ xsd:pattern "true" ] ) ] ] cross:MeasurementFormClassification ) .
-
-[] rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty cross:baseline ;
-            owl:someValuesFrom owl:Thing ] ;
-    owl:intersectionOf ( [ a owl:Restriction ;
-                owl:onProperty cross:obligation_mode ;
-                owl:someValuesFrom xsd:string ] cross:IndicatorSpecification ) .
 
 

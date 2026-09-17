@@ -8,33 +8,13 @@ cross:IndicatorSpecification a sh:NodeShape ;
     rdfs:comment "CROSS Part V. A self-specified outcome indicator carrying the fields CROSS requires of it. The applicant specifies what their intervention produces; CROSS specifies the fields the indicator must contain and the quality standards those fields must satisfy. This is the unit CROSS indicator conformance is assessed against." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class cross:SustainabilityPlan ;
-            sh:description "CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 11 ;
-            sh:path cross:sustainability_plan ],
-        [ sh:class cross:DataSource ;
-            sh:description "CROSS Part V. The named source and collection method, accessible to an independent reviewer." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 7 ;
-            sh:path cross:data_source ],
-        [ sh:datatype xsd:string ;
-            sh:description "CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path cross:construction_methodology ],
-        [ sh:datatype xsd:string ;
-            sh:description "CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path cross:indicator_name ],
+            sh:order 2 ;
+            sh:path cross:rationale ],
         [ sh:class cross:MeasurementFormClassification ;
             sh:description "CROSS Part V. The plain-language measurement form and its classification on the three data-quality axes, plus the execution-and-verification path where the obligation object is a contract's behavior." ;
             sh:maxCount 1 ;
@@ -42,37 +22,6 @@ cross:IndicatorSpecification a sh:NodeShape ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 3 ;
             sh:path cross:measurement_form ],
-        [ sh:datatype xsd:string ;
-            sh:description "CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path cross:disaggregation ],
-        [ sh:class cross:StateSpecification ;
-            sh:description "CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 9 ;
-            sh:path cross:baseline ],
-        [ sh:datatype xsd:string ;
-            sh:description "CROSS Part V. Why this indicator was selected over available alternatives; the diagnostic thinking that preceded tool selection. Required across all obligation modes." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path cross:rationale ],
-        [ sh:class cross:StateSpecification ;
-            sh:description "CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 10 ;
-            sh:path cross:target ],
-        [ sh:description "CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below." ;
-            sh:in ( "build" "change" "retroactive" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 1 ;
-            sh:path cross:obligation_mode ],
         [ sh:class cross:OperationalDefinition ;
             sh:description "CROSS Part V. What counts and what does not count as one unit of the claimed result. Must meet WALKRI Part III Criterion 2 (inclusion, exclusion, unit of analysis, edge case)." ;
             sh:maxCount 1 ;
@@ -86,7 +35,58 @@ cross:IndicatorSpecification a sh:NodeShape ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 8 ;
-            sh:path cross:data_cost_estimation ] ;
+            sh:path cross:data_cost_estimation ],
+        [ sh:class cross:StateSpecification ;
+            sh:description "CROSS Part V. The FROM state. Required for change-obligation indicators (the documented prior condition) and for retroactive indicators (the state at the award period's start); for build-obligation indicators it documents the gap where the funder has activated beneficiary engagement." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path cross:baseline ],
+        [ sh:description "CROSS Part III. The obligation mode this indicator serves, which governs several conditional requirements below." ;
+            sh:in ( "build" "change" "retroactive" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path cross:obligation_mode ],
+        [ sh:class cross:DataSource ;
+            sh:description "CROSS Part V. The named source and collection method, accessible to an independent reviewer." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path cross:data_source ],
+        [ sh:datatype xsd:string ;
+            sh:description "CROSS Part V. The categories by which indicator values will be reported. Committed categories may be supplemented but not removed without committee approval, protecting longitudinal comparability." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path cross:disaggregation ],
+        [ sh:datatype xsd:string ;
+            sh:description "CROSS Part V. A short descriptive label. Not the operational definition; the same name may carry different operational definitions across funders." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cross:indicator_name ],
+        [ sh:class cross:StateSpecification ;
+            sh:description "CROSS Part V. The TO state, the expected state of the indicator at the end of the grant period or stage, or the completion criteria for a build deliverable." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path cross:target ],
+        [ sh:datatype xsd:string ;
+            sh:description "CROSS Part V. The calculation or counting rule in enough detail that an independent reviewer with the stated data source could replicate the result, including partial-data handling and sub-unit aggregation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cross:construction_methodology ],
+        [ sh:class cross:SustainabilityPlan ;
+            sh:description "CROSS Part V. Optional, activated by funder configuration. Required above a funder-defined size threshold or for infrastructure with ongoing operational requirements beyond the grant period." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path cross:sustainability_plan ] ;
     sh:targetClass cross:IndicatorSpecification .
 
 cross:DataSource a sh:NodeShape ;
@@ -94,11 +94,12 @@ cross:DataSource a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "CROSS Part V. Where the source is applicant-controlled (not independently accessible), the named independent corroboration that makes the data auditable." ;
+            sh:description "How the data is collected." ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path cross:independent_corroboration ],
+            sh:order 1 ;
+            sh:path cross:collection_method ],
         [ sh:datatype xsd:boolean ;
             sh:description "Whether the source is accessible to an independent reviewer without relying on the applicant." ;
             sh:maxCount 1 ;
@@ -107,19 +108,18 @@ cross:DataSource a sh:NodeShape ;
             sh:order 2 ;
             sh:path cross:independently_accessible ],
         [ sh:datatype xsd:string ;
-            sh:description "How the data is collected." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path cross:collection_method ],
-        [ sh:datatype xsd:string ;
             sh:description "The named data source." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path cross:source ] ;
+            sh:path cross:source ],
+        [ sh:datatype xsd:string ;
+            sh:description "CROSS Part V. Where the source is applicant-controlled (not independently accessible), the named independent corroboration that makes the data auditable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cross:independent_corroboration ] ;
     sh:targetClass cross:DataSource .
 
 cross:ExecutionVerification a sh:NodeShape ;
@@ -127,6 +127,13 @@ cross:ExecutionVerification a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "A narrative description of the invariants or properties the contract must satisfy (conservation of balances, absence of re-entrancy on named functions, bounded slippage), the human-readable counterpart of the formal specification." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cross:invariant_specification ],
+        [ sh:datatype xsd:string ;
             sh:description "The concrete completion evidence, a proof object, a named-firm audit report, or a named contract and query a reviewer can use to reproduce the behavioral check from public chain data." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -146,21 +153,26 @@ cross:ExecutionVerification a sh:NodeShape ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path cross:verification_method ],
-        [ sh:datatype xsd:string ;
-            sh:description "A narrative description of the invariants or properties the contract must satisfy (conservation of balances, absence of re-entrancy on named functions, bounded slippage), the human-readable counterpart of the formal specification." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path cross:invariant_specification ] ;
+            sh:path cross:verification_method ] ;
     sh:targetClass cross:ExecutionVerification .
 
 cross:MeasurementFormClassification a sh:NodeShape ;
     rdfs:comment "CROSS Part V. The measurement form in plain language, classified on three axes for data-quality assessment, with the execution-and-verification instruments named where the obligation object is a contract's behavior rather than a discrete artifact or count." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "CROSS Part V. Where the result is verified from; each source type carries different minimum verification requirements." ;
+    sh:property [ sh:description "CROSS Part V. How the result is expressed." ;
+            sh:in ( "quantitative" "ordinal" "binary" "qualitative" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cross:form ],
+        [ sh:description "CROSS Part V. Whether values sum correctly across reporting periods (cumulative) or describe a point-in-time state (non-cumulative, where summing is a construction error)." ;
+            sh:in ( "cumulative" "non_cumulative" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path cross:aggregation_type ],
+        [ sh:description "CROSS Part V. Where the result is verified from; each source type carries different minimum verification requirements." ;
             sh:in ( "on_chain_verifiable" "off_chain_verifiable" "qualitative_narrative" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -179,25 +191,13 @@ cross:MeasurementFormClassification a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path cross:plain_language_form ],
-        [ sh:description "CROSS Part V. Whether values sum correctly across reporting periods (cumulative) or describe a point-in-time state (non-cumulative, where summing is a construction error)." ;
-            sh:in ( "cumulative" "non_cumulative" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 3 ;
-            sh:path cross:aggregation_type ],
         [ sh:datatype xsd:boolean ;
             sh:description "CROSS Part V. True where the obligation object is a contract's behavior under specified conditions rather than a discrete artifact or count." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 4 ;
-            sh:path cross:contract_centric ],
-        [ sh:description "CROSS Part V. How the result is expressed." ;
-            sh:in ( "quantitative" "ordinal" "binary" "qualitative" ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:order 2 ;
-            sh:path cross:form ] ;
+            sh:path cross:contract_centric ] ;
     sh:targetClass cross:MeasurementFormClassification .
 
 cross:OperationalDefinition a sh:NodeShape ;
@@ -205,13 +205,6 @@ cross:OperationalDefinition a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "At least one example of how an ambiguous instance is handled." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path cross:edge_case_determination ],
-        [ sh:datatype xsd:string ;
             sh:description "What qualifies as one instance of the claimed result." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -219,19 +212,26 @@ cross:OperationalDefinition a sh:NodeShape ;
             sh:order 0 ;
             sh:path cross:inclusion_criteria ],
         [ sh:datatype xsd:string ;
-            sh:description "The named unit (person, wallet address, transaction, repository, site, or other)." ;
+            sh:description "At least one example of how an ambiguous instance is handled." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path cross:unit_of_analysis ],
+            sh:order 3 ;
+            sh:path cross:edge_case_determination ],
         [ sh:datatype xsd:string ;
             sh:description "What the indicator explicitly does not count." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
-            sh:path cross:exclusion_criteria ] ;
+            sh:path cross:exclusion_criteria ],
+        [ sh:datatype xsd:string ;
+            sh:description "The named unit (person, wallet address, transaction, repository, site, or other)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cross:unit_of_analysis ] ;
     sh:targetClass cross:OperationalDefinition .
 
 cross:SustainabilityPlan a sh:NodeShape ;
@@ -239,12 +239,6 @@ cross:SustainabilityPlan a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Where the work reaches a defined end state after which maintenance is not required, the specification of that state and when it will be declared reached." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path cross:end_state ],
-        [ sh:datatype xsd:string ;
             sh:description "What happens to the funded work at the end of the grant period, who maintains it, and under what conditions it remains publicly accessible." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -252,17 +246,23 @@ cross:SustainabilityPlan a sh:NodeShape ;
             sh:order 0 ;
             sh:path cross:continuation ],
         [ sh:datatype xsd:string ;
-            sh:description "How ongoing costs will be covered after the grant ends, naming the expected source with enough specificity to assess plausibility." ;
+            sh:description "Where the work reaches a defined end state after which maintenance is not required, the specification of that state and when it will be declared reached." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path cross:cost_coverage ],
+            sh:order 3 ;
+            sh:path cross:end_state ],
         [ sh:datatype xsd:string ;
             sh:description "Where the work is handed to another party, the receiving party's identity and the transition conditions." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
-            sh:path cross:handoff ] ;
+            sh:path cross:handoff ],
+        [ sh:datatype xsd:string ;
+            sh:description "How ongoing costs will be covered after the grant ends, naming the expected source with enough specificity to assess plausibility." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cross:cost_coverage ] ;
     sh:targetClass cross:SustainabilityPlan .
 
 cross:StateSpecification a sh:NodeShape ;
@@ -270,18 +270,18 @@ cross:StateSpecification a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "The named data source evidencing this state (required for a baseline)." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path cross:data_source ],
-        [ sh:datatype xsd:string ;
             sh:description "The documented state, expressed for a change indicator in the same units as the paired state." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path cross:documented_state ] ;
+            sh:path cross:documented_state ],
+        [ sh:datatype xsd:string ;
+            sh:description "The named data source evidencing this state (required for a baseline)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cross:data_source ] ;
     sh:targetClass cross:StateSpecification .
 
 
