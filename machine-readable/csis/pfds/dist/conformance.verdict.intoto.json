@@ -8,7 +8,7 @@
       }
     }
   ],
-  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/pfds/conformance/v2.5.0",
+  "predicateType": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/csis/pfds/conformance/v2.5.1",
   "predicate": {
     "verifier": "pfds-conformance",
     "obligations": {

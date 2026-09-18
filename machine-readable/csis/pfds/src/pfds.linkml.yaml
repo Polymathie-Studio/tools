@@ -3,7 +3,7 @@ name: pfds
 title: PFDS precision review
 description: >-
   The one canonical source for the machine-readable layer of the Precision-First Design Standard
-  (standards-3_0-precision-first, v2.5.0), the suite meta-standard. PFDS specifies what precision
+  (standards-3_0-precision-first, v2.5.1), the suite meta-standard. PFDS specifies what precision
   requires across every standard, so the twelve corollaries and the five precision-failure patterns
   are rendered as typed objects, each carrying its structure (a corollary its condition and its
   two failure directions and corrective, a pattern its structural signature and response), not as

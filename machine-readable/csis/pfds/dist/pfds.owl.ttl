@@ -11,72 +11,72 @@
     rdfs:label "pfds" ;
     dcterms:license "CC-BY-4.0" ;
     dcterms:title "PFDS precision review" ;
-    skos:definition """The one canonical source for the machine-readable layer of the Precision-First Design Standard (standards-3_0-precision-first, v2.5.0), the suite meta-standard. PFDS specifies what precision requires across every standard, so the twelve corollaries and the five precision-failure patterns are rendered as typed objects, each carrying its structure (a corollary its condition and its two failure directions and corrective, a pattern its structural signature and response), not as flat label enums. Rendering either as a taxonomy would collapse the structure into labels, the precision deficit PFDS itself names. A corollary reduced to a name is not a corollary, so its condition and both directions are required.
+    skos:definition """The one canonical source for the machine-readable layer of the Precision-First Design Standard (standards-3_0-precision-first, v2.5.1), the suite meta-standard. PFDS specifies what precision requires across every standard, so the twelve corollaries and the five precision-failure patterns are rendered as typed objects, each carrying its structure (a corollary its condition and its two failure directions and corrective, a pattern its structural signature and response), not as flat label enums. Rendering either as a taxonomy would collapse the structure into labels, the precision deficit PFDS itself names. A corollary reduced to a name is not a corollary, so its condition and both directions are required.
 The tree root is a PrecisionReview: an artifact reviewed against the precision-first invariant, the twelve corollaries, Method-Structure Congruence, and the failure taxonomy, producing a deficit map keyed to the patterns, with the review's adoption depth, obligation-loop tier, and per-invariant conformance. Every artifact in dist/ is generated from this file.
 The invariant, congruence, and the corollary conditions are meta-conditions whose per-element verdict runs through the independent-observer test; whether a given element satisfies a corollary is the reviewer's determination, and tier-gating stays in the checker.""" .
 
 pfds:PrecisionReview a owl:Class ;
     rdfs:label "PrecisionReview" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty pfds:deficits ],
+            owl:allValuesFrom pfds:FailurePattern ;
+            owl:onProperty pfds:failure_patterns ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:subject ],
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:obligation_tier ],
         [ a owl:Restriction ;
             owl:allValuesFrom pfds:ConformanceDeclaration ;
             owl:onProperty pfds:conformance ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:corollaries ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:congruence_checked ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:adoption_depth ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom pfds:AdoptionDepth ;
-            owl:onProperty pfds:adoption_depth ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:conformance ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:adoption_depth ],
         [ a owl:Restriction ;
             owl:allValuesFrom pfds:Corollary ;
             owl:onProperty pfds:corollaries ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty pfds:congruence_checked ],
+            owl:onProperty pfds:subject ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:subject ],
         [ a owl:Restriction ;
             owl:allValuesFrom pfds:PrecisionDeficit ;
             owl:onProperty pfds:deficits ],
         [ a owl:Restriction ;
+            owl:allValuesFrom pfds:AdoptionDepth ;
+            owl:onProperty pfds:adoption_depth ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:failure_patterns ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:conformance ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty pfds:subject ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:obligation_tier ],
+            owl:minCardinality 0 ;
+            owl:onProperty pfds:deficits ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty pfds:conformance ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:subject ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom pfds:FailurePattern ;
-            owl:onProperty pfds:failure_patterns ],
+            owl:onProperty pfds:adoption_depth ],
         [ a owl:Restriction ;
             owl:allValuesFrom pfds:ObligationTier ;
             owl:onProperty pfds:obligation_tier ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty pfds:failure_patterns ],
+            owl:onProperty pfds:obligation_tier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:congruence_checked ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:conformance ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty pfds:obligation_tier ],
+            owl:onProperty pfds:congruence_checked ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:adoption_depth ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:corollaries ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:boolean ;
             owl:onProperty pfds:congruence_checked ] ;
@@ -86,52 +86,91 @@ pfds:PrecisionReview a owl:Class ;
 pfds:ConformanceDeclaration a owl:Class ;
     rdfs:label "ConformanceDeclaration" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:deficits_mapped ],
+        [ a owl:Restriction ;
             owl:allValuesFrom pfds:ConformanceAnswer ;
             owl:onProperty pfds:compliance_serves_purpose ],
         [ a owl:Restriction ;
-            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:maxCardinality 1 ;
             owl:onProperty pfds:method_structure_congruent ],
         [ a owl:Restriction ;
-            owl:allValuesFrom pfds:ConformanceAnswer ;
-            owl:onProperty pfds:deficits_mapped ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:violations_detectable ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:minCardinality 1 ;
             owl:onProperty pfds:violations_detectable ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty pfds:compliance_serves_purpose ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty pfds:compliance_serves_purpose ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:deficits_mapped ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:deficits_mapped ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:method_structure_congruent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
+            owl:onProperty pfds:method_structure_congruent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pfds:ConformanceAnswer ;
             owl:onProperty pfds:violations_detectable ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty pfds:deficits_mapped ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:deficits_mapped ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:method_structure_congruent ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:method_structure_congruent ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:compliance_serves_purpose ] ;
+            owl:onProperty pfds:violations_detectable ] ;
     skos:definition "The invariant answers on the face. There is deliberately no overall or total field: conformance is per-condition, mirroring the suite's refusal to collapse a profile into a single number." ;
     skos:inScheme <https://standards.example/pfds> .
 
 pfds:Corollary a owl:Class ;
     rdfs:label "Corollary" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:imposition_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:deficit_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:imposition_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:condition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:condition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:deficit_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:corrective ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty pfds:deficit_direction ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:condition ],
+            owl:onProperty pfds:corrective ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:id ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty pfds:imposition_direction ],
@@ -139,108 +178,63 @@ pfds:Corollary a owl:Class ;
             owl:minCardinality 0 ;
             owl:onProperty pfds:corrective ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:condition ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:imposition_direction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:deficit_direction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:id ],
-        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:corrective ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:deficit_direction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:imposition_direction ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty pfds:condition ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:corrective ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:name ] ;
+            owl:onProperty pfds:condition ] ;
     skos:definition "Section 2. One precision corollary, individuated by its condition and its two failure directions (a deficit and an imposition), not by a label. A corollary with no directions is not a corollary, so condition, deficit_direction, and imposition_direction are required." ;
     skos:inScheme <https://standards.example/pfds> .
 
 pfds:FailurePattern a owl:Class ;
     rdfs:label "FailurePattern" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:response ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty pfds:structural_signature ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty pfds:id ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty pfds:structural_signature ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:response ],
+            owl:onProperty pfds:structural_signature ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:name ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty pfds:name ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:maxCardinality 1 ;
             owl:onProperty pfds:id ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:response ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:minCardinality 1 ;
             owl:onProperty pfds:name ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty pfds:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty pfds:response ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:structural_signature ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty pfds:structural_signature ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty pfds:name ] ;
+            owl:onProperty pfds:response ] ;
     skos:definition "Section 7. One precision-failure pattern, individuated by its structural signature and its response. A pattern with no signature is a label, so signature and response are required." ;
     skos:inScheme <https://standards.example/pfds> .
 
 pfds:PrecisionDeficit a owl:Class ;
     rdfs:label "PrecisionDeficit" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:location ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty pfds:pattern ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty pfds:pattern ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty pfds:location ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty pfds:pattern ],
+            owl:onProperty pfds:decision ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty pfds:location ],
@@ -248,11 +242,17 @@ pfds:PrecisionDeficit a owl:Class ;
             owl:minCardinality 0 ;
             owl:onProperty pfds:decision ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:maxCardinality 1 ;
             owl:onProperty pfds:decision ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:pattern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pfds:location ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty pfds:decision ] ;
+            owl:onProperty pfds:pattern ] ;
     skos:definition "Section 6.1. One entry in the precision deficit map." ;
     skos:inScheme <https://standards.example/pfds> .
 

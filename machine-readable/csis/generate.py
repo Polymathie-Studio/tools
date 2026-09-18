@@ -83,7 +83,7 @@ CONFIG = {
         },
     },
     "pfds": {
-        "version": "2.5.0",
+        "version": "2.5.1",
         "root_class": "PrecisionReview",
         "subject": lambda inst: inst["subject"],
         "conformance": {

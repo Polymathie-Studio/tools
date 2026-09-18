@@ -14,7 +14,7 @@
 # independent-observer-determinable (shape); the invariant and congruence are the meta-conditions.
 # The conformant artifact is a precision review producing a deficit map keyed to the taxonomy.
 standard: PFDS
-standard_version: 2.5.0
+standard_version: 2.5.1
 source: standards-3_0-precision-first-2_4_3.md
 entries:
 

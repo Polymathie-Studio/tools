@@ -6,7 +6,7 @@
       "tool": {
         "driver": {
           "name": "pfds-conformance",
-          "version": "2.5.0",
+          "version": "2.5.1",
           "rules": [
             {
               "id": "violations_detectable",
