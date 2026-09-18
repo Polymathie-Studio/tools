@@ -34,7 +34,7 @@
       "id": "pfds",
       "name": "Precision-First Design Standard",
       "kind": "standard",
-      "version": "2.5.0",
+      "version": "2.5.1",
       "status": "published",
       "group": "compressive",
       "canonicalSource": "tensegrity-suite/compressive/standards/standards-3_0-precision-first-2_4_3.md",
