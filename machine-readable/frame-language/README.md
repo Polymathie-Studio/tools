@@ -35,12 +35,14 @@ python3 machine-readable/frame-language/generate-frame-language-manifest.py
 
 ## Scope of this establishment
 
-This is the low-risk establishment: the registry, its schema, and the family manifest on the one
-source, alongside the other three families. It makes no change to the live surfaces. Two things
-are deliberately deferred and remain the author's calls:
+This established the registry, its schema, and the family manifest on the one source, alongside
+the other three families. One thing remains the author's call:
 
 - The prose standards (Dimensional Frame Language, the Frame Language Grammar, the Foundational
   Vocabulary Specification, the last currently filed with the Coordination Structural Integrity
   Suite) are added as members once their public canonical locations are confirmed.
-- Rewiring the live surfaces (skill, MCP server, analyzer) to fetch their watchlists from this
-  registry, which completes the derive-from-one-source design, is a gated follow-up.
+
+The surfaces derive from this registry (2026-09-27): the MCP server builds its watchlist from a
+verbatim copy of it; the analyzer generates its term table from it (`npm run sync:terms`); the
+skill's recognition table and the vocabulary audit prompt's term table carry rows taken from it.
+A term change is made here first and carried to the surfaces from here.

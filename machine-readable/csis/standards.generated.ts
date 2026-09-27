@@ -89,7 +89,7 @@ export const STANDARDS: readonly CsisStandard[] = [
     family: "generative",
     version: "0.3.7",
     githubPath: "tensegrity-suite/generative/standards/standards-3_0-four-batteries-capacity-0_3_7.md",
-    description: "Specifies the four capacity dimensions that sustain coordination work: Mission battery, Contribution battery, Relational battery, and a fourth. Requires that depletion in any dimension be reportable as a structural condition rather than left as a private experience.",
+    description: "Specifies the four capacity conditions that sustain coordination work: the Personal, Relational, Contribution, and Mission batteries, each read on two independent dimensions, charge and developmental state. Requires that depletion in any dimension be reportable as a structural condition rather than left as a private experience.",
   },
   {
     name: "Sensemaking Standard",
