@@ -132,7 +132,7 @@ def main():
         "domain": {
             "kind": "code-system",
             "readSurface": "language",
-            "note": "Frame Language reads the stance a term speaks from in actual vocabulary and construction; its machine-readable layer is the Frame 1 vocabulary registry, the one source the skill, MCP server, and analyzer derive from. The prose standards (Dimensional Frame Language, the Frame Language Grammar, the Foundational Vocabulary Specification) are added as members once their public canonical locations are confirmed. Rewiring the live surfaces to fetch from this registry is a gated follow-up, not part of this establishment.",
+            "note": "Frame Language reads the stance a term speaks from in actual vocabulary and construction; its machine-readable layer is the Frame 1 vocabulary registry, the one source the skill, MCP server, and analyzer derive from. The prose standards (Dimensional Frame Language, the Frame Language Grammar, the Foundational Vocabulary Specification) are added as members once their public canonical locations are confirmed. The MCP server watchlist is a verbatim copy of this registry and the analyzer generates its term table from it; the skill and the vocabulary audit prompt carry rows taken from it.",
         },
         "members": members,
     }

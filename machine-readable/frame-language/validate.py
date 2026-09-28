@@ -21,7 +21,7 @@ REGISTRY = MR_DIR / "src" / "term-registry.json"
 REQUIRED_TOP = ["version", "date", "terms"]
 REQUIRED_TERM = ["term", "frame", "imports", "frame_2_replacement", "strengthened_form", "procedure", "sources"]
 FRAME_ENUM = {1, 2, 3}
-SOURCE_ENUM = {"grammar", "mcp", "analyzer"}
+SOURCE_ENUM = {"grammar", "mcp", "analyzer", "vocabulary-specification"}
 
 findings = []
 

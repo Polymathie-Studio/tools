@@ -83,9 +83,9 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "enum": ["grammar", "mcp", "analyzer"]
+            "enum": ["grammar", "mcp", "analyzer", "vocabulary-specification"]
           },
-          "description": "The prior encodings this entry was reconciled from: the Frame Language Grammar, the MCP server watchlist, the analyzer term registry."
+          "description": "The sources this entry was reconciled from: the Frame Language Grammar, the MCP server watchlist, the analyzer term registry, and the Frame Language Foundational Vocabulary Specification."
         }
       }
     }

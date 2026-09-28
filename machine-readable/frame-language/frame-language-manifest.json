@@ -20,19 +20,19 @@
   "domain": {
     "kind": "code-system",
     "readSurface": "language",
-    "note": "Frame Language reads the stance a term speaks from in actual vocabulary and construction; its machine-readable layer is the Frame 1 vocabulary registry, the one source the skill, MCP server, and analyzer derive from. The prose standards (Dimensional Frame Language, the Frame Language Grammar, the Foundational Vocabulary Specification) are added as members once their public canonical locations are confirmed. Rewiring the live surfaces to fetch from this registry is a gated follow-up, not part of this establishment."
+    "note": "Frame Language reads the stance a term speaks from in actual vocabulary and construction; its machine-readable layer is the Frame 1 vocabulary registry, the one source the skill, MCP server, and analyzer derive from. The prose standards (Dimensional Frame Language, the Frame Language Grammar, the Foundational Vocabulary Specification) are added as members once their public canonical locations are confirmed. The MCP server watchlist is a verbatim copy of this registry and the analyzer generates its term table from it; the skill and the vocabulary audit prompt carry rows taken from it."
   },
   "members": [
     {
       "id": "frame-language-term-registry",
       "name": "Frame Language term registry",
       "kind": "code-system",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "published",
       "group": "vocabulary",
       "canonicalSource": "machine-readable/frame-language/src/term-registry.json",
       "license": "CC0-1.0",
-      "description": "The canonical machine-readable Frame 1 vocabulary registry: Frame 1 terms, each mapped to the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. Reconciled from the three prior encodings (the Frame Language Grammar, the MCP server watchlist, the analyzer term registry). Published as data plus its schema so the surfaces derive from one source.",
+      "description": "The canonical machine-readable Frame 1 vocabulary registry: Frame 1 terms, each mapped to the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. Reconciled from the three prior encodings (the Frame Language Grammar, the MCP server watchlist, the analyzer term registry) and the recognition table of the Frame Language Foundational Vocabulary Specification. Published as data plus its schema so the surfaces derive from one source.",
       "machineReadable": {
         "kind": "code-system",
         "catalog": "https://raw.githubusercontent.com/Polymathie-Studio/tools/main/schema/frame-language/term-registry.json",

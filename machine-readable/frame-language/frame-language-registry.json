@@ -22,7 +22,7 @@
       "schemaFile": "src/term-registry.schema.json",
       "license": "CC0-1.0",
       "status": "published",
-      "description": "The canonical machine-readable Frame 1 vocabulary registry: Frame 1 terms, each mapped to the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. Reconciled from the three prior encodings (the Frame Language Grammar, the MCP server watchlist, the analyzer term registry). Published as data plus its schema so the surfaces derive from one source."
+      "description": "The canonical machine-readable Frame 1 vocabulary registry: Frame 1 terms, each mapped to the Frame 2 replacement that carries the inheritance intact, with the strengthened form, the procedure, and what the Frame 1 term forecloses. Reconciled from the three prior encodings (the Frame Language Grammar, the MCP server watchlist, the analyzer term registry) and the recognition table of the Frame Language Foundational Vocabulary Specification. Published as data plus its schema so the surfaces derive from one source."
     }
   ]
 }
